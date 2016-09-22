@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="cn.com.sgcc.epri.emap.MainActivity">
+
+    <!--天地图地图控件-->
+    <cn.com.sgcc.epri.emap.TMapView
+        android:id="@+id/emap_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--搜索栏(搜索内容、分割条、搜索按钮)-->
+    <LinearLayout
+        android:id="@+id/emap_search_bar"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/emap_search_bar_height"
+        android:layout_marginLeft="@dimen/emap_search_left_margin"
+        android:layout_marginRight="@dimen/emap_search_right_margin"
+        android:layout_marginTop="@dimen/emap_search_top_margin"
+        android:background="@mipmap/bg_searchbar_9"
+        android:layout_alignParentTop="@id/emap_view">
+
+        <include layout="@layout/emap_search_bar"/>
+    </LinearLayout>
+
+    <!--地图切换(矢量图、影像图、地形图)-->
+    <LinearLayout
+        android:id="@+id/emap_meun_layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/emap_meun_layer_top_margin"
+        android:layout_marginRight="@dimen/emap_meun_layer_right_margin"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@id/emap_view">
+
+        <include layout="@layout/emap_meun_layer"/>
+    </LinearLayout>
+
+    <!--工具栏(地图放大、缩小、定位)-->
+    <LinearLayout
+        android:id="@+id/emap_tool_bar"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/emap_tool_right_margin"
+        android:layout_marginBottom="@dimen/emap_tool_bottom_margin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/emap_view">
+
+        <include layout="@layout/emap_tool_bar"/>
+    </LinearLayout>
+
+</RelativeLayout>

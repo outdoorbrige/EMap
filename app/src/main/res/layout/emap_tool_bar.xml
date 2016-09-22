@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--放大-->
+    <Button
+        android:id="@+id/emap_tool_bar_zoomin"
+        android:layout_width="@dimen/emap_tool_bar_zoomin_width"
+        android:layout_height="@dimen/emap_tool_bar_zoomin_height"
+        android:background="@mipmap/btn_zoomin"/>
+    <!--缩小-->
+    <Button
+        android:id="@+id/emap_tool_bar_zoomout"
+        android:layout_width="@dimen/emap_tool_bar_zoomout_width"
+        android:layout_height="@dimen/emap_tool_bar_zoomout_height"
+        android:background="@mipmap/btn_zoomout"/>
+    <!--定位 -->
+    <Button
+        android:id="@+id/emap_tool_bar_locate"
+        android:layout_width="@dimen/emap_tool_bar_locate_width"
+        android:layout_height="@dimen/emap_tool_bar_locate_height"
+        android:background="@mipmap/btn_locate_un"/>
+</LinearLayout>

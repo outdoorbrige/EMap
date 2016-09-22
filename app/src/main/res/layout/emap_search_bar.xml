@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+    <!--搜索内容-->
+    <EditText
+        android:id="@+id/emap_search_bar_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:cursorVisible="true"
+        android:singleLine="true"
+        android:hint="@string/emap_search_tint"
+        android:background="@null"/>
+    <!--分割条-->
+    <ImageView
+        android:id="@+id/emap_search_bar_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/bg_searchbar_divider"/>
+    <!--搜索按钮-->
+    <Button
+        android:id="@+id/emap_search_bar_route"
+        android:layout_width="@dimen/emap_search_bar_route_width"
+        android:layout_height="@dimen/emap_search_bar_route_height"
+        android:background="@mipmap/route_btn"/>
+</LinearLayout>
