@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/emap_setting_menu_main_layout_width"
+    android:layout_height="@dimen/emap_setting_menu_main_layout_height">
+
+    <Button
+        android:id="@+id/emap_setting_menu_favorite_btn"
+        android:layout_width="@dimen/emap_setting_menu_favorite_btn_width"
+        android:layout_height="@dimen/emap_setting_menu_favorite_btn_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_map_meun_favorite"/>
+
+    <Button
+        android:id="@+id/emap_setting_menu_clear_btn"
+        android:layout_width="@dimen/emap_setting_menu_clear_btn_width"
+        android:layout_height="@dimen/emap_setting_menu_clear_btn_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_map_meun_clear"/>
+
+    <Button
+        android:id="@+id/emap_setting_menu_set_btn"
+        android:layout_width="@dimen/emap_setting_menu_set_btn_width"
+        android:layout_height="@dimen/emap_setting_menu_set_btn_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_map_meun_set"/>
+
+    <Button
+        android:id="@+id/emap_setting_menu_offline_btn"
+        android:layout_width="@dimen/emap_setting_menu_offline_btn_width"
+        android:layout_height="@dimen/emap_setting_menu_offline_btn_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_map_meun_offine"/>
+
+    <Button
+        android:id="@+id/emap_setting_menu_tool_btn"
+        android:layout_width="@dimen/emap_setting_menu_tool_btn_height"
+        android:layout_height="@dimen/emap_setting_menu_tool_btn_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_map_meun_tool"/>
+
+    <Button
+        android:id="@+id/emap_setting_menu_main_btn"
+        android:layout_width="@dimen/emap_setting_menu_main_btn_width"
+        android:layout_height="@dimen/emap_setting_menu_main_btn_height"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/icon_map_meun_main"/>
+</RelativeLayout>

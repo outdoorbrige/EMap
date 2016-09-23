@@ -40,6 +40,20 @@
         <include layout="@layout/emap_meun_layer"/>
     </LinearLayout>
 
+    <!--设置菜单(编辑、下载、...)-->
+    <LinearLayout
+        android:id="@+id/emap_setting_menu_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/emap_setting_menu_main_left_margin"
+        android:layout_marginBottom="@dimen/emap_setting_menu_main_bottom_margin"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/emap_view">
+
+        <include layout="@layout/emap_setting_menu_main"/>
+    </LinearLayout>
+
     <!--工具栏(地图放大、缩小、定位)-->
     <LinearLayout
         android:id="@+id/emap_tool_bar"
