@@ -4,19 +4,19 @@
     android:layout_height="match_parent">
     <!--放大-->
     <Button
-        android:id="@+id/emap_tool_bar_zoomin"
+        android:id="@+id/emap_tool_bar_zoomin_btn"
         android:layout_width="@dimen/emap_tool_bar_zoomin_width"
         android:layout_height="@dimen/emap_tool_bar_zoomin_height"
         android:background="@mipmap/btn_zoomin"/>
     <!--缩小-->
     <Button
-        android:id="@+id/emap_tool_bar_zoomout"
+        android:id="@+id/emap_tool_bar_zoomout_btn"
         android:layout_width="@dimen/emap_tool_bar_zoomout_width"
         android:layout_height="@dimen/emap_tool_bar_zoomout_height"
         android:background="@mipmap/btn_zoomout"/>
     <!--定位 -->
     <Button
-        android:id="@+id/emap_tool_bar_locate"
+        android:id="@+id/emap_tool_bar_locate_btn"
         android:layout_width="@dimen/emap_tool_bar_locate_width"
         android:layout_height="@dimen/emap_tool_bar_locate_height"
         android:background="@mipmap/btn_locate_un"/>
