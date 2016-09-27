@@ -416,7 +416,7 @@ public final class AnimatorSet extends Animator {
             throw new IllegalArgumentException("duration must be a value of zero or greater");
         }
         for (Node node : mNodes) {
-            // TODO: don't set the duration of the timing-only nodes created by AnimatorSet to
+            // TODO: don't set the duration of the timing-only nodes Created by GuHengnimatorSet to
             // insert "play-after" delays
             node.animation.setDuration(duration);
         }

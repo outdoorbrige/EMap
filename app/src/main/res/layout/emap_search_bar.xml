@@ -6,7 +6,7 @@
     android:gravity="center_vertical">
     <!--搜索内容-->
     <EditText
-        android:id="@+id/emap_search_bar_content"
+        android:id="@+id/emap_search_bar_content_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -16,14 +16,14 @@
         android:background="@null"/>
     <!--分割条-->
     <ImageView
-        android:id="@+id/emap_search_bar_divider"
+        android:id="@+id/emap_search_bar_divider_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/bg_searchbar_divider"/>
     <!--搜索按钮-->
     <Button
-        android:id="@+id/emap_search_bar_route"
+        android:id="@+id/emap_search_bar_route_btn"
         android:layout_width="@dimen/emap_search_bar_route_width"
         android:layout_height="@dimen/emap_search_bar_route_height"
-        android:background="@mipmap/route_btn"/>
+        android:background="@mipmap/icon_detail_route"/>
 </LinearLayout>

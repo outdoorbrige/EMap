@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap;
+package cn.com.sgcc.epri.emap.map;
 
 import android.content.Context;
 import android.location.Location;
@@ -7,7 +7,7 @@ import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MyLocationOverlay;
 
 /**
- * Created by A on 2016/9/20.
+ * Created by GuHeng on 2016/9/20.
  */
 public class TMyLocationOverlay extends MyLocationOverlay {
     private Context context;

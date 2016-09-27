@@ -1,7 +1,7 @@
 package com.numob.david.util;
 
 /**
- * Created by A on 2016/9/26.
+ * Created by GuHeng on 2016/9/26.
  */
 
 import android.content.Context;

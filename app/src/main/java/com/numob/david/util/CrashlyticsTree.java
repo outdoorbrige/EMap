@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import timber.log.Timber;
 
 /**
- * Created by A on 2016/9/26.
+ * Created by GuHeng on 2016/9/26.
  */
 
 public class CrashlyticsTree extends Timber.Tree {

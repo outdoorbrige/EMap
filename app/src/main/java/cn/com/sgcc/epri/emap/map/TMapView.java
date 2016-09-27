@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap;
+package cn.com.sgcc.epri.emap.map;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 import com.tianditu.android.maps.MapView;
 
 /**
- * Created by A on 2016/9/20.
+ * Created by GuHeng on 2016/9/20.
  */
 public class TMapView extends MapView {
     public TMapView(Context var1, AttributeSet var2, int var3) {
