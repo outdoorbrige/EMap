@@ -4,8 +4,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.tianditu.android.maps.MapController;
-
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.ToolListener;
@@ -16,16 +14,14 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  * 工具布局类
  */
 public class ToolLayout extends TransmitContext {
-    private MapController controller; // 地图控制器
     private LinearLayout layout; // 布局对象
     private Button zoomin_btn; // 放大按钮
     private Button zoomout_btn; // 缩小按钮
     private Button locate_btn; // 定位按钮
 
     // 构造函数
-    public ToolLayout(MainActivity context, MapController controller) {
+    public ToolLayout(MainActivity context) {
         super(context);
-        this.controller = controller;
     }
 
     // 初始化
@@ -35,7 +31,7 @@ public class ToolLayout extends TransmitContext {
         zoomout_btn = (Button)context.findViewById(R.id.emap_tool_bar_zoomout_btn);
         locate_btn = (Button)context.findViewById(R.id.emap_tool_bar_locate_btn);
 
-        ToolListener listener = new ToolListener(context, controller);
+        ToolListener listener = new ToolListener(context);
 
         zoomin_btn.setOnClickListener(listener);
         zoomout_btn.setOnClickListener(listener);

@@ -6,11 +6,13 @@ import android.widget.Button;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
+import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
 
 /**
@@ -18,9 +20,10 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  */
 public class MenuListener extends TransmitContext implements View.OnClickListener {
     private boolean menu_is_open = false; // 控制菜单展开和折叠，默认折叠
-    ArrayList<Button> list_buttons = null; // 展开和折叠菜单中控制的按钮集合
-    private int animation_radius = 300 - 15; // 动画半径，单位(dp) // 菜单展开半径
-    private int animation_cycle = 500; // 动画周期,单位毫秒(ms) // 菜单展开/折叠动画完成的时间
+    private ArrayList<Button> list_buttons = null; // 展开和折叠菜单中控制的按钮集合
+    private int animation_radius = 0; // 动画半径，单位(dp) // 菜单展开半径
+    private final int left_offset = 15; // 菜单按钮距离屏幕左边框15dp
+    private final int animation_cycle = 500; // 动画周期,单位毫秒(ms) // 菜单展开/折叠动画完成的时间
 
     private static final int ANIMATION_ACTION_OPEN = 1; // 动画菜单展开
     private static final int ANIMATION_ACTION_CLOSE = 0; // 动画菜单折叠
@@ -34,13 +37,17 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.emap_setting_menu_main_btn) { // 菜单按钮
+
+            animation_radius = Math.round(DisplayMetricsUtil.getWidthDp(context) / 2);
+            Logger.d("动画半径:%d", animation_radius);
+
             if(!menu_is_open) {
                 for(int i = 0; i < list_buttons.size(); i ++) {
-                    doAnimateAction(ANIMATION_ACTION_OPEN, list_buttons.get(i), i, list_buttons.size(), animation_radius); // (int)(getWidth()/2));
+                    doAnimateAction(ANIMATION_ACTION_OPEN, list_buttons.get(i), i, list_buttons.size(), animation_radius);
                 }
             } else {
                 for(int i = 0; i < list_buttons.size(); i ++) {
-                    doAnimateAction(ANIMATION_ACTION_CLOSE, list_buttons.get(i), i, list_buttons.size(), animation_radius); // (int)(getWidth()/2));
+                    doAnimateAction(ANIMATION_ACTION_CLOSE, list_buttons.get(i), i, list_buttons.size(), animation_radius);
                 }
             }
 
@@ -48,16 +55,6 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
         } else {
 
         }
-    }
-
-    // 获取屏幕的宽度
-    private int getWidth() {
-        return context.getResources().getDisplayMetrics().widthPixels;
-    }
-
-    // 获取屏幕的高度
-    private int getHeight() {
-        return context.getResources().getDisplayMetrics().heightPixels;
     }
 
     /**

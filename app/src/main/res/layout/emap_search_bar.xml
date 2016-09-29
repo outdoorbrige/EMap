@@ -25,5 +25,5 @@
         android:id="@+id/emap_search_bar_route_btn"
         android:layout_width="@dimen/emap_search_bar_route_width"
         android:layout_height="@dimen/emap_search_bar_route_height"
-        android:background="@mipmap/icon_detail_route"/>
+        android:background="@mipmap/route_btn"/>
 </LinearLayout>
