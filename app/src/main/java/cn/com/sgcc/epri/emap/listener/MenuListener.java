@@ -38,7 +38,8 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
     public void onClick(View view) {
         if(view.getId() == R.id.emap_setting_menu_main_btn) { // 菜单按钮
 
-            animation_radius = Math.round(DisplayMetricsUtil.getWidthDp(context) / 2);
+            animation_radius = getAnimationRadius(view);
+
             Logger.d("动画半径:%d", animation_radius);
 
             if(!menu_is_open) {
@@ -55,6 +56,27 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
         } else {
 
         }
+    }
+
+    // 计算动画半径
+    private int getAnimationRadius(View view) {
+        int radius = 0;
+
+        // 获取按钮边长(dp)
+        int a = DisplayMetricsUtil.Px2Dp(context, view.getHeight());
+
+        // 按钮对角线长度的一半(dp)
+        int c = (int)Math.round(Math.sqrt(a * a * 2) / 2);
+
+        // 一个按钮对应角度的弧度的一半
+        double angle_radians = (90 / list_buttons.size() / 2) * Math.PI / 180; // 角度换算成弧度
+
+        // 计算半径(dp)
+        radius = (int)Math.round(c / Math.sin(angle_radians));
+
+        Logger.d("a:%d, c:%d, count:%d, degree:%f, Math.sin(angle):%f, radius=%d, radius+a:%d", a, c, list_buttons.size(), angle_radians, Math.sin(angle_radians), radius, radius + a);
+
+        return (radius + a);
     }
 
     /**
