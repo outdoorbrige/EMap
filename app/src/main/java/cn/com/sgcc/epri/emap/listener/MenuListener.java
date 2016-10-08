@@ -6,7 +6,8 @@ import android.widget.Button;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.orhanobut.logger.Logger;
+
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -19,6 +20,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  * Created by GuHeng on 2016/9/27.
  */
 public class MenuListener extends TransmitContext implements View.OnClickListener {
+    private Logger logger; // 日志对象
     private boolean menu_is_open = false; // 控制菜单展开和折叠，默认折叠
     private ArrayList<Button> list_buttons = null; // 展开和折叠菜单中控制的按钮集合
     private int animation_radius = 0; // 动画半径，单位(dp) // 菜单展开半径
@@ -31,6 +33,7 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
     // 构造函数
     public MenuListener(MainActivity context, ArrayList<Button> list_buttons) {
         super(context);
+        logger = Logger.getLogger(this.getClass());
         this.list_buttons = list_buttons;
     }
 
@@ -38,9 +41,9 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
     public void onClick(View view) {
         if(view.getId() == R.id.emap_setting_menu_main_btn) { // 菜单按钮
 
-            animation_radius = getAnimationRadius(view);
-
-            Logger.d("动画半径:%d", animation_radius);
+            if(animation_radius == 0) {
+                animation_radius = getAnimationRadius(view);
+            }
 
             if(!menu_is_open) {
                 for(int i = 0; i < list_buttons.size(); i ++) {
@@ -74,7 +77,7 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
         // 计算半径(dp)
         radius = (int)Math.round(c / Math.sin(angle_radians));
 
-        Logger.d("a:%d, c:%d, count:%d, degree:%f, Math.sin(angle):%f, radius=%d, radius+a:%d", a, c, list_buttons.size(), angle_radians, Math.sin(angle_radians), radius, radius + a);
+        logger.info(String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正选值:%f, 近似半径:%d, 动画半径:%d", a, c, list_buttons.size(), angle_radians, Math.sin(angle_radians), radius, radius + a));
 
         return (radius + a);
     }
