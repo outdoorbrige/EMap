@@ -94,8 +94,6 @@ public class MainActivity extends AppCompatActivity{
         super.onDestroy();
     }
 
-
-
     // 获取地图管理类
     public MapMgr getMapMgr() {
         return map_mgr;

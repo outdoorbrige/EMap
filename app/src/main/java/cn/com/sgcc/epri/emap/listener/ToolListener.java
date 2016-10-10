@@ -19,13 +19,18 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.emap_tool_bar_zoomin_btn) {
-            onClickZoomin();
-        } else if(view.getId() == R.id.emap_tool_bar_zoomout_btn) {
-            onClickZoomout();
-        } else if(view.getId() == R.id.emap_tool_bar_locate_btn) {
-            onClickLocate();
-        } else {
+        switch(view.getId()) {
+            case R.id.emap_tool_bar_zoomin_btn:
+                onClickZoomin();
+                break;
+            case R.id.emap_tool_bar_zoomout_btn:
+                onClickZoomout();
+                break;
+            case R.id.emap_tool_bar_locate_btn:
+                onClickLocate();
+                break;
+            default:
+                break;
         }
     }
 

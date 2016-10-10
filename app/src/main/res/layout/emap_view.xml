@@ -40,6 +40,15 @@
         <include layout="@layout/emap_meun_layer"/>
     </LinearLayout>
 
+    <!---->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/emap_menu_layer_popup_window"/>
+    </LinearLayout>
+
     <!--设置菜单(编辑、下载、...)-->
     <LinearLayout
         android:id="@+id/emap_menu_layout"

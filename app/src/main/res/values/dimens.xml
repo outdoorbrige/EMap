@@ -9,6 +9,9 @@
     <dimen name="emap_search_right_margin">15dp</dimen>
     <dimen name="emap_search_top_margin">10dp</dimen>
 
+    <dimen name="emap_search_bar_login_btn_width">45dp</dimen>
+    <dimen name="emap_search_bar_login_btn_height">45dp</dimen>
+
     <dimen name="emap_search_bar_route_width">45dp</dimen>
     <dimen name="emap_search_bar_route_height">45dp</dimen>
 

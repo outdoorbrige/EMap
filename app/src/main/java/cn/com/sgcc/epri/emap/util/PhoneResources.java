@@ -51,7 +51,7 @@ public class PhoneResources {
         String path = null;
 
         if(sdCardExist()) {
-            path = getSDPath() + File.separator + getAppName(context) + File.separator;
+            path = getSDPath() + getAppName(context) + File.separator;
             mkDir(path);
         } else {
             path = null;

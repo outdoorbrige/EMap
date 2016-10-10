@@ -39,25 +39,26 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        if(view.getId() == R.id.emap_setting_menu_main_btn) { // 菜单按钮
-
-            if(animation_radius == 0) {
-                animation_radius = getAnimationRadius(view);
-            }
-
-            if(!menu_is_open) {
-                for(int i = 0; i < list_buttons.size(); i ++) {
-                    doAnimateAction(ANIMATION_ACTION_OPEN, list_buttons.get(i), i, list_buttons.size(), animation_radius);
+        switch (view.getId()) {
+            case R.id.emap_setting_menu_main_btn: // 菜单按钮
+                if(animation_radius == 0) {
+                    animation_radius = getAnimationRadius(view);
                 }
-            } else {
-                for(int i = 0; i < list_buttons.size(); i ++) {
-                    doAnimateAction(ANIMATION_ACTION_CLOSE, list_buttons.get(i), i, list_buttons.size(), animation_radius);
+
+                if(!menu_is_open) {
+                    for(int i = 0; i < list_buttons.size(); i ++) {
+                        doAnimateAction(ANIMATION_ACTION_OPEN, list_buttons.get(i), i, list_buttons.size(), animation_radius);
+                    }
+                } else {
+                    for(int i = 0; i < list_buttons.size(); i ++) {
+                        doAnimateAction(ANIMATION_ACTION_CLOSE, list_buttons.get(i), i, list_buttons.size(), animation_radius);
+                    }
                 }
-            }
 
-            menu_is_open = !menu_is_open;
-        } else {
-
+                menu_is_open = !menu_is_open;
+                break;
+            default:
+                break;
         }
     }
 
