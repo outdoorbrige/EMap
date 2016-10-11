@@ -21,13 +21,13 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.emap_tool_bar_zoomin_btn:
-                onClickZoomin();
+                onClickedZoomin();
                 break;
             case R.id.emap_tool_bar_zoomout_btn:
-                onClickZoomout();
+                onClickedZoomout();
                 break;
             case R.id.emap_tool_bar_locate_btn:
-                onClickLocate();
+                onClickedLocate();
                 break;
             default:
                 break;
@@ -35,7 +35,7 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
     }
 
     // 放大
-    private void onClickZoomin() {
+    private void onClickedZoomin() {
         if(!context.getMapMgr().setZoomin()) {
             ((Button) context.findViewById(R.id.emap_tool_bar_zoomin_btn)).setClickable(false);
             ((Button) context.findViewById(R.id.emap_tool_bar_zoomin_btn)).setBackgroundResource(R.mipmap.btn_zoomin_gray);
@@ -46,7 +46,7 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
     }
 
     // 缩小
-    private void onClickZoomout() {
+    private void onClickedZoomout() {
         if(!context.getMapMgr().setZoomout()) {
             ((Button) context.findViewById(R.id.emap_tool_bar_zoomout_btn)).setClickable(false);
             ((Button) context.findViewById(R.id.emap_tool_bar_zoomout_btn)).setBackgroundResource(R.mipmap.btn_zoomout_gray);
@@ -57,7 +57,7 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
     }
 
     // 定位
-    private void onClickLocate() {
+    private void onClickedLocate() {
         context.getMapMgr().setCenter();
     }
 }

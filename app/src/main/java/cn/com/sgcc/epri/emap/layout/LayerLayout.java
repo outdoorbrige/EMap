@@ -12,6 +12,8 @@ import android.widget.PopupWindow;
 
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.LayerListViewListener;
@@ -28,7 +30,7 @@ public class LayerLayout extends TransmitContext {
     private LinearLayout layout; // 布局
     private Button layer_btn; // 地图类型切换按钮
     private PopupWindow popup_window; // 弹出式菜单
-    private String[] list_item = {"影像图", "矢量图", "地形图"};
+    private String[] list_items = {"影像图", "矢量图", "地形图"};
     private int selected_item_id; // 被选择的菜单项id
 
     // 构造函数
@@ -44,7 +46,7 @@ public class LayerLayout extends TransmitContext {
         layer_btn.setOnClickListener(new LayerListener(context, this));
         selected_item_id = 1; // 默认选中第二项(矢量图)
 
-        Logger.getLogger(this.getClass()).info(list_item);
+        Logger.getLogger(this.getClass()).info(String.format("%s,%s,%s", list_items[0], list_items[1], list_items[2]));
     }
 
     // 显示弹出菜单
@@ -52,7 +54,7 @@ public class LayerLayout extends TransmitContext {
         if (popup_window == null) {
             View popup_view = LayoutInflater.from(context).inflate(R.layout.emap_menu_layer_popup_window, null);
             ListViewAdaptWidth list_view = (ListViewAdaptWidth) popup_view.findViewById(R.id.emap_menu_layer_popup_list_view);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_single_choice, list_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_single_choice, list_items);
             list_view.setAdapter(adapter);
             list_view.setItemsCanFocus(false);
             list_view.setOnItemClickListener(new LayerListViewListener(context, this));

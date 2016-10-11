@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">EMap</string>
-    <string name="emap_config">emap_config</string>
-    <string name="emap_search_tint">请输入关键字</string>
 </resources>

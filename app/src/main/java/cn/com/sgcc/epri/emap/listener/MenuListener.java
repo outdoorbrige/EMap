@@ -78,7 +78,7 @@ public class MenuListener extends TransmitContext implements View.OnClickListene
         // 计算半径(dp)
         radius = (int)Math.round(c / Math.sin(angle_radians));
 
-        logger.info(String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正选值:%f, 近似半径:%d, 动画半径:%d", a, c, list_buttons.size(), angle_radians, Math.sin(angle_radians), radius, radius + a));
+        logger.info(String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正弦值:%f, 近似半径:%d, 动画半径:%d", a, c, list_buttons.size(), angle_radians, Math.sin(angle_radians), radius, radius + a));
 
         return (radius + a);
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import org.apache.log4j.Logger;
 
+import cn.com.sgcc.epri.emap.manager.DialogMgr;
 import cn.com.sgcc.epri.emap.manager.LayoutMgr;
 import cn.com.sgcc.epri.emap.manager.Log4jMgr;
 import cn.com.sgcc.epri.emap.manager.MapMgr;
@@ -18,8 +19,10 @@ import cn.com.sgcc.epri.emap.util.PhoneResources;
 public class MainActivity extends AppCompatActivity{
     private Log4jMgr log4j_mgr; // 日志管理类
     private Logger logger; // 日志对象
+    private DialogMgr dlg_mgr; // 对话框管理类
     private LayoutMgr layout_mgr; // 布局管理类
     private MapMgr map_mgr; // 地图管理类
+
 
     // 创建Activity时调用
     @Override
@@ -39,6 +42,10 @@ public class MainActivity extends AppCompatActivity{
         map_mgr.init();
         map_mgr.enableFeatures();
         map_mgr.setCenter();
+
+        // 初始化对话框
+        dlg_mgr = new DialogMgr(this);
+        dlg_mgr.init();
 
         // 初始化布局
         layout_mgr = new LayoutMgr(this, map_mgr);
@@ -91,11 +98,17 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         map_mgr.disableFeatures();
+        dlg_mgr.uninit();
         super.onDestroy();
     }
 
     // 获取地图管理类
     public MapMgr getMapMgr() {
         return map_mgr;
+    }
+
+    // 获取对话框管理类
+    public DialogMgr getDlgMgr() {
+        return dlg_mgr;
     }
 }

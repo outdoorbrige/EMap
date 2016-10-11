@@ -11,19 +11,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/emap_menu_layer_popup_window"/>
+    </LinearLayout>
+
     <!--搜索栏(搜索内容、分割条、搜索按钮)-->
     <LinearLayout
         android:id="@+id/emap_search_layout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/emap_search_bar_height"
-        android:layout_marginLeft="@dimen/emap_search_left_margin"
-        android:layout_marginRight="@dimen/emap_search_right_margin"
-        android:layout_marginTop="@dimen/emap_search_top_margin"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
         android:background="@mipmap/bg_searchbar_9"
         android:layout_alignParentTop="@id/emap_view">
 
         <include layout="@layout/emap_search_bar"/>
+    </LinearLayout>
+
+    <!--用户登录对话框-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/emap_view_login"/>
+    </LinearLayout>
+
+    <!--用户注册对话框-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/emap_view_login_register"/>
     </LinearLayout>
 
     <!--地图切换(矢量图、影像图、地形图)-->
@@ -31,8 +57,8 @@
         android:id="@+id/emap_layer_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/emap_meun_layer_top_margin"
-        android:layout_marginRight="@dimen/emap_meun_layer_right_margin"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="15dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/emap_view">
@@ -40,7 +66,7 @@
         <include layout="@layout/emap_meun_layer"/>
     </LinearLayout>
 
-    <!---->
+    <!--地图切换 Popup Window-->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,8 +80,8 @@
         android:id="@+id/emap_menu_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/emap_setting_menu_main_left_margin"
-        android:layout_marginBottom="@dimen/emap_setting_menu_main_bottom_margin"
+        android:layout_marginLeft="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/emap_view">
@@ -69,8 +95,8 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/emap_tool_right_margin"
-        android:layout_marginBottom="@dimen/emap_tool_bottom_margin"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/emap_view">

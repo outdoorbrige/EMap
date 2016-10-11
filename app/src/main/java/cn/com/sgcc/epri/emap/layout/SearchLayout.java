@@ -15,6 +15,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  */
 public class SearchLayout extends TransmitContext {
     private LinearLayout layout; // 布局对象
+    private Button login_btn; // 登录按钮
     private Button search_btn; // 查找按钮
 
     // 构造函数
@@ -25,10 +26,12 @@ public class SearchLayout extends TransmitContext {
     // 初始化
     public void init() {
         layout = (LinearLayout)context.findViewById(R.id.emap_search_layout);
+        login_btn = (Button)context.findViewById(R.id.emap_search_bar_login_btn);
         search_btn = (Button)context.findViewById(R.id.emap_search_bar_route_btn);
 
         SearchListener listener = new SearchListener(context);
 
+        login_btn.setOnClickListener(listener);
         search_btn.setOnClickListener(listener);
     }
 

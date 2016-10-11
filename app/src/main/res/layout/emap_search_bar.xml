@@ -9,8 +9,8 @@
     <!--用户登录-->
     <Button
         android:id="@+id/emap_search_bar_login_btn"
-        android:layout_width="@dimen/emap_search_bar_login_btn_width"
-        android:layout_height="@dimen/emap_search_bar_login_btn_height"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:background="@mipmap/btn_offline"/>
     <!--分割条-->
     <ImageView
@@ -26,7 +26,7 @@
         android:layout_weight="1"
         android:cursorVisible="true"
         android:singleLine="true"
-        android:hint="@string/emap_search_tint"
+        android:hint="搜索"
         android:background="@null"/>
     <!--分割条-->
     <ImageView
@@ -37,7 +37,7 @@
     <!--搜索按钮-->
     <Button
         android:id="@+id/emap_search_bar_route_btn"
-        android:layout_width="@dimen/emap_search_bar_route_width"
-        android:layout_height="@dimen/emap_search_bar_route_height"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:background="@mipmap/route_btn"/>
 </LinearLayout>

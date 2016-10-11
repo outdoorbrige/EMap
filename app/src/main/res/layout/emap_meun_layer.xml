@@ -6,8 +6,8 @@
 
     <Button
         android:id="@+id/emap_meun_layer_btn"
-        android:layout_width="@dimen/emap_meun_layer_btn_width"
-        android:layout_height="@dimen/emap_meun_layer_btn_height"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         android:background="@mipmap/icon_map_meun_layer"/>
 
 </LinearLayout>
