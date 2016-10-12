@@ -14,7 +14,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  * 工具布局类
  */
 public class ToolLayout extends TransmitContext {
-    private LinearLayout layout; // 布局对象
+    private View layout; // 布局
     private Button zoomin_btn; // 放大按钮
     private Button zoomout_btn; // 缩小按钮
     private Button locate_btn; // 定位按钮
@@ -26,7 +26,7 @@ public class ToolLayout extends TransmitContext {
 
     // 初始化
     public void init() {
-        layout = (LinearLayout)context.findViewById(R.id.emap_tool_layout);
+        layout = context.findViewById(R.id.emap_tool_layout);
         zoomin_btn = (Button)context.findViewById(R.id.emap_tool_bar_zoomin_btn);
         zoomout_btn = (Button)context.findViewById(R.id.emap_tool_bar_zoomout_btn);
         locate_btn = (Button)context.findViewById(R.id.emap_tool_bar_locate_btn);

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import cn.com.sgcc.epri.emap.MainActivity;
@@ -21,7 +20,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  */
 public class LoginDialog extends TransmitContext {
     private AlertDialog login_dlg; // 登录对话框
-    private LinearLayout layout; // 布局
+    private View layout; // 布局
     private EditText user_name; // 用户名
     private EditText password; // 密码
     private CheckBox keep_password; // 记住密码
@@ -42,6 +41,7 @@ public class LoginDialog extends TransmitContext {
         View layout = inflater.inflate(R.layout.emap_view_login, (ViewGroup)context.findViewById(R.id.emap_view_login), false);
         login_dlg = new AlertDialog.Builder(context).create();
         login_dlg.setView(layout);
+        login_dlg.setCancelable(false); // 点击对话框外地方不消失
     }
 
     // 显示对话框
@@ -55,7 +55,7 @@ public class LoginDialog extends TransmitContext {
     // 初始化控件
     private void initWidget() {
         if(layout == null) { // 只初始化一次控件对象
-            layout = (LinearLayout) login_dlg.findViewById(R.id.emap_view_login);
+            layout = login_dlg.findViewById(R.id.emap_view_login);
             user_name = (EditText)login_dlg.findViewById(R.id.emap_view_login_user_text);
             password = (EditText)login_dlg.findViewById(R.id.emap_view_login_password_text);
             keep_password = (CheckBox)login_dlg.findViewById(R.id.emap_view_login_kepp_password);

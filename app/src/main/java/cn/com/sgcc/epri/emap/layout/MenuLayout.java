@@ -2,7 +2,6 @@ package cn.com.sgcc.epri.emap.layout;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -16,7 +15,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  * 菜单布局类
  */
 public class MenuLayout extends TransmitContext {
-    private LinearLayout layout; // 布局对象
+    private View layout; // 布局
     private Button favorite_btn; // 收藏按钮
     private Button clear_btn; // 删除按钮
     private Button set_btn; // 配置按钮
@@ -33,7 +32,7 @@ public class MenuLayout extends TransmitContext {
 
     // 初始化
     public void init() {
-        layout = (LinearLayout)context.findViewById(R.id.emap_menu_layout);
+        layout = context.findViewById(R.id.emap_menu_layout);
         favorite_btn = (Button)context.findViewById(R.id.emap_setting_menu_favorite_btn);
         clear_btn = (Button)context.findViewById(R.id.emap_setting_menu_clear_btn);
         set_btn = (Button)context.findViewById(R.id.emap_setting_menu_set_btn);

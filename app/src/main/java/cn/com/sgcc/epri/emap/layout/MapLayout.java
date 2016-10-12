@@ -20,6 +20,5 @@ public class MapLayout extends TransmitContext {
 
     // 初始化
     public void init() {
-        map_mgr.getTMapView().setLogoPos(TMapView.LOGO_RIGHT_BOTTOM); // 设置LOGO位置为右下角
     }
 }

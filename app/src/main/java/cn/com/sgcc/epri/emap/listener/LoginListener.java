@@ -37,7 +37,7 @@ public class LoginListener extends TransmitContext implements View.OnClickListen
 
     // 注册
     private void onClickedRegister() {
-
+        context.getDlgMgr().getRegisterDlg().show();
     }
 
     // 登录

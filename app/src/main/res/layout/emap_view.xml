@@ -49,7 +49,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/emap_view_login_register"/>
+        <include layout="@layout/emap_view_register"/>
     </LinearLayout>
 
     <!--地图切换(矢量图、影像图、地形图)-->

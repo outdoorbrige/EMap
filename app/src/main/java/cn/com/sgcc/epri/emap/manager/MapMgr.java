@@ -53,6 +53,9 @@ public class MapMgr extends TransmitContext {
         offline_map_mgr.setMapPath(PhoneResources.getOfflineMapPath(context));
 
         map_view.setOfflineMaps(offline_map_mgr.searchLocalMaps());
+
+        // 设置LOGO位置为右下角
+        map_view.setLogoPos(TMapView.LOGO_RIGHT_BOTTOM);
     }
 
     // 启用相关功能

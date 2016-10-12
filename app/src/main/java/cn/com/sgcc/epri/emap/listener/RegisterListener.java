@@ -19,8 +19,24 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
+            case R.id.emap_view_register_register_btn:
+                onClickedRegister();
+                break;
+            case R.id.emap_view_register_return_btn:
+                onClickedReturn();
+                break;
             default:
                 break;
         }
+    }
+
+    // 注册
+    private void onClickedRegister() {
+
+    }
+
+    // 返回
+    private void onClickedReturn() {
+        context.getDlgMgr().getRegisterDlg().hide();
     }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
 import org.apache.log4j.Logger;
@@ -27,7 +26,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  */
 public class LayerLayout extends TransmitContext {
     LayoutInflater layout_inflater;
-    private LinearLayout layout; // 布局
+    private View layout; // 布局
     private Button layer_btn; // 地图类型切换按钮
     private PopupWindow popup_window; // 弹出式菜单
     private String[] list_items = {"影像图", "矢量图", "地形图"};
@@ -41,7 +40,7 @@ public class LayerLayout extends TransmitContext {
     // 初始化
     public void init() {
         layout_inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layout = (LinearLayout) context.findViewById(R.id.emap_layer_layout);
+        layout = context.findViewById(R.id.emap_layer_layout);
         layer_btn = (Button) context.findViewById(R.id.emap_meun_layer_btn);
         layer_btn.setOnClickListener(new LayerListener(context, this));
         selected_item_id = 1; // 默认选中第二项(矢量图)

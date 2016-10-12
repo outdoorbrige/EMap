@@ -2,7 +2,6 @@ package cn.com.sgcc.epri.emap.layout;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
@@ -14,7 +13,7 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  * 查找布局类
  */
 public class SearchLayout extends TransmitContext {
-    private LinearLayout layout; // 布局对象
+    private View layout; // 布局
     private Button login_btn; // 登录按钮
     private Button search_btn; // 查找按钮
 
@@ -25,7 +24,7 @@ public class SearchLayout extends TransmitContext {
 
     // 初始化
     public void init() {
-        layout = (LinearLayout)context.findViewById(R.id.emap_search_layout);
+        layout = context.findViewById(R.id.emap_search_layout);
         login_btn = (Button)context.findViewById(R.id.emap_search_bar_login_btn);
         search_btn = (Button)context.findViewById(R.id.emap_search_bar_route_btn);
 
