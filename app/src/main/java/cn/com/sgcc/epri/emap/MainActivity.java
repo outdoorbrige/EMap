@@ -9,6 +9,7 @@ import cn.com.sgcc.epri.emap.manager.DialogMgr;
 import cn.com.sgcc.epri.emap.manager.LayoutMgr;
 import cn.com.sgcc.epri.emap.manager.Log4jMgr;
 import cn.com.sgcc.epri.emap.manager.MapMgr;
+import cn.com.sgcc.epri.emap.manager.WebServiceMgr;
 import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity{
     private DialogMgr dlg_mgr; // 对话框管理类
     private LayoutMgr layout_mgr; // 布局管理类
     private MapMgr map_mgr; // 地图管理类
-
+    private WebServiceMgr service_mgr; // 服务管理类
 
     // 创建Activity时调用
     @Override
@@ -57,6 +58,10 @@ public class MainActivity extends AppCompatActivity{
                 this.getResources().getDisplayMetrics().density,
                 DisplayMetricsUtil.getWidthDp(this),
                 DisplayMetricsUtil.getHeightDp(this)));
+
+        // 初始化服务
+        service_mgr = new WebServiceMgr(this);
+        service_mgr.init();
     }
 
     // 当一个Activity变为显示时被调用
@@ -110,5 +115,10 @@ public class MainActivity extends AppCompatActivity{
     // 获取对话框管理类
     public DialogMgr getDlgMgr() {
         return dlg_mgr;
+    }
+
+    // 获取服务管理类
+    public WebServiceMgr getServiceMgr() {
+        return service_mgr;
     }
 }

@@ -88,7 +88,7 @@ public class RegisterDialog extends TransmitContext {
     }
 
     // 获取对话框句柄
-    public AlertDialog getRegisterDlg() {
+    public AlertDialog getDlg() {
         return register_dlg;
     }
 }

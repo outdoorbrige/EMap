@@ -89,7 +89,7 @@ public class LoginDialog extends TransmitContext {
     }
 
     // 获取对话框句柄
-    public AlertDialog getLoginDlg() {
+    public AlertDialog getDlg() {
         return login_dlg;
     }
 }
