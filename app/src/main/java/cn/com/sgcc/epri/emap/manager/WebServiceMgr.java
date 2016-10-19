@@ -1,6 +1,7 @@
 package cn.com.sgcc.epri.emap.manager;
 
 import cn.com.sgcc.epri.emap.MainActivity;
+import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
 import cn.com.sgcc.epri.emap.webservice.LoginWebService;
 import cn.com.sgcc.epri.emap.webservice.RegisterWebService;
@@ -25,12 +26,12 @@ public class WebServiceMgr extends TransmitContext {
     }
 
     // 注册服务
-    public boolean RegisterService(String username, String password, String nickname, String telnumber, String email) {
-        return register_service.Register(username, password, nickname, telnumber, email);
+    public boolean RegisterService(UserInfo userinfo) {
+        return register_service.Register(userinfo);
     }
 
     // 登录服务
-    public boolean LoginService(String username, String password) {
-        return login_service.Login(username, password);
+    public boolean LoginService(UserInfo userinfo) {
+        return login_service.Login(userinfo);
     }
 }

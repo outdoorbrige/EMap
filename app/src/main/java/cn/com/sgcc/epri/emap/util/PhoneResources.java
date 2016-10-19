@@ -68,6 +68,19 @@ public class PhoneResources {
         return format.format(nowTime);
     }
 
+    // 获取配置文件路径
+    public static String getConfigFile(MainActivity context) {
+        String file;
+
+        if(sdCardExist()) {
+            file = getWorkPath(context) + "EMap.config";
+        } else {
+            file = null;
+        }
+
+        return file;
+    }
+
     // 获取日志文件名
     public static String getLogFile(MainActivity context) {
         String file;

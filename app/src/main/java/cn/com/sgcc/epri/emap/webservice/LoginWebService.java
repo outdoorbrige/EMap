@@ -1,6 +1,7 @@
 package cn.com.sgcc.epri.emap.webservice;
 
 import cn.com.sgcc.epri.emap.MainActivity;
+import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
 
 /**
@@ -14,9 +15,10 @@ public class LoginWebService extends TransmitContext {
         super(context);
     }
 
-    public boolean Login(String username, String password) {
-        boolean bReturn = false;
+    public boolean Login(UserInfo userinfo) {
+        boolean bSuccessed = false;
+        String eMsg = "";
 
-        return bReturn;
+        return bSuccessed;
     }
 }

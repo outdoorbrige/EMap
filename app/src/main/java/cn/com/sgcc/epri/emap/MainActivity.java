@@ -6,10 +6,12 @@ import android.os.Bundle;
 import org.apache.log4j.Logger;
 
 import cn.com.sgcc.epri.emap.manager.DialogMgr;
+import cn.com.sgcc.epri.emap.manager.FileMgr;
 import cn.com.sgcc.epri.emap.manager.LayoutMgr;
 import cn.com.sgcc.epri.emap.manager.Log4jMgr;
 import cn.com.sgcc.epri.emap.manager.MapMgr;
 import cn.com.sgcc.epri.emap.manager.WebServiceMgr;
+import cn.com.sgcc.epri.emap.model.ConfigInfo;
 import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 
@@ -20,6 +22,7 @@ import cn.com.sgcc.epri.emap.util.PhoneResources;
 public class MainActivity extends AppCompatActivity{
     private Log4jMgr log4j_mgr; // 日志管理类
     private Logger logger; // 日志对象
+    private FileMgr file_mgr; // 文件管理类
     private DialogMgr dlg_mgr; // 对话框管理类
     private LayoutMgr layout_mgr; // 布局管理类
     private MapMgr map_mgr; // 地图管理类
@@ -37,6 +40,10 @@ public class MainActivity extends AppCompatActivity{
         // 初始化日志
         log4j_mgr.init(PhoneResources.getLogFile(this));
         logger = Logger.getLogger(this.getClass());
+
+        // 初始化文件管理类
+        file_mgr = new FileMgr(this);
+        file_mgr.init();
 
         // 初始化天地图
         map_mgr = new MapMgr(this);
@@ -105,6 +112,11 @@ public class MainActivity extends AppCompatActivity{
         map_mgr.disableFeatures();
         dlg_mgr.uninit();
         super.onDestroy();
+    }
+
+    // 获取配置文件信息
+    public ConfigInfo getConfigInfo() {
+        return file_mgr.getConfigInfo();
     }
 
     // 获取地图管理类

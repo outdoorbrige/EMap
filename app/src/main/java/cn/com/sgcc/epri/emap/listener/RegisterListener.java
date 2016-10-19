@@ -2,11 +2,14 @@ package cn.com.sgcc.epri.emap.listener;
 
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import org.apache.log4j.Logger;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
+import cn.com.sgcc.epri.emap.model.UserInfo;
+import cn.com.sgcc.epri.emap.util.PhoneResources;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
 
 /**
@@ -42,7 +45,24 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
         String telnumber = ((EditText)(context.getDlgMgr().getRegisterDlg().getDlg().findViewById(R.id.emap_view_register_telnumber_text))).getText().toString();
         String email = ((EditText)(context.getDlgMgr().getRegisterDlg().getDlg().findViewById(R.id.emap_view_register_email_text))).getText().toString();
 
-        Logger.getLogger(this.getClass()).info(String.format("%s,%s,%s,%s,%s,%s", username, password, confirm_password, nickname, telnumber, email));
+        UserInfo userinfo = new UserInfo();
+        userinfo.setUsername(username);
+        userinfo.setPassword(password);
+        userinfo.setNickname(nickname);
+        userinfo.setTelnumber(telnumber);
+        userinfo.setEmail(email);
+        userinfo.setCreatetime(PhoneResources.getNowTimeString());
+
+        Logger.getLogger(this.getClass()).info(userinfo.toString());
+
+        if(context.getServiceMgr().RegisterService(userinfo)) {
+            userinfo.setEmail(String.format("恭喜%d注册成功！", username));
+        } else {
+            // 注册失败
+        }
+
+        Logger.getLogger(this.getClass()).info(userinfo.getEmsg());
+        Toast.makeText(context, userinfo.getEmsg(), Toast.LENGTH_SHORT).show();
     }
 
     // 返回
