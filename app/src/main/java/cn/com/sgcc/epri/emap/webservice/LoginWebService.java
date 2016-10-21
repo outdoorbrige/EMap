@@ -15,10 +15,14 @@ public class LoginWebService extends TransmitContext {
         super(context);
     }
 
-    public boolean Login(UserInfo userinfo) {
-        boolean bSuccessed = false;
-        String eMsg = "";
+    // 初始化
+    public void init() {
 
-        return bSuccessed;
+    }
+
+    public UserInfo Login(UserInfo userinfo) {
+        UserInfo return_userinfo = new UserInfo();
+
+        return return_userinfo;
     }
 }

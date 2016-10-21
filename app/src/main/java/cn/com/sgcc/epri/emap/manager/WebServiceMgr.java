@@ -1,5 +1,7 @@
 package cn.com.sgcc.epri.emap.manager;
 
+import android.os.Handler;
+
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
@@ -22,16 +24,20 @@ public class WebServiceMgr extends TransmitContext {
     // 初始化
     public void init() {
         register_service = new RegisterWebService(context);
+        register_service.init();
+
         login_service = new LoginWebService(context);
+        login_service.init();
     }
 
     // 注册服务
-    public boolean RegisterService(UserInfo userinfo) {
-        return register_service.Register(userinfo);
+    public void RegisterService(UserInfo userinfo, Handler handler) {
+        register_service.setUserInfo(userinfo, handler);
+        new Thread(register_service).start();
     }
 
     // 登录服务
-    public boolean LoginService(UserInfo userinfo) {
+    public UserInfo LoginService(UserInfo userinfo) {
         return login_service.Login(userinfo);
     }
 }

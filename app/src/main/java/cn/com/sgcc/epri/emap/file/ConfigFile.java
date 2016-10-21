@@ -57,7 +57,9 @@ public class ConfigFile extends TransmitContext {
                             } else if("WebService".equals(tag_name)) {
                                 config_info.setNamespace(parser.getAttributeValue("", "namespace")); // String getAttributeValue(String namespaceUri, String localName) 返回带有名称空间和 localName 的属性的规范化属性值
                                 config_info.setServer(parser.getAttributeValue("", "server"));
+                                config_info.setPort(parser.getAttributeValue("", "port"));
                                 config_info.setProtocol(parser.getAttributeValue("", "protocol"));
+                                config_info.setSoapversion(parser.getAttributeValue("", "soapversion"));
                             } else if("Register".equals(tag_name)) {
                                 config_info.setRegister_name(parser.getAttributeValue("", "name"));
                                 config_info.setRegister_path(parser.getAttributeValue("", "path"));
@@ -83,7 +85,7 @@ public class ConfigFile extends TransmitContext {
 
                 Logger.getLogger(this.getClass()).info(config_info.toString());
             }catch (Exception e) {
-                Logger.getLogger(this.getClass()).error(e.toString());
+                Logger.getLogger(this.getClass()).error(e.getStackTrace().toString());
             }
         } else {
             Logger.getLogger(this.getClass()).error(String.format("配置文件%s不存在", config_file));

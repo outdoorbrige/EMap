@@ -1,5 +1,7 @@
 package cn.com.sgcc.epri.emap.listener;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -9,6 +11,7 @@ import org.apache.log4j.Logger;
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.model.UserInfo;
+import cn.com.sgcc.epri.emap.util.MessageWhat;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
 
@@ -16,6 +19,9 @@ import cn.com.sgcc.epri.emap.util.TransmitContext;
  * Created by GuHeng on 2016/10/11.
  */
 public class RegisterListener extends TransmitContext implements View.OnClickListener {
+    UserInfo userinfo; // 用户信息
+    private Handler handler; // 消息句柄
+    private UserInfo return_userinfo; // 返回的用户信息
 
     // 构造函数
     public RegisterListener(MainActivity context) {
@@ -45,7 +51,22 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
         String telnumber = ((EditText)(context.getDlgMgr().getRegisterDlg().getDlg().findViewById(R.id.emap_view_register_telnumber_text))).getText().toString();
         String email = ((EditText)(context.getDlgMgr().getRegisterDlg().getDlg().findViewById(R.id.emap_view_register_email_text))).getText().toString();
 
-        UserInfo userinfo = new UserInfo();
+        if(username.isEmpty()) {
+            Toast.makeText(context, "错误:用户名不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(password.isEmpty()) {
+            Toast.makeText(context, "错误:密码不能为空!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(!password.equals(confirm_password)) {
+            Toast.makeText(context, "错误:两次输入的密码不一致，请重新输入!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        userinfo = new UserInfo();
         userinfo.setUsername(username);
         userinfo.setPassword(password);
         userinfo.setNickname(nickname);
@@ -55,14 +76,25 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
 
         Logger.getLogger(this.getClass()).info(userinfo.toString());
 
-        if(context.getServiceMgr().RegisterService(userinfo)) {
-            userinfo.setEmail(String.format("恭喜%d注册成功！", username));
-        } else {
-            // 注册失败
-        }
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message message) {
+                if(message.what == MessageWhat.MSG_REGISTER) {
+                    return_userinfo = (UserInfo) message.obj;
 
-        Logger.getLogger(this.getClass()).info(userinfo.getEmsg());
-        Toast.makeText(context, userinfo.getEmsg(), Toast.LENGTH_SHORT).show();
+                    if(return_userinfo.isSuccessed()) {
+                        Toast.makeText(context, String.format("恭喜%d注册成功！", userinfo.getUsername()), Toast.LENGTH_SHORT).show();
+                        onClickedReturn(); // 关闭注册窗口
+                    } else {
+                        // 注册失败
+                        Toast.makeText(context, return_userinfo.getEmsg(), Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(this.getClass()).info(return_userinfo.getEmsg());
+                    }
+                }
+            }
+        };
+
+        context.getServiceMgr().RegisterService(userinfo, handler);
     }
 
     // 返回

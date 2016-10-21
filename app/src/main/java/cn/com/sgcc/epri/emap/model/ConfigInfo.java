@@ -7,7 +7,9 @@ package cn.com.sgcc.epri.emap.model;
 public class ConfigInfo {
     private String namespace; // 命名空间
     private String server; // 服务器
+    private String port; // 端口
     private String protocol; // 协议
+    private String soapversion; // SOAP协议版本
 
     private String register_name; // 注册服务名称
     private String register_path; // 注册服务路径
@@ -35,12 +37,28 @@ public class ConfigInfo {
         this.server = server;
     }
 
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
+
     public String getProtocol() {
         return protocol;
     }
 
     public void setProtocol(String protocol) {
         this.protocol = protocol;
+    }
+
+    public String getSoapversion() {
+        return soapversion;
+    }
+
+    public void setSoapversion(String soapversion) {
+        this.soapversion = soapversion;
     }
 
     public String getRegister_name() {
@@ -111,7 +129,9 @@ public class ConfigInfo {
         return String.format(
                 "namespace:%s, " +
                 "server:%s, " +
+                "port:%s, " +
                 "protocol:%s, " +
+                "soapversion:%s, " +
                 "register_name:%s, " +
                 "register_path:%s, " +
                 "register_var1_name:%s, " +
@@ -122,7 +142,9 @@ public class ConfigInfo {
                 "login_result_name:%s",
                 namespace,
                 server,
+                port,
                 protocol,
+                soapversion,
 
                 register_name,
                 register_path,
