@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.model.UserInfo;
+import cn.com.sgcc.epri.emap.util.Algorithm;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 import cn.com.sgcc.epri.emap.util.TransmitContext;
@@ -67,12 +68,16 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
         }
 
         userinfo = new UserInfo();
-        userinfo.setUsername(username);
-        userinfo.setPassword(password);
+        userinfo.setUsername(username.toUpperCase());
+        userinfo.setPassword(Algorithm.md5(password));
         userinfo.setNickname(nickname);
         userinfo.setTelnumber(telnumber);
         userinfo.setEmail(email);
         userinfo.setCreatetime(PhoneResources.getNowTimeString());
+
+        if(nickname.isEmpty()) {
+            userinfo.setNickname(userinfo.getUsername());
+        }
 
         Logger.getLogger(this.getClass()).info(userinfo.toString());
 
@@ -83,7 +88,7 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
                     return_userinfo = (UserInfo) message.obj;
 
                     if(return_userinfo.isSuccessed()) {
-                        Toast.makeText(context, String.format("恭喜%d注册成功！", userinfo.getUsername()), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, String.format("恭喜%s注册成功！", userinfo.getUsername()), Toast.LENGTH_SHORT).show();
                         onClickedReturn(); // 关闭注册窗口
                     } else {
                         // 注册失败
@@ -94,7 +99,7 @@ public class RegisterListener extends TransmitContext implements View.OnClickLis
             }
         };
 
-        context.getServiceMgr().RegisterService(userinfo, handler);
+        context.getServiceMgr().RegisterService(handler, userinfo);
     }
 
     // 返回

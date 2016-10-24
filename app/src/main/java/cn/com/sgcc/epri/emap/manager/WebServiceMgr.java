@@ -31,13 +31,14 @@ public class WebServiceMgr extends TransmitContext {
     }
 
     // 注册服务
-    public void RegisterService(UserInfo userinfo, Handler handler) {
-        register_service.setUserInfo(userinfo, handler);
+    public void RegisterService(Handler handler, UserInfo userinfo) {
+        register_service.prepare(handler, userinfo);
         new Thread(register_service).start();
     }
 
     // 登录服务
-    public UserInfo LoginService(UserInfo userinfo) {
-        return login_service.Login(userinfo);
+    public void LoginService(Handler handler, UserInfo userinfo) {
+        login_service.prepare(handler, userinfo);
+        new Thread(login_service).start();
     }
 }
