@@ -4,50 +4,50 @@
     android:layout_height="300dp">
 
     <Button
-        android:id="@+id/emap_setting_menu_favorite_btn"
+        android:id="@+id/favorite"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/icon_map_meun_favorite"/>
+        android:background="@mipmap/favorite_bg"/>
 
     <Button
-        android:id="@+id/emap_setting_menu_clear_btn"
+        android:id="@+id/clear"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/icon_map_meun_clear"/>
+        android:background="@mipmap/clear_bg"/>
 
     <Button
-        android:id="@+id/emap_setting_menu_set_btn"
+        android:id="@+id/setting"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/icon_map_meun_set"/>
+        android:background="@mipmap/setting_bg"/>
 
     <Button
-        android:id="@+id/emap_setting_menu_offline_btn"
+        android:id="@+id/download"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/icon_map_meun_offine"/>
+        android:background="@mipmap/download_bg"/>
 
     <Button
-        android:id="@+id/emap_setting_menu_tool_btn"
+        android:id="@+id/tool"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/icon_map_meun_tool"/>
+        android:background="@mipmap/tool_bg"/>
 
     <Button
-        android:id="@+id/emap_setting_menu_main_btn"
+        android:id="@+id/menu"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:background="@mipmap/icon_map_meun_main"/>
+        android:background="@mipmap/meun_bg"/>
 </RelativeLayout>

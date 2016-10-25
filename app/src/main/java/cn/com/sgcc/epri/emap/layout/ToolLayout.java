@@ -2,22 +2,21 @@ package cn.com.sgcc.epri.emap.layout;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.ToolListener;
-import cn.com.sgcc.epri.emap.util.TransmitContext;
+import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
  * 工具布局类
  */
-public class ToolLayout extends TransmitContext {
-    private View layout; // 布局
-    private Button zoomin_btn; // 放大按钮
-    private Button zoomout_btn; // 缩小按钮
-    private Button locate_btn; // 定位按钮
+public class ToolLayout extends MainActivityContext {
+    private View mLayout; // 布局
+    private Button mZoomInButton; // 放大按钮
+    private Button mZoomOutButton; // 缩小按钮
+    private Button mLocateButton; // 定位按钮
 
     // 构造函数
     public ToolLayout(MainActivity context) {
@@ -26,21 +25,21 @@ public class ToolLayout extends TransmitContext {
 
     // 初始化
     public void init() {
-        layout = context.findViewById(R.id.emap_tool_layout);
-        zoomin_btn = (Button)context.findViewById(R.id.emap_tool_bar_zoomin_btn);
-        zoomout_btn = (Button)context.findViewById(R.id.emap_tool_bar_zoomout_btn);
-        locate_btn = (Button)context.findViewById(R.id.emap_tool_bar_locate_btn);
+        mLayout = context.findViewById(R.id.tool_bar);
+        mZoomInButton = (Button)context.findViewById(R.id.zoon_in);
+        mZoomOutButton = (Button)context.findViewById(R.id.zoom_out);
+        mLocateButton = (Button)context.findViewById(R.id.locate);
 
         ToolListener listener = new ToolListener(context);
 
-        zoomin_btn.setOnClickListener(listener);
-        zoomout_btn.setOnClickListener(listener);
-        locate_btn.setOnClickListener(listener);
+        mZoomInButton.setOnClickListener(listener);
+        mZoomOutButton.setOnClickListener(listener);
+        mLocateButton.setOnClickListener(listener);
     }
 
     // 显示布局
     public void show() {
-        layout.setVisibility(View.VISIBLE);
+        mLayout.setVisibility(View.VISIBLE);
     }
 
     // 隐藏布局
@@ -50,6 +49,6 @@ public class ToolLayout extends TransmitContext {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
-        layout.setVisibility(View.GONE);
+        mLayout.setVisibility(View.GONE);
     }
 }

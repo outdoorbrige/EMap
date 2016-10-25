@@ -3,6 +3,7 @@ package cn.com.sgcc.epri.emap.listener;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -14,15 +15,16 @@ import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.Algorithm;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
-import cn.com.sgcc.epri.emap.util.TransmitContext;
+import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.util.UserType;
 
 /**
  * Created by GuHeng on 2016/10/11.
  */
-public class LoginListener extends TransmitContext implements View.OnClickListener {
-    UserInfo userinfo; // 用户信息
-    private Handler handler; // 消息句柄
-    private UserInfo return_userinfo; // 返回的用户信息
+public class LoginListener extends MainActivityContext implements View.OnClickListener {
+    private UserInfo mUserInfo; // 用户信息
+    private Handler mHandler; // 消息句柄
+    private UserInfo mReturnUserInfo; // 返回的用户信息
 
     // 构造函数
     public LoginListener(MainActivity context) {
@@ -32,13 +34,13 @@ public class LoginListener extends TransmitContext implements View.OnClickListen
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.emap_view_login_register: // 注册
+            case R.id.register_button: // 注册
                 onClickedRegister();
                 break;
-            case R.id.emap_view_login_login: // 登录
+            case R.id.login_button: // 登录
                 onClickedLogin();
                 break;
-            case R.id.emap_view_login_close: // 关闭
+            case R.id.login_cancel_button: // 关闭
                 onClickedClose();
                 break;
             default:
@@ -48,17 +50,17 @@ public class LoginListener extends TransmitContext implements View.OnClickListen
 
     // 注册
     private void onClickedRegister() {
-        context.getDlgMgr().getRegisterDlg().show();
+        context.getDialogManger().getRegisterDialog().show();
     }
 
     // 登录
     private void onClickedLogin() {
-        String username = ((EditText)(context.getDlgMgr().getLoginDlg().getDlg().findViewById(R.id.emap_view_login_user_text))).getText().toString();
-        String password = ((EditText)(context.getDlgMgr().getLoginDlg().getDlg().findViewById(R.id.emap_view_login_password_text))).getText().toString();
-        boolean is_keep_password = ((CheckBox)(context.getDlgMgr().getLoginDlg().getDlg().findViewById(R.id.emap_view_login_kepp_password))).isChecked();
-        boolean is_auto_login = ((CheckBox)(context.getDlgMgr().getLoginDlg().getDlg().findViewById(R.id.emap_view_login_auto_login))).isChecked();
+        String userName = ((EditText)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_name))).getText().toString();
+        String password = ((EditText)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_pwd))).getText().toString();
+        boolean isKeepPassword = ((CheckBox)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.keep_pwd))).isChecked();
+        boolean isAutoLogin = ((CheckBox)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.auto_login))).isChecked();
 
-        if(username.isEmpty()) {
+        if(userName.isEmpty()) {
             Toast.makeText(context, "错误:用户名不能为空!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -68,33 +70,42 @@ public class LoginListener extends TransmitContext implements View.OnClickListen
             return;
         }
 
-        userinfo = new UserInfo();
-        userinfo.setUsername(username.toUpperCase());
-        userinfo.setPassword(Algorithm.md5(password));
+        mUserInfo = new UserInfo();
+        mUserInfo.setUserName(userName.toUpperCase());
+        mUserInfo.setPassword(Algorithm.md5(password));
 
-        handler = new Handler() {
+        mHandler = new Handler() {
             @Override
             public void handleMessage(Message message) {
                 if(message.what == MessageWhat.MSG_LOGIN) {
-                    return_userinfo = (UserInfo) message.obj;
+                    mReturnUserInfo = (UserInfo) message.obj;
 
-                    if(return_userinfo.isSuccessed()) {
-                        Toast.makeText(context, String.format("恭喜%s登录成功！", userinfo.getUsername()), Toast.LENGTH_SHORT).show();
+                    if(mReturnUserInfo.isSuccess()) {
+                        Toast.makeText(context, String.format("恭喜%s登录成功！", mUserInfo.getUserName()), Toast.LENGTH_SHORT).show();
                         onClickedClose(); // 关闭登录窗口
+
+                        Button loginButton = ((Button)(context.findViewById(R.id.user_login_button)));
+                        if(UserType.mNormalType.equals(mUserInfo.getUserType())) {
+                            loginButton.setBackgroundResource(R.mipmap.online_bg);
+                        } else if(UserType.mAdminType.equals(mUserInfo.getUserType())) {
+                            loginButton.setBackgroundResource(R.mipmap.online1_bg);
+                        } else {
+
+                        }
                     } else {
                         // 登录失败
-                        Toast.makeText(context, return_userinfo.getEmsg(), Toast.LENGTH_SHORT).show();
-                        Logger.getLogger(this.getClass()).info(return_userinfo.getEmsg());
+                        Toast.makeText(context, mReturnUserInfo.getErrorString(), Toast.LENGTH_SHORT).show();
+                        Logger.getLogger(this.getClass()).info(mReturnUserInfo.getErrorString());
                     }
                 }
             }
         };
 
-        context.getServiceMgr().LoginService(handler, userinfo);
+        context.getWebServiceManger().LoginService(mHandler, mUserInfo);
     }
 
     // 关闭
     private void onClickedClose() {
-        context.getDlgMgr().getLoginDlg().hide();
+        context.getDialogManger().getLoginDialog().hide();
     }
 }

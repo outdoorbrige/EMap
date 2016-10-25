@@ -5,9 +5,9 @@
     android:layout_height="wrap_content">
 
     <Button
-        android:id="@+id/emap_meun_layer_btn"
+        android:id="@+id/layer_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@mipmap/icon_map_meun_layer"/>
+        android:background="@mipmap/layer_button_bg"/>
 
 </LinearLayout>

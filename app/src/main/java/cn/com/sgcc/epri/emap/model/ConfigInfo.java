@@ -5,155 +5,156 @@ package cn.com.sgcc.epri.emap.model;
  * 配置信息
  */
 public class ConfigInfo {
-    private String namespace; // 命名空间
-    private String server; // 服务器
-    private String port; // 端口
-    private String protocol; // 协议
-    private String soapversion; // SOAP协议版本
+    private String mNameSpace; // 命名空间
+    private String mServer; // 服务器
+    private String mPort; // 端口
+    private String mProtocol; // 协议
+    private String mSoapVersion; // SOAP协议版本
 
-    private String register_name; // 注册服务名称
-    private String register_path; // 注册服务路径
-    private String register_var1_name; // 注册服务参数名称
-    private String register_result_name; // 注册服务返回值参数名称
+    private String mRegisterMethodName; // 注册服务名称
+    private String mRegisterUrlPath; // 注册服务路径
+    private String mRegisterMethodParam1Name; // 注册服务参数名称
+    private String mRegisterMethodReturnParamName; // 注册服务返回值参数名称
 
-    private String login_name; // 登录服务名称
-    private String login_path; // 登录服务路径
-    private String login_var1_name; // 登录服务参数名称
-    private String login_result_name; // 登录服务返回值参数名称
+    private String mLoginMethodName; // 登录服务名称
+    private String mLoginUrlPath; // 登录服务路径
+    private String mLoginMethodParam1Name; // 登录服务参数名称
+    private String mLoginMethodReturnParamName; // 登录服务返回值参数名称
 
-    public String getNamespace() {
-        return namespace;
+    public String getNameSpace() {
+        return mNameSpace;
     }
 
-    public void setNamespace(String namespace) {
-        this.namespace = namespace;
+    public void setNameSpace(String nameSpace) {
+        this.mNameSpace = nameSpace;
     }
 
     public String getServer() {
-        return server;
+        return mServer;
     }
 
     public void setServer(String server) {
-        this.server = server;
+        this.mServer = server;
     }
 
     public String getPort() {
-        return port;
+        return mPort;
     }
 
     public void setPort(String port) {
-        this.port = port;
+        this.mPort = port;
     }
 
     public String getProtocol() {
-        return protocol;
+        return mProtocol;
     }
 
     public void setProtocol(String protocol) {
-        this.protocol = protocol;
+        this.mProtocol = protocol;
     }
 
-    public String getSoapversion() {
-        return soapversion;
+    public String getSoapVersion() {
+        return mSoapVersion;
     }
 
-    public void setSoapversion(String soapversion) {
-        this.soapversion = soapversion;
+    public void setSoapVersion(String soapVersion) {
+        this.mSoapVersion = soapVersion;
     }
 
-    public String getRegister_name() {
-        return register_name;
+    public String getRegisterMethodName() {
+        return mRegisterMethodName;
     }
 
-    public void setRegister_name(String register_name) {
-        this.register_name = register_name;
+    public void setRegisterMethodName(String registerMethodName) {
+        this.mRegisterMethodName = registerMethodName;
     }
 
-    public String getRegister_path() {
-        return register_path;
+    public String getRegisterUrlPath() {
+        return mRegisterUrlPath;
     }
 
-    public void setRegister_path(String register_path) {
-        this.register_path = register_path;
+    public void setRegisterUrlPath(String registerUrlPath) {
+        this.mRegisterUrlPath = registerUrlPath;
     }
 
-    public String getRegister_var1_name() {
-        return register_var1_name;
+    public String getRegisterMethodParam1Name() {
+        return mRegisterMethodParam1Name;
     }
 
-    public void setRegister_var1_name(String register_var1_name) {
-        this.register_var1_name = register_var1_name;
+    public void setRegisterMethodParam1Name(String registerMethodParam1Name) {
+        this.mRegisterMethodParam1Name = registerMethodParam1Name;
     }
 
-    public String getRegister_result_name() {
-        return register_result_name;
+    public String getRegisterMethodReturnParamName() {
+        return mRegisterMethodReturnParamName;
     }
 
-    public void setRegister_result_name(String register_result_name) {
-        this.register_result_name = register_result_name;
+    public void setRegisterMethodReturnParamName(String registerMethodReturnParamName) {
+        this.mRegisterMethodReturnParamName = registerMethodReturnParamName;
     }
 
-    public String getLogin_name() {
-        return login_name;
+    public String getLoginMethodName() {
+        return mLoginMethodName;
     }
 
-    public void setLogin_name(String login_name) {
-        this.login_name = login_name;
+    public void setLoginMethodName(String loginMethodName) {
+        this.mLoginMethodName = loginMethodName;
     }
 
-    public String getLogin_path() {
-        return login_path;
+    public String getLoginUrlPath() {
+        return mLoginUrlPath;
     }
 
-    public void setLogin_path(String login_path) {
-        this.login_path = login_path;
+    public void setLoginUrlPath(String loginUrlPath) {
+        this.mLoginUrlPath = loginUrlPath;
     }
 
-    public String getLogin_var1_name() {
-        return login_var1_name;
+    public String getLoginMethodParam1Name() {
+        return mLoginMethodParam1Name;
     }
 
-    public void setLogin_var1_name(String login_var1_name) {
-        this.login_var1_name = login_var1_name;
+    public void setLoginMethodParam1Name(String loginMethodParam1Name) {
+        this.mLoginMethodParam1Name = loginMethodParam1Name;
     }
 
-    public String getLogin_result_name() {
-        return login_result_name;
+    public String getLoginMethodReturnParamName() {
+        return mLoginMethodReturnParamName;
     }
 
-    public void setLogin_result_name(String login_result_name) {
-        this.login_result_name = login_result_name;
+    public void setLoginMethodReturnParamName(String loginMethodReturnParamName) {
+        this.mLoginMethodReturnParamName = loginMethodReturnParamName;
     }
 
     public String toString() {
         return String.format(
-                "namespace:%s, " +
-                "server:%s, " +
-                "port:%s, " +
-                "protocol:%s, " +
-                "soapversion:%s, " +
-                "register_name:%s, " +
-                "register_path:%s, " +
-                "register_var1_name:%s, " +
-                "register_result_name:%s, " +
-                "login_name:%s, " +
-                "login_path:%s, " +
-                "login_var1_name:%s, " +
-                "login_result_name:%s",
-                namespace,
-                server,
-                port,
-                protocol,
-                soapversion,
+                "NameSpace:%s, " +
+                "Server:%s, " +
+                "Port:%s, " +
+                "Protocol:%s, " +
+                "SoapVersion:%s, " +
+                "RegisterMethodName:%s, " +
+                "RegisterUrlPath:%s, " +
+                "RegisterMethodParam1Name:%s, " +
+                "RegisterMethodReturnParamName:%s, " +
+                "LoginMethodName:%s, " +
+                "LoginUrlPath:%s, " +
+                "LoginMethodParam1Name:%s, " +
+                "LoginMethodReturnParamName:%s",
 
-                register_name,
-                register_path,
-                register_var1_name,
-                register_result_name,
+                mNameSpace,
+                mServer,
+                mPort,
+                mProtocol,
+                mSoapVersion,
 
-                login_name,
-                login_path,
-                login_var1_name,
-                login_result_name);
+                mRegisterMethodName,
+                mRegisterUrlPath,
+                mRegisterMethodParam1Name,
+                mRegisterMethodReturnParamName,
+
+                mLoginMethodName,
+                mLoginUrlPath,
+                mLoginMethodParam1Name,
+                mLoginMethodReturnParamName);
     }
 }

@@ -5,12 +5,12 @@ import android.widget.Button;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
-import cn.com.sgcc.epri.emap.util.TransmitContext;
+import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
  */
-public class ToolListener extends TransmitContext implements View.OnClickListener {
+public class ToolListener extends MainActivityContext implements View.OnClickListener {
 
     // 构造函数
     public ToolListener(MainActivity context) {
@@ -20,13 +20,13 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.emap_tool_bar_zoomin_btn:
-                onClickedZoomin();
+            case R.id.zoon_in:
+                onClickedZoomIn();
                 break;
-            case R.id.emap_tool_bar_zoomout_btn:
-                onClickedZoomout();
+            case R.id.zoom_out:
+                onClickedZoomOut();
                 break;
-            case R.id.emap_tool_bar_locate_btn:
+            case R.id.locate:
                 onClickedLocate();
                 break;
             default:
@@ -35,29 +35,29 @@ public class ToolListener extends TransmitContext implements View.OnClickListene
     }
 
     // 放大
-    private void onClickedZoomin() {
-        if(!context.getMapMgr().setZoomin()) {
-            ((Button) context.findViewById(R.id.emap_tool_bar_zoomin_btn)).setClickable(false);
-            ((Button) context.findViewById(R.id.emap_tool_bar_zoomin_btn)).setBackgroundResource(R.mipmap.btn_zoomin_gray);
+    private void onClickedZoomIn() {
+        if(!context.getMapManger().zoomIn()) {
+            ((Button) context.findViewById(R.id.zoon_in)).setClickable(false);
+            ((Button) context.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoom_in_max_bg);
         }
 
-        ((Button) context.findViewById(R.id.emap_tool_bar_zoomout_btn)).setClickable(true);
-        ((Button) context.findViewById(R.id.emap_tool_bar_zoomout_btn)).setBackgroundResource(R.mipmap.btn_zoomout);
+        ((Button) context.findViewById(R.id.zoom_out)).setClickable(true);
+        ((Button) context.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_bg);
     }
 
     // 缩小
-    private void onClickedZoomout() {
-        if(!context.getMapMgr().setZoomout()) {
-            ((Button) context.findViewById(R.id.emap_tool_bar_zoomout_btn)).setClickable(false);
-            ((Button) context.findViewById(R.id.emap_tool_bar_zoomout_btn)).setBackgroundResource(R.mipmap.btn_zoomout_gray);
+    private void onClickedZoomOut() {
+        if(!context.getMapManger().zoomOut()) {
+            ((Button) context.findViewById(R.id.zoom_out)).setClickable(false);
+            ((Button) context.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_min_bg);
         }
 
-        ((Button)context.findViewById(R.id.emap_tool_bar_zoomin_btn)).setClickable(true);
-        ((Button)context.findViewById(R.id.emap_tool_bar_zoomin_btn)).setBackgroundResource(R.mipmap.btn_zoomin);
+        ((Button)context.findViewById(R.id.zoon_in)).setClickable(true);
+        ((Button)context.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoon_in_bg);
     }
 
     // 定位
     private void onClickedLocate() {
-        context.getMapMgr().setCenter();
+        context.getMapManger().setCenter();
     }
 }

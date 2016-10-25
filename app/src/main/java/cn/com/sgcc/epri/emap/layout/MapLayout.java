@@ -1,21 +1,20 @@
 package cn.com.sgcc.epri.emap.layout;
 
 import cn.com.sgcc.epri.emap.MainActivity;
-import cn.com.sgcc.epri.emap.manager.MapMgr;
-import cn.com.sgcc.epri.emap.map.TMapView;
-import cn.com.sgcc.epri.emap.util.TransmitContext;
+import cn.com.sgcc.epri.emap.manger.MapManger;
+import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
  * 天地图布局类
  */
-public class MapLayout extends TransmitContext {
-    private MapMgr map_mgr; // 天地图控制类
+public class MapLayout extends MainActivityContext {
+    private MapManger mMapManger; // 天地图控制类
 
     // 构造函数
-    public MapLayout(MainActivity context, MapMgr map_mgr) {
+    public MapLayout(MainActivity context, MapManger mapManger) {
         super(context);
-        this.map_mgr = map_mgr;
+        this.mMapManger = mapManger;
     }
 
     // 初始化

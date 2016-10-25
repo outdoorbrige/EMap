@@ -5,13 +5,15 @@ import android.os.Bundle;
 
 import org.apache.log4j.Logger;
 
-import cn.com.sgcc.epri.emap.manager.DialogMgr;
-import cn.com.sgcc.epri.emap.manager.FileMgr;
-import cn.com.sgcc.epri.emap.manager.LayoutMgr;
-import cn.com.sgcc.epri.emap.manager.Log4jMgr;
-import cn.com.sgcc.epri.emap.manager.MapMgr;
-import cn.com.sgcc.epri.emap.manager.WebServiceMgr;
+import cn.com.sgcc.epri.emap.manger.DialogManger;
+import cn.com.sgcc.epri.emap.manger.FileManger;
+import cn.com.sgcc.epri.emap.manger.LayoutManger;
+import cn.com.sgcc.epri.emap.manger.Log4jManger;
+import cn.com.sgcc.epri.emap.manger.MapManger;
+import cn.com.sgcc.epri.emap.manger.UserManager;
+import cn.com.sgcc.epri.emap.manger.WebServiceManger;
 import cn.com.sgcc.epri.emap.model.ConfigInfo;
+import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 
@@ -20,46 +22,51 @@ import cn.com.sgcc.epri.emap.util.PhoneResources;
  * 主类
  */
 public class MainActivity extends AppCompatActivity{
-    private Log4jMgr log4j_mgr; // 日志管理类
-    private Logger logger; // 日志对象
-    private FileMgr file_mgr; // 文件管理类
-    private DialogMgr dlg_mgr; // 对话框管理类
-    private LayoutMgr layout_mgr; // 布局管理类
-    private MapMgr map_mgr; // 地图管理类
-    private WebServiceMgr service_mgr; // 服务管理类
+    private Log4jManger mLog4jManger; // 日志管理类
+    private Logger mLogger; // 日志对象
+    private UserManager mUserManager; // 用户信息管理类
+    private FileManger mFileManger; // 文件管理类
+    private DialogManger DialogManger; // 对话框管理类
+    private LayoutManger mLayoutManger; // 布局管理类
+    private MapManger mMapManger; // 地图管理类
+    private WebServiceManger mWebServiceManger; // 服务管理类
 
     // 创建Activity时调用
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.emap_view);
+        setContentView(R.layout.main);
 
         // 警告:
         //      程序默认手机必须有内存卡
 
         // 初始化日志
-        log4j_mgr.init(PhoneResources.getLogFile(this));
-        logger = Logger.getLogger(this.getClass());
+        mLog4jManger.init(PhoneResources.getLogFile(this));
+        mLogger = Logger.getLogger(this.getClass());
+
+        // 初始化用户信息管理类
+        mUserManager = new UserManager(this);
+        mUserManager.init();
 
         // 初始化文件管理类
-        file_mgr = new FileMgr(this);
-        file_mgr.init();
+        mFileManger = new FileManger(this);
+        mFileManger.init();
 
         // 初始化天地图
-        map_mgr = new MapMgr(this);
-        map_mgr.init();
-        map_mgr.enableFeatures();
-        map_mgr.setCenter();
+        mMapManger = new MapManger(this);
+        mMapManger.init();
+        mMapManger.enableFeatures();
+        mMapManger.setCenter();
 
         // 初始化对话框
-        dlg_mgr = new DialogMgr(this);
-        dlg_mgr.init();
+        DialogManger = new DialogManger(this);
+        DialogManger.init();
 
         // 初始化布局
-        layout_mgr = new LayoutMgr(this, map_mgr);
-        layout_mgr.init();
+        mLayoutManger = new LayoutManger(this, mMapManger);
+        mLayoutManger.init();
 
-        logger.info(String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",
+        mLogger.info(String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",
                 DisplayMetricsUtil.getWidthPx(this),
                 DisplayMetricsUtil.getHeightPx(this),
                 this.getResources().getDisplayMetrics().density,
@@ -67,70 +74,75 @@ public class MainActivity extends AppCompatActivity{
                 DisplayMetricsUtil.getHeightDp(this)));
 
         // 初始化服务
-        service_mgr = new WebServiceMgr(this);
-        service_mgr.init();
+        mWebServiceManger = new WebServiceManger(this);
+        mWebServiceManger.init();
     }
 
     // 当一个Activity变为显示时被调用
     @Override
     protected void onStart() {
-        map_mgr.enableFeatures();
+        mMapManger.enableFeatures();
         super.onStart();
     }
 
     // 重新启动Activity时调用，总是在onStart方法以后执行
     @Override
     protected void onRestart() {
-        map_mgr.enableFeatures();
+        mMapManger.enableFeatures();
         super.onRestart();
     }
 
     // 暂停Activity时被调用
     @Override
     protected void onPause() {
-        map_mgr.disableFeatures();
+        mMapManger.disableFeatures();
         super.onPause();
     }
 
     // 当Activity由暂停变为活动状态时调用
     @Override
     protected void onResume() {
-        map_mgr.enableFeatures();
+        mMapManger.enableFeatures();
         super.onResume();
     }
 
     // 停止Activity时被调用
     @Override
     protected void onStop() {
-        map_mgr.disableFeatures();
+        mMapManger.disableFeatures();
         super.onStop();
     }
 
     // 销毁Activity时被调用
     @Override
     protected void onDestroy() {
-        map_mgr.disableFeatures();
-        dlg_mgr.uninit();
+        mMapManger.disableFeatures();
+        DialogManger.unInit();
         super.onDestroy();
     }
 
     // 获取配置文件信息
     public ConfigInfo getConfigInfo() {
-        return file_mgr.getConfigInfo();
+        return mFileManger.getConfigInfo();
+    }
+
+    // 获取用户信息
+    public UserInfo getUserInfo() {
+        return mUserManager.getUserInfo();
     }
 
     // 获取地图管理类
-    public MapMgr getMapMgr() {
-        return map_mgr;
+    public MapManger getMapManger() {
+        return mMapManger;
     }
 
     // 获取对话框管理类
-    public DialogMgr getDlgMgr() {
-        return dlg_mgr;
+    public DialogManger getDialogManger() {
+        return DialogManger;
     }
 
     // 获取服务管理类
-    public WebServiceMgr getServiceMgr() {
-        return service_mgr;
+    public WebServiceManger getWebServiceManger() {
+        return mWebServiceManger;
     }
 }

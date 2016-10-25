@@ -11,9 +11,9 @@ import cn.com.sgcc.epri.emap.util.MessageWhat;
  * Created by GuHeng on 2016/10/14.
  * 用户登录WEBSERVICE
  */
-public class LoginWebService extends UserWebService implements Runnable {
-    private Handler handler;
-    private UserInfo userinfo;
+public class LoginWebService extends BaseUserWebService implements Runnable {
+    private Handler mHandler;
+    private UserInfo mUserInfo;
 
     // 构造函数
     public LoginWebService(MainActivity context) {
@@ -26,18 +26,18 @@ public class LoginWebService extends UserWebService implements Runnable {
     }
 
     // 预处理
-    public void prepare(Handler handler, UserInfo userinfo) {
-        super.prepare(MessageWhat.MSG_LOGIN, userinfo);
-        this.handler = handler;
-        this.userinfo = userinfo;
+    public void prepare(Handler handler, UserInfo userInfo) {
+        super.prepare(MessageWhat.MSG_LOGIN, userInfo);
+        this.mHandler = handler;
+        this.mUserInfo = userInfo;
     }
 
     @Override
     public void run() {
-        super.call(userinfo);
+        super.call(mUserInfo);
         Message message = new Message();
         message.what = MessageWhat.MSG_LOGIN;
-        message.obj = userinfo;
-        handler.sendMessage(message);
+        message.obj = mUserInfo;
+        mHandler.sendMessage(message);
     }
 }

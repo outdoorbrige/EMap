@@ -1,16 +1,14 @@
-package cn.com.sgcc.epri.emap.manager;
+package cn.com.sgcc.epri.emap.manger;
 
 import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
 
-import cn.com.sgcc.epri.emap.MainActivity;
 import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**
  * Created by GuHeng on 2016/10/8.
  * 日志管理类
  */
-public class Log4jMgr {
+public class Log4jManger {
 
     // 初始化
     public static void init(String fileName) {

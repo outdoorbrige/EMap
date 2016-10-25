@@ -7,7 +7,7 @@
 
     <!--天地图地图控件-->
     <cn.com.sgcc.epri.emap.map.TMapView
-        android:id="@+id/emap_view"
+        android:id="@+id/map_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
@@ -16,22 +16,22 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/emap_menu_layer_popup_window"/>
+        <include layout="@layout/layer_menu"/>
     </LinearLayout>
 
     <!--搜索栏(搜索内容、分割条、搜索按钮)-->
     <LinearLayout
-        android:id="@+id/emap_search_layout"
+        android:id="@+id/search_bar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/bg_searchbar_9"
-        android:layout_alignParentTop="@id/emap_view">
+        android:background="@mipmap/search_bar_bg"
+        android:layout_alignParentTop="@id/map_view">
 
-        <include layout="@layout/emap_search_bar"/>
+        <include layout="@layout/search_bar"/>
     </LinearLayout>
 
     <!--用户登录对话框-->
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/emap_view_login"/>
+        <include layout="@layout/login"/>
     </LinearLayout>
 
     <!--用户注册对话框-->
@@ -49,21 +49,30 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/emap_view_register"/>
+        <include layout="@layout/register"/>
+    </LinearLayout>
+
+    <!--用户注销对话框-->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/logout"/>
     </LinearLayout>
 
     <!--地图切换(矢量图、影像图、地形图)-->
     <LinearLayout
-        android:id="@+id/emap_layer_layout"
+        android:id="@+id/layer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/emap_view">
+        android:layout_alignTop="@id/map_view">
 
-        <include layout="@layout/emap_meun_layer"/>
+        <include layout="@layout/layer"/>
     </LinearLayout>
 
     <!--地图切换 Popup Window-->
@@ -72,26 +81,26 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/emap_menu_layer_popup_window"/>
+        <include layout="@layout/layer_menu"/>
     </LinearLayout>
 
     <!--设置菜单(编辑、下载、...)-->
     <LinearLayout
-        android:id="@+id/emap_menu_layout"
+        android:id="@+id/setting_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignBottom="@id/emap_view">
+        android:layout_alignBottom="@id/map_view">
 
-        <include layout="@layout/emap_setting_menu_main"/>
+        <include layout="@layout/setting_menu"/>
     </LinearLayout>
 
     <!--工具栏(地图放大、缩小、定位)-->
     <LinearLayout
-        android:id="@+id/emap_tool_layout"
+        android:id="@+id/tool_bar"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -99,9 +108,9 @@
         android:layout_marginBottom="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_alignBottom="@id/emap_view">
+        android:layout_alignBottom="@id/map_view">
 
-        <include layout="@layout/emap_tool_bar"/>
+        <include layout="@layout/tool_bar"/>
     </LinearLayout>
 
 </RelativeLayout>

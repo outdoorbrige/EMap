@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/emap_view_register"
+    android:id="@+id/register"
     android:orientation="vertical"
     android:padding="10dp"
     android:paddingLeft="10dp"
@@ -14,7 +14,6 @@
     <TableRow>
         <!--用户注册-->
         <TextView
-            android:id="@+id/emap_user_register_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="用户注册"
@@ -25,7 +24,7 @@
     <TableRow>
         <!--用户名*-->
         <EditText
-            android:id="@+id/emap_view_register_user_text"
+            android:id="@+id/register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cursorVisible="true"
@@ -37,7 +36,7 @@
     <TableRow>
         <!--密码*-->
         <EditText
-            android:id="@+id/emap_view_register_password_text"
+            android:id="@+id/register_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -50,7 +49,7 @@
     <TableRow>
         <!--密码确认*-->
         <EditText
-            android:id="@+id/emap_view_register_confirm_password_text"
+            android:id="@+id/register_confirm_pwd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -63,7 +62,7 @@
     <TableRow>
         <!--昵称-->
         <EditText
-            android:id="@+id/emap_view_register_nickname_text"
+            android:id="@+id/nick_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:cursorVisible="true"
@@ -75,7 +74,7 @@
     <TableRow>
         <!--手机号-->
         <EditText
-            android:id="@+id/emap_view_register_telnumber_text"
+            android:id="@+id/tel_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
@@ -88,7 +87,7 @@
     <TableRow>
         <!--邮箱-->
         <EditText
-            android:id="@+id/emap_view_register_email_text"
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
@@ -101,14 +100,14 @@
     <TableRow>
         <!--注册-->
         <Button
-            android:id="@+id/emap_view_register_register_btn"
+            android:id="@+id/register_user_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="注册"/>
         <!--返回-->
         <Button
-            android:id="@+id/emap_view_register_return_btn"
+            android:id="@+id/register_cancel_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

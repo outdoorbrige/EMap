@@ -5,164 +5,191 @@ import org.ksoap2.serialization.PropertyInfo;
 
 import java.util.Hashtable;
 
+import cn.com.sgcc.epri.emap.util.UserInfoParamIndex;
+
 /**
  * Created by GuHeng on 2016/10/14.
  * 用户信息
  */
 public class UserInfo implements KvmSerializable {
-    private String id; // ID
-    private String username; // 用户名
-    private String password; // 密码
-    private String nickname; // 昵称
-    private String telnumber; // 电话号码
-    private String email; // 邮箱
-    private String viplevel; // VIP等级
-    private String createtime; // 创建时间
-    private String modifytime; // 最后修改时间
-    private String logintime; // 登录时间
-    private boolean successed; // 操作是否成功
-    private String emsg; // 错误信息
+    private String mId; // ID
+    private String mUserName; // 用户名
+    private String mPassword; // 密码
+    private String mNickName; // 昵称
+    private String mTelNumber; // 电话号码
+    private String mEMail; // 邮箱
+    private String mVipLevel; // VIP等级
+    private String mUserType; // 用户类型
+    private String mCreateDate; // 创建时间
+    private String mModifyDate; // 最后修改时间
+    private String mLoginDate; // 登录时间
+    private boolean mSuccess; // 操作是否成功
+    private String mErrorString; // 错误信息
 
     public UserInfo() {
     }
 
-    public UserInfo(String id, String username, String password, String nickname, String telnumber, String email, String viplevel, String createtime, String modifytime, String logintime, boolean successed, String emsg) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.telnumber = telnumber;
-        this.email = email;
-        this.viplevel = viplevel;
-        this.createtime = createtime;
-        this.modifytime = modifytime;
-        this.logintime = logintime;
-        this.successed = successed;
-        this.emsg = emsg;
+    public UserInfo(String id,
+                    String userName,
+                    String password,
+                    String nickName,
+                    String telNumber,
+                    String eMail,
+                    String vipLevel,
+                    String userType,
+                    String createDate,
+                    String modifyDate,
+                    String loginDate,
+                    boolean success,
+                    String errorString) {
+        this.mId = id;
+        this.mUserName = userName;
+        this.mPassword = password;
+        this.mNickName = nickName;
+        this.mTelNumber = telNumber;
+        this.mEMail = eMail;
+        this.mVipLevel = vipLevel;
+        this.mUserType = userType;
+        this.mCreateDate = createDate;
+        this.mModifyDate = modifyDate;
+        this.mLoginDate = loginDate;
+        this.mSuccess = success;
+        this.mErrorString = errorString;
     }
 
     public String getId() {
-        return id;
+        return mId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.mId = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return mUserName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.mUserName = userName;
     }
 
     public String getPassword() {
-        return password;
+        return mPassword;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.mPassword = password;
     }
 
-    public String getNickname() {
-        return nickname;
+    public String getNickName() {
+        return mNickName;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setNickName(String nickName) {
+        this.mNickName = nickName;
     }
 
-    public String getTelnumber() {
-        return telnumber;
+    public String getTelNumber() {
+        return mTelNumber;
     }
 
-    public void setTelnumber(String telnumber) {
-        this.telnumber = telnumber;
+    public void setTelNumber(String telNumber) {
+        this.mTelNumber = telNumber;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEMail() {
+        return mEMail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEMail(String eMail) {
+        this.mEMail = eMail;
     }
 
-    public String getViplevel() {
-        return viplevel;
+    public String getVipLevel() {
+        return mVipLevel;
     }
 
-    public void setViplevel(String viplevel) {
-        this.viplevel = viplevel;
+    public void setVipLevel(String vipLevel) {
+        this.mVipLevel = vipLevel;
     }
 
-    public String getCreatetime() {
-        return createtime;
+    public String getUserType() {
+        return mUserType;
     }
 
-    public void setCreatetime(String createtime) {
-        this.createtime = createtime;
+    public void setUserType(String userType) {
+        this.mUserType = userType;
     }
 
-    public String getModifytime() {
-        return modifytime;
+    public String getCreateDate() {
+        return mCreateDate;
     }
 
-    public void setModifytime(String modifytime) {
-        this.modifytime = modifytime;
+    public void setCreateDate(String createDate) {
+        this.mCreateDate = createDate;
     }
 
-    public String getLogintime() {
-        return logintime;
+    public String getModifyDate() {
+        return mModifyDate;
     }
 
-    public void setLogintime(String logintime) {
-        this.logintime = logintime;
+    public void setModifyDate(String modifyDate) {
+        this.mModifyDate = modifyDate;
     }
 
-    public boolean isSuccessed() {
-        return successed;
+    public String getLoginDate() {
+        return mLoginDate;
     }
 
-    public void setSuccessed(boolean successed) {
-        this.successed = successed;
+    public void setLoginDate(String loginDate) {
+        this.mLoginDate = loginDate;
     }
 
-    public String getEmsg() {
-        return emsg;
+    public boolean isSuccess() {
+        return mSuccess;
     }
 
-    public void setEmsg(String emsg) {
-        this.emsg = emsg;
+    public void setSuccess(boolean success) {
+        this.mSuccess = success;
+    }
+
+    public String getErrorString() {
+        return mErrorString;
+    }
+
+    public void setErrorString(String errorString) {
+        this.mErrorString = errorString;
     }
 
     public String toString() {
         return String.format(
-                "id:%s, " +
-                "username:%s, " +
-                "password:%s, " +
-                "nickname:%s, " +
-                "telnumber:%s, " +
-                "email:%s, " +
-                "viplevel:%s, " +
-                "createtime:%s, " +
-                "modifytime:%s, " +
-                "logintime:%s, " +
-                "successed:%s, " +
-                "emsg:%s",
-                id,
-                username,
-                password,
-                nickname,
-                telnumber,
-                email,
-                viplevel,
-                createtime,
-                modifytime,
-                logintime,
-                successed,
-                emsg);
+                "Id:%s, " +
+                "UserName:%s, " +
+                "Password:%s, " +
+                "NickName:%s, " +
+                "TelNumber:%s, " +
+                "EMail:%s, " +
+                "VipLevel:%s, " +
+                "UserType:%s, " +
+                "CreateDate:%s, " +
+                "ModifyDate:%s, " +
+                "LoginDate:%s, " +
+                "Success:%s, " +
+                "ErrorString:%s",
+
+                mId,
+                mUserName,
+                mPassword,
+                mNickName,
+                mTelNumber,
+                mEMail,
+                mVipLevel,
+                mUserType,
+                mCreateDate,
+                mModifyDate,
+                mLoginDate,
+                mSuccess,
+                mErrorString);
     }
 
     @Override
@@ -171,41 +198,44 @@ public class UserInfo implements KvmSerializable {
 
         switch (index)
         {
-            case 0:
-                object = id;
+            case UserInfoParamIndex.mIdIndex:
+                object = mId;
                 break;
-            case 1:
-                object = username;
+            case UserInfoParamIndex.mUserNameIndex:
+                object = mUserName;
                 break;
-            case 2:
-                object = password;
+            case UserInfoParamIndex.mPasswordIndex:
+                object = mPassword;
                 break;
-            case 3:
-                object = nickname;
+            case UserInfoParamIndex.mNickNameIndex:
+                object = mNickName;
                 break;
-            case 4:
-                object = telnumber;
+            case UserInfoParamIndex.mTelNumberIndex:
+                object = mTelNumber;
                 break;
-            case 5:
-                object = email;
+            case UserInfoParamIndex.mEMailIndex:
+                object = mEMail;
                 break;
-            case 6:
-                object = viplevel;
+            case UserInfoParamIndex.mVipLevelIndex:
+                object = mVipLevel;
                 break;
-            case 7:
-                object = createtime;
+            case UserInfoParamIndex.mUserTypeIndex:
+                object = mUserType;
                 break;
-            case 8:
-                object = modifytime;
+            case UserInfoParamIndex.mCreateDateIndex:
+                object = mCreateDate;
                 break;
-            case 9:
-                object = logintime;
+            case UserInfoParamIndex.mModifyDateIndex:
+                object = mModifyDate;
                 break;
-            case 10:
-                object = successed;
+            case UserInfoParamIndex.mLoginDateIndex:
+                object = mLoginDate;
                 break;
-            case 11:
-                object = emsg;
+            case UserInfoParamIndex.mSuccessIndex:
+                object = mSuccess;
+                break;
+            case UserInfoParamIndex.mErrorStringIndex:
+                object = mErrorString;
                 break;
             default:
                 object = null;
@@ -218,48 +248,51 @@ public class UserInfo implements KvmSerializable {
     @Override
     public int getPropertyCount() {
 
-        return 12;
+        return UserInfoParamIndex.count();
     }
 
     @Override
     public void setProperty(int index, Object object) {
         switch (index)
         {
-            case 0:
-                id = object.toString();
+            case UserInfoParamIndex.mIdIndex:
+                mId = object.toString();
                 break;
-            case 1:
-                username = object.toString();
+            case UserInfoParamIndex.mUserNameIndex:
+                mUserName = object.toString();
                 break;
-            case 2:
-                password = object.toString();
+            case UserInfoParamIndex.mPasswordIndex:
+                mPassword = object.toString();
                 break;
-            case 3:
-                nickname = object.toString();
+            case UserInfoParamIndex.mNickNameIndex:
+                mNickName = object.toString();
                 break;
-            case 4:
-                telnumber = object.toString();
+            case UserInfoParamIndex.mTelNumberIndex:
+                mTelNumber = object.toString();
                 break;
-            case 5:
-                email = object.toString();
+            case UserInfoParamIndex.mEMailIndex:
+                mEMail = object.toString();
                 break;
-            case 6:
-                viplevel = object.toString();
+            case UserInfoParamIndex.mVipLevelIndex:
+                mVipLevel = object.toString();
                 break;
-            case 7:
-                createtime = object.toString();
+            case UserInfoParamIndex.mUserTypeIndex:
+                mUserType = object.toString();
                 break;
-            case 8:
-                modifytime = object.toString();
+            case UserInfoParamIndex.mCreateDateIndex:
+                mCreateDate = object.toString();
                 break;
-            case 9:
-                logintime = object.toString();
+            case UserInfoParamIndex.mModifyDateIndex:
+                mModifyDate = object.toString();
                 break;
-            case 10:
-                successed = Boolean.getBoolean(object.toString());
+            case UserInfoParamIndex.mLoginDateIndex:
+                mLoginDate = object.toString();
                 break;
-            case 11:
-                emsg = object.toString();
+            case UserInfoParamIndex.mSuccessIndex:
+                mSuccess = Boolean.getBoolean(object.toString());
+                break;
+            case UserInfoParamIndex.mErrorStringIndex:
+                mErrorString = object.toString();
                 break;
             default:
                 break;
@@ -270,53 +303,57 @@ public class UserInfo implements KvmSerializable {
     public void getPropertyInfo(int index, Hashtable hashtable, PropertyInfo propertyinfo) {
         switch (index)
         {
-            case 0:
+            case UserInfoParamIndex.mIdIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("id");
+                propertyinfo.setName("mId");
                 break;
-            case 1:
+            case UserInfoParamIndex.mUserNameIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("username");
+                propertyinfo.setName("mUserName");
                 break;
-            case 2:
+            case UserInfoParamIndex.mPasswordIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("password");
+                propertyinfo.setName("mPassword");
                 break;
-            case 3:
+            case UserInfoParamIndex.mNickNameIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("nickname");
+                propertyinfo.setName("mNickName");
                 break;
-            case 4:
+            case UserInfoParamIndex.mTelNumberIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("telnumber");
+                propertyinfo.setName("mTelNumber");
                 break;
-            case 5:
+            case UserInfoParamIndex.mEMailIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("email");
+                propertyinfo.setName("mEMail");
                 break;
-            case 6:
+            case UserInfoParamIndex.mVipLevelIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("viplevel");
+                propertyinfo.setName("mVipLevel");
                 break;
-            case 7:
+            case UserInfoParamIndex.mUserTypeIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("createtime");
+                propertyinfo.setName("mUserType");
                 break;
-            case 8:
+            case UserInfoParamIndex.mCreateDateIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("modifytime");
+                propertyinfo.setName("mCreateDate");
                 break;
-            case 9:
+            case UserInfoParamIndex.mModifyDateIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("logintime");
+                propertyinfo.setName("mModifyDate");
                 break;
-            case 10:
+            case UserInfoParamIndex.mLoginDateIndex:
+                propertyinfo.setType(PropertyInfo.STRING_CLASS);
+                propertyinfo.setName("mLoginDate");
+                break;
+            case UserInfoParamIndex.mSuccessIndex:
                 propertyinfo.setType(PropertyInfo.BOOLEAN_CLASS);
-                propertyinfo.setName("successed");
+                propertyinfo.setName("mSuccess");
                 break;
-            case 11:
+            case UserInfoParamIndex.mErrorStringIndex:
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
-                propertyinfo.setName("emsg");
+                propertyinfo.setName("mErrorString");
                 break;
             default:
                 break;

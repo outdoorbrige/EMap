@@ -1,32 +1,30 @@
 package cn.com.sgcc.epri.emap.listener;
 
-import android.view.Gravity;
 import android.view.View;
-import android.widget.PopupWindow;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.layout.LayerLayout;
-import cn.com.sgcc.epri.emap.util.TransmitContext;
+import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
  * 地图类型切换监听器
  */
-public class LayerListener extends TransmitContext implements View.OnClickListener {
-    private LayerLayout layer_layout;
+public class LayerListener extends MainActivityContext implements View.OnClickListener {
+    private LayerLayout mLayerLayout;
 
     // 构造函数
-    public LayerListener(MainActivity context, LayerLayout layer_layout) {
+    public LayerListener(MainActivity context, LayerLayout layerLayout) {
         super(context);
-        this.layer_layout = layer_layout;
+        this.mLayerLayout = layerLayout;
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
-            case R.id.emap_meun_layer_btn:
-                layer_layout.showPopupWindow(view);
+            case R.id.layer_button:
+                mLayerLayout.showPopupWindow(view);
                 break;
             default:
                 break;
