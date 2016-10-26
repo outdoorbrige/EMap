@@ -3,8 +3,6 @@ package cn.com.sgcc.epri.emap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import org.apache.log4j.Logger;
-
 import cn.com.sgcc.epri.emap.manger.DialogManger;
 import cn.com.sgcc.epri.emap.manger.FileManger;
 import cn.com.sgcc.epri.emap.manger.LayoutManger;
@@ -13,8 +11,8 @@ import cn.com.sgcc.epri.emap.manger.MapManger;
 import cn.com.sgcc.epri.emap.manger.UserManager;
 import cn.com.sgcc.epri.emap.manger.WebServiceManger;
 import cn.com.sgcc.epri.emap.model.ConfigInfo;
-import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 
 /**
@@ -23,7 +21,6 @@ import cn.com.sgcc.epri.emap.util.PhoneResources;
  */
 public class MainActivity extends AppCompatActivity{
     private Log4jManger mLog4jManger; // 日志管理类
-    private Logger mLogger; // 日志对象
     private UserManager mUserManager; // 用户信息管理类
     private FileManger mFileManger; // 文件管理类
     private DialogManger DialogManger; // 对话框管理类
@@ -41,8 +38,8 @@ public class MainActivity extends AppCompatActivity{
         //      程序默认手机必须有内存卡
 
         // 初始化日志
+        mLog4jManger = new Log4jManger(this);
         mLog4jManger.init(PhoneResources.getLogFile(this));
-        mLogger = Logger.getLogger(this.getClass());
 
         // 初始化用户信息管理类
         mUserManager = new UserManager(this);
@@ -66,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
         mLayoutManger = new LayoutManger(this, mMapManger);
         mLayoutManger.init();
 
-        mLogger.info(String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",
+        getLog4jManger().log(this.getClass(), Log4jLevel.mInfo, String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",
                 DisplayMetricsUtil.getWidthPx(this),
                 DisplayMetricsUtil.getHeightPx(this),
                 this.getResources().getDisplayMetrics().density,
@@ -121,14 +118,19 @@ public class MainActivity extends AppCompatActivity{
         super.onDestroy();
     }
 
+    // 获取日志管理类
+    public Log4jManger getLog4jManger() {
+        return mLog4jManger;
+    }
+
     // 获取配置文件信息
     public ConfigInfo getConfigInfo() {
         return mFileManger.getConfigInfo();
     }
 
-    // 获取用户信息
-    public UserInfo getUserInfo() {
-        return mUserManager.getUserInfo();
+    // 获取用户信息管理类
+    public UserManager getUserManager() {
+        return mUserManager;
     }
 
     // 获取地图管理类

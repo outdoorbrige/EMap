@@ -13,13 +13,13 @@ public class FileManger extends MainActivityContext {
     private ConfigFile mConfigFile; // 配置文件解析对象
 
     // 构造函数
-    public FileManger(MainActivity context) {
-        super(context);
+    public FileManger(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mConfigFile = new ConfigFile(context);
+        mConfigFile = new ConfigFile(mMainActivity);
         mConfigFile.init();
     }
 

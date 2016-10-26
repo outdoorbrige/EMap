@@ -19,18 +19,18 @@ public class ToolLayout extends MainActivityContext {
     private Button mLocateButton; // 定位按钮
 
     // 构造函数
-    public ToolLayout(MainActivity context) {
-        super(context);
+    public ToolLayout(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mLayout = context.findViewById(R.id.tool_bar);
-        mZoomInButton = (Button)context.findViewById(R.id.zoon_in);
-        mZoomOutButton = (Button)context.findViewById(R.id.zoom_out);
-        mLocateButton = (Button)context.findViewById(R.id.locate);
+        mLayout = mMainActivity.findViewById(R.id.tool_bar);
+        mZoomInButton = (Button) mMainActivity.findViewById(R.id.zoon_in);
+        mZoomOutButton = (Button) mMainActivity.findViewById(R.id.zoom_out);
+        mLocateButton = (Button) mMainActivity.findViewById(R.id.locate);
 
-        ToolListener listener = new ToolListener(context);
+        ToolListener listener = new ToolListener(mMainActivity);
 
         mZoomInButton.setOnClickListener(listener);
         mZoomOutButton.setOnClickListener(listener);

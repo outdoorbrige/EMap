@@ -16,8 +16,8 @@ public class LoginWebService extends BaseUserWebService implements Runnable {
     private UserInfo mUserInfo;
 
     // 构造函数
-    public LoginWebService(MainActivity context) {
-        super(context);
+    public LoginWebService(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化

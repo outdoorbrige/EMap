@@ -1,7 +1,5 @@
 package cn.com.sgcc.epri.emap.dialog;
 
-import android.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,14 +10,12 @@ import android.widget.TextView;
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.LoginListener;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/10/11.
  * 用户登录对话框
  */
-public class LoginDialog extends MainActivityContext {
-    private AlertDialog mAlertDialog; // 登录对话框
+public class LoginDialog extends BaseAlertDialog {
     private View mLayout; // 布局
     private EditText mUserName; // 用户名
     private EditText mPassword; // 密码
@@ -31,41 +27,37 @@ public class LoginDialog extends MainActivityContext {
     private TextView mForgetPassword; // 忘记密码
 
     // 构造函数
-    public LoginDialog(MainActivity context) {
-        super(context);
+    public LoginDialog(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        LayoutInflater inflater = context.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.login, (ViewGroup)context.findViewById(R.id.login), false);
-        mAlertDialog = new AlertDialog.Builder(context).create();
-        mAlertDialog.setView(layout);
-        mAlertDialog.setCancelable(false); // 点击对话框外地方不消失
+        super.init(R.layout.login, (ViewGroup) mMainActivity.findViewById(R.id.login), false, false);
     }
 
     // 显示对话框
     public void show() {
+        super.show();
         // AlertDialog自定义setView
         // 必须show对话框，然后才能查找控件
-        mAlertDialog.show();
         initWidget();
     }
 
     // 初始化控件
     private void initWidget() {
         if(mLayout == null) { // 只初始化一次控件对象
-            mLayout = mAlertDialog.findViewById(R.id.login);
-            mUserName = (EditText) mAlertDialog.findViewById(R.id.login_name);
-            mPassword = (EditText) mAlertDialog.findViewById(R.id.login_pwd);
-            mKeepPassword = (CheckBox) mAlertDialog.findViewById(R.id.keep_pwd);
-            mAutoLogin = (CheckBox) mAlertDialog.findViewById(R.id.auto_login);
-            mRegisterButton = (Button) mAlertDialog.findViewById(R.id.register_button);
-            mLoginButton = (Button) mAlertDialog.findViewById(R.id.login_button);
-            mCloseButton = (Button) mAlertDialog.findViewById(R.id.login_cancel_button);
-            mForgetPassword = (TextView) mAlertDialog.findViewById(R.id.forget_pwd);
+            mLayout = getAlertDialog().findViewById(R.id.login);
+            mUserName = (EditText) getAlertDialog().findViewById(R.id.login_name);
+            mPassword = (EditText) getAlertDialog().findViewById(R.id.login_pwd);
+            mKeepPassword = (CheckBox) getAlertDialog().findViewById(R.id.keep_pwd);
+            mAutoLogin = (CheckBox) getAlertDialog().findViewById(R.id.auto_login);
+            mRegisterButton = (Button) getAlertDialog().findViewById(R.id.register_button);
+            mLoginButton = (Button) getAlertDialog().findViewById(R.id.login_button);
+            mCloseButton = (Button) getAlertDialog().findViewById(R.id.login_cancel_button);
+            mForgetPassword = (TextView) getAlertDialog().findViewById(R.id.forget_pwd);
 
-            LoginListener listener = new LoginListener(context);
+            LoginListener listener = new LoginListener(mMainActivity);
 
             mRegisterButton.setOnClickListener(listener);
             mLoginButton.setOnClickListener(listener);
@@ -76,20 +68,5 @@ public class LoginDialog extends MainActivityContext {
             mKeepPassword.setChecked(false);
             mAutoLogin.setChecked(false);
         }
-    }
-
-    // 隐藏对话框
-    public void hide() {
-        mAlertDialog.hide();
-    }
-
-    // 销毁对话框
-    public void dimiss() {
-        mAlertDialog.dismiss();
-    }
-
-    // 获取对话框句柄
-    public AlertDialog getAlertDialog() {
-        return mAlertDialog;
     }
 }

@@ -2,7 +2,6 @@ package cn.com.sgcc.epri.emap.file;
 
 import android.util.Xml;
 
-import org.apache.log4j.Logger;
 import org.xmlpull.v1.XmlPullParser;
 
 import java.io.BufferedInputStream;
@@ -12,6 +11,7 @@ import java.io.InputStream;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.ConfigInfo;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
@@ -23,13 +23,13 @@ public class ConfigFile extends MainActivityContext {
     private ConfigInfo mConfigInfo; // 配置文件对象
 
     // 构造函数
-    public ConfigFile(MainActivity context) {
-        super(context);
+    public ConfigFile(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        String configFile = PhoneResources.getConfigFile(context);
+        String configFile = PhoneResources.getConfigFile(mMainActivity);
         File file = new File(configFile);
         if(file.exists()) { // 判断文件是否存在
             try {
@@ -42,7 +42,6 @@ public class ConfigFile extends MainActivityContext {
                 int eventType = parser.getEventType(); // 得到第一个时间类型
                 while(eventType != XmlPullParser.END_DOCUMENT) { // 如果事件类型不是文档结束的话，则不断处理事件
                     String tagName = parser.getName(); // 获得解析器当前元素的名称
-                    //Logger.getLogger(this.getClass()).info(tagName);
                     switch (eventType) {
                         case XmlPullParser.START_DOCUMENT: // 文档开始事件
                             mConfigInfo = new ConfigInfo();
@@ -79,12 +78,12 @@ public class ConfigFile extends MainActivityContext {
                     eventType = parser.next(); // 处理下一个事件
                 }
 
-                Logger.getLogger(this.getClass()).info(mConfigInfo.toString());
+                mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mInfo, mConfigInfo.toString());
             }catch (Exception e) {
-                Logger.getLogger(this.getClass()).error(e.getStackTrace().toString());
+                mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, e.toString());
             }
         } else {
-            Logger.getLogger(this.getClass()).error(String.format("配置文件%s不存在", configFile));
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, String.format("配置文件%s不存在", configFile));
         }
     }
 

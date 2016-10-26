@@ -25,19 +25,19 @@ public class MenuLayout extends MainActivityContext {
     private ArrayList<Button> mArrayListButtons = new ArrayList<Button>(); // 展开和折叠菜单中控制的按钮集合
 
     // 构造函数
-    public MenuLayout(MainActivity context) {
-        super(context);
+    public MenuLayout(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mLayout = context.findViewById(R.id.setting_menu);
-        mFavoriteButton = (Button)context.findViewById(R.id.favorite);
-        mClearButton = (Button)context.findViewById(R.id.clear);
-        mSetButton = (Button)context.findViewById(R.id.setting);
-        mOfflineButton = (Button)context.findViewById(R.id.download);
-        mToolButton = (Button)context.findViewById(R.id.tool);
-        mMainButton = (Button)context.findViewById(R.id.menu);
+        mLayout = mMainActivity.findViewById(R.id.setting_menu);
+        mFavoriteButton = (Button) mMainActivity.findViewById(R.id.favorite);
+        mClearButton = (Button) mMainActivity.findViewById(R.id.clear);
+        mSetButton = (Button) mMainActivity.findViewById(R.id.setting);
+        mOfflineButton = (Button) mMainActivity.findViewById(R.id.download);
+        mToolButton = (Button) mMainActivity.findViewById(R.id.tool);
+        mMainButton = (Button) mMainActivity.findViewById(R.id.menu);
 
         mArrayListButtons.add(mToolButton);
         mArrayListButtons.add(mOfflineButton);
@@ -45,7 +45,7 @@ public class MenuLayout extends MainActivityContext {
         mArrayListButtons.add(mClearButton);
         mArrayListButtons.add(mFavoriteButton);
 
-        MenuListener listener = new MenuListener(context, mArrayListButtons);
+        MenuListener listener = new MenuListener(mMainActivity, mArrayListButtons);
 
         mFavoriteButton.setOnClickListener(listener);
         mClearButton.setOnClickListener(listener);

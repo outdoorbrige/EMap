@@ -13,8 +13,8 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
 public class ToolListener extends MainActivityContext implements View.OnClickListener {
 
     // 构造函数
-    public ToolListener(MainActivity context) {
-        super(context);
+    public ToolListener(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     @Override
@@ -36,28 +36,28 @@ public class ToolListener extends MainActivityContext implements View.OnClickLis
 
     // 放大
     private void onClickedZoomIn() {
-        if(!context.getMapManger().zoomIn()) {
-            ((Button) context.findViewById(R.id.zoon_in)).setClickable(false);
-            ((Button) context.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoom_in_max_bg);
+        if(!mMainActivity.getMapManger().zoomIn()) {
+            ((Button) mMainActivity.findViewById(R.id.zoon_in)).setClickable(false);
+            ((Button) mMainActivity.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoom_in_max_bg);
         }
 
-        ((Button) context.findViewById(R.id.zoom_out)).setClickable(true);
-        ((Button) context.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_bg);
+        ((Button) mMainActivity.findViewById(R.id.zoom_out)).setClickable(true);
+        ((Button) mMainActivity.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_bg);
     }
 
     // 缩小
     private void onClickedZoomOut() {
-        if(!context.getMapManger().zoomOut()) {
-            ((Button) context.findViewById(R.id.zoom_out)).setClickable(false);
-            ((Button) context.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_min_bg);
+        if(!mMainActivity.getMapManger().zoomOut()) {
+            ((Button) mMainActivity.findViewById(R.id.zoom_out)).setClickable(false);
+            ((Button) mMainActivity.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_min_bg);
         }
 
-        ((Button)context.findViewById(R.id.zoon_in)).setClickable(true);
-        ((Button)context.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoon_in_bg);
+        ((Button) mMainActivity.findViewById(R.id.zoon_in)).setClickable(true);
+        ((Button) mMainActivity.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoon_in_bg);
     }
 
     // 定位
     private void onClickedLocate() {
-        context.getMapManger().setCenter();
+        mMainActivity.getMapManger().setCenter();
     }
 }

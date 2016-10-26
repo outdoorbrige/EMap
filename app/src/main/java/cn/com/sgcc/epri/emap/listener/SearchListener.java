@@ -13,8 +13,8 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
 public class SearchListener extends MainActivityContext implements View.OnClickListener {
 
     // 构造函数
-    public SearchListener(MainActivity context) {
-        super(context);
+    public SearchListener(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     @Override
@@ -33,12 +33,13 @@ public class SearchListener extends MainActivityContext implements View.OnClickL
 
     // 点击登录按钮
     private void onClickedLogin() {
-        UserInfo userInfo = context.getUserInfo();
-        if(userInfo == null || !userInfo.isSuccess()) { // 用户未登录或者登录失败
+        UserInfo userInfo = mMainActivity.getUserManager().getUserInfo();
+        if(userInfo == null || !userInfo.isSuccess()) { // 用户离线
             // 弹出登录对话框
-            context.getDialogManger().getLoginDialog().show();
-        } else { // 用户登录成功
-
+            mMainActivity.getDialogManger().getLoginDialog().show();
+        } else { // 用户在线
+            // 弹出注销对话框
+            mMainActivity.getDialogManger().getLogoutDialog().show();
         }
     }
 

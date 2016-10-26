@@ -7,10 +7,10 @@ import cn.com.sgcc.epri.emap.MainActivity;
  * 传递上下文句柄类
  */
 public class MainActivityContext {
-    protected MainActivity context; // 上下文句柄
+    protected MainActivity mMainActivity; // 上下文句柄
 
     // 构造函数
-    public MainActivityContext(MainActivity context) {
-        this.context = context;
+    protected MainActivityContext(MainActivity mainActivity) {
+        this.mMainActivity = mainActivity;
     }
 }

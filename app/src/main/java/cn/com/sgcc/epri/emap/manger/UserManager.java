@@ -12,8 +12,8 @@ public class UserManager extends MainActivityContext {
     private UserInfo mUserInfo; // 用户信息
 
     // 构造函数
-    public UserManager (MainActivity context) {
-        super(context);
+    public UserManager (MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化

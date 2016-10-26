@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.com.sgcc.epri.emap.MainActivity">
+    tools:mMainActivity="cn.com.sgcc.epri.emap.MainActivity">
 
     <!--天地图地图控件-->
     <cn.com.sgcc.epri.emap.map.TMapView

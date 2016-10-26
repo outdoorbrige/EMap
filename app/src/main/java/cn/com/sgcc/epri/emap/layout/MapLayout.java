@@ -12,8 +12,8 @@ public class MapLayout extends MainActivityContext {
     private MapManger mMapManger; // 天地图控制类
 
     // 构造函数
-    public MapLayout(MainActivity context, MapManger mapManger) {
-        super(context);
+    public MapLayout(MainActivity mainActivity, MapManger mapManger) {
+        super(mainActivity);
         this.mMapManger = mapManger;
     }
 

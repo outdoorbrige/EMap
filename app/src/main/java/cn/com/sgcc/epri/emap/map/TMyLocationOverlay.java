@@ -10,14 +10,14 @@ import com.tianditu.android.maps.MyLocationOverlay;
  * Created by GuHeng on 2016/9/20.
  */
 public class TMyLocationOverlay extends MyLocationOverlay {
-    private Context context;
+    private Context mContext;
 
-    public TMyLocationOverlay(Context var1, MapView var2) {
-        super(var1, var2);
-        context = var1;
+    public TMyLocationOverlay(Context context, MapView mapView) {
+        super(context, mapView);
+        mContext = context;
     }
 
-    public void onLocationChanged(Location var1) {
-        super.onLocationChanged(var1);
+    public void onLocationChanged(Location location) {
+        super.onLocationChanged(location);
     }
 }

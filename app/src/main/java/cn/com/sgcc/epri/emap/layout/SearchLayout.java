@@ -18,17 +18,17 @@ public class SearchLayout extends MainActivityContext {
     private Button mSearchButton; // 查找按钮
 
     // 构造函数
-    public SearchLayout(MainActivity context) {
-        super(context);
+    public SearchLayout(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mLayout = context.findViewById(R.id.search_bar);
-        mLoginButton = (Button)context.findViewById(R.id.user_login_button);
-        mSearchButton = (Button)context.findViewById(R.id.search_button);
+        mLayout = mMainActivity.findViewById(R.id.search_bar);
+        mLoginButton = (Button) mMainActivity.findViewById(R.id.user_login_button);
+        mSearchButton = (Button) mMainActivity.findViewById(R.id.search_button);
 
-        SearchListener listener = new SearchListener(context);
+        SearchListener listener = new SearchListener(mMainActivity);
 
         mLoginButton.setOnClickListener(listener);
         mSearchButton.setOnClickListener(listener);

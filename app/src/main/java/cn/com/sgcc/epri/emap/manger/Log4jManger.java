@@ -1,17 +1,29 @@
 package cn.com.sgcc.epri.emap.manger;
 
-import org.apache.log4j.Level;
+import android.widget.Toast;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+import cn.com.sgcc.epri.emap.MainActivity;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
+import cn.com.sgcc.epri.emap.util.MainActivityContext;
 import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**
  * Created by GuHeng on 2016/10/8.
  * 日志管理类
  */
-public class Log4jManger {
+public class Log4jManger extends MainActivityContext {
+    private Logger mLogger; // 日志对象
+
+    // 构造函数
+    public Log4jManger(MainActivity mainActivity) {
+        super(mainActivity);
+    }
 
     // 初始化
-    public static void init(String fileName) {
+    public void init(String fileName) {
         final LogConfigurator logConfigurator = new LogConfigurator();
 
         //设置文件名
@@ -24,7 +36,7 @@ public class Log4jManger {
         logConfigurator.setLevel("org.apache", Level.INFO);
 
         //设置 输出到日志文件的文字格式 默认 %d %-5p [%c{2}]-[%L] %m%n
-        logConfigurator.setFilePattern("%d %-5p [%c{2}]-[%L] %m%n");
+        logConfigurator.setFilePattern("[%d{dd年MM月yyyy日HH时mm分ss秒}] [%p] %m%n");
 
         //设置输出到控制台的文字格式 默认%m%n
         logConfigurator.setLogCatPattern("%m%n");
@@ -51,5 +63,46 @@ public class Log4jManger {
         logConfigurator.setInternalDebugging(false);
 
         logConfigurator.configure();
+    }
+
+    // 写日志
+    public void log(Class clazz, int level, String message) {
+        mLogger = Logger.getLogger(clazz);
+
+        String msg = "";
+
+        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
+        if(stackTraceElement != null) {
+            msg = "[" + stackTraceElement.getFileName() + "]" +
+                    "[" + stackTraceElement.getMethodName() + "]" +
+                    "[" + stackTraceElement.getLineNumber() + "]";
+        }
+        msg += message;
+
+        switch (level) {
+            case Log4jLevel.mVerBose:
+                break;
+            case Log4jLevel.mDebug:
+                mLogger.debug(msg);
+                break;
+            case Log4jLevel.mInfo:
+                mLogger.info(msg);
+                break;
+            case Log4jLevel.mWarn:
+                mLogger.warn(msg);
+                break;
+            case Log4jLevel.mError:
+                mLogger.error(msg);
+                break;
+            case Log4jLevel.mAssert:
+                break;
+            default:
+                break;
+        }
+    }
+
+    // 显示消息
+    public void show(String message) {
+        Toast.makeText(mMainActivity, message, Toast.LENGTH_SHORT).show();
     }
 }

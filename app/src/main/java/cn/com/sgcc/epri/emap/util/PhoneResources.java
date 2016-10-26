@@ -16,14 +16,14 @@ import cn.com.sgcc.epri.emap.R;
 public class PhoneResources {
 
     // 判断手机SD卡资源是否可用
-    public static boolean sdCardExist() {
+    public static boolean isSDCard() {
         return (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED));
     }
 
     // 获取手机SD卡根路径
-    public static String getSDPath() {
+    public static String getSDCardRoot() {
         String path = null;
-        if(sdCardExist()) {
+        if(isSDCard()) {
             path = Environment.getExternalStorageDirectory().toString() + File.separator;
         } else {
             path = null;
@@ -33,12 +33,12 @@ public class PhoneResources {
     }
 
     // 获取APP名称
-    public static String getAppName(MainActivity context) {
-        return context.getResources().getString(R.string.app_name);
+    public static String getAppName(MainActivity mainActivity) {
+        return mainActivity.getResources().getString(R.string.app_name);
     }
 
     // 创建路径
-    public static void mkDir(String path) {
+    public static void mkdir(String path) {
         // 判断路径是否存在，不存在，就创建
         File dir = new File(path);
         if(!dir.exists()) {
@@ -47,12 +47,12 @@ public class PhoneResources {
     }
 
     // 获取项目工作根路径
-    public static String getWorkPath(MainActivity context) {
+    public static String getWorkPath(MainActivity mainActivity) {
         String path = null;
 
-        if(sdCardExist()) {
-            path = getSDPath() + getAppName(context) + File.separator;
-            mkDir(path);
+        if(isSDCard()) {
+            path = getSDCardRoot() + getAppName(mainActivity) + File.separator;
+            mkdir(path);
         } else {
             path = null;
         }
@@ -61,19 +61,19 @@ public class PhoneResources {
     }
 
     // 获取当前时间字符串yyyy-MM-dd_HH:mm:ss
-    public static String getNowTimeString() {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        Date nowTime = new Date(System.currentTimeMillis());
+    public static String getCurrentDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
 
-        return format.format(nowTime);
+        return simpleDateFormat.format(date);
     }
 
     // 获取配置文件路径
-    public static String getConfigFile(MainActivity context) {
+    public static String getConfigFile(MainActivity mainActivity) {
         String file;
 
-        if(sdCardExist()) {
-            file = getWorkPath(context) + "EMap.config";
+        if(isSDCard()) {
+            file = getWorkPath(mainActivity) + getAppName(mainActivity) + ".config";
         } else {
             file = null;
         }
@@ -82,11 +82,11 @@ public class PhoneResources {
     }
 
     // 获取日志文件名
-    public static String getLogFile(MainActivity context) {
+    public static String getLogFile(MainActivity mainActivity) {
         String file;
 
-        if(sdCardExist()) {
-            file = getWorkPath(context) + "log" + File.separator + getNowTimeString() + ".log";
+        if(isSDCard()) {
+            file = getWorkPath(mainActivity) + "log" + File.separator + getCurrentDate() + ".log";
         } else {
             file = null;
         }
@@ -95,12 +95,12 @@ public class PhoneResources {
     }
 
     // 获取地图缓冲区路径
-    public static String getMapCachePath(MainActivity context) {
+    public static String getMapCachePath(MainActivity mainActivity) {
         String path;
 
-        if(sdCardExist()) {
-            path = getWorkPath(context) + "files" + File.separator + "map" + File.separator;
-            mkDir(path);
+        if(isSDCard()) {
+            path = getWorkPath(mainActivity) + "files" + File.separator + "map" + File.separator;
+            mkdir(path);
         } else {
             path = null;
         }
@@ -109,12 +109,12 @@ public class PhoneResources {
     }
 
     // 获取离线地图路径
-    public static String getOfflineMapPath(MainActivity context) {
+    public static String getOfflineMapPath(MainActivity mainActivity) {
         String path;
 
-        if(sdCardExist()) {
-            path = getWorkPath(context) + "offlinemap" + File.separator;
-            mkDir(path);
+        if(isSDCard()) {
+            path = getWorkPath(mainActivity) + "offlinemap" + File.separator;
+            mkdir(path);
         } else {
             path = null;
         }

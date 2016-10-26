@@ -16,19 +16,19 @@ public class DialogManger extends MainActivityContext {
     private LogoutDialog mLogoutDialog; // 注销对话框
 
     // 构造函数
-    public DialogManger(MainActivity context) {
-        super(context);
+    public DialogManger(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mLoginDialog = new LoginDialog(context);
+        mLoginDialog = new LoginDialog(mMainActivity);
         mLoginDialog.init();
 
-        mRegisterDialog = new RegisterDialog(context);
+        mRegisterDialog = new RegisterDialog(mMainActivity);
         mRegisterDialog.init();
 
-        mLogoutDialog = new LogoutDialog(context);
+        mLogoutDialog = new LogoutDialog(mMainActivity);
         mLogoutDialog.init();
     }
 

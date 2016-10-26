@@ -15,8 +15,8 @@ public class LayerListener extends MainActivityContext implements View.OnClickLi
     private LayerLayout mLayerLayout;
 
     // 构造函数
-    public LayerListener(MainActivity context, LayerLayout layerLayout) {
-        super(context);
+    public LayerListener(MainActivity mainActivity, LayerLayout layerLayout) {
+        super(mainActivity);
         this.mLayerLayout = layerLayout;
     }
 

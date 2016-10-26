@@ -6,14 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import org.apache.log4j.Logger;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.Algorithm;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 import cn.com.sgcc.epri.emap.util.UserType;
@@ -27,8 +25,8 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
     private UserInfo mReturnUserInfo; // 返回的用户信息
 
     // 构造函数
-    public LoginListener(MainActivity context) {
-        super(context);
+    public LoginListener(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     @Override
@@ -41,7 +39,7 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
                 onClickedLogin();
                 break;
             case R.id.login_cancel_button: // 关闭
-                onClickedClose();
+                onClickedCancel();
                 break;
             default:
                 break;
@@ -50,23 +48,23 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
 
     // 注册
     private void onClickedRegister() {
-        context.getDialogManger().getRegisterDialog().show();
+        mMainActivity.getDialogManger().getRegisterDialog().show();
     }
 
     // 登录
     private void onClickedLogin() {
-        String userName = ((EditText)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_name))).getText().toString();
-        String password = ((EditText)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_pwd))).getText().toString();
-        boolean isKeepPassword = ((CheckBox)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.keep_pwd))).isChecked();
-        boolean isAutoLogin = ((CheckBox)(context.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.auto_login))).isChecked();
+        String userName = ((EditText)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_name))).getText().toString();
+        String password = ((EditText)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_pwd))).getText().toString();
+        boolean isKeepPassword = ((CheckBox)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.keep_pwd))).isChecked();
+        boolean isAutoLogin = ((CheckBox)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.auto_login))).isChecked();
 
         if(userName.isEmpty()) {
-            Toast.makeText(context, "错误:用户名不能为空!", Toast.LENGTH_SHORT).show();
+            mMainActivity.getLog4jManger().show("错误:用户名不能为空!");
             return;
         }
 
         if(password.isEmpty()) {
-            Toast.makeText(context, "错误:密码不能为空!", Toast.LENGTH_SHORT).show();
+            mMainActivity.getLog4jManger().show("错误:密码不能为空!");
             return;
         }
 
@@ -81,10 +79,12 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if(mReturnUserInfo.isSuccess()) {
-                        Toast.makeText(context, String.format("恭喜%s登录成功！", mUserInfo.getUserName()), Toast.LENGTH_SHORT).show();
-                        onClickedClose(); // 关闭登录窗口
+                        mMainActivity.getLog4jManger().show(String.format("恭喜%s登录成功！", mUserInfo.getUserName()));
+                        onClickedCancel(); // 关闭登录窗口
 
-                        Button loginButton = ((Button)(context.findViewById(R.id.user_login_button)));
+                        mMainActivity.getUserManager().setUserInfo(mUserInfo);
+
+                        Button loginButton = ((Button)(mMainActivity.findViewById(R.id.user_login_button)));
                         if(UserType.mNormalType.equals(mUserInfo.getUserType())) {
                             loginButton.setBackgroundResource(R.mipmap.online_bg);
                         } else if(UserType.mAdminType.equals(mUserInfo.getUserType())) {
@@ -94,18 +94,18 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
                         }
                     } else {
                         // 登录失败
-                        Toast.makeText(context, mReturnUserInfo.getErrorString(), Toast.LENGTH_SHORT).show();
-                        Logger.getLogger(this.getClass()).info(mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManger().show(mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
                     }
                 }
             }
         };
 
-        context.getWebServiceManger().LoginService(mHandler, mUserInfo);
+        mMainActivity.getWebServiceManger().LoginService(mHandler, mUserInfo);
     }
 
-    // 关闭
-    private void onClickedClose() {
-        context.getDialogManger().getLoginDialog().hide();
+    // 取消
+    private void onClickedCancel() {
+        mMainActivity.getDialogManger().getLoginDialog().hide();
     }
 }

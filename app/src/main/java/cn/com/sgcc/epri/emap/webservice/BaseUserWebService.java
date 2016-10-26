@@ -1,6 +1,5 @@
 package cn.com.sgcc.epri.emap.webservice;
 
-import org.apache.log4j.Logger;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
 import org.ksoap2.serialization.SoapObject;
@@ -10,6 +9,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.ConfigInfo;
 import cn.com.sgcc.epri.emap.model.UserInfo;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
@@ -26,13 +26,13 @@ public class BaseUserWebService extends MainActivityContext {
     private HttpTransportSE mHttpTransportSE;
 
     // 构造函数
-    protected BaseUserWebService(MainActivity context) {
-        super(context);
+    protected BaseUserWebService(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     protected void init() {
-        mConfigInfo = context.getConfigInfo();
+        mConfigInfo = mMainActivity.getConfigInfo();
         mSoapEnvelopeVer = getSoapEnvelopeVer(mConfigInfo.getSoapVersion());
     }
 
@@ -58,9 +58,10 @@ public class BaseUserWebService extends MainActivityContext {
             success = false;
             userInfo.setSuccess(false);
             userInfo.setErrorString(e.toString());
-            Logger.getLogger(this.getClass()).error(e.toString());
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, e.toString());
+        } finally {
+            return success;
         }
-        return success;
     }
 
     // 注册预处理
@@ -132,7 +133,7 @@ public class BaseUserWebService extends MainActivityContext {
             success = false;
             String e = String.format("解析服务返回结果失败!");
             userInfo.setErrorString(e);
-            Logger.getLogger(this.getClass()).error(e);
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, e);
         }
 
         return success;
@@ -148,7 +149,7 @@ public class BaseUserWebService extends MainActivityContext {
         }else if("1.2".equals(soapVersion)) {
             ver = SoapEnvelope.VER12;
         } else {
-            Logger.getLogger(this.getClass()).error(String.format("SOAP协议版本%s号无效", soapVersion));
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, String.format("SOAP协议版本号:%s无效！", soapVersion));
         }
 
         return ver;
@@ -164,7 +165,7 @@ public class BaseUserWebService extends MainActivityContext {
                 value = temp_value;
             }
         } else {
-            Logger.getLogger(this.getClass()).error(String.format("属性%s不存在!", key));
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, String.format("属性:%s不存在！", key));
         }
         return value;
     }

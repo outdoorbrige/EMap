@@ -17,16 +17,16 @@ public class WebServiceManger extends MainActivityContext {
     private LoginWebService mLoginWebService; // 用户登录服务
 
     // 构造函数
-    public WebServiceManger(MainActivity context) {
-        super(context);
+    public WebServiceManger(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mRegisterWebService = new RegisterWebService(context);
+        mRegisterWebService = new RegisterWebService(mMainActivity);
         mRegisterWebService.init();
 
-        mLoginWebService = new LoginWebService(context);
+        mLoginWebService = new LoginWebService(mMainActivity);
         mLoginWebService.init();
     }
 

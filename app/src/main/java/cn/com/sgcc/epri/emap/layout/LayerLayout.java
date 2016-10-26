@@ -9,13 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
-import org.apache.log4j.Logger;
-
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.LayerListViewListener;
 import cn.com.sgcc.epri.emap.listener.LayerListener;
 import cn.com.sgcc.epri.emap.util.ListViewAdaptWidth;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
@@ -31,30 +30,30 @@ public class LayerLayout extends MainActivityContext {
     private int mSelectedItemId; // 被选择的菜单项id
 
     // 构造函数
-    public LayerLayout(MainActivity context) {
-        super(context);
+    public LayerLayout(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mLayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mLayout = context.findViewById(R.id.layer);
-        mLayerButton = (Button) context.findViewById(R.id.layer_button);
-        mLayerButton.setOnClickListener(new LayerListener(context, this));
+        mLayoutInflater = (LayoutInflater) mMainActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayout = mMainActivity.findViewById(R.id.layer);
+        mLayerButton = (Button) mMainActivity.findViewById(R.id.layer_button);
+        mLayerButton.setOnClickListener(new LayerListener(mMainActivity, this));
         mSelectedItemId = 1; // 默认选中第二项(矢量图)
 
-        Logger.getLogger(this.getClass()).info(String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
+        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mInfo, String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
     }
 
     // 显示弹出菜单
     public void showPopupWindow(View view) {
         if (mPopupWindow == null) {
-            View popupView = LayoutInflater.from(context).inflate(R.layout.layer_menu, null);
+            View popupView = LayoutInflater.from(mMainActivity).inflate(R.layout.layer_menu, null);
             ListViewAdaptWidth listViewAdaptWidth = (ListViewAdaptWidth) popupView.findViewById(R.id.layer_menu_list);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_single_choice, mListItems);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_single_choice, mListItems);
             listViewAdaptWidth.setAdapter(arrayAdapter);
             listViewAdaptWidth.setItemsCanFocus(false);
-            listViewAdaptWidth.setOnItemClickListener(new LayerListViewListener(context, this));
+            listViewAdaptWidth.setOnItemClickListener(new LayerListViewListener(mMainActivity, this));
             listViewAdaptWidth.setItemChecked(getSelectedItemId(), true);
 
             mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);

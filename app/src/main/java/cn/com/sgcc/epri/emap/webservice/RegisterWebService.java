@@ -16,8 +16,8 @@ public class RegisterWebService extends BaseUserWebService implements Runnable {
     private UserInfo userInfo;
 
     // 构造函数
-    public RegisterWebService(MainActivity context) {
-        super(context);
+    public RegisterWebService(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化

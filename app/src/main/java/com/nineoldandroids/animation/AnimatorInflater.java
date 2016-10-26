@@ -86,7 +86,7 @@ public class AnimatorInflater {
     /**
      * Loads an {@link Animator} object from a resource
      *
-     * @param context Application context used to access resources
+     * @param context Application mMainActivity used to access resources
      * @param id The resource id of the animation to load
      * @return The animator object reference by the specified id
      * @throws NotFoundException when the animation cannot be loaded
@@ -204,7 +204,7 @@ public class AnimatorInflater {
     }
 
     /**
-     * Creates a new animation whose parameters come from the specified context and
+     * Creates a new animation whose parameters come from the specified mMainActivity and
      * attributes set.
      *
      * @param context the application environment

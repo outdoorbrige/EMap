@@ -1,65 +1,72 @@
 package cn.com.sgcc.epri.emap.dialog;
 
-import android.app.AlertDialog;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.listener.LogoutListener;
+import cn.com.sgcc.epri.emap.model.UserInfo;
 
 /**
  * Created by GuHeng on 2016/10/25.
  * 用户注销对话框
  */
-public class LogoutDialog extends MainActivityContext {
-    private AlertDialog mAlertDialog; // 注销对话框
+public class LogoutDialog extends BaseAlertDialog {
     private View mLayout; // 布局
+    private TextView mUserName; // 用户名
+    private TextView mNickName; // 昵称
+    private TextView mUserType; // 用户类型
+    private Button mLogoutButton; // 注销按钮
+    private Button mCancelButton; // 取消按钮
+
+    private final String mUserNamePrefix = "用户名称:";
+    private final String mUserNickPrefix = "用户昵称:";
+    private final String mUserTypePrefix = "用户类型:";
 
     // 构造函数
-    public LogoutDialog(MainActivity context) {
-        super(context);
+    public LogoutDialog(MainActivity mainActivity) {
+        super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        LayoutInflater inflater = context.getLayoutInflater();
-        View layout = inflater.inflate(R.layout.login, (ViewGroup)context.findViewById(R.id.login), false);
-        mAlertDialog = new AlertDialog.Builder(context).create();
-        mAlertDialog.setView(layout);
-        mAlertDialog.setCancelable(false); // 点击对话框外地方不消失
+        super.init(R.layout.logout, (ViewGroup) mMainActivity.findViewById(R.id.logout), false, false);
     }
 
     // 显示对话框
     public void show() {
+        super.show();
         // AlertDialog自定义setView
         // 必须show对话框，然后才能查找控件
-        mAlertDialog.show();
         initWidget();
     }
 
     // 初始化控件
     private void initWidget() {
         if(mLayout == null) { // 只初始化一次控件对象
+            mLayout = getAlertDialog().findViewById(R.id.logout);
+            mUserName = (TextView)getAlertDialog().findViewById(R.id.logout_name);
+            mNickName = (TextView)getAlertDialog().findViewById(R.id.logout_nickname);
+            mUserType = (TextView)getAlertDialog().findViewById(R.id.logout_type);
+            mLogoutButton = (Button)getAlertDialog().findViewById(R.id.logout_button);
+            mCancelButton = (Button)getAlertDialog().findViewById(R.id.logout_cancel_button);
 
-        } else { // 清空所有控件的内容
+            LogoutListener listener = new LogoutListener(mMainActivity);
 
+            mLogoutButton.setOnClickListener(listener);
+            mCancelButton.setOnClickListener(listener);
         }
-    }
 
-    // 隐藏对话框
-    public void hide() {
-        mAlertDialog.hide();
-    }
-
-    // 销毁对话框
-    public void dimiss() {
-        mAlertDialog.dismiss();
-    }
-
-    // 获取对话框句柄
-    public AlertDialog getAlertDialog() {
-        return mAlertDialog;
+        UserInfo userInfo = mMainActivity.getUserManager().getUserInfo();
+        if(userInfo == null || !userInfo.isSuccess()) { // 用户离线
+            hide();
+        } else { // 用户在线
+            mUserName.setText(mUserNamePrefix + userInfo.getUserName());
+            mNickName.setText(mUserNickPrefix + userInfo.getNickName());
+            mUserType.setText(mUserTypePrefix + userInfo.getUserType());
+        }
     }
 }

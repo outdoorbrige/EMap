@@ -3,13 +3,13 @@ package cn.com.sgcc.epri.emap.manger;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.TOfflineMapManager;
 
-import org.apache.log4j.Logger;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.OfflineMapListener;
 import cn.com.sgcc.epri.emap.map.TMapView;
 import cn.com.sgcc.epri.emap.map.TMyLocationOverlay;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
@@ -17,7 +17,6 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
  * Created by GuHeng on 2016/9/28.
  */
 public class MapManger extends MainActivityContext {
-    private Logger mLogger; // 日志对象
     private TMapView mTMapView; // 天地图地图控件
     private MapController mMapController; // 天地图控制器
     private TOfflineMapManager mTOfflineMapManager; // 离线地图管理类
@@ -26,28 +25,28 @@ public class MapManger extends MainActivityContext {
     private int mMinZoomLevel; // 当前地图支持的最小比例尺
     private int mCurrentZoomLevel; // 当前地图的缩放级别
 
-    public MapManger(MainActivity context) {
-        super(context);
-        mLogger = Logger.getLogger(this.getClass());
-        mTMapView = (TMapView) context.findViewById(R.id.map_view);
+    public MapManger(MainActivity mainActivity) {
+        super(mainActivity);
+        mTMapView = (TMapView) mainActivity.findViewById(R.id.map_view);
         mMapController = this.mTMapView.getController();
         mTOfflineMapManager = new TOfflineMapManager(new OfflineMapListener());
-        mTMyLocationOverlay = new TMyLocationOverlay(context, mTMapView);
+        mTMyLocationOverlay = new TMyLocationOverlay(mainActivity, mTMapView);
         mMaxZoomLevel = mTMapView.getMaxZoomLevel();
         mMinZoomLevel = mTMapView.getMinZoomLevel();
         mCurrentZoomLevel = mTMapView.getZoomLevel();
 
-        mLogger.info(String.format("ZOOM:%d, MIN:%d, MAX:%d", mCurrentZoomLevel, mMinZoomLevel, mMaxZoomLevel));
+        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mInfo,
+                String.format("ZOOM:%d, MIN:%d, MAX:%d", mCurrentZoomLevel, mMinZoomLevel, mMaxZoomLevel));
     }
 
     // 初始化天地图
     public void init() {
         // 设置地图缓冲区路径
-        mTMapView.setCachePath(PhoneResources.getMapCachePath(context));
+        mTMapView.setCachePath(PhoneResources.getMapCachePath(mMainActivity));
 
         // 设置离线地图数据信息，用于地图显示加载
         // 离线地图设置之后会在程序显示时默认加载
-        mTOfflineMapManager.setMapPath(PhoneResources.getOfflineMapPath(context));
+        mTOfflineMapManager.setMapPath(PhoneResources.getOfflineMapPath(mMainActivity));
 
         mTMapView.setOfflineMaps(mTOfflineMapManager.searchLocalMaps());
 
@@ -63,7 +62,9 @@ public class MapManger extends MainActivityContext {
             mTMapView.getOverlays().add(mTMyLocationOverlay);
             mTMapView.postInvalidate();
         } else { // 启动失败
-            mLogger.error(String.format("启动我的位置失败!"));
+            String message = "启用我的位置失败!";
+            mMainActivity.getLog4jManger().show(message);
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, message);
         }
     }
     // 停用相关功能
@@ -112,7 +113,9 @@ public class MapManger extends MainActivityContext {
             mMapController.setCenter(mTMyLocationOverlay.getMyLocation());
             invalidate();
         } else {
-            mLogger.error(String.format("获取当前位置信息失败！"));
+            String message = "获取当前位置信息失败！";
+            mMainActivity.getLog4jManger().show(message);
+            mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, message);
         }
     }
 

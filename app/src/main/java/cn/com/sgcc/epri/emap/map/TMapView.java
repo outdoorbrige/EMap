@@ -9,15 +9,15 @@ import com.tianditu.android.maps.MapView;
  * Created by GuHeng on 2016/9/20.
  */
 public class TMapView extends MapView {
-    public TMapView(Context var1, AttributeSet var2, int var3) {
-        super(var1, var2, var3);
+    public TMapView(Context context, AttributeSet attributeSet, int i) {
+        super(context, attributeSet, i);
     }
 
-    public TMapView(Context var1, AttributeSet var2) {
-        super(var1, var2);
+    public TMapView(Context context, AttributeSet attributeSet) {
+        super(context, attributeSet);
     }
 
-    public TMapView(Context var1, String var2) {
-        super(var1, var2);
+    public TMapView(Context context, String s) {
+        super(context, s);
     }
 }

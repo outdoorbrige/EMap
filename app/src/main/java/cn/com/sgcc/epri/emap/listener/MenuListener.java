@@ -7,20 +7,18 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 
-import org.apache.log4j.Logger;
-
 import java.util.ArrayList;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
  */
 public class MenuListener extends MainActivityContext implements View.OnClickListener {
-    private Logger mLogger; // 日志对象
     private boolean mMenuIsOpen = false; // 控制菜单展开和折叠，默认折叠
     private ArrayList<Button> mArrayListButtons = null; // 展开和折叠菜单中控制的按钮集合
     private int mAnimationRadius = 0; // 动画半径，单位(dp) // 菜单展开半径
@@ -31,9 +29,8 @@ public class MenuListener extends MainActivityContext implements View.OnClickLis
     private static final int ANIMATION_ACTION_OPEN = 1; // 动画菜单展开
 
     // 构造函数
-    public MenuListener(MainActivity context, ArrayList<Button> arrayListButtons) {
-        super(context);
-        mLogger = Logger.getLogger(this.getClass());
+    public MenuListener(MainActivity mainActivity, ArrayList<Button> arrayListButtons) {
+        super(mainActivity);
         this.mArrayListButtons = arrayListButtons;
     }
 
@@ -67,7 +64,7 @@ public class MenuListener extends MainActivityContext implements View.OnClickLis
         int radius = 0;
 
         // 获取按钮边长(dp)
-        int a = DisplayMetricsUtil.Px2Dp(context, view.getHeight());
+        int a = DisplayMetricsUtil.Px2Dp(mMainActivity, view.getHeight());
 
         // 按钮对角线长度的一半(dp)
         int c = (int)Math.round(Math.sqrt(a * a * 2) / 2);
@@ -78,7 +75,9 @@ public class MenuListener extends MainActivityContext implements View.OnClickLis
         // 计算半径(dp)
         radius = (int)Math.round(c / Math.sin(angleRadians));
 
-        mLogger.info(String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正弦值:%f, 近似半径:%d, 动画半径:%d", a, c, mArrayListButtons.size(), angleRadians, Math.sin(angleRadians), radius, radius + a));
+        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mDebug,
+                String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正弦值:%f, 近似半径:%d, 动画半径:%d",
+                        a, c, mArrayListButtons.size(), angleRadians, Math.sin(angleRadians), radius, radius + a));
 
         return (radius + a);
     }

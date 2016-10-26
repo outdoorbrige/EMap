@@ -22,26 +22,26 @@ public class LayoutManger extends MainActivityContext {
     private ToolLayout mToolLayout; // 工具管理类
 
     // 构造函数
-    public LayoutManger(MainActivity context, MapManger mapManger) {
-        super(context);
+    public LayoutManger(MainActivity mainActivity, MapManger mapManger) {
+        super(mainActivity);
         this.mMapManger = mapManger;
     }
 
     // 初始化
     public void init() {
-        mMapLayout = new MapLayout(context, mMapManger);
+        mMapLayout = new MapLayout(mMainActivity, mMapManger);
         mMapLayout.init();
 
-        mSearchLayout = new SearchLayout(context);
+        mSearchLayout = new SearchLayout(mMainActivity);
         mSearchLayout.init();
 
-        mMenuLayout = new MenuLayout(context);
+        mMenuLayout = new MenuLayout(mMainActivity);
         mMenuLayout.init();
 
-        mLayerLayout = new LayerLayout(context);
+        mLayerLayout = new LayerLayout(mMainActivity);
         mLayerLayout.init();
 
-        mToolLayout = new ToolLayout(context);
+        mToolLayout = new ToolLayout(mMainActivity);
         mToolLayout.init();
     }
 

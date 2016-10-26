@@ -12,10 +12,10 @@ import java.security.NoSuchAlgorithmException;
  */
 public class Algorithm {
     // 计算字符串的MD5值
-    public static String md5(String var1) {
+    public static String md5(String s) {
         StringBuilder hex = null;
         try {
-            byte[] hash = MessageDigest.getInstance("MD5").digest(var1.getBytes("UTF-8"));
+            byte[] hash = MessageDigest.getInstance("MD5").digest(s.getBytes("UTF-8"));
             hex = new StringBuilder(hash.length * 2);
             for(byte b : hash) {
                 if((b & 0XFF) < 0X10) {
