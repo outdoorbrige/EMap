@@ -28,7 +28,6 @@ public class LayerListViewListener extends MainActivityContext implements Adapte
         if(-1 < id && id < parent.getCount()) {
             mLayerLayout.setSelectedItemId((int)id);
             mMainActivity.getMapManger().getTMapView().setMapType((int)id + 1);
-            mMainActivity.getMapManger().invalidate();
         }
 
         mLayerLayout.closePopupWindow();

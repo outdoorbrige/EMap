@@ -58,6 +58,6 @@ public class ToolListener extends MainActivityContext implements View.OnClickLis
 
     // 定位
     private void onClickedLocate() {
-        mMainActivity.getMapManger().setCenter();
+        mMainActivity.getMapManger().setCenter(null);
     }
 }

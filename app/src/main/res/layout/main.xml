@@ -27,7 +27,7 @@
         android:layout_height="45dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:background="@mipmap/search_bar_bg"
         android:layout_alignParentTop="@id/map_view">
 
@@ -66,7 +66,7 @@
         android:id="@+id/layer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

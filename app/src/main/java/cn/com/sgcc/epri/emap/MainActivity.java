@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity{
         mMapManger = new MapManger(this);
         mMapManger.init();
         mMapManger.enableFeatures();
-        mMapManger.setCenter();
 
         // 初始化对话框
         DialogManger = new DialogManger(this);
