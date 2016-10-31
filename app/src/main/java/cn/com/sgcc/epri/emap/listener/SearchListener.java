@@ -36,10 +36,10 @@ public class SearchListener extends MainActivityContext implements View.OnClickL
         UserInfo userInfo = mMainActivity.getUserManager().getUserInfo();
         if(userInfo == null || !userInfo.isSuccess()) { // 用户离线
             // 弹出登录对话框
-            mMainActivity.getDialogManger().getLoginDialog().show();
+            mMainActivity.getDialogManager().getLoginDialog().show();
         } else { // 用户在线
             // 弹出注销对话框
-            mMainActivity.getDialogManger().getLogoutDialog().show();
+            mMainActivity.getDialogManager().getLogoutDialog().show();
         }
     }
 

@@ -24,7 +24,7 @@ public class SearchLayout extends MainActivityContext {
 
     // 初始化
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.search_bar);
+        mLayout = mMainActivity.findViewById(R.id.search);
         mLoginButton = (Button) mMainActivity.findViewById(R.id.user_login_button);
         mSearchButton = (Button) mMainActivity.findViewById(R.id.search_button);
 

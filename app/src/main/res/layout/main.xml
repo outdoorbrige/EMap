@@ -16,22 +16,22 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/layer_menu"/>
+        <include layout="@layout/layer_list"/>
     </LinearLayout>
 
     <!--搜索栏(搜索内容、分割条、搜索按钮)-->
     <LinearLayout
-        android:id="@+id/search_bar"
+        android:id="@+id/search"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
         android:background="@mipmap/search_bar_bg"
         android:layout_alignParentTop="@id/map_view">
 
-        <include layout="@layout/search_bar"/>
+        <include layout="@layout/search"/>
     </LinearLayout>
 
     <!--用户登录对话框-->
@@ -66,8 +66,8 @@
         android:id="@+id/layer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="5dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@id/map_view">
@@ -81,36 +81,51 @@
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/layer_menu"/>
+        <include layout="@layout/layer_list"/>
     </LinearLayout>
 
-    <!--设置菜单(编辑、下载、...)-->
+    <!--主菜单(编辑、设置、下载)-->
     <LinearLayout
-        android:id="@+id/setting_menu"
+        android:id="@+id/main_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view">
 
-        <include layout="@layout/setting_menu"/>
+        <include layout="@layout/main_menu"/>
     </LinearLayout>
 
-    <!--工具栏(地图放大、缩小、定位)-->
+    <!--编辑菜单(画线、图形、测绘、删除、关闭)-->
     <LinearLayout
-        android:id="@+id/tool_bar"
+        android:id="@+id/edit_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/map_view"
+        android:visibility="gone">
+
+        <include layout="@layout/edit_menu"/>
+    </LinearLayout>
+
+    <!--地图操作(地图放大、缩小、定位)-->
+    <LinearLayout
+        android:id="@+id/action"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view">
 
-        <include layout="@layout/tool_bar"/>
+        <include layout="@layout/action"/>
     </LinearLayout>
 
 </RelativeLayout>

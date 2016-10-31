@@ -1,7 +1,7 @@
 package cn.com.sgcc.epri.emap.layout;
 
 import cn.com.sgcc.epri.emap.MainActivity;
-import cn.com.sgcc.epri.emap.manger.MapManger;
+import cn.com.sgcc.epri.emap.manager.MapManager;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
@@ -9,10 +9,10 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
  * 天地图布局类
  */
 public class MapLayout extends MainActivityContext {
-    private MapManger mMapManger; // 天地图控制类
+    private MapManager mMapManger; // 天地图控制类
 
     // 构造函数
-    public MapLayout(MainActivity mainActivity, MapManger mapManger) {
+    public MapLayout(MainActivity mainActivity, MapManager mapManger) {
         super(mainActivity);
         this.mMapManger = mapManger;
     }

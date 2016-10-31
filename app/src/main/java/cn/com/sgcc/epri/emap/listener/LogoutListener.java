@@ -41,11 +41,11 @@ public class LogoutListener extends MainActivityContext implements View.OnClickL
 
         onClickedCancel(); // 关闭注销窗口
 
-        mMainActivity.getLog4jManger().show("注销成功!");
+        mMainActivity.getLog4jManager().show("注销成功!");
     }
 
     // 返回
     private void onClickedCancel() {
-        mMainActivity.getDialogManger().getLogoutDialog().hide();
+        mMainActivity.getDialogManager().getLogoutDialog().hide();
     }
 }

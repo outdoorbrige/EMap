@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.manger;
+package cn.com.sgcc.epri.emap.manager;
 
 import android.widget.Toast;
 
@@ -14,11 +14,11 @@ import de.mindpipe.android.logging.log4j.LogConfigurator;
  * Created by GuHeng on 2016/10/8.
  * 日志管理类
  */
-public class Log4jManger extends MainActivityContext {
+public class Log4jManager extends MainActivityContext {
     private Logger mLogger; // 日志对象
 
     // 构造函数
-    public Log4jManger(MainActivity mainActivity) {
+    public Log4jManager(MainActivity mainActivity) {
         super(mainActivity);
     }
 

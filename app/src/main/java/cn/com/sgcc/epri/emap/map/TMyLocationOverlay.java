@@ -16,8 +16,4 @@ public class TMyLocationOverlay extends MyLocationOverlay {
         super(context, mapView);
         mContext = context;
     }
-
-    public void onLocationChanged(Location location) {
-        super.onLocationChanged(location);
-    }
 }

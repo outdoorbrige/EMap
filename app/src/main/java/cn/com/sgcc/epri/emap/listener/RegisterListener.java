@@ -44,25 +44,25 @@ public class RegisterListener extends MainActivityContext implements View.OnClic
 
     // 注册
     private void onClickedRegister() {
-        String userName = ((EditText)(mMainActivity.getDialogManger().getRegisterDialog().getAlertDialog().findViewById(R.id.register_name))).getText().toString();
-        String password = ((EditText)(mMainActivity.getDialogManger().getRegisterDialog().getAlertDialog().findViewById(R.id.register_pwd))).getText().toString();
-        String mConfirmPassword = ((EditText)(mMainActivity.getDialogManger().getRegisterDialog().getAlertDialog().findViewById(R.id.register_confirm_pwd))).getText().toString();
-        String nickName = ((EditText)(mMainActivity.getDialogManger().getRegisterDialog().getAlertDialog().findViewById(R.id.nick_name))).getText().toString();
-        String telNumber = ((EditText)(mMainActivity.getDialogManger().getRegisterDialog().getAlertDialog().findViewById(R.id.tel_number))).getText().toString();
-        String eMail = ((EditText)(mMainActivity.getDialogManger().getRegisterDialog().getAlertDialog().findViewById(R.id.email))).getText().toString();
+        String userName = ((EditText)(mMainActivity.getDialogManager().getRegisterDialog().getAlertDialog().findViewById(R.id.register_name))).getText().toString();
+        String password = ((EditText)(mMainActivity.getDialogManager().getRegisterDialog().getAlertDialog().findViewById(R.id.register_pwd))).getText().toString();
+        String mConfirmPassword = ((EditText)(mMainActivity.getDialogManager().getRegisterDialog().getAlertDialog().findViewById(R.id.register_confirm_pwd))).getText().toString();
+        String nickName = ((EditText)(mMainActivity.getDialogManager().getRegisterDialog().getAlertDialog().findViewById(R.id.nick_name))).getText().toString();
+        String telNumber = ((EditText)(mMainActivity.getDialogManager().getRegisterDialog().getAlertDialog().findViewById(R.id.tel_number))).getText().toString();
+        String eMail = ((EditText)(mMainActivity.getDialogManager().getRegisterDialog().getAlertDialog().findViewById(R.id.email))).getText().toString();
 
         if(userName.isEmpty()) {
-            mMainActivity.getLog4jManger().show("用户名不能为空!");
+            mMainActivity.getLog4jManager().show("用户名不能为空!");
             return;
         }
 
         if(password.isEmpty()) {
-            mMainActivity.getLog4jManger().show("密码不能为空!");
+            mMainActivity.getLog4jManager().show("密码不能为空!");
             return;
         }
 
         if(!password.equals(mConfirmPassword)) {
-            mMainActivity.getLog4jManger().show("两次输入的密码不一致，请重新输入!");
+            mMainActivity.getLog4jManager().show("两次输入的密码不一致，请重新输入!");
             return;
         }
 
@@ -79,7 +79,7 @@ public class RegisterListener extends MainActivityContext implements View.OnClic
             mUserInfo.setNickName(mUserInfo.getUserName());
         }
 
-        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mDebug, mUserInfo.toString());
+        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mDebug, mUserInfo.toString());
 
         mHandler = new Handler() {
             @Override
@@ -88,22 +88,22 @@ public class RegisterListener extends MainActivityContext implements View.OnClic
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if(mReturnUserInfo.isSuccess()) {
-                        mMainActivity.getLog4jManger().show("注册成功！");
+                        mMainActivity.getLog4jManager().show("注册成功！");
                         onClickedCancel(); // 关闭注册窗口
                     } else {
                         // 注册失败
-                        mMainActivity.getLog4jManger().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManager().show(mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
                     }
                 }
             }
         };
 
-        mMainActivity.getWebServiceManger().RegisterService(mHandler, mUserInfo);
+        mMainActivity.getWebServiceManager().RegisterService(mHandler, mUserInfo);
     }
 
     // 取消
     private void onClickedCancel() {
-        mMainActivity.getDialogManger().getRegisterDialog().hide();
+        mMainActivity.getDialogManager().getRegisterDialog().hide();
     }
 }

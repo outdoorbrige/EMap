@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.manger;
+package cn.com.sgcc.epri.emap.manager;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.file.ConfigFile;
@@ -9,11 +9,11 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
  * Created by GuHeng on 2016/10/19.
  * 文件管理类
  */
-public class FileManger extends MainActivityContext {
+public class FileManager extends MainActivityContext {
     private ConfigFile mConfigFile; // 配置文件解析对象
 
     // 构造函数
-    public FileManger(MainActivity mainActivity) {
+    public FileManager(MainActivity mainActivity) {
         super(mainActivity);
     }
 

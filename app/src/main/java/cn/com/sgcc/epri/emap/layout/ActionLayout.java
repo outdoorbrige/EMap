@@ -5,32 +5,32 @@ import android.widget.Button;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
-import cn.com.sgcc.epri.emap.listener.ToolListener;
+import cn.com.sgcc.epri.emap.listener.ActionListener;
 import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
- * 工具布局类
+ * 地图操作布局类
  */
-public class ToolLayout extends MainActivityContext {
+public class ActionLayout extends MainActivityContext {
     private View mLayout; // 布局
     private Button mZoomInButton; // 放大按钮
     private Button mZoomOutButton; // 缩小按钮
     private Button mLocateButton; // 定位按钮
 
     // 构造函数
-    public ToolLayout(MainActivity mainActivity) {
+    public ActionLayout(MainActivity mainActivity) {
         super(mainActivity);
     }
 
     // 初始化
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.tool_bar);
+        mLayout = mMainActivity.findViewById(R.id.action);
         mZoomInButton = (Button) mMainActivity.findViewById(R.id.zoon_in);
         mZoomOutButton = (Button) mMainActivity.findViewById(R.id.zoom_out);
-        mLocateButton = (Button) mMainActivity.findViewById(R.id.locate);
+        mLocateButton = (Button) mMainActivity.findViewById(R.id.location);
 
-        ToolListener listener = new ToolListener(mMainActivity);
+        ActionListener listener = new ActionListener(mMainActivity);
 
         mZoomInButton.setOnClickListener(listener);
         mZoomOutButton.setOnClickListener(listener);

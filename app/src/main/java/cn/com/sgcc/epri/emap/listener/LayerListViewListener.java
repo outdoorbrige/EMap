@@ -22,12 +22,12 @@ public class LayerListViewListener extends MainActivityContext implements Adapte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,  long id) {
-        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mDebug, String.format("position:%d, id:%d", position, id));
+        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mDebug, String.format("position:%d, id:%d", position, id));
 
         // id == -1 点击的是headerView或者footerView
         if(-1 < id && id < parent.getCount()) {
             mLayerLayout.setSelectedItemId((int)id);
-            mMainActivity.getMapManger().getTMapView().setMapType((int)id + 1);
+            mMainActivity.getMapManager().getTMapView().setMapType((int)id + 1);
         }
 
         mLayerLayout.closePopupWindow();

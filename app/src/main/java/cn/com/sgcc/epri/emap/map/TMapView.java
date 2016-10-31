@@ -10,7 +10,6 @@ import com.tianditu.android.maps.TOfflineMapManager.OnGetMapsResult;
 import java.util.ArrayList;
 
 import cn.com.sgcc.epri.emap.MainActivity;
-import cn.com.sgcc.epri.emap.util.Log4jLevel;
 
 /**
  * Created by GuHeng on 2016/9/20.
@@ -33,6 +32,8 @@ public class TMapView extends MapView implements OnGetMapsResult {
         this.mMainActivity = (MainActivity) context;
     }
 
+    /**********************************************************************************************/
+    // OnGetMapsResult
     @Override
     public void onGetResult(ArrayList<TOfflineMapManager.MapAdminSet> maps, int error) {
 

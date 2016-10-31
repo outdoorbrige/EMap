@@ -10,10 +10,10 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
 /**
  * Created by GuHeng on 2016/9/27.
  */
-public class ToolListener extends MainActivityContext implements View.OnClickListener {
+public class ActionListener extends MainActivityContext implements View.OnClickListener {
 
     // 构造函数
-    public ToolListener(MainActivity mainActivity) {
+    public ActionListener(MainActivity mainActivity) {
         super(mainActivity);
     }
 
@@ -26,8 +26,8 @@ public class ToolListener extends MainActivityContext implements View.OnClickLis
             case R.id.zoom_out:
                 onClickedZoomOut();
                 break;
-            case R.id.locate:
-                onClickedLocate();
+            case R.id.location:
+                onClickedLocation();
                 break;
             default:
                 break;
@@ -36,7 +36,7 @@ public class ToolListener extends MainActivityContext implements View.OnClickLis
 
     // 放大
     private void onClickedZoomIn() {
-        if(!mMainActivity.getMapManger().zoomIn()) {
+        if(!mMainActivity.getMapManager().zoomIn()) {
             ((Button) mMainActivity.findViewById(R.id.zoon_in)).setClickable(false);
             ((Button) mMainActivity.findViewById(R.id.zoon_in)).setBackgroundResource(R.mipmap.zoom_in_max_bg);
         }
@@ -47,7 +47,7 @@ public class ToolListener extends MainActivityContext implements View.OnClickLis
 
     // 缩小
     private void onClickedZoomOut() {
-        if(!mMainActivity.getMapManger().zoomOut()) {
+        if(!mMainActivity.getMapManager().zoomOut()) {
             ((Button) mMainActivity.findViewById(R.id.zoom_out)).setClickable(false);
             ((Button) mMainActivity.findViewById(R.id.zoom_out)).setBackgroundResource(R.mipmap.zoom_out_min_bg);
         }
@@ -57,7 +57,7 @@ public class ToolListener extends MainActivityContext implements View.OnClickLis
     }
 
     // 定位
-    private void onClickedLocate() {
-        mMainActivity.getMapManger().setCenter(null);
+    private void onClickedLocation() {
+        mMainActivity.getMapManager().setCenter();
     }
 }

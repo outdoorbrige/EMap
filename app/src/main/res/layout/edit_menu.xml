@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp">
+
+    <!--画线-->
+    <Button
+        android:id="@+id/menu_line"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/menu_line_bg"/>
+
+    <!--图形-->
+    <Button
+        android:id="@+id/menu_shap"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/menu_shap_bg"/>
+
+    <!--测绘-->
+    <Button
+        android:id="@+id/menu_mapping"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/menu_mapping_bg"/>
+
+    <!--删除-->
+    <Button
+        android:id="@+id/menu_delete"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/menu_delete_bg"/>
+
+    <!--退出-->
+    <Button
+        android:id="@+id/menu_exit"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/menu_exit_bg"/>
+
+    <!--编辑菜单-->
+    <Button
+        android:id="@+id/main_edit_menu"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:background="@mipmap/menu_edit_bg"/>
+</RelativeLayout>

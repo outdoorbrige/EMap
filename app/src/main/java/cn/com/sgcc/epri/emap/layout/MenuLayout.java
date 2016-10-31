@@ -16,12 +16,10 @@ import cn.com.sgcc.epri.emap.util.MainActivityContext;
  */
 public class MenuLayout extends MainActivityContext {
     private View mLayout; // 布局
-    private Button mFavoriteButton; // 收藏按钮
-    private Button mClearButton; // 删除按钮
+    private Button mEditButton; // 编辑按钮
     private Button mSetButton; // 配置按钮
-    private Button mOfflineButton; // 离线下载按钮
-    private Button mToolButton; // 工具按钮
-    private Button mMainButton; // 菜单按钮
+    private Button mDownloadButton; // 下载按钮
+    private Button mMenuButton; // 菜单按钮
     private ArrayList<Button> mArrayListButtons = new ArrayList<Button>(); // 展开和折叠菜单中控制的按钮集合
 
     // 构造函数
@@ -31,28 +29,25 @@ public class MenuLayout extends MainActivityContext {
 
     // 初始化
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.setting_menu);
-        mFavoriteButton = (Button) mMainActivity.findViewById(R.id.favorite);
-        mClearButton = (Button) mMainActivity.findViewById(R.id.clear);
-        mSetButton = (Button) mMainActivity.findViewById(R.id.setting);
-        mOfflineButton = (Button) mMainActivity.findViewById(R.id.download);
-        mToolButton = (Button) mMainActivity.findViewById(R.id.tool);
-        mMainButton = (Button) mMainActivity.findViewById(R.id.menu);
+        mLayout = mMainActivity.findViewById(R.id.main_menu);
+        mEditButton = (Button) mMainActivity.findViewById(R.id.menu_edit);
+        mSetButton = (Button) mMainActivity.findViewById(R.id.menu_setting);
+        mDownloadButton = (Button) mMainActivity.findViewById(R.id.menu_download);
+        mMenuButton = (Button) mMainActivity.findViewById(R.id.menu_main);
 
-        mArrayListButtons.add(mToolButton);
-        mArrayListButtons.add(mOfflineButton);
+        // 注意：
+        // 按钮排列数序是从下向上排列的
+        // 底部的按钮在List的队首，顶部的按钮在List的队尾
+        mArrayListButtons.add(mDownloadButton);
         mArrayListButtons.add(mSetButton);
-        mArrayListButtons.add(mClearButton);
-        mArrayListButtons.add(mFavoriteButton);
+        mArrayListButtons.add(mEditButton);
 
         MenuListener listener = new MenuListener(mMainActivity, mArrayListButtons);
 
-        mFavoriteButton.setOnClickListener(listener);
-        mClearButton.setOnClickListener(listener);
+        mEditButton.setOnClickListener(listener);
         mSetButton.setOnClickListener(listener);
-        mOfflineButton.setOnClickListener(listener);
-        mToolButton.setOnClickListener(listener);
-        mMainButton.setOnClickListener(listener);
+        mDownloadButton.setOnClickListener(listener);
+        mMenuButton.setOnClickListener(listener);
     }
 
     // 显示布局

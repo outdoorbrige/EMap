@@ -48,23 +48,23 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
 
     // 注册
     private void onClickedRegister() {
-        mMainActivity.getDialogManger().getRegisterDialog().show();
+        mMainActivity.getDialogManager().getRegisterDialog().show();
     }
 
     // 登录
     private void onClickedLogin() {
-        String userName = ((EditText)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_name))).getText().toString();
-        String password = ((EditText)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.login_pwd))).getText().toString();
-        boolean isKeepPassword = ((CheckBox)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.keep_pwd))).isChecked();
-        boolean isAutoLogin = ((CheckBox)(mMainActivity.getDialogManger().getLoginDialog().getAlertDialog().findViewById(R.id.auto_login))).isChecked();
+        String userName = ((EditText)(mMainActivity.getDialogManager().getLoginDialog().getAlertDialog().findViewById(R.id.login_name))).getText().toString();
+        String password = ((EditText)(mMainActivity.getDialogManager().getLoginDialog().getAlertDialog().findViewById(R.id.login_pwd))).getText().toString();
+        boolean isKeepPassword = ((CheckBox)(mMainActivity.getDialogManager().getLoginDialog().getAlertDialog().findViewById(R.id.keep_pwd))).isChecked();
+        boolean isAutoLogin = ((CheckBox)(mMainActivity.getDialogManager().getLoginDialog().getAlertDialog().findViewById(R.id.auto_login))).isChecked();
 
         if(userName.isEmpty()) {
-            mMainActivity.getLog4jManger().show("错误:用户名不能为空!");
+            mMainActivity.getLog4jManager().show("错误:用户名不能为空!");
             return;
         }
 
         if(password.isEmpty()) {
-            mMainActivity.getLog4jManger().show("错误:密码不能为空!");
+            mMainActivity.getLog4jManager().show("错误:密码不能为空!");
             return;
         }
 
@@ -79,7 +79,7 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if(mReturnUserInfo.isSuccess()) {
-                        mMainActivity.getLog4jManger().show(String.format("恭喜%s登录成功！", mUserInfo.getUserName()));
+                        mMainActivity.getLog4jManager().show(String.format("恭喜%s登录成功！", mUserInfo.getUserName()));
                         onClickedCancel(); // 关闭登录窗口
 
                         mMainActivity.getUserManager().setUserInfo(mUserInfo);
@@ -94,18 +94,18 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
                         }
                     } else {
                         // 登录失败
-                        mMainActivity.getLog4jManger().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManager().show(mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
                     }
                 }
             }
         };
 
-        mMainActivity.getWebServiceManger().LoginService(mHandler, mUserInfo);
+        mMainActivity.getWebServiceManager().LoginService(mHandler, mUserInfo);
     }
 
     // 取消
     private void onClickedCancel() {
-        mMainActivity.getDialogManger().getLoginDialog().hide();
+        mMainActivity.getDialogManager().getLoginDialog().hide();
     }
 }

@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.manger;
+package cn.com.sgcc.epri.emap.manager;
 
 import android.os.Handler;
 
@@ -12,12 +12,12 @@ import cn.com.sgcc.epri.emap.webservice.RegisterWebService;
  * Created by GuHeng on 2016/10/14.
  * 服务管理类
  */
-public class WebServiceManger extends MainActivityContext {
+public class WebServiceManager extends MainActivityContext {
     private RegisterWebService mRegisterWebService; // 用户注册服务
     private LoginWebService mLoginWebService; // 用户登录服务
 
     // 构造函数
-    public WebServiceManger(MainActivity mainActivity) {
+    public WebServiceManager(MainActivity mainActivity) {
         super(mainActivity);
     }
 

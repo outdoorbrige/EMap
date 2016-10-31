@@ -17,8 +17,8 @@
         android:background="@mipmap/zoom_out_bg"/>
     <!--定位 -->
     <Button
-        android:id="@+id/locate"
+        android:id="@+id/location"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:background="@mipmap/locate_bg"/>
+        android:background="@mipmap/location_bg"/>
 </LinearLayout>

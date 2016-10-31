@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.manger;
+package cn.com.sgcc.epri.emap.manager;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.UserInfo;
@@ -29,5 +29,10 @@ public class UserManager extends MainActivityContext {
     // 获取用户信息
     public UserInfo getUserInfo() {
         return mUserInfo;
+    }
+
+    // 是否在线
+    public boolean isOnLine() {
+        return mUserInfo == null ? false : mUserInfo.isSuccess();
     }
 }

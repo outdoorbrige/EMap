@@ -42,13 +42,13 @@ public class LayerLayout extends MainActivityContext {
         mLayerButton.setOnClickListener(new LayerListener(mMainActivity, this));
         mSelectedItemId = 1; // 默认选中第二项(矢量图)
 
-        mMainActivity.getLog4jManger().log(this.getClass(), Log4jLevel.mInfo, String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
+        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
     }
 
     // 显示弹出菜单
     public void showPopupWindow(View view) {
         if (mPopupWindow == null) {
-            View popupView = LayoutInflater.from(mMainActivity).inflate(R.layout.layer_menu, null);
+            View popupView = LayoutInflater.from(mMainActivity).inflate(R.layout.layer_list, null);
             ListViewAdaptWidth listViewAdaptWidth = (ListViewAdaptWidth) popupView.findViewById(R.id.layer_menu_list);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_single_choice, mListItems);
             listViewAdaptWidth.setAdapter(arrayAdapter);
