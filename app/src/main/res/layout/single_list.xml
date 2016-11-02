@@ -4,12 +4,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <cn.com.sgcc.epri.emap.util.ListViewAdaptWidth
-        android:id="@+id/layer_menu_list"
+    <cn.com.sgcc.epri.emap.list.AdaptWidthListView
+        android:id="@+id/adapt_width_list"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:choiceMode="singleChoice"
-        android:background="@mipmap/layer_menu_list_bg"/>
+        android:background="@mipmap/white_bg"/>
 
 </LinearLayout>

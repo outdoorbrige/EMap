@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.util;
+package cn.com.sgcc.epri.emap.base;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 

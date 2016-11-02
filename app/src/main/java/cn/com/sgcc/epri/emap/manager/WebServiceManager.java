@@ -4,7 +4,7 @@ import android.os.Handler;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.UserInfo;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 import cn.com.sgcc.epri.emap.webservice.LoginWebService;
 import cn.com.sgcc.epri.emap.webservice.RegisterWebService;
 

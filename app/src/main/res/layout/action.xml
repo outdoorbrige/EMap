@@ -3,22 +3,26 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <!--放大-->
     <Button
         android:id="@+id/zoon_in"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@mipmap/zoon_in_bg"/>
+
     <!--缩小-->
     <Button
         android:id="@+id/zoom_out"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@mipmap/zoom_out_bg"/>
+
     <!--定位 -->
     <Button
         android:id="@+id/location"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@mipmap/location_bg"/>
+
 </LinearLayout>

@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.util;
+package cn.com.sgcc.epri.emap.list;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,17 +9,17 @@ import android.widget.ListView;
  * Created by xiaoming on 2016/9/6.
  * 计算listview 每个item的宽度，取最长长度作为listview的宽度
  */
-public class ListViewAdaptWidth extends ListView {
+public class AdaptWidthListView extends ListView {
 
-    public ListViewAdaptWidth(Context context) {
+    public AdaptWidthListView(Context context) {
         super(context);
     }
 
-    public ListViewAdaptWidth(Context context, AttributeSet attrs, int defStyleAttr) {
+    public AdaptWidthListView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public ListViewAdaptWidth(Context context, AttributeSet attrs) {
+    public AdaptWidthListView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 

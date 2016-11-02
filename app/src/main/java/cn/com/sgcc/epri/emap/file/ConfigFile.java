@@ -13,7 +13,7 @@ import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.ConfigInfo;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/10/19.

@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.util;
+package cn.com.sgcc.epri.emap.base;
 
 import android.app.AlertDialog;
 import android.view.LayoutInflater;
@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import cn.com.sgcc.epri.emap.MainActivity;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/10/26.

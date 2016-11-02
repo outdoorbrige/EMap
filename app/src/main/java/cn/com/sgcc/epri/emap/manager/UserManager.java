@@ -2,7 +2,7 @@ package cn.com.sgcc.epri.emap.manager;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.model.UserInfo;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/10/25.

@@ -5,7 +5,7 @@ import android.widget.Button;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.

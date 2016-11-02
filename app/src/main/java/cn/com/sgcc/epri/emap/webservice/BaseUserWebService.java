@@ -11,7 +11,7 @@ import cn.com.sgcc.epri.emap.model.ConfigInfo;
 import cn.com.sgcc.epri.emap.model.UserInfo;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/10/24.

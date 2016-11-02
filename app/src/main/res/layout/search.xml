@@ -2,21 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="45dp"
     android:gravity="center_vertical"
+    android:background="@mipmap/white_bg"
     android:focusable="true"
     android:focusableInTouchMode="true">
+
     <!--用户登录-->
     <Button
         android:id="@+id/user_login_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@mipmap/offline_bg"/>
+
     <!--分割条-->
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@mipmap/vertical_divider"/>
+
     <!--搜索内容-->
     <EditText
         android:id="@+id/search_context"
@@ -27,15 +31,18 @@
         android:singleLine="true"
         android:hint="搜索"
         android:background="@null"/>
+
     <!--分割条-->
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@mipmap/vertical_divider"/>
+
     <!--搜索按钮-->
     <Button
         android:id="@+id/search_button"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@mipmap/search_button_bg"/>
+
 </LinearLayout>

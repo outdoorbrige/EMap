@@ -4,7 +4,7 @@ import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.dialog.LoginDialog;
 import cn.com.sgcc.epri.emap.dialog.LogoutDialog;
 import cn.com.sgcc.epri.emap.dialog.RegisterDialog;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/10/11.

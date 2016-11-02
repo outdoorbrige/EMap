@@ -12,7 +12,7 @@ import cn.com.sgcc.epri.emap.util.Algorithm;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 import cn.com.sgcc.epri.emap.util.UserType;
 
 /**

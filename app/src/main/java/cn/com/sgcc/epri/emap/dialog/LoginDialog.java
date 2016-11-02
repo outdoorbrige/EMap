@@ -10,7 +10,7 @@ import android.widget.TextView;
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.listener.LoginListener;
-import cn.com.sgcc.epri.emap.util.BaseAlertDialog;
+import cn.com.sgcc.epri.emap.base.BaseAlertDialog;
 
 /**
  * Created by GuHeng on 2016/10/11.

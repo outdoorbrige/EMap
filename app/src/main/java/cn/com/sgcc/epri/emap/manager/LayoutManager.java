@@ -8,7 +8,7 @@ import cn.com.sgcc.epri.emap.layout.MenuLayout;
 import cn.com.sgcc.epri.emap.layout.SearchLayout;
 import cn.com.sgcc.epri.emap.layout.ActionLayout;
 import cn.com.sgcc.epri.emap.map.TMapView;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/27.
@@ -53,6 +53,11 @@ public class LayoutManager extends MainActivityContext {
     // 获取天地图地图控件
     public TMapView getTMapView() {
         return mMapManager.getTMapView();
+    }
+
+    // 获取搜索布局
+    public SearchLayout getSearchLayout() {
+        return mSearchLayout;
     }
 
     // 获取菜单布局

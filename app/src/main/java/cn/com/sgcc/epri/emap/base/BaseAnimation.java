@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.util;
+package cn.com.sgcc.epri.emap.base;
 
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +10,8 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import java.util.ArrayList;
 
 import cn.com.sgcc.epri.emap.MainActivity;
+import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
+import cn.com.sgcc.epri.emap.util.Log4jLevel;
 
 /**
  * Created by GuHeng on 2016/10/31.
@@ -34,24 +36,43 @@ public class BaseAnimation extends MainActivityContext {
         mArrayListButtons = arrayListButtons;
     }
 
-    // 开始菜单动画
-    protected void startMenuAnimation(View view) {
+    // 运行动画
+    protected void runMenuAnimation(View view) {
         if(mAnimationRadius == 0) {
             mAnimationRadius = calculateAnimationRadius(view);
         }
 
         if(!mMenuOpen) {
-            for(int i = 0; i < mArrayListButtons.size(); i ++) {
-                doAnimateAction(ANIMATION_ACTION_OPEN, mArrayListButtons.get(i), i, mArrayListButtons.size(), mAnimationRadius);
-            }
+            openMenuAnimation();
         } else {
-            for(int i = 0; i < mArrayListButtons.size(); i ++) {
-                doAnimateAction(ANIMATION_ACTION_CLOSE, mArrayListButtons.get(i), i, mArrayListButtons.size(), mAnimationRadius);
-            }
+            closeMenuAnimation();
+        }
+    }
+
+    // 展开动画
+    private void openMenuAnimation() {
+        if(mMenuOpen) {
+            return;
         }
 
-        mMenuOpen = !mMenuOpen;
+        for(int i = 0; i < mArrayListButtons.size(); i ++) {
+            doAnimateAction(ANIMATION_ACTION_OPEN, mArrayListButtons.get(i), i, mArrayListButtons.size(), mAnimationRadius);
+        }
 
+        mMenuOpen = true;
+    }
+
+    // 折叠动画
+    private void closeMenuAnimation() {
+        if(!mMenuOpen) {
+            return;
+        }
+
+        for(int i = 0; i < mArrayListButtons.size(); i ++) {
+            doAnimateAction(ANIMATION_ACTION_CLOSE, mArrayListButtons.get(i), i, mArrayListButtons.size(), mAnimationRadius);
+        }
+
+        mMenuOpen = false;
     }
 
     // 计算动画半径

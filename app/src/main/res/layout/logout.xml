@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/logout"
     android:orientation="vertical"
     android:padding="10dp"
     android:paddingLeft="10dp"
@@ -21,6 +20,7 @@
             android:textSize="20dp"
             android:layout_span="2"/>
     </TableRow>
+
     <TableRow>
         <!--用户名-->
         <TextView
@@ -32,6 +32,7 @@
             android:textSize="18dp"
             android:layout_span="2"/>
     </TableRow>
+
     <TableRow>
         <!--用户昵称-->
         <TextView
@@ -43,6 +44,7 @@
             android:textSize="18dp"
             android:layout_span="2"/>
     </TableRow>
+
     <TableRow>
         <!--用户类型-->
         <TextView
@@ -65,6 +67,7 @@
             android:text="注销"
             android:textColor="#000000"
             android:textSize="18dp"/>
+
         <!--返回-->
         <Button
             android:id="@+id/logout_cancel_button"

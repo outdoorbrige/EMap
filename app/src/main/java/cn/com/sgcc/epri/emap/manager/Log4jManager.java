@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**

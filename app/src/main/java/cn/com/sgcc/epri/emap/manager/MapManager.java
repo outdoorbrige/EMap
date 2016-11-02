@@ -1,10 +1,5 @@
 package cn.com.sgcc.epri.emap.manager;
 
-import android.content.Context;
-import android.content.Intent;
-import android.location.LocationManager;
-import android.provider.Settings;
-
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.TOfflineMapManager;
@@ -16,7 +11,7 @@ import cn.com.sgcc.epri.emap.map.TMapView;
 import cn.com.sgcc.epri.emap.map.TMyLocationOverlay;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
-import cn.com.sgcc.epri.emap.util.MainActivityContext;
+import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
  * Created by GuHeng on 2016/9/28.
