@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
         mDialogManager.init();
 
         // 初始化布局
-        mLayoutManger = new LayoutManager(this, mMapManager);
+        mLayoutManger = new LayoutManager(this);
         mLayoutManger.init();
 
         getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",

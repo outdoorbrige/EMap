@@ -7,7 +7,6 @@ import cn.com.sgcc.epri.emap.layout.MapLayout;
 import cn.com.sgcc.epri.emap.layout.MenuLayout;
 import cn.com.sgcc.epri.emap.layout.SearchLayout;
 import cn.com.sgcc.epri.emap.layout.ActionLayout;
-import cn.com.sgcc.epri.emap.map.TMapView;
 import cn.com.sgcc.epri.emap.base.MainActivityContext;
 
 /**
@@ -15,7 +14,6 @@ import cn.com.sgcc.epri.emap.base.MainActivityContext;
  * 界面所有布局、控件的管理类
  */
 public class LayoutManager extends MainActivityContext {
-    private MapManager mMapManager; // 地图管理类
     private MapLayout mMapLayout; // 地图布局类
     private SearchLayout mSearchLayout; // 查找布局类
     private MenuLayout mMenuLayout; // 菜单布局类
@@ -24,14 +22,13 @@ public class LayoutManager extends MainActivityContext {
     private ActionLayout mActionLayout; // 地图操作布局类
 
     // 构造函数
-    public LayoutManager(MainActivity mainActivity, MapManager mapManager) {
+    public LayoutManager(MainActivity mainActivity) {
         super(mainActivity);
-        this.mMapManager = mapManager;
     }
 
     // 初始化
     public void init() {
-        mMapLayout = new MapLayout(mMainActivity, mMapManager);
+        mMapLayout = new MapLayout(mMainActivity);
         mMapLayout.init();
 
         mSearchLayout = new SearchLayout(mMainActivity);
@@ -50,9 +47,9 @@ public class LayoutManager extends MainActivityContext {
         mActionLayout.init();
     }
 
-    // 获取天地图地图控件
-    public TMapView getTMapView() {
-        return mMapManager.getTMapView();
+    // 获取地图布局类
+    public MapLayout getMapLayout() {
+        return mMapLayout;
     }
 
     // 获取搜索布局
@@ -68,5 +65,15 @@ public class LayoutManager extends MainActivityContext {
     // 获取编辑菜单布局
     public EditLayout getEditLayout() {
         return mEditLayout;
+    }
+
+    // 获取地图切换布局
+    public LayerLayout getLayerLayout() {
+        return mLayerLayout;
+    }
+
+    // 获取地图操作布局
+    ActionLayout getActionLayout() {
+        return mActionLayout;
     }
 }

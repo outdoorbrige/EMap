@@ -400,7 +400,7 @@ public final class ObjectAnimator extends ValueAnimator {
     @Override
     void initAnimation() {
         if (!mInitialized) {
-            // mValueType may change due to setter/getter setup; do this before calling super.init(),
+            // mValueType may change due to setter/getter setup; do this before calling super.prepare(),
             // which uses mValueType to set up the default type evaluator.
             if ((mProperty == null) && AnimatorProxy.NEEDS_PROXY && (mTarget instanceof View) && PROXY_PROPERTIES.containsKey(mPropertyName)) {
                 setProperty(PROXY_PROPERTIES.get(mPropertyName));

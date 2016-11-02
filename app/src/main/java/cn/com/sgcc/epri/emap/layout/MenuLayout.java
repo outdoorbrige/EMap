@@ -47,4 +47,19 @@ public class MenuLayout extends BaseLayout {
         mDownloadButton.setOnClickListener(listener);
         mMenuButton.setOnClickListener(listener);
     }
+
+    // 布局显示
+    public void show() {
+        super.show();
+    }
+
+    // 布局隐藏
+    public void hide() {
+        super.hide();
+        clear();
+    }
+
+    // 布局数据清理
+    private void clear() {
+    }
 }

@@ -99,7 +99,7 @@ public class PhoneResources {
         String path;
 
         if(isSDCard()) {
-            path = getWorkPath(mainActivity) + "map" + File.separator;
+            path = getWorkPath(mainActivity) + "MapCache" + File.separator;
             mkdir(path);
         } else {
             path = null;
@@ -113,7 +113,7 @@ public class PhoneResources {
         String path;
 
         if(isSDCard()) {
-            path = getWorkPath(mainActivity) + "staticmap" + File.separator;
+            path = getWorkPath(mainActivity) + "OfflineMap" + File.separator;
             mkdir(path);
         } else {
             path = null;

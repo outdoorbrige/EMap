@@ -12,22 +12,20 @@ import cn.com.sgcc.epri.emap.base.MainActivityContext;
  * Created by GuHeng on 2016/10/9.
  */
 public class LayerListViewListener extends MainActivityContext implements AdapterView.OnItemClickListener {
-    private LayerLayout mLayerLayout;
 
     // 构造函数
-    public LayerListViewListener(MainActivity mainActivity, LayerLayout layerLayout) {
+    public LayerListViewListener(MainActivity mainActivity) {
         super(mainActivity);
-        this.mLayerLayout = layerLayout;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position,  long id) {
         // id == -1 点击的是headerView或者footerView
-        if(-1 < id && id < parent.getCount()) {
-            mLayerLayout.setSelectedItemId((int)id);
-            mMainActivity.getMapManager().getTMapView().setMapType((int)id + 1);
+        if(0 <= position && position < parent.getCount()) {
+            mMainActivity.getLayoutManger().getLayerLayout().setCurrentSelectItemIndex(position);
+            mMainActivity.getMapManager().getTMapView().setMapType(position + 1);
         }
 
-        mLayerLayout.closePopupWindow();
+        mMainActivity.getLayoutManger().getLayerLayout().closePopupWindow();
     }
 }

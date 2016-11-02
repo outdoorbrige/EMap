@@ -20,6 +20,7 @@ public class EditListener extends BaseAnimation implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.menu_shap:
+                mMainActivity.getLayoutManger().getEditLayout().getShapLayout().showPopupWindow(view);
                 break;
             case R.id.menu_line:
                 break;

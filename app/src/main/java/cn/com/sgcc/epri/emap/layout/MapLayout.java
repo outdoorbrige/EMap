@@ -13,13 +13,27 @@ public class MapLayout extends BaseLayout {
     private MapManager mMapManger; // 天地图控制类
 
     // 构造函数
-    public MapLayout(MainActivity mainActivity, MapManager mapManger) {
+    public MapLayout(MainActivity mainActivity) {
         super(mainActivity);
-        this.mMapManger = mapManger;
     }
 
     // 初始化
     public void init() {
         setLayout(mMainActivity.findViewById(R.id.map_view));
+    }
+
+    // 布局显示
+    public void show() {
+        super.show();
+    }
+
+    // 布局隐藏
+    public void hide() {
+        super.hide();
+        clear();
+    }
+
+    // 布局数据清理
+    private void clear() {
     }
 }

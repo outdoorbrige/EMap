@@ -45,6 +45,17 @@
 
     </LinearLayout>
 
+    <!--地物信息-->
+    <LinearLayout
+        android:id="@+id/shap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/top"
+        android:visibility="gone">
+
+        <include layout="@layout/shap"/>
+    </LinearLayout>
+
     <!--用户登录对话框-->
     <LinearLayout
         android:id="@+id/login"
@@ -80,8 +91,8 @@
         android:id="@+id/layer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/top"
-        android:layout_below="@id/top">
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
 
         <include layout="@layout/layer"/>
     </LinearLayout>
@@ -101,7 +112,6 @@
         android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -116,7 +126,6 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="5dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"

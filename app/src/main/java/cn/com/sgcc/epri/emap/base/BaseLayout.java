@@ -27,12 +27,12 @@ public class BaseLayout extends MainActivityContext {
     }
 
     // 显示布局
-    public void show() {
+    protected void show() {
         mLayout.setVisibility(View.VISIBLE);
     }
 
     // 隐藏布局
-    public void hide() {
+    protected void hide() {
         // View.INVISIBLE   控制该控件面板layout不可见，但是他依旧占用空间;
         //                  设置这个属性后，此位置按键不可见，但下一个按键不会占用它的位置
 

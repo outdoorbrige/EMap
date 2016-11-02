@@ -31,4 +31,19 @@ public class SearchLayout extends BaseLayout {
         mLoginButton.setOnClickListener(listener);
         mSearchButton.setOnClickListener(listener);
     }
+
+    // 布局显示
+    public void show() {
+        super.show();
+    }
+
+    // 布局隐藏
+    public void hide() {
+        super.hide();
+        clear();
+    }
+
+    // 布局数据清理
+    private void clear() {
+    }
 }

@@ -5,25 +5,37 @@ import android.widget.AdapterView;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.base.MainActivityContext;
-import cn.com.sgcc.epri.emap.layout.ShapLayout;
 
 /**
  * Created by GuHeng on 2016/11/2.
  */
 public class ShapListViewListener extends MainActivityContext implements AdapterView.OnItemClickListener {
-    private ShapLayout mShapLayout;
 
-    public ShapListViewListener(MainActivity mainActivity, ShapLayout shapLayout) {
+    // 构造函数
+    public ShapListViewListener(MainActivity mainActivity) {
         super(mainActivity);
-        this.mShapLayout = shapLayout;
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // id == -1 点击的是headerView或者footerView
-        if(-1 < id && id < parent.getCount()) {
+        switch (position) {
+            case -1: // 点击的是headerView或者footerView
+                break;
+            case 0: // 画点
+                mMainActivity.getLayoutManger().getEditLayout().getDrawPointLayout().show();
+                break;
+            case 1: // 画线
+                break;
+            case 2: // 画面
+                break;
+            default:
+                break;
         }
 
-        mShapLayout.closePopupWindow();
+        if(0 <= position && position < parent.getCount()) {
+            mMainActivity.getLayoutManger().getEditLayout().getShapLayout().setCurrentSelectItemIndex(position);
+        }
+
+        mMainActivity.getLayoutManger().getEditLayout().getShapLayout().closePopupWindow();
     }
 }
