@@ -24,7 +24,7 @@ public class SearchListener extends MainActivityContext implements View.OnClickL
                 onClickedLogin();
                 break;
             case R.id.search_button:
-                onClickedRoute();
+                onClickedSearch();
                 break;
             default:
                 break;
@@ -44,7 +44,7 @@ public class SearchListener extends MainActivityContext implements View.OnClickL
     }
 
     // 点击搜索按钮
-    private void onClickedRoute() {
+    private void onClickedSearch() {
 
     }
 }

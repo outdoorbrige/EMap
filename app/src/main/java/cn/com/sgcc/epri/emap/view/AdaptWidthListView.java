@@ -1,4 +1,4 @@
-package cn.com.sgcc.epri.emap.list;
+package cn.com.sgcc.epri.emap.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

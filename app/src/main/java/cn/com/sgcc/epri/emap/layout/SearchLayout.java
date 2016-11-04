@@ -9,7 +9,7 @@ import cn.com.sgcc.epri.emap.base.BaseLayout;
 
 /**
  * Created by GuHeng on 2016/9/27.
- * 查找布局类
+ * 地图搜索布局类
  */
 public class SearchLayout extends BaseLayout {
     private Button mLoginButton; // 登录按钮

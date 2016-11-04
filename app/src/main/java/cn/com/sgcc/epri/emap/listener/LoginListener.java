@@ -10,7 +10,7 @@ import android.widget.EditText;
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.model.UserInfo;
-import cn.com.sgcc.epri.emap.util.Algorithm;
+import cn.com.sgcc.epri.emap.util.MyMath;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.MessageWhat;
 import cn.com.sgcc.epri.emap.base.MainActivityContext;
@@ -70,7 +70,7 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
 
         mUserInfo = new UserInfo();
         mUserInfo.setUserName(userName.toUpperCase());
-        mUserInfo.setPassword(Algorithm.md5(password));
+        mUserInfo.setPassword(MyMath.md5(password));
 
         mHandler = new Handler() {
             @Override

@@ -23,10 +23,9 @@ public class PhoneResources {
     // 获取手机SD卡根路径
     public static String getSDCardRoot() {
         String path = null;
+
         if(isSDCard()) {
             path = Environment.getExternalStorageDirectory().toString() + File.separator;
-        } else {
-            path = null;
         }
 
         return path;
@@ -53,8 +52,6 @@ public class PhoneResources {
         if(isSDCard()) {
             path = getSDCardRoot() + getAppName(mainActivity) + File.separator;
             mkdir(path);
-        } else {
-            path = null;
         }
 
         return path;
@@ -70,25 +67,21 @@ public class PhoneResources {
 
     // 获取配置文件路径
     public static String getConfigFile(MainActivity mainActivity) {
-        String file;
+        String file = null;
 
         if(isSDCard()) {
             file = getWorkPath(mainActivity) + getAppName(mainActivity) + ".config";
-        } else {
-            file = null;
         }
 
         return file;
     }
 
-    // 获取日志文件名
+    // 获取日志文件路径
     public static String getLogFile(MainActivity mainActivity) {
-        String file;
+        String file = null;
 
         if(isSDCard()) {
             file = getWorkPath(mainActivity) + "log" + File.separator + getCurrentDate() + ".log";
-        } else {
-            file = null;
         }
 
         return file;
@@ -96,13 +89,11 @@ public class PhoneResources {
 
     // 获取地图缓冲区路径
     public static String getMapCachePath(MainActivity mainActivity) {
-        String path;
+        String path = null;
 
         if(isSDCard()) {
             path = getWorkPath(mainActivity) + "MapCache" + File.separator;
             mkdir(path);
-        } else {
-            path = null;
         }
 
         return path;
@@ -110,15 +101,24 @@ public class PhoneResources {
 
     // 获取离线地图路径
     public static String getOfflineMapPath(MainActivity mainActivity) {
-        String path;
+        String path = null;
 
         if(isSDCard()) {
             path = getWorkPath(mainActivity) + "OfflineMap" + File.separator;
             mkdir(path);
-        } else {
-            path = null;
         }
 
         return path;
+    }
+
+    // 获取地物编辑-画点数据文件路径
+    public static String getShapPointFile(MainActivity mainActivity) {
+        String file = null;
+
+        if(isSDCard()) {
+            file = getWorkPath(mainActivity) + "Data" + File.separator + "ShapPoint.dat";
+        }
+
+        return file;
     }
 }

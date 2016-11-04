@@ -1,5 +1,7 @@
 package cn.com.sgcc.epri.emap.manager;
 
+import android.widget.TextView;
+
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.TOfflineMapManager;
@@ -9,6 +11,8 @@ import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
 import cn.com.sgcc.epri.emap.map.TMapView;
 import cn.com.sgcc.epri.emap.map.TMyLocationOverlay;
+import cn.com.sgcc.epri.emap.util.DefaultCenter;
+import cn.com.sgcc.epri.emap.util.MyMath;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 import cn.com.sgcc.epri.emap.base.MainActivityContext;
@@ -100,15 +104,28 @@ public class MapManager extends MainActivityContext {
         }
 
         if(mCurrentGeoPoint == null) {
-            // 默认设置中心点为天安门
-            mCurrentGeoPoint = GeoPointEx.Double2GeoPoint(116.3919236741D, 39.9057789520D);
+            mCurrentGeoPoint = DefaultCenter.getDefaultCenter();
         }
 
+        showPositionInfo(mCurrentGeoPoint);
+    }
+
+    // 显示纬度、经度、高程信息
+    public void showPositionInfo(GeoPoint geoPoint) {
+
+        String latitude = "";
+        String longitude = "";
+        String elevation = "";
+
         if(mCurrentGeoPoint != null) {
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, "当前位置:" + mCurrentGeoPoint.toString());
-        } else {
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, "当前位置为空！");
+            String[] strings = MyMath.toSexagesimalString(mCurrentGeoPoint.getLatitudeE6(), mCurrentGeoPoint.getLongitudeE6());
+            latitude = strings[0];
+            longitude = strings[1];
         }
+
+        ((TextView)mMainActivity.findViewById(R.id.latitude)).setText(latitude);
+        ((TextView)mMainActivity.findViewById(R.id.longitude)).setText(longitude);
+        ((TextView)mMainActivity.findViewById(R.id.elevation)).setText(elevation);
     }
 
     // 设置中心点

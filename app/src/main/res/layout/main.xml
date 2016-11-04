@@ -23,9 +23,6 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
             android:layout_alignParentTop="@id/map_view">
 
             <include layout="@layout/search"/>
@@ -45,15 +42,17 @@
 
     </LinearLayout>
 
-    <!--地物信息-->
+    <!--地物信息-画点-->
     <LinearLayout
-        android:id="@+id/shap"
+        android:id="@+id/draw_point"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:layout_below="@id/top"
         android:visibility="gone">
 
-        <include layout="@layout/shap"/>
+        <include layout="@layout/draw_point"/>
     </LinearLayout>
 
     <!--用户登录对话框-->

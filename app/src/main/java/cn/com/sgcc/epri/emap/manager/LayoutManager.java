@@ -15,7 +15,7 @@ import cn.com.sgcc.epri.emap.base.MainActivityContext;
  */
 public class LayoutManager extends MainActivityContext {
     private MapLayout mMapLayout; // 地图布局类
-    private SearchLayout mSearchLayout; // 查找布局类
+    private SearchLayout mSearchLayout; // 搜索布局类
     private MenuLayout mMenuLayout; // 菜单布局类
     private EditLayout mEditLayout; // 编辑布局类
     private LayerLayout mLayerLayout; // 地图切换布局类

@@ -1,6 +1,5 @@
 package cn.com.sgcc.epri.emap.base;
 
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,7 @@ import android.widget.PopupWindow;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;
-import cn.com.sgcc.epri.emap.list.AdaptWidthListView;
+import cn.com.sgcc.epri.emap.view.AdaptWidthListView;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 
 /**
@@ -83,7 +82,8 @@ public class SingleListLayout extends BaseLayout {
                 adaptWidthListView.setItemChecked(mDefaultSelectItemIndex, true);
                 setCurrentSelectItemIndex(mDefaultSelectItemIndex);
             } else {
-                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, String.format("传入的ListView Item Id[%d]无效！", mDefaultSelectItemIndex));
+                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                        String.format("传入的ListView Item Id[%d]无效！", mDefaultSelectItemIndex));
             }
 
             mPopupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);

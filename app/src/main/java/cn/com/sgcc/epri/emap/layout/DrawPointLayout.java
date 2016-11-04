@@ -25,10 +25,10 @@ public class DrawPointLayout extends BaseLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.shap));
-        mPointTypes = (TextView)mMainActivity.findViewById(R.id.shap_type);
-        mPointName = (EditText)mMainActivity.findViewById(R.id.shap_name);
-        mPointSave = (Button)mMainActivity.findViewById(R.id.shap_save);
+        setLayout(mMainActivity.findViewById(R.id.draw_point));
+        mPointTypes = (TextView)mMainActivity.findViewById(R.id.point_type);
+        mPointName = (EditText)mMainActivity.findViewById(R.id.point_name);
+        mPointSave = (Button)mMainActivity.findViewById(R.id.point_save);
 
         DrawPointListener listener = new DrawPointListener(mMainActivity);
 

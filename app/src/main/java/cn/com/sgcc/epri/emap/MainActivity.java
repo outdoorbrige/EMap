@@ -11,7 +11,7 @@ import cn.com.sgcc.epri.emap.manager.MapManager;
 import cn.com.sgcc.epri.emap.manager.UserManager;
 import cn.com.sgcc.epri.emap.manager.WebServiceManager;
 import cn.com.sgcc.epri.emap.model.ConfigInfo;
-import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
+import cn.com.sgcc.epri.emap.util.DisplayMetrics;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 import cn.com.sgcc.epri.emap.util.PhoneResources;
 
@@ -62,11 +62,11 @@ public class MainActivity extends AppCompatActivity{
         mLayoutManger.init();
 
         getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",
-                DisplayMetricsUtil.getWidthPx(this),
-                DisplayMetricsUtil.getHeightPx(this),
+                DisplayMetrics.getWidthPx(this),
+                DisplayMetrics.getHeightPx(this),
                 this.getResources().getDisplayMetrics().density,
-                DisplayMetricsUtil.getWidthDp(this),
-                DisplayMetricsUtil.getHeightDp(this)));
+                DisplayMetrics.getWidthDp(this),
+                DisplayMetrics.getHeightDp(this)));
 
         // 初始化服务
         mWebServiceManager = new WebServiceManager(this);

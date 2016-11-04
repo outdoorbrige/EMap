@@ -6,7 +6,7 @@ import android.content.Context;
  * Created by GuHeng on 2016/9/28.
  * 设备无关像素(dp/dip)与像素(px)相互转换
  */
-public class DisplayMetricsUtil {
+public class DisplayMetrics {
 
     // 获取屏幕的宽度(px)
     public static int getWidthPx(Context context) {

@@ -19,7 +19,7 @@ public class DrawPointListener extends MainActivityContext implements View.OnCli
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.shap_save:
+            case R.id.point_save:
                 onClickedShapSave();
                 break;
             default:

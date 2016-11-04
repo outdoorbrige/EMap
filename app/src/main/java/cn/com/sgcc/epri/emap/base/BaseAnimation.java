@@ -10,7 +10,7 @@ import com.nineoldandroids.animation.ObjectAnimator;
 import java.util.ArrayList;
 
 import cn.com.sgcc.epri.emap.MainActivity;
-import cn.com.sgcc.epri.emap.util.DisplayMetricsUtil;
+import cn.com.sgcc.epri.emap.util.DisplayMetrics;
 import cn.com.sgcc.epri.emap.util.Log4jLevel;
 
 /**
@@ -80,7 +80,7 @@ public class BaseAnimation extends MainActivityContext {
         int radius = 0;
 
         // 获取按钮边长(dp)
-        int a = DisplayMetricsUtil.Px2Dp(mMainActivity, view.getHeight());
+        int a = DisplayMetrics.Px2Dp(mMainActivity, view.getHeight());
 
         // 按钮对角线长度的一半(dp)
         int c = (int)Math.round(Math.sqrt(a * a * 2) / 2);

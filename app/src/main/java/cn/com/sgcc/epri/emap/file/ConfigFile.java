@@ -77,6 +77,8 @@ public class ConfigFile extends MainActivityContext {
 
                     eventType = parser.next(); // 处理下一个事件
                 }
+                inputStream.close();
+                fileInputStream.close();
 
                 mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, mConfigInfo.toString());
             }catch (Exception e) {
