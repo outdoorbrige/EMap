@@ -20,11 +20,12 @@ public class ShapLayout extends SingleListLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.edit));
+        setLayout(mMainActivity.findViewById(R.id.edit_layout));
         setListItems(mListItems);
         setOnItemClickListener(new ShapListViewListener(mMainActivity));
 
-        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
+        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo,
+                String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
     }
 
     // 布局显示

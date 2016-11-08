@@ -67,7 +67,7 @@ public class SingleListLayout extends BaseLayout {
     // 显示弹出菜单
     public void showPopupWindow(View parentView) {
         if (mPopupWindow == null) {
-            popupView = LayoutInflater.from(mMainActivity).inflate(R.layout.single_list, null);
+            popupView = LayoutInflater.from(mMainActivity).inflate(R.layout.single_list_layout, null);
             adaptWidthListView = (AdaptWidthListView) popupView.findViewById(R.id.adapt_width_list);
             arrayAdapter = new ArrayAdapter<String>(mMainActivity, android.R.layout.simple_list_item_single_choice, mListItems);
             adaptWidthListView.setAdapter(arrayAdapter);

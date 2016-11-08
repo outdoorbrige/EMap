@@ -46,8 +46,9 @@ public class ShapPointFile extends MainActivityContext {
                     String[] values = line.split(",");
 
                     if(values != null) {
-                        //mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, String.format("[%s][%s][%s]", values[0], values[1], values[2]));
-                        mShapPointInfo.add(values[2], values[1], values[0]);
+//                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo,
+//                                String.format("[%s][%s][%s]", values[0], values[1], values[2]));
+                        mShapPointInfo.put(values[2], values[0] + values[1]);
                     }
                 }
 
@@ -56,12 +57,15 @@ public class ShapPointFile extends MainActivityContext {
                 inputStream.close();
                 fileInputStream.close();
 
-                //mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, mShapPointInfo.toString());
+//                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo,
+//                        mShapPointInfo.toString());
             } catch (Exception e) {
-                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, e.toString());
+                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                        e.toString());
             }
         } else {
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, String.format("数据文件%s不存在", shapPointFile));
+            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                    String.format("数据文件%s不存在", shapPointFile));
         }
     }
 

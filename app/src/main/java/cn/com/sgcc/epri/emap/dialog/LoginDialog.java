@@ -34,7 +34,7 @@ public class LoginDialog extends BaseAlertDialog {
 
     // 初始化
     public void init() {
-        super.init(R.layout.login, (ViewGroup) mMainActivity.findViewById(R.id.login), false, false);
+        super.init(R.layout.login_layout, (ViewGroup) mMainActivity.findViewById(R.id.login_layout), false, false);
     }
 
     // 显示对话框
@@ -48,7 +48,7 @@ public class LoginDialog extends BaseAlertDialog {
     // 初始化控件
     private void initWidget() {
         if(mLayout == null) { // 只初始化一次控件对象
-            mLayout = getAlertDialog().findViewById(R.id.login);
+            mLayout = getAlertDialog().findViewById(R.id.login_layout);
             mUserName = (EditText) getAlertDialog().findViewById(R.id.login_name);
             mPassword = (EditText) getAlertDialog().findViewById(R.id.login_pwd);
             mKeepPassword = (CheckBox) getAlertDialog().findViewById(R.id.keep_pwd);

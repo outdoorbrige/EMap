@@ -80,12 +80,15 @@ public class ConfigFile extends MainActivityContext {
                 inputStream.close();
                 fileInputStream.close();
 
-                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, mConfigInfo.toString());
+                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo,
+                        mConfigInfo.toString());
             }catch (Exception e) {
-                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, e.toString());
+                mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                        e.toString());
             }
         } else {
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, String.format("配置文件%s不存在", configFile));
+            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                    String.format("配置文件%s不存在", configFile));
         }
     }
 

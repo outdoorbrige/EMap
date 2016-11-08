@@ -27,7 +27,7 @@ public class MenuLayout extends BaseLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.menu));
+        setLayout(mMainActivity.findViewById(R.id.menu_layout));
         mEditButton = (Button) mMainActivity.findViewById(R.id.menu_edit);
         mSetButton = (Button) mMainActivity.findViewById(R.id.menu_setting);
         mDownloadButton = (Button) mMainActivity.findViewById(R.id.menu_download);

@@ -34,7 +34,7 @@ public class LogoutDialog extends BaseAlertDialog {
 
     // 初始化
     public void init() {
-        super.init(R.layout.logout, (ViewGroup) mMainActivity.findViewById(R.id.logout), false, false);
+        super.init(R.layout.logout_layout, (ViewGroup) mMainActivity.findViewById(R.id.logout_layout), false, false);
     }
 
     // 显示对话框
@@ -48,7 +48,7 @@ public class LogoutDialog extends BaseAlertDialog {
     // 初始化控件
     private void initWidget() {
         if(mLayout == null) { // 只初始化一次控件对象
-            mLayout = getAlertDialog().findViewById(R.id.logout);
+            mLayout = getAlertDialog().findViewById(R.id.logout_layout);
             mUserName = (TextView)getAlertDialog().findViewById(R.id.logout_name);
             mNickName = (TextView)getAlertDialog().findViewById(R.id.logout_nickname);
             mUserType = (TextView)getAlertDialog().findViewById(R.id.logout_type);

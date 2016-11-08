@@ -95,7 +95,8 @@ public class LoginListener extends MainActivityContext implements View.OnClickLi
                     } else {
                         // 登录失败
                         mMainActivity.getLog4jManager().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                                mReturnUserInfo.getErrorString());
                     }
                 }
             }

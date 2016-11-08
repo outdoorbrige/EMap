@@ -17,7 +17,6 @@ public class EditLayout extends BaseLayout {
     private TextView mMappingView; // 测绘
     private TextView mExitEditView; // 退出编辑
     private ShapLayout mShapLayout; // 地物编辑菜单
-    private DrawPointLayout mDrawPointLayout; // 画点信息布局
 
     // 构造函数
     public EditLayout(MainActivity mainActivity) {
@@ -26,7 +25,7 @@ public class EditLayout extends BaseLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.edit));
+        setLayout(mMainActivity.findViewById(R.id.edit_layout));
         mShapEditView = (TextView)mMainActivity.findViewById(R.id.menu_shap);
         mLineEditView = (TextView)mMainActivity.findViewById(R.id.menu_line);
         mMappingView = (TextView)mMainActivity.findViewById(R.id.menu_mapping);
@@ -41,19 +40,11 @@ public class EditLayout extends BaseLayout {
 
         mShapLayout = new ShapLayout(mMainActivity);
         mShapLayout.init();
-
-        mDrawPointLayout = new DrawPointLayout(mMainActivity);
-        mDrawPointLayout.init();
     }
 
     // 获取地物编辑布局
     public ShapLayout getShapLayout() {
         return mShapLayout;
-    }
-
-    // 获取画点信息布局
-    public DrawPointLayout getDrawPointLayout() {
-        return mDrawPointLayout;
     }
 
     // 布局显示

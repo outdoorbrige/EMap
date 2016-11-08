@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:mMainActivity="cn.com.sgcc.epri.emap.MainActivity">
@@ -12,103 +13,115 @@
         android:layout_height="match_parent"/>
 
     <LinearLayout
-        android:id="@+id/top"
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <!--搜索栏(登录按钮、搜索内容、分割条、搜索按钮)-->
         <LinearLayout
-            android:id="@+id/search"
+            android:id="@+id/search_layout"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="@id/map_view">
 
-            <include layout="@layout/search"/>
+            <include layout="@layout/search_layout"/>
         </LinearLayout>
 
         <!--地图编辑(地物编辑、线路编辑、测绘、退出编辑)-->
         <LinearLayout
-            android:id="@+id/edit"
+            android:id="@+id/edit_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignBottom="@id/map_view"
             android:visibility="gone">
 
-            <include layout="@layout/edit"/>
+            <include layout="@layout/edit_layout"/>
         </LinearLayout>
 
     </LinearLayout>
 
-    <!--地物信息-画点-->
+    <!--地物信息-画点-顶部布局-->
     <LinearLayout
-        android:id="@+id/draw_point"
+        android:id="@+id/draw_point_top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:layout_below="@id/top"
+        android:layout_below="@id/top_layout"
         android:visibility="gone">
 
-        <include layout="@layout/draw_point"/>
+        <include layout="@layout/draw_point_top_layout"/>
+    </LinearLayout>
+
+    <!--地物信息-画点-底部布局-->
+    <LinearLayout
+        android:id="@+id/draw_point_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@+id/map_view"
+        android:visibility="invisible">
+
+        <include layout="@layout/draw_point_bottom_layout"/>
     </LinearLayout>
 
     <!--用户登录对话框-->
     <LinearLayout
-        android:id="@+id/login"
+        android:id="@+id/login_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/login"/>
+        <include layout="@layout/login_layout"/>
     </LinearLayout>
 
     <!--用户注册对话框-->
     <LinearLayout
-        android:id="@+id/register"
+        android:id="@+id/register_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/register"/>
+        <include layout="@layout/register_layout"/>
     </LinearLayout>
 
     <!--用户注销对话框-->
     <LinearLayout
-        android:id="@+id/logout"
+        android:id="@+id/logout_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/logout"/>
+        <include layout="@layout/logout_layout"/>
     </LinearLayout>
 
     <!--地图切换(矢量图、影像图、地形图)-->
     <LinearLayout
-        android:id="@+id/layer"
+        android:id="@+id/layer_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true">
 
-        <include layout="@layout/layer"/>
+        <include layout="@layout/layer_layout"/>
     </LinearLayout>
 
-    <!--地图切换 Popup Window-->
+    <!--Popup Window-->
     <LinearLayout
-        android:id="@+id/layer_list"
+        android:id="@+id/layer_list_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone">
 
-        <include layout="@layout/single_list"/>
+        <include layout="@layout/single_list_layout"/>
     </LinearLayout>
 
     <!--菜单(编辑、设置、下载)-->
     <LinearLayout
-        android:id="@+id/menu"
+        android:id="@+id/menu_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -116,12 +129,12 @@
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view">
 
-        <include layout="@layout/menu"/>
+        <include layout="@layout/menu_layout"/>
     </LinearLayout>
 
     <!--地图操作(地图放大、缩小、定位)-->
     <LinearLayout
-        android:id="@+id/action"
+        android:id="@+id/action_layout"
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -130,7 +143,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view">
 
-        <include layout="@layout/action"/>
+        <include layout="@layout/action_layout"/>
     </LinearLayout>
 
 </RelativeLayout>

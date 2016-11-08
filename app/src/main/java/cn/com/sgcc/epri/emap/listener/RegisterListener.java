@@ -79,7 +79,8 @@ public class RegisterListener extends MainActivityContext implements View.OnClic
             mUserInfo.setNickName(mUserInfo.getUserName());
         }
 
-        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mDebug, mUserInfo.toString());
+        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mDebug,
+                mUserInfo.toString());
 
         mHandler = new Handler() {
             @Override
@@ -93,7 +94,8 @@ public class RegisterListener extends MainActivityContext implements View.OnClic
                     } else {
                         // 注册失败
                         mMainActivity.getLog4jManager().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, mReturnUserInfo.getErrorString());
+                        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                                mReturnUserInfo.getErrorString());
                     }
                 }
             }

@@ -32,7 +32,7 @@ public class BaseUserWebService extends MainActivityContext {
 
     // 初始化
     protected void init() {
-        mConfigInfo = mMainActivity.getConfigInfo();
+        mConfigInfo = mMainActivity.getFileManager().getConfigInfo();
         mSoapEnvelopeVer = getSoapEnvelopeVer(mConfigInfo.getSoapVersion());
     }
 
@@ -58,7 +58,8 @@ public class BaseUserWebService extends MainActivityContext {
             success = false;
             userInfo.setSuccess(false);
             userInfo.setErrorString(e.toString());
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, e.toString());
+            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                    e.toString());
         } finally {
             return success;
         }
@@ -133,7 +134,8 @@ public class BaseUserWebService extends MainActivityContext {
             success = false;
             String e = String.format("解析服务返回结果失败!");
             userInfo.setErrorString(e);
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, e);
+            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                    e);
         }
 
         return success;
@@ -149,7 +151,8 @@ public class BaseUserWebService extends MainActivityContext {
         }else if("1.2".equals(soapVersion)) {
             ver = SoapEnvelope.VER12;
         } else {
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, String.format("SOAP协议版本号:%s无效！", soapVersion));
+            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                    String.format("SOAP协议版本号:%s无效！", soapVersion));
         }
 
         return ver;
@@ -165,8 +168,10 @@ public class BaseUserWebService extends MainActivityContext {
                 value = temp_value;
             }
         } else {
-            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError, String.format("属性:%s不存在！", key));
+            mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mError,
+                    String.format("属性:%s不存在！", key));
         }
+
         return value;
     }
 }

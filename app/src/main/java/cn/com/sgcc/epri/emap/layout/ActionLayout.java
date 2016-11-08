@@ -24,7 +24,7 @@ public class ActionLayout extends BaseLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.action));
+        setLayout(mMainActivity.findViewById(R.id.action_layout));
         mZoomInButton = (Button) mMainActivity.findViewById(R.id.zoon_in);
         mZoomOutButton = (Button) mMainActivity.findViewById(R.id.zoom_out);
         mLocateButton = (Button) mMainActivity.findViewById(R.id.location);

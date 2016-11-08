@@ -24,7 +24,7 @@ public class LayerLayout extends SingleListLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.layer));
+        setLayout(mMainActivity.findViewById(R.id.layer_layout));
         setListItems(mListItems);
         setDefaultSelectItemIndex(1); // 默认选中矢量图
         setOnItemClickListener(new LayerListViewListener(mMainActivity));
@@ -32,7 +32,8 @@ public class LayerLayout extends SingleListLayout {
         mLayerButton = (Button) mMainActivity.findViewById(R.id.layer_button);
         mLayerButton.setOnClickListener(new LayerListener(mMainActivity));
 
-        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo, String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
+        mMainActivity.getLog4jManager().log(this.getClass(), Log4jLevel.mInfo,
+                String.format("%s,%s,%s", mListItems[0], mListItems[1], mListItems[2]));
     }
 
     // 布局显示

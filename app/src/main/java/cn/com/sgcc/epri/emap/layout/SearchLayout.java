@@ -22,7 +22,7 @@ public class SearchLayout extends BaseLayout {
 
     // 初始化
     public void init() {
-        setLayout(mMainActivity.findViewById(R.id.search));
+        setLayout(mMainActivity.findViewById(R.id.search_layout));
         mLoginButton = (Button) mMainActivity.findViewById(R.id.user_login_button);
         mSearchButton = (Button) mMainActivity.findViewById(R.id.search_button);
 

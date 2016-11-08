@@ -5,7 +5,6 @@ import android.widget.TextView;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.TOfflineMapManager;
-import com.tianditu.maps.GeoPointEx;
 
 import cn.com.sgcc.epri.emap.MainActivity;
 import cn.com.sgcc.epri.emap.R;

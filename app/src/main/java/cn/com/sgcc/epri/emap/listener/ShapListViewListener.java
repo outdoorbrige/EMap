@@ -22,7 +22,7 @@ public class ShapListViewListener extends MainActivityContext implements Adapter
             case -1: // 点击的是headerView或者footerView
                 break;
             case 0: // 画点
-                mMainActivity.getLayoutManger().getEditLayout().getDrawPointLayout().show();
+                mMainActivity.getLayoutManger().getDrawPointTopLayout().show();
                 break;
             case 1: // 画线
                 break;

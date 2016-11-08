@@ -32,7 +32,7 @@ public class RegisterDialog extends BaseAlertDialog {
 
     // 初始化
     public void init() {
-        super.init(R.layout.register, (ViewGroup) mMainActivity.findViewById(R.id.register), false, false);
+        super.init(R.layout.register_layout, (ViewGroup) mMainActivity.findViewById(R.id.register_layout), false, false);
     }
 
     // 显示对话框
@@ -46,7 +46,7 @@ public class RegisterDialog extends BaseAlertDialog {
     // 初始化控件
     private void initWidget() {
         if(mLayout == null) { // 只初始化一次控件对象
-            mLayout = getAlertDialog().findViewById(R.id.register);
+            mLayout = getAlertDialog().findViewById(R.id.register_layout);
             mUserName = (EditText) getAlertDialog().findViewById(R.id.register_name);
             mPassword = (EditText) getAlertDialog().findViewById(R.id.register_pwd);
             mConfirmPassword = (EditText) getAlertDialog().findViewById(R.id.register_confirm_pwd);
