@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.gh.emap.MainActivity">
+
+    <!--地图控件-->
+    <com.tianditu.android.maps.MapView
+        android:id="@+id/map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/top"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/white_bg"
+        android:layout_alignParentTop="@id/map_view">
+
+        <!--非编辑状态(登录按钮、搜索内容、分割条、搜索按钮、经度、纬度、高程)-->
+        <LinearLayout
+            android:id="@+id/top_normal"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!--用户登录-->
+                <Button
+                    android:id="@+id/user_login_button"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@mipmap/offline_bg"/>
+
+                <!--分割条-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/vertical_divider"/>
+
+                <!--搜索内容-->
+                <EditText
+                    android:id="@+id/search_context"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:cursorVisible="true"
+                    android:singleLine="true"
+                    android:hint="搜索"
+                    android:background="@null"/>
+
+                <!--分割条-->
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/vertical_divider"/>
+
+                <!--搜索按钮-->
+                <Button
+                    android:id="@+id/search_button"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@mipmap/search_button_bg"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="纬度:"/>
+
+                <TextView
+                    android:id="@+id/latitude"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="经度:"/>
+
+                <TextView
+                    android:id="@+id/longitude"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="2"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="高程:"/>
+
+                <TextView
+                    android:id="@+id/elevation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--编辑状态(地物编辑、线路编辑、测绘、退出编辑)-->
+        <LinearLayout
+            android:id="@+id/top_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <!--地物绘制-->
+            <TextView
+                android:id="@+id/menu_shap"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/menu_shap_bg"
+                android:text="地物绘制"
+                android:gravity="center"/>
+
+            <!--分割条-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/vertical_divider"/>
+
+            <!--线路绘制-->
+            <TextView
+                android:id="@+id/menu_line"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/menu_line_bg"
+                android:text="线路绘制"
+                android:gravity="center"/>
+
+            <!--分割条-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/vertical_divider"/>
+
+            <!--测绘-->
+            <TextView
+                android:id="@+id/menu_mapping"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/menu_mapping_bg"
+                android:text="测绘"
+                android:gravity="center"/>
+
+            <!--分割条-->
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:src="@mipmap/vertical_divider"/>
+
+            <!--退出编辑-->
+            <TextView
+                android:id="@+id/menu_exit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@mipmap/menu_exit_bg"
+                android:text="退出编辑"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--地图切换(矢量图、影像图、地形图)-->
+    <LinearLayout
+        android:id="@+id/layer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true">
+
+        <Button
+            android:id="@+id/layer_button"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@mipmap/layer_button_bg"/>
+
+    </LinearLayout>
+
+    <!--地图切换弹出式菜单-->
+    <LinearLayout
+        android:id="@+id/layer_popup_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/layer_popup_menu"/>
+
+    </LinearLayout>
+
+    <!--地物编辑弹出式菜单-->
+    <LinearLayout
+        android:id="@+id/shap_popup_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/shap_popup_menu"/>
+
+    </LinearLayout>
+
+    <!--地物信息-画点-顶部布局-->
+    <LinearLayout
+        android:id="@+id/top_shap_point"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/white_bg"
+        android:gravity="center_vertical"
+        android:layout_below="@id/top"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="类别:"/>
+
+        <TextView
+            android:id="@+id/point_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="名称:"/>
+
+        <EditText
+            android:id="@+id/point_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:cursorVisible="true"
+            android:singleLine="true"
+            android:background="@null"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/point_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"/>
+
+    </LinearLayout>
+
+    <!--地物信息-画点-底部布局-->
+    <LinearLayout
+        android:id="@+id/bottom_shap_point"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@+id/map_view"
+        android:background="@mipmap/white_bg"
+        android:visibility="invisible">
+
+        <com.wx.wheelview.widget.WheelView
+            android:id="@+id/point_scroll_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <com.wx.wheelview.widget.WheelView
+            android:id="@+id/point_scroll_two"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
+    <!--菜单(编辑、设置、下载)-->
+    <RelativeLayout
+        android:id="@+id/menu"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/map_view">
+
+        <!--编辑-->
+        <Button
+            android:id="@+id/menu_edit"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/menu_edit_bg"/>
+
+        <!--设置-->
+        <Button
+            android:id="@+id/menu_setting"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/menu_setting_bg"/>
+
+        <!--下载-->
+        <Button
+            android:id="@+id/menu_download"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/menu_download_bg"/>
+
+        <!--菜单-->
+        <Button
+            android:id="@+id/menu_main"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="@mipmap/meun_main_bg"/>
+
+    </RelativeLayout>
+
+    <!--地图操作(地图放大、缩小、定位)-->
+    <LinearLayout
+        android:id="@+id/operation"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/map_view">
+
+        <!--放大-->
+        <Button
+            android:id="@+id/zoon_in"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@mipmap/zoon_in_bg"/>
+
+        <!--缩小-->
+        <Button
+            android:id="@+id/zoom_out"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@mipmap/zoom_out_bg"/>
+
+        <!--定位 -->
+        <Button
+            android:id="@+id/location"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@mipmap/location_bg"/>
+
+    </LinearLayout>
+
+    <!--用户登录对话框-->
+    <LinearLayout
+        android:id="@+id/user_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/user_login"/>
+    </LinearLayout>
+
+    <!--用户注册对话框-->
+    <LinearLayout
+        android:id="@+id/user_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/user_register"/>
+    </LinearLayout>
+
+    <!--用户注销对话框-->
+    <LinearLayout
+        android:id="@+id/user_logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/user_logout"/>
+    </LinearLayout>
+
+</RelativeLayout>
