@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 解析数据文件
  */
 public class ShapPointFile {
     private Context mContext;

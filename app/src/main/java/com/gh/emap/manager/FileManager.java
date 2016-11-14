@@ -7,6 +7,7 @@ import com.gh.emap.file.ShapPointFile;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 文件管理类
  */
 public class FileManager {
     private Context mContext;

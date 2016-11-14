@@ -16,6 +16,7 @@ import com.gh.emap.view.MyListView;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 地图类型切换布局
  */
 public class LayerLayout {
     private Context mContext;

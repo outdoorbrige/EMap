@@ -15,6 +15,7 @@ import com.gh.emap.layout.UserRegisterLayout;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 布局管理类
  */
 public class LayoutManager {
     private Context mContext;

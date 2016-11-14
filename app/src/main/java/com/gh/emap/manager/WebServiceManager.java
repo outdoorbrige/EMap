@@ -9,7 +9,7 @@ import com.gh.emap.webservice.UserRegisterWebService;
 
 /**
  * Created by GuHeng on 2016/10/14.
- * 服务管理类
+ * Web服务管理类
  */
 public class WebServiceManager {
     private Context mContext;

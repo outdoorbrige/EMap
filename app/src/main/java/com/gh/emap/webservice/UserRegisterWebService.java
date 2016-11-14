@@ -17,6 +17,7 @@ import org.ksoap2.transport.HttpTransportSE;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 用户注册服务
  */
 public class UserRegisterWebService implements Runnable {
     private Context mContext;

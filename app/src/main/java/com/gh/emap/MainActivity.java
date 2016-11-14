@@ -2,7 +2,9 @@ package com.gh.emap;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.manager.MainManager;
@@ -75,5 +77,52 @@ public class MainActivity extends AppCompatActivity {
         this.mMainManager.getMapManager().disableTMyLocationOverlay();
         this.mMainManager.unInit();
         super.onDestroy();
+    }
+
+    // 分发触摸事件
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+            View view = findViewById(R.id.bottom_shap_point);
+            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomShapPointLayout布局
+                this.getMainManager().getLayoutManager().getBottomShapPointLayout().hide();
+                this.getMainManager().getLayoutManager().getMenuLayout().show();
+                this.getMainManager().getLayoutManager().getOperationLayout().show();
+            }
+
+            return super.dispatchTouchEvent(motionEvent);
+        }
+
+        // 必不可少，否则所有的组件都不会有TouchEvent了
+        if (getWindow().superDispatchTouchEvent(motionEvent)) {
+            return true;
+        }
+
+        return onTouchEvent(motionEvent);
+    }
+
+    // 判断是否触摸了View
+    public  boolean isTouchedView(View view, MotionEvent motionEvent) {
+        if (view != null) {
+            int[] leftTop = { 0, 0 };
+
+            //获取View当前的location位置
+            view.getLocationInWindow(leftTop);
+
+            int left = leftTop[0];
+            int top = leftTop[1];
+            int bottom = top + view.getHeight();
+            int right = left + view.getWidth();
+
+            if ((left < motionEvent.getX() && motionEvent.getX() < right) &&
+                    (top < motionEvent.getY() && motionEvent.getY() < bottom)) {
+                // 点击的是View区域，保留点击View的事件
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        return false;
     }
 }

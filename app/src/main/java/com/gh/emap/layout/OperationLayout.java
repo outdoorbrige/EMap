@@ -10,6 +10,7 @@ import com.gh.emap.listener.OperationListener;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 地图操作布局
  */
 public class OperationLayout {
     private Context mContext;

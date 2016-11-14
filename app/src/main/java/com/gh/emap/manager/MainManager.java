@@ -4,13 +4,16 @@ import android.content.Context;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 主管理类
  */
 public class MainManager {
     private Context mContext;
     private LogManager mLogManager;
+    private MyPermissionManager mMyPermissionManager;
+    private ListenerManager mListenerManager;
     private FileManager mFileManager;
     private MapManager mMapManager;
-    private ListenerManager mListenerManager;
+    private MyLocationManager mMyLocationManager;
     private UserManager mUserManager;
     private LayoutManager mLayoutManager;
     private WebServiceManager mWebServiceManager;
@@ -23,14 +26,20 @@ public class MainManager {
         this.mLogManager = new LogManager(this.mContext);
         this.mLogManager.init();
 
+        this.mListenerManager = new ListenerManager(this.mContext);
+        this.mListenerManager.init();
+
+        this.mMyPermissionManager = new MyPermissionManager(this.mContext);
+        this.mMyPermissionManager.init();
+
         this.mFileManager = new FileManager(this.mContext);
         this.mFileManager.init();
 
         this.mMapManager = new MapManager(this.mContext);
         this.mMapManager.init();
 
-        this.mListenerManager = new ListenerManager(this.mContext);
-        this.mListenerManager.init();
+        this.mMyLocationManager = new MyLocationManager(this.mContext);
+        this.mMyLocationManager.init();
 
         this.mUserManager = new UserManager(this.mContext);
         this.mUserManager.init();
@@ -46,10 +55,19 @@ public class MainManager {
         this.getLayoutManager().getUserLoginLayout().dimiss();
         this.getLayoutManager().getUserRegisterLayout().dimiss();
         this.getLayoutManager().getUserLogoutLayout().dimiss();
+        this.getMyLocationManager().removeUpdates();
     }
 
     public LogManager getLogManager() {
         return this.mLogManager;
+    }
+
+    public ListenerManager getListenerManager() {
+        return this.mListenerManager;
+    }
+
+    public MyPermissionManager getMyPermissionManager() {
+        return this.mMyPermissionManager;
     }
 
     public FileManager getFileManager() {
@@ -60,8 +78,8 @@ public class MainManager {
         return this.mMapManager;
     }
 
-    public ListenerManager getListenerManager() {
-        return this.mListenerManager;
+    public MyLocationManager getMyLocationManager() {
+        return this.mMyLocationManager;
     }
 
     public UserManager getUserManager() {

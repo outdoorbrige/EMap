@@ -72,9 +72,9 @@ public class TopEditListener implements View.OnClickListener, AdapterView.OnItem
 
     // 画点类型
     private void onClickedPointType(View view) {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().hide();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().hide();
+        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().show();
 
         ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).setText(
                 (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewTwo().getSelectionItem());
@@ -89,6 +89,7 @@ public class TopEditListener implements View.OnClickListener, AdapterView.OnItem
     private void onClickedPointSave(View view) {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().hide();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().hide();
+        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
     }
@@ -121,6 +122,7 @@ public class TopEditListener implements View.OnClickListener, AdapterView.OnItem
     // 画点
     private void onItemClickedPoint(AdapterView<?> parent, View view, int position, long id) {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().show();
+        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
     }
     // 画线
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
@@ -134,23 +136,11 @@ public class TopEditListener implements View.OnClickListener, AdapterView.OnItem
 
     @Override
     public void onItemSelected(int position, String item) {
-        onItemSelectedWheelOne(position, item);
-        onItemSelectedWheelTwo(position, item);
+        onItemSelectedWheel(position, item);
     }
 
-    // 选择第一个滚动选择器的Item
-    private void onItemSelectedWheelOne(int position, String item) {
-        if(((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewOne().isFocused()) {
-            ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).setText(
-                    (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewTwo().getSelectionItem());
-        }
-    }
-
-    // // 选择第二个滚动选择器的Item
-    private void onItemSelectedWheelTwo(int position, String item) {
-        if(((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewTwo().isFocused()) {
-            ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).setText(
-                    (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewTwo().getSelectionItem());
-        }
+    private void onItemSelectedWheel(int position, String item) {
+        ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).setText(
+                (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewTwo().getSelectionItem());
     }
 }

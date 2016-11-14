@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
+import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.OperationListener;
 import com.gh.emap.listener.TopEditListener;
 import com.gh.emap.listener.TopNormalListener;
@@ -13,6 +14,7 @@ import com.gh.emap.listener.UserRegisterListener;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 监听管理类
  */
 public class ListenerManager {
     private Context mContext;
@@ -24,6 +26,7 @@ public class ListenerManager {
     private UserRegisterListener mUserRegisterListener;
     private UserLogoutListener mUserLogoutListener;
     private TopEditListener mTopEditListener;
+    private MyLocationListener mMyLocationListener;
 
     public ListenerManager(Context context) {
         this.mContext = context;
@@ -38,6 +41,7 @@ public class ListenerManager {
         this.mUserRegisterListener = new UserRegisterListener(this.mContext);
         this.mUserLogoutListener = new UserLogoutListener(this.mContext);
         this.mTopEditListener = new TopEditListener(this.mContext);
+        this.mMyLocationListener = new MyLocationListener(this.mContext);
     }
 
     public TopNormalListener getTopNormalListener() {
@@ -70,5 +74,9 @@ public class ListenerManager {
 
     public TopEditListener getTopEditListener() {
         return this.mTopEditListener;
+    }
+
+    public MyLocationListener getMyLocationListener() {
+        return this.mMyLocationListener;
     }
 }

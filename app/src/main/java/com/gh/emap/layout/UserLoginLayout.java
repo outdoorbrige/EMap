@@ -15,6 +15,7 @@ import com.gh.emap.listener.UserLoginListener;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 用户登录布局
  */
 public class UserLoginLayout {
     private Context mContext;

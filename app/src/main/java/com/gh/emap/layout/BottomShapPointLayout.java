@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 地物编辑-画点 底部布局
  */
 public class BottomShapPointLayout {
     private Context mContext;
@@ -116,12 +117,10 @@ public class BottomShapPointLayout {
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
         this.mLayout.setVisibility(View.GONE);
-
-        clear();
     }
 
     // 上次数据清理
-    private void clear() {
+    public void clear() {
         this.mWheelViewOne.setSelection(0);
         this.mWheelViewTwo.setSelection(0);
     }

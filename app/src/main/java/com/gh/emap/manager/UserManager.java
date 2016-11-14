@@ -2,6 +2,7 @@ package com.gh.emap.manager;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 用户信息管理类
  */
 
 import android.content.Context;

@@ -10,6 +10,7 @@ import com.gh.emap.listener.TopNormalListener;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 地图非编辑模式布局
  */
 public class TopNormalLayout {
     private Context mContext;

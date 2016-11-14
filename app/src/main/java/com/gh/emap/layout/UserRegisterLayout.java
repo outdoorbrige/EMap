@@ -13,6 +13,7 @@ import com.gh.emap.listener.UserRegisterListener;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 用户注册布局
  */
 public class UserRegisterLayout {
     private Context mContext;

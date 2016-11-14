@@ -17,6 +17,7 @@ import java.io.InputStream;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 解析配置文件
  */
 public class EMapFile {
     private Context mContext;

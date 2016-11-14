@@ -17,6 +17,7 @@ import java.io.File;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 地图管理类
  */
 public class MapManager {
     private Context mContext;

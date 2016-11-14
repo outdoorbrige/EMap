@@ -12,6 +12,7 @@ import com.gh.emap.listener.TopEditListener;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 地物编辑-画点 顶部布局
  */
 public class TopShapPointLayout {
     private Context mContext;
@@ -38,6 +39,7 @@ public class TopShapPointLayout {
     // 显示布局
     public void show() {
         this.mLayout.setVisibility(View.VISIBLE);
+        clear();
     }
 
     // 隐藏布局
@@ -48,8 +50,6 @@ public class TopShapPointLayout {
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
         this.mLayout.setVisibility(View.GONE);
-
-        clear();
     }
 
     // 清理上次数据

@@ -15,6 +15,7 @@ import de.mindpipe.android.logging.log4j.LogConfigurator;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 日志管理类
  */
 public class LogManager {
     private Context mContext;

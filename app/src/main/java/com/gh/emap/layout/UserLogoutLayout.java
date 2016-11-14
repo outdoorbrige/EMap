@@ -14,6 +14,7 @@ import com.gh.emap.model.UserInfo;
 
 /**
  * Created by GuHeng on 2016/11/11.
+ * 用户注销布局
  */
 public class UserLogoutLayout {
     private Context mContext;

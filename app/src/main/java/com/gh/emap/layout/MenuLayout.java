@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 地图菜单布局
  */
 public class MenuLayout {
     private Context mContext;
