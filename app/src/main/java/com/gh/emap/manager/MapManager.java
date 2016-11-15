@@ -68,9 +68,9 @@ public class MapManager {
 
     private String getCachePath() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator
-                    + "EMap" + File.separator
-                    + "MapCache" + File.separator;
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "MapCache" + File.separator;
         } else {
             return null;
         }
@@ -78,9 +78,9 @@ public class MapManager {
 
     private String getOfflinePath() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator
-                    + "EMap" + File.separator
-                    + "OfflineMap" + File.separator;
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "OfflineMap" + File.separator;
         } else {
             return null;
         }
@@ -155,6 +155,9 @@ public class MapManager {
         if(this.mGeoPoint != null) {
             mMapController.setCenter(this.mGeoPoint);
         }
+
+        // 恢复初始缩放级别
+        this.mMapController.setZoom(this.mCurrentZoomLevel);
 
         // 取消地图旋转，恢复正常状态
         this.mMapView.setMapRotation(0.00f);

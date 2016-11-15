@@ -46,7 +46,7 @@ public class EMapFile {
                             this.mEMap = new EMap();
                             break;
                         case XmlPullParser.START_TAG: // 标签开始
-                            if("EMap".equals(tagName)) {
+                            if(((MainActivity)this.mContext).getApplationName().equals(tagName)) {
 
                             } else if("WebService".equals(tagName)) {
                                 this.mEMap.setNameSpace(parser.getAttributeValue("", "NameSpace"));
@@ -83,7 +83,7 @@ public class EMapFile {
                         this.mEMap.toString());
             }catch (Exception e) {
                 ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
-                        e.toString());
+                        e.getStackTrace().toString());
             }
         } else {
             ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
@@ -97,9 +97,9 @@ public class EMapFile {
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator
-                    + "EMap" + File.separator
-                    + "EMap.config";
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "EMap.config";
         } else {
             return null;
         }

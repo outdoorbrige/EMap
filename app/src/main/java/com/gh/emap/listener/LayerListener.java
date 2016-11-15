@@ -37,7 +37,7 @@ public class LayerListener implements View.OnClickListener, AdapterView.OnItemCl
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // id == -1 点击的是headerView或者footerView
-        if(0 <= position && position < parent.getCount()) {
+        if(-1 < position && position < parent.getCount()) {
             ((MainActivity)this.mContext).getMainManager().getLayoutManager().getLayerLayout().setCurrentSelectItemIndex(position);
             ((MainActivity)this.mContext).getMainManager().getMapManager().getMapView().setMapType(position + 1);
         }

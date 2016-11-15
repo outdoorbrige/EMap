@@ -28,6 +28,7 @@ public class TopEditLayout {
 
     private String[] mListItems = {"画点", "画线", "画面"};
     private PopupWindow mShapPopupWindow; // 弹出地物编辑式菜单
+    private int mShapEditSelectedIndex; // 当前地物编辑选择的索引
 
     public TopEditLayout(Context context) {
         this.mContext = context;
@@ -54,7 +55,7 @@ public class TopEditLayout {
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_list_item_single_choice, this.mListItems);
             myListView.setAdapter(arrayAdapter);
             myListView.setItemsCanFocus(false);
-            myListView.setOnItemClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditListener());
+            myListView.setOnItemClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getShapEditListener());
 
             this.mShapPopupWindow = new PopupWindow(popupLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             this.mShapPopupWindow.setBackgroundDrawable(new ColorDrawable());
@@ -63,12 +64,24 @@ public class TopEditLayout {
 
         }
 
+        setShapEditSelectedIndex(-2);
+
         this.mShapPopupWindow.showAsDropDown(parentView);
     }
 
     // 关闭地物编辑弹出菜单
     public void closeShapPopupWindow() {
         this.mShapPopupWindow.dismiss();
+    }
+
+    // 设置当前地物编辑选择的索引
+    public void setShapEditSelectedIndex(int index) {
+        this.mShapEditSelectedIndex = index;
+    }
+
+    // 获取当前地物编辑选择的索引
+    public int getShapEditSelectedIndex() {
+        return this.mShapEditSelectedIndex;
     }
 
     // 显示布局

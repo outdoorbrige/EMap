@@ -2,11 +2,14 @@ package com.gh.emap.manager;
 
 import android.content.Context;
 
+import com.gh.emap.listener.BottomEditPointListener;
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.OperationListener;
 import com.gh.emap.listener.TopEditListener;
+import com.gh.emap.listener.ShapEditListener;
+import com.gh.emap.listener.TopEditPointListener;
 import com.gh.emap.listener.TopNormalListener;
 import com.gh.emap.listener.UserLoginListener;
 import com.gh.emap.listener.UserLogoutListener;
@@ -18,6 +21,7 @@ import com.gh.emap.listener.UserRegisterListener;
  */
 public class ListenerManager {
     private Context mContext;
+    private MyLocationListener mMyLocationListener;
     private TopNormalListener mTopNormalListener;
     private MenuListener mMenuListener;
     private LayerListener mLayerListener;
@@ -26,13 +30,17 @@ public class ListenerManager {
     private UserRegisterListener mUserRegisterListener;
     private UserLogoutListener mUserLogoutListener;
     private TopEditListener mTopEditListener;
-    private MyLocationListener mMyLocationListener;
+    private ShapEditListener mShapEditListener;
+    private TopEditPointListener mTopEditPointListener;
+    private BottomEditPointListener mBottomEditPointListener;
+
 
     public ListenerManager(Context context) {
         this.mContext = context;
     }
 
     public void init() {
+        this.mMyLocationListener = new MyLocationListener(this.mContext);
         this.mTopNormalListener = new TopNormalListener(this.mContext);
         this.mMenuListener = new MenuListener(this.mContext);
         this.mLayerListener = new LayerListener(this.mContext);
@@ -41,7 +49,14 @@ public class ListenerManager {
         this.mUserRegisterListener = new UserRegisterListener(this.mContext);
         this.mUserLogoutListener = new UserLogoutListener(this.mContext);
         this.mTopEditListener = new TopEditListener(this.mContext);
-        this.mMyLocationListener = new MyLocationListener(this.mContext);
+        this.mShapEditListener = new ShapEditListener(this.mContext);
+        this.mTopEditPointListener = new TopEditPointListener(this.mContext);
+        this.mBottomEditPointListener = new BottomEditPointListener(this.mContext);
+
+    }
+
+    public MyLocationListener getMyLocationListener() {
+        return this.mMyLocationListener;
     }
 
     public TopNormalListener getTopNormalListener() {
@@ -76,7 +91,15 @@ public class ListenerManager {
         return this.mTopEditListener;
     }
 
-    public MyLocationListener getMyLocationListener() {
-        return this.mMyLocationListener;
+    public ShapEditListener getShapEditListener() {
+        return this.mShapEditListener;
+    }
+
+    public TopEditPointListener getTopEditPointListener() {
+        return this.mTopEditPointListener;
+    }
+
+    public BottomEditPointListener getBottomEditPointListener() {
+        return this.mBottomEditPointListener;
     }
 }

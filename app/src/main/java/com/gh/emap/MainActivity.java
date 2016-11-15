@@ -125,4 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
         return false;
     }
+
+    // 获取应用程序名称
+    public String getApplationName() {
+        return "EMap";
+    }
 }

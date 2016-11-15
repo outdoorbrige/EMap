@@ -13,6 +13,7 @@ public class MainManager {
     private ListenerManager mListenerManager;
     private FileManager mFileManager;
     private MapManager mMapManager;
+    private OverlayManager mOverlayManager;
     private MyLocationManager mMyLocationManager;
     private UserManager mUserManager;
     private LayoutManager mLayoutManager;
@@ -37,6 +38,9 @@ public class MainManager {
 
         this.mMapManager = new MapManager(this.mContext);
         this.mMapManager.init();
+
+        this.mOverlayManager = new OverlayManager(this.mContext);
+        this.mOverlayManager.init();
 
         this.mMyLocationManager = new MyLocationManager(this.mContext);
         this.mMyLocationManager.init();
@@ -76,6 +80,10 @@ public class MainManager {
 
     public MapManager getMapManager() {
         return this.mMapManager;
+    }
+
+    public OverlayManager getOverlayManager() {
+        return this.mOverlayManager;
     }
 
     public MyLocationManager getMyLocationManager() {

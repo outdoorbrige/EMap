@@ -87,8 +87,8 @@ public class BottomShapPointLayout {
         this.mWheelViewOne.join(this.mWheelViewTwo);
         this.mWheelViewOne.joinDatas(hashMap);
 
-        this.mWheelViewOne.setOnWheelItemSelectedListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditListener());
-        this.mWheelViewTwo.setOnWheelItemSelectedListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditListener());
+        this.mWheelViewOne.setOnWheelItemSelectedListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getBottomEditPointListener());
+        this.mWheelViewTwo.setOnWheelItemSelectedListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getBottomEditPointListener());
 
         // 初始化画点类型
         ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).setText((String)this.mWheelViewTwo.getSelectedItem());

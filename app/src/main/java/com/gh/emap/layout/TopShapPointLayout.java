@@ -31,9 +31,9 @@ public class TopShapPointLayout {
         this.mPointName = (EditText)((MainActivity)this.mContext).findViewById(R.id.point_name);
         this.mPointSave = (Button)((MainActivity)this.mContext).findViewById(R.id.point_save);
 
-        this.mPointType.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditListener());
-        this.mPointName.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditListener());
-        this.mPointSave.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditListener());
+        this.mPointType.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
+        this.mPointName.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
+        this.mPointSave.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
     }
 
     // 显示布局

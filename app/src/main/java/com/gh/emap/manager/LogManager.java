@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
 
+import com.gh.emap.MainActivity;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -107,10 +109,10 @@ public class LogManager {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
-            return Environment.getExternalStorageDirectory().toString() + File.separator
-                    + "EMap" + File.separator
-                    + "Log" + File.separator
-                    + simpleDateFormat.format(date) + ".log";
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "Log" + File.separator +
+                    simpleDateFormat.format(date) + ".log";
         } else {
             return null;
         }

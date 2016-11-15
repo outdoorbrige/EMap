@@ -29,8 +29,7 @@ public class ShapPointFile {
     public void init() {
         this.mShapPoint = new ShapPoint();
 
-        String shapPointFile = getFile()
-                ;
+        String shapPointFile = getFile();
 
         File file = new File(shapPointFile);
         if(file.exists()) { // 判断文件是否存在
@@ -61,7 +60,7 @@ public class ShapPointFile {
 //                        this.mShapPoint.toString());
             } catch (Exception e) {
                 ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
-                        e.toString());
+                        e.getStackTrace().toString());
             }
         } else {
             ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
@@ -76,10 +75,10 @@ public class ShapPointFile {
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator
-                    + "EMap" + File.separator
-                    + "Data" + File.separator
-                    + "ShapPoint.dat";
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "Data" + File.separator +
+                    "ShapPoint.dat";
         } else {
             return null;
         }

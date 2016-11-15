@@ -21,7 +21,9 @@ public class MyLocationListener implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        ((MainActivity)this.mContext).getMainManager().getMapManager().showPositionInfo(GeoPointEx.Double2GeoPoint(location.getLongitude(), location.getLatitude()));
+        GeoPoint geoPoint = GeoPointEx.Double2GeoPoint(location.getLongitude(), location.getLatitude());
+        ((MainActivity)this.mContext).getMainManager().getMapManager().showPositionInfo(geoPoint);
+        ((MainActivity)this.mContext).getMainManager().getMyLocationManager().setGeoPoint(geoPoint);
     }
 
     @Override

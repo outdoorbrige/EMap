@@ -86,7 +86,7 @@ public class UserRegisterWebService implements Runnable {
             userInfo.setSuccess(false);
             userInfo.setErrorString(e.toString());
             ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
-                    e.toString());
+                    e.getStackTrace().toString());
         } finally {
             return success;
         }
@@ -113,10 +113,10 @@ public class UserRegisterWebService implements Runnable {
             success = true;
         } else {
             success = false;
-            String e = String.format("解析服务返回结果失败!");
-            userInfo.setErrorString(e);
+            String error = String.format("解析服务返回结果失败!");
+            userInfo.setErrorString(error);
             ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
-                    e);
+                    error);
         }
 
         return success;

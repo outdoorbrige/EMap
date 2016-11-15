@@ -6,8 +6,12 @@ package com.gh.emap.manager;
  */
 
 import android.content.Context;
+import android.os.Environment;
 
+import com.gh.emap.MainActivity;
 import com.gh.emap.model.UserInfo;
+
+import java.io.File;
 
 /**
  * Created by GuHeng on 2016/10/25.
@@ -42,8 +46,32 @@ public class UserManager {
         return mUserInfo == null ? false : mUserInfo.isSuccess();
     }
 
+    // 获取用户目录
+    public String getHomePath() {
+        if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return null;
+        }
+
+        if(this.mUserInfo == null || !this.mUserInfo.isSuccess()) {
+            return null;
+        }
+
+        String homePath = Environment.getExternalStorageDirectory().toString() + File.separator +
+                ((MainActivity)this.mContext).getApplationName() + File.separator +
+                "Users" + File.separator +
+                this.mUserInfo.getUserName() + File.separator;
+
+        // 如果目录不存在，就创建
+        File homeDir = new File(homePath);
+        if(!homeDir.exists()) {
+            homeDir.mkdirs();
+        }
+
+        return homePath;
+    }
+
     public class UserType { // 用户类型
-        public static final String mNormalType = "普通用户";
         public static final String mAdminType = "管理员";
+        public static final String mNormalType = "普通用户";
     }
 }
