@@ -64,6 +64,11 @@ public class EMapFile {
                                 this.mEMap.setLoginUrlPath(parser.getAttributeValue("", "UrlPath"));
                                 this.mEMap.setLoginMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
                                 this.mEMap.setLoginMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
+                            } else if("Logout".equals(tagName)) {
+                                this.mEMap.setLogoutMethodName(parser.getAttributeValue("", "Method"));
+                                this.mEMap.setLogoutUrlPath(parser.getAttributeValue("", "UrlPath"));
+                                this.mEMap.setLogoutMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
+                                this.mEMap.setLogoutMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
                             } else{
 
                             }

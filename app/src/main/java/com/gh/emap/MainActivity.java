@@ -9,6 +9,9 @@ import android.widget.LinearLayout;
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.manager.MainManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private MainManager mMainManager;
 
@@ -129,5 +132,13 @@ public class MainActivity extends AppCompatActivity {
     // 获取应用程序名称
     public String getApplationName() {
         return "EMap";
+    }
+
+    // 获取当前日期字符串
+    public String getCurrentDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+
+        return simpleDateFormat.format(date);
     }
 }

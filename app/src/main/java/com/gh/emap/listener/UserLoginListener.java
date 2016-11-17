@@ -12,8 +12,8 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.manager.UserManager;
+import com.gh.emap.manager.WebServiceManager;
 import com.gh.emap.model.UserInfo;
-import com.gh.emap.webservice.UserLoginWebService;
 import com.tianditu.maps.Utils.MD5;
 
 /**
@@ -69,17 +69,22 @@ public class UserLoginListener implements View.OnClickListener {
         }
 
         mUserInfo = new UserInfo();
-        mUserInfo.setUserName(userName.toUpperCase());
+        mUserInfo.setUserName(userName);
         mUserInfo.setPassword(MD5.getMD5(password));
+        mUserInfo.setLoginDate(((MainActivity)this.mContext).getCurrentDate());
+        mUserInfo.setOnline(1);
+
+        ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
+                String.format("用户登录：%s", mUserInfo.getUserName()));
 
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message message) {
-                if (message.what == UserLoginWebService.MSG_LOGIN) {
+                if (message.what == WebServiceManager.WebServiceMsgType.WS_MSG_LOGIN) {
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if (mReturnUserInfo.isSuccess()) {
-                        ((MainActivity) mContext).getMainManager().getLogManager().show(String.format("恭喜%s登录成功！", mUserInfo.getUserName()));
+                        ((MainActivity) mContext).getMainManager().getLogManager().show(String.format("登录成功！"));
                         onClickedCancel(); // 关闭登录窗口
 
                         ((MainActivity) mContext).getMainManager().getUserManager().setUserInfo(mReturnUserInfo);
@@ -102,7 +107,7 @@ public class UserLoginListener implements View.OnClickListener {
             }
         };
 
-        ((MainActivity) mContext).getMainManager().getWebServiceManager().UserLoginService(mHandler, mUserInfo);
+        ((MainActivity) mContext).getMainManager().getWebServiceManager().userLoginWebService(mHandler, mUserInfo);
     }
 
     // 取消

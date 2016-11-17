@@ -3,20 +3,15 @@ package com.gh.emap.listener;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.text.Editable;
 import android.view.View;
 import android.widget.EditText;
-
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.manager.UserManager;
+import com.gh.emap.manager.WebServiceManager;
 import com.gh.emap.model.UserInfo;
-import com.gh.emap.webservice.UserRegisterWebService;
 import com.tianditu.maps.Utils.MD5;
 
 /**
@@ -71,29 +66,27 @@ public class UserRegisterListener implements View.OnClickListener {
             return;
         }
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-
         mUserInfo = new UserInfo();
-        mUserInfo.setUserName(userName.toUpperCase());
+        mUserInfo.setUserName(userName);
         mUserInfo.setPassword(MD5.getMD5(password));
         mUserInfo.setNickName(nickName);
         mUserInfo.setTelNumber(telNumber);
         mUserInfo.setEMail(eMail);
         mUserInfo.setUserType(UserManager.UserType.mNormalType);
-        mUserInfo.setCreateDate(simpleDateFormat.format(date));
+        mUserInfo.setCreateDate(((MainActivity)this.mContext).getCurrentDate());
+        mUserInfo.setOnline(0);
 
         if(nickName.isEmpty()) {
             mUserInfo.setNickName(mUserInfo.getUserName());
         }
 
         ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-                mUserInfo.toString());
+                String.format("用户注册：%s", mUserInfo.getUserName()));
 
         mHandler = new Handler() {
             @Override
             public void handleMessage(Message message) {
-                if(message.what == UserRegisterWebService.MSG_REGISTER) {
+                if(message.what == WebServiceManager.WebServiceMsgType.WS_MSG_REGISTER) {
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if(mReturnUserInfo.isSuccess()) {
@@ -109,7 +102,7 @@ public class UserRegisterListener implements View.OnClickListener {
             }
         };
 
-        ((MainActivity)this.mContext).getMainManager().getWebServiceManager().UserRegisterService(mHandler, mUserInfo);
+        ((MainActivity)this.mContext).getMainManager().getWebServiceManager().userRegisterWebService(mHandler, mUserInfo);
     }
 
     // 取消

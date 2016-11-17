@@ -20,6 +20,11 @@ public class EMap {
     private String mLoginMethodParam1Name; // 登录服务参数名称
     private String mLoginMethodReturnParamName; // 登录服务返回值参数名称
 
+    private String mLogoutMethodName; // 注销服务名称
+    private String mLogoutUrlPath; // 注销服务路径
+    private String mLogoutMethodParam1Name; // 注销服务参数名称
+    private String mLogoutMethodReturnParamName; // 注销服务返回值参数名称
+
     public String getNameSpace() {
         return mNameSpace;
     }
@@ -124,6 +129,38 @@ public class EMap {
         this.mLoginMethodReturnParamName = loginMethodReturnParamName;
     }
 
+    public String getLogoutMethodName() {
+        return mLogoutMethodName;
+    }
+
+    public void setLogoutMethodName(String logoutMethodName) {
+        this.mLogoutMethodName = logoutMethodName;
+    }
+
+    public String getLogoutUrlPath() {
+        return mLogoutUrlPath;
+    }
+
+    public void setLogoutUrlPath(String logoutUrlPath) {
+        this.mLogoutUrlPath = logoutUrlPath;
+    }
+
+    public String getLogoutMethodParam1Name() {
+        return mLogoutMethodParam1Name;
+    }
+
+    public void setLogoutMethodParam1Name(String logoutMethodParam1Name) {
+        this.mLogoutMethodParam1Name = logoutMethodParam1Name;
+    }
+
+    public String getLogoutMethodReturnParamName() {
+        return mLogoutMethodReturnParamName;
+    }
+
+    public void setLogoutMethodReturnParamName(String logoutMethodReturnParamName) {
+        this.mLogoutMethodReturnParamName = logoutMethodReturnParamName;
+    }
+
     public String toString() {
         return String.format(
                 "NameSpace:%s, " +
@@ -138,7 +175,11 @@ public class EMap {
                         "LoginMethodName:%s, " +
                         "LoginUrlPath:%s, " +
                         "LoginMethodParam1Name:%s, " +
-                        "LoginMethodReturnParamName:%s",
+                        "LoginMethodReturnParamName:%s, " +
+                        "LogoutMethodName:%s, " +
+                        "LogoutUrlPath:%s, " +
+                        "LogoutMethodParam1Name:%s, " +
+                        "LogoutMethodReturnParamName:%s",
 
                 mNameSpace,
                 mServer,
@@ -154,6 +195,11 @@ public class EMap {
                 mLoginMethodName,
                 mLoginUrlPath,
                 mLoginMethodParam1Name,
-                mLoginMethodReturnParamName);
+                mLoginMethodReturnParamName,
+
+                mLogoutMethodName,
+                mLogoutUrlPath,
+                mLogoutMethodParam1Name,
+                mLogoutMethodReturnParamName);
     }
 }

@@ -17,10 +17,10 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 /**
- * Created by GuHeng on 2016/11/10.
- * 用户登录服务
+ * Created by GuHeng on 2016/11/17.
+ * 用户注销WebService
  */
-public class UserLoginWebService implements Runnable {
+public class UserLogoutWebService implements Runnable {
     private Context mContext;
     private Handler mHandler;
     private EMap mEMap;
@@ -30,10 +30,11 @@ public class UserLoginWebService implements Runnable {
     private SoapSerializationEnvelope mSoapSerializationEnvelope;
     private HttpTransportSE mHttpTransportSE;
 
-    public UserLoginWebService(Context context) {
+    public UserLogoutWebService(Context context) {
         this.mContext = context;
     }
 
+    // 初始化
     public void init() {
         this.mEMap = ((MainActivity) this.mContext).getMainManager().getFileManager().getEMapFile().getEMap();
         this.mSoapEnvelopeVer = getSoapEnvelopeVer(this.mEMap.getSoapVersion());
@@ -43,13 +44,13 @@ public class UserLoginWebService implements Runnable {
     public void prepare(Handler handler, UserInfo userInfo) {
         this.mHandler = handler;
 
-        this.mSoapEndPoint = this.mEMap.getProtocol() + this.mEMap.getServer() + ":" + this.mEMap.getPort() + this.mEMap.getLoginUrlPath();
-        this.mSoapAction = this.mEMap.getNameSpace() + this.mEMap.getLoginMethodName();
+        this.mSoapEndPoint = this.mEMap.getProtocol() + this.mEMap.getServer() + ":" + this.mEMap.getPort() + this.mEMap.getLogoutUrlPath();
+        this.mSoapAction = this.mEMap.getNameSpace() + this.mEMap.getLogoutMethodName();
 
-        SoapObject soapObject = new SoapObject(this.mEMap.getNameSpace(), this.mEMap.getLoginMethodName());
+        SoapObject soapObject = new SoapObject(this.mEMap.getNameSpace(), this.mEMap.getLogoutMethodName());
 
         PropertyInfo property_info = new PropertyInfo();
-        property_info.setName(this.mEMap.getLoginMethodParam1Name());
+        property_info.setName(this.mEMap.getLogoutMethodParam1Name());
         property_info.setValue(userInfo);
         property_info.setType(UserInfo.class);
 
@@ -69,13 +70,13 @@ public class UserLoginWebService implements Runnable {
         UserInfo userInfo = new UserInfo();
         call(userInfo);
         Message message = new Message();
-        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_LOGIN;
+        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_LOGOUT;
         message.obj = userInfo;
         this.mHandler.sendMessage(message);
     }
 
     // 调用服务
-    private boolean call(UserInfo userInfo) {
+    protected boolean call(UserInfo userInfo) {
         boolean success = false;
         try {
             this.mHttpTransportSE.call(this.mSoapAction, this.mSoapSerializationEnvelope);
@@ -94,7 +95,7 @@ public class UserLoginWebService implements Runnable {
     // 解析WEBSERVICE返回的数据
     private boolean parseResponse(UserInfo userInfo) {
         boolean success = false;
-        SoapObject object = (SoapObject)(((SoapObject) mSoapSerializationEnvelope.bodyIn).getProperty(0));
+        SoapObject object = (SoapObject)(((SoapObject) this.mSoapSerializationEnvelope.bodyIn).getProperty(0));
         if(object != null) {
             userInfo.setId(parseProperty(object, "mId"));
             userInfo.setUserName(parseProperty(object, "mUserName"));
@@ -116,7 +117,7 @@ public class UserLoginWebService implements Runnable {
             success = false;
             String error = String.format("解析服务返回结果失败!");
             userInfo.setErrorString(error);
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
                     error);
         }
 
@@ -133,7 +134,7 @@ public class UserLoginWebService implements Runnable {
         }else if("1.2".equals(soapVersion)) {
             ver = SoapEnvelope.VER12;
         } else {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
                     String.format("SOAP协议版本号:%s无效！", soapVersion));
         }
 
@@ -150,7 +151,7 @@ public class UserLoginWebService implements Runnable {
                 value = temp_value;
             }
         } else {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
                     String.format("属性:%s不存在！", key));
         }
 

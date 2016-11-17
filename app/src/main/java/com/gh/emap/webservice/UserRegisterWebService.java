@@ -6,6 +6,7 @@ import android.os.Message;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.manager.LogManager;
+import com.gh.emap.manager.WebServiceManager;
 import com.gh.emap.model.EMap;
 import com.gh.emap.model.UserInfo;
 
@@ -22,7 +23,6 @@ import org.ksoap2.transport.HttpTransportSE;
 public class UserRegisterWebService implements Runnable {
     private Context mContext;
     private Handler mHandler;
-    public static final int MSG_REGISTER = 1;
     private EMap mEMap;
     private String mSoapEndPoint;
     private String mSoapAction;
@@ -70,7 +70,7 @@ public class UserRegisterWebService implements Runnable {
         UserInfo userInfo = new UserInfo();
         call(userInfo);
         Message message = new Message();
-        message.what = MSG_REGISTER;
+        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_REGISTER;
         message.obj = userInfo;
         this.mHandler.sendMessage(message);
     }
@@ -108,6 +108,8 @@ public class UserRegisterWebService implements Runnable {
             userInfo.setCreateDate(parseProperty(object, "mCreateDate"));
             userInfo.setModifyDate(parseProperty(object, "mModifyDate"));
             userInfo.setLoginDate(parseProperty(object, "mLoginDate"));
+            userInfo.setOnline(Integer.valueOf(parseProperty(object, "mOnline")));
+            userInfo.setLogoutDate(parseProperty(object, "mLogoutDate"));
             userInfo.setSuccess(Boolean.valueOf(parseProperty(object, "mSuccess")));
             userInfo.setErrorString(parseProperty(object, "mErrorString"));
             success = true;

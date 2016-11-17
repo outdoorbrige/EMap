@@ -1,5 +1,7 @@
 package com.gh.emap.model;
 
+import com.nineoldandroids.util.Property;
+
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 
@@ -20,6 +22,8 @@ public class UserInfo implements KvmSerializable {
     private String mCreateDate; // 创建时间
     private String mModifyDate; // 最后修改时间
     private String mLoginDate; // 登录时间
+    private int mOnline; // 在线状态
+    private String mLogoutDate; // 注销时间
     private boolean mSuccess; // 操作是否成功
     private String mErrorString; // 错误信息
 
@@ -37,6 +41,8 @@ public class UserInfo implements KvmSerializable {
                     String createDate,
                     String modifyDate,
                     String loginDate,
+                    int online,
+                    String logoutDate,
                     boolean success,
                     String errorString) {
         this.mId = id;
@@ -50,6 +56,8 @@ public class UserInfo implements KvmSerializable {
         this.mCreateDate = createDate;
         this.mModifyDate = modifyDate;
         this.mLoginDate = loginDate;
+        this.mOnline = online;
+        this.mLogoutDate = logoutDate;
         this.mSuccess = success;
         this.mErrorString = errorString;
     }
@@ -142,6 +150,22 @@ public class UserInfo implements KvmSerializable {
         this.mLoginDate = loginDate;
     }
 
+    public int getOnline() {
+        return mOnline;
+    }
+
+    public void setOnline(int online) {
+        this.mOnline = online;
+    }
+
+    public String getLogoutDate() {
+        return mLogoutDate;
+    }
+
+    public void setLogoutDate(String logoutDate) {
+        this.mLogoutDate = logoutDate;
+    }
+
     public boolean isSuccess() {
         return mSuccess;
     }
@@ -171,6 +195,8 @@ public class UserInfo implements KvmSerializable {
                         "CreateDate:%s, " +
                         "ModifyDate:%s, " +
                         "LoginDate:%s, " +
+                        "Online:%d, " +
+                        "LogoutDate:%s, " +
                         "Success:%s, " +
                         "ErrorString:%s",
 
@@ -185,6 +211,8 @@ public class UserInfo implements KvmSerializable {
                 mCreateDate,
                 mModifyDate,
                 mLoginDate,
+                mOnline,
+                mLogoutDate,
                 mSuccess,
                 mErrorString);
     }
@@ -227,6 +255,12 @@ public class UserInfo implements KvmSerializable {
                 break;
             case UserInfoParamIndex.mLoginDateIndex:
                 object = mLoginDate;
+                break;
+            case UserInfoParamIndex.mOnlineIndex:
+                object = mOnline;
+                break;
+            case UserInfoParamIndex.mLogoutDateIndex:
+                object = mLogoutDate;
                 break;
             case UserInfoParamIndex.mSuccessIndex:
                 object = mSuccess;
@@ -284,6 +318,12 @@ public class UserInfo implements KvmSerializable {
                 break;
             case UserInfoParamIndex.mLoginDateIndex:
                 mLoginDate = object.toString();
+                break;
+            case UserInfoParamIndex.mOnlineIndex:
+                mOnline = Integer.getInteger(object.toString());
+                break;
+            case UserInfoParamIndex.mLogoutDateIndex:
+                mLogoutDate = object.toString();
                 break;
             case UserInfoParamIndex.mSuccessIndex:
                 mSuccess = Boolean.getBoolean(object.toString());
@@ -344,6 +384,14 @@ public class UserInfo implements KvmSerializable {
                 propertyinfo.setType(PropertyInfo.STRING_CLASS);
                 propertyinfo.setName("mLoginDate");
                 break;
+            case UserInfoParamIndex.mOnlineIndex:
+                propertyinfo.setType(PropertyInfo.INTEGER_CLASS);
+                propertyinfo.setName("mOnline");
+                break;
+            case UserInfoParamIndex.mLogoutDateIndex:
+                propertyinfo.setType(PropertyInfo.STRING_CLASS);
+                propertyinfo.setName("mLogoutDate");
+                break;
             case UserInfoParamIndex.mSuccessIndex:
                 propertyinfo.setType(PropertyInfo.BOOLEAN_CLASS);
                 propertyinfo.setName("mSuccess");
@@ -373,7 +421,9 @@ public class UserInfo implements KvmSerializable {
         public static final int mCreateDateIndex = mUserTypeIndex + 1;
         public static final int mModifyDateIndex = mCreateDateIndex + 1;
         public static final int mLoginDateIndex = mModifyDateIndex + 1;
-        public static final int mSuccessIndex = mLoginDateIndex + 1;
+        public static final int mOnlineIndex = mLoginDateIndex + 1;
+        public static final int mLogoutDateIndex = mOnlineIndex + 1;
+        public static final int mSuccessIndex = mLogoutDateIndex + 1;
         public static final int mErrorStringIndex = mSuccessIndex + 1;
 
         public static final int mStringCount = mErrorStringIndex + 1; // 变量的总个数
