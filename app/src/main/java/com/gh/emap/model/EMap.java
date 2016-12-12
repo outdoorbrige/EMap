@@ -2,6 +2,7 @@ package com.gh.emap.model;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 配置文件
  */
 public class EMap {
     private String mNameSpace; // 命名空间
@@ -161,45 +162,26 @@ public class EMap {
         this.mLogoutMethodReturnParamName = logoutMethodReturnParamName;
     }
 
+    @Override
     public String toString() {
-        return String.format(
-                "NameSpace:%s, " +
-                        "Server:%s, " +
-                        "Port:%s, " +
-                        "Protocol:%s, " +
-                        "SoapVersion:%s, " +
-                        "RegisterMethodName:%s, " +
-                        "RegisterUrlPath:%s, " +
-                        "RegisterMethodParam1Name:%s, " +
-                        "RegisterMethodReturnParamName:%s, " +
-                        "LoginMethodName:%s, " +
-                        "LoginUrlPath:%s, " +
-                        "LoginMethodParam1Name:%s, " +
-                        "LoginMethodReturnParamName:%s, " +
-                        "LogoutMethodName:%s, " +
-                        "LogoutUrlPath:%s, " +
-                        "LogoutMethodParam1Name:%s, " +
-                        "LogoutMethodReturnParamName:%s",
-
-                mNameSpace,
-                mServer,
-                mPort,
-                mProtocol,
-                mSoapVersion,
-
-                mRegisterMethodName,
-                mRegisterUrlPath,
-                mRegisterMethodParam1Name,
-                mRegisterMethodReturnParamName,
-
-                mLoginMethodName,
-                mLoginUrlPath,
-                mLoginMethodParam1Name,
-                mLoginMethodReturnParamName,
-
-                mLogoutMethodName,
-                mLogoutUrlPath,
-                mLogoutMethodParam1Name,
-                mLogoutMethodReturnParamName);
+        return "EMap{" +
+                "mNameSpace='" + mNameSpace + '\'' +
+                ", mServer='" + mServer + '\'' +
+                ", mPort='" + mPort + '\'' +
+                ", mProtocol='" + mProtocol + '\'' +
+                ", mSoapVersion='" + mSoapVersion + '\'' +
+                ", mRegisterMethodName='" + mRegisterMethodName + '\'' +
+                ", mRegisterUrlPath='" + mRegisterUrlPath + '\'' +
+                ", mRegisterMethodParam1Name='" + mRegisterMethodParam1Name + '\'' +
+                ", mRegisterMethodReturnParamName='" + mRegisterMethodReturnParamName + '\'' +
+                ", mLoginMethodName='" + mLoginMethodName + '\'' +
+                ", mLoginUrlPath='" + mLoginUrlPath + '\'' +
+                ", mLoginMethodParam1Name='" + mLoginMethodParam1Name + '\'' +
+                ", mLoginMethodReturnParamName='" + mLoginMethodReturnParamName + '\'' +
+                ", mLogoutMethodName='" + mLogoutMethodName + '\'' +
+                ", mLogoutUrlPath='" + mLogoutUrlPath + '\'' +
+                ", mLogoutMethodParam1Name='" + mLogoutMethodParam1Name + '\'' +
+                ", mLogoutMethodReturnParamName='" + mLogoutMethodReturnParamName + '\'' +
+                '}';
     }
 }

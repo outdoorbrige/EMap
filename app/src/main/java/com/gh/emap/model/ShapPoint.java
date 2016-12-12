@@ -7,9 +7,14 @@ import java.util.Set;
 
 /**
  * Created by GuHeng on 2016/11/9.
+ * 地物编辑-画点 配置文件类
  */
 public class ShapPoint {
     private HashMap<String, List<String>> mData;
+
+    public ShapPoint() {
+        mData = new HashMap<>();
+    }
 
     public HashMap<String, List<String>> getData() {
         return mData;
@@ -19,36 +24,22 @@ public class ShapPoint {
         List<String> list = new ArrayList<>();
         list.add(var2);
 
-        if(mData == null) {
-            mData = new HashMap<>();
-
-            mData.put(var1, list);
-        } else {
-            if(mData.containsKey(var1)) {
-                List<String> tmpList = mData.get(var1);
-                if(tmpList == null) {
-                    mData.put(var1, list);
-                } else {
-                    tmpList.add(var2);
-                }
-            } else {
+        if(mData.containsKey(var1)) {
+            List<String> tmpList = mData.get(var1);
+            if(tmpList == null) {
                 mData.put(var1, list);
+            } else {
+                tmpList.add(var2);
             }
+        } else {
+            mData.put(var1, list);
         }
     }
 
+    @Override
     public String toString() {
-        String str = "";
-
-        if(mData != null) {
-            Set<String> keys = mData.keySet();
-            if(keys != null) {
-                for (String key : keys) {
-                    str += String.format("%s,%s\n", key, mData.get(key));
-                }
-            }
-        }
-
-        return str;
+        return "ShapPoint{" +
+                "mData=" + mData +
+                '}';
     }
 }

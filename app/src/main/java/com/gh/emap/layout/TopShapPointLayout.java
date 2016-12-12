@@ -8,7 +8,8 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.listener.TopEditListener;
+
+import java.io.File;
 
 /**
  * Created by GuHeng on 2016/11/10.
@@ -34,6 +35,23 @@ public class TopShapPointLayout {
         this.mPointType.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
         this.mPointName.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
         this.mPointSave.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
+    }
+
+    // 获取地物编辑-画点工作目录
+    public String getShapPointPath() {
+        String path = null;
+
+        String fatherPath = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
+        if(fatherPath != null) {
+            path = fatherPath + "MyPoint" + File.separator;
+
+            File dir = new File(path);
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+        }
+
+        return path;
     }
 
     // 显示布局

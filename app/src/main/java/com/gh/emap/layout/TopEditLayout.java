@@ -11,8 +11,9 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.listener.TopEditListener;
 import com.gh.emap.view.MyListView;
+
+import java.io.File;
 
 /**
  * Created by GuHeng on 2016/11/9.
@@ -50,7 +51,7 @@ public class TopEditLayout {
     // 显示地物编辑弹出菜单
     public void showShapPopupWindow(View parentView) {
         if (this.mShapPopupWindow == null) {
-            View popupLayout = LayoutInflater.from(this.mContext).inflate(R.layout.shap_popup_menu, null);;
+            View popupLayout = LayoutInflater.from(this.mContext).inflate(R.layout.shap_popup_menu, null);
             MyListView myListView = (MyListView) popupLayout.findViewById(R.id.shap_view);
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_list_item_single_choice, this.mListItems);
             myListView.setAdapter(arrayAdapter);
@@ -82,6 +83,23 @@ public class TopEditLayout {
     // 获取当前地物编辑选择的索引
     public int getShapEditSelectedIndex() {
         return this.mShapEditSelectedIndex;
+    }
+
+    // 获取地物编辑的工作目录
+    public String getShapEditPath() {
+        String path = null;
+
+        String fatherPath = ((MainActivity)this.mContext).getMainManager().getUserManager().getHomePath();
+        if(fatherPath != null) {
+            path = fatherPath + "MyShapEdit" + File.separator;
+
+            File dir = new File(path);
+            if(!dir.exists()) {
+                dir.mkdirs();
+            }
+        }
+
+        return path;
     }
 
     // 显示布局

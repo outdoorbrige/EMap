@@ -22,4 +22,5 @@ public class OverlayManager {
 
     public PointOverlay getPointOverlay() {
         return this.mPointOverlay;
-    }}
+    }
+}

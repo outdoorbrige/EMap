@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:cursorVisible="true"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:hint="搜索"
                     android:background="@null"/>
 
@@ -80,39 +80,24 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="纬度:"/>
-
-                <TextView
                     android:id="@+id/latitude"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:layout_weight="2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="经度:"/>
 
                 <TextView
                     android:id="@+id/longitude"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:layout_weight="2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="高程:"/>
 
                 <TextView
                     android:id="@+id/elevation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:maxLines="1"
                     android:layout_weight="1"/>
             </LinearLayout>
 
@@ -228,7 +213,7 @@
     <!--地物信息-画点-顶部布局-->
     <LinearLayout
         android:id="@+id/top_shap_point"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/white_bg"
@@ -236,37 +221,75 @@
         android:layout_below="@id/top"
         android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="类别:"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/point_type"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-        </TextView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="名称:"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点-类别："/>
 
-        <EditText
-            android:id="@+id/point_name"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:cursorVisible="true"
-            android:singleLine="true"
-            android:background="@null"
-            android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/point_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="选择类别"
+                    android:maxLines="1"
+                    android:layout_weight="1">
+                </TextView>
+            </LinearLayout>
 
-        <Button
-            android:id="@+id/point_save"
-            android:layout_width="wrap_content"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点-名称："/>
+
+                <EditText
+                    android:id="@+id/point_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="true"
+                    android:maxLines="1"
+                    android:background="@null"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="保存"/>
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/point_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/point_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="保存"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

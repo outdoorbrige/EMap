@@ -28,6 +28,26 @@ public class EMapFile {
     }
 
     public void init() {
+        this.mEMap = new EMap();
+
+        loadFile();
+    }
+
+    public EMap getEMap() {
+        return this.mEMap;
+    }
+
+    private String getFile() {
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "EMap.config";
+        } else {
+            return null;
+        }
+    }
+
+    private void loadFile() {
         String configFile = getFile();
         File file = new File(configFile);
         if(file.exists()) { // 判断文件是否存在
@@ -43,7 +63,6 @@ public class EMapFile {
                     String tagName = parser.getName(); // 获得解析器当前元素的名称
                     switch (eventType) {
                         case XmlPullParser.START_DOCUMENT: // 文档开始事件
-                            this.mEMap = new EMap();
                             break;
                         case XmlPullParser.START_TAG: // 标签开始
                             if(((MainActivity)this.mContext).getApplationName().equals(tagName)) {
@@ -93,20 +112,6 @@ public class EMapFile {
         } else {
             ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
                     String.format("配置文件%s不存在", configFile));
-        }
-    }
-
-    public EMap getEMap() {
-        return this.mEMap;
-    }
-
-    private String getFile() {
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
-                    "EMap.config";
-        } else {
-            return null;
         }
     }
 }

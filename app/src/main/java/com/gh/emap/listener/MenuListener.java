@@ -6,6 +6,7 @@ import android.widget.Button;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
+import com.gh.emap.model.UserInfo;
 
 import java.util.ArrayList;
 
@@ -46,6 +47,17 @@ public class MenuListener implements View.OnClickListener {
 
     // 编辑按钮
     private void onClickedMenuEdit(View view) {
+
+        // 此处代码只是为了测试
+        UserInfo userInfo = ((MainActivity)this.mContext).getMainManager().getUserManager().getUserInfo();
+        if(userInfo == null) {
+            userInfo = new UserInfo();
+            userInfo.setUserName("GuHeng");
+            userInfo.setSuccess(true);
+
+            ((MainActivity)this.mContext).getMainManager().getUserManager().setUserInfo(userInfo);
+        } // 此处代码只是为了测试
+
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().runMenuAnimation(view);
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopNormalLayout().hide();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().show();

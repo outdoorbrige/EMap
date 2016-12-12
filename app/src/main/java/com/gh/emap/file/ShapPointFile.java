@@ -29,6 +29,26 @@ public class ShapPointFile {
     public void init() {
         this.mShapPoint = new ShapPoint();
 
+        loadFile();
+    }
+
+    // 获取地物编辑-画点数据
+    public ShapPoint getShapPoint() {
+        return this.mShapPoint;
+    }
+
+    private String getFile() {
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory().toString() + File.separator +
+                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    "Data" + File.separator +
+                    "ShapPoint.dat";
+        } else {
+            return null;
+        }
+    }
+
+    private void loadFile() {
         String shapPointFile = getFile();
 
         File file = new File(shapPointFile);
@@ -45,8 +65,6 @@ public class ShapPointFile {
                     String[] values = line.split(",");
 
                     if(values != null) {
-//                        ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-//                                String.format("[%s][%s][%s]", values[0], values[1], values[2]));
                         this.mShapPoint.put(values[2], values[0] + values[1]);
                     }
                 }
@@ -56,8 +74,8 @@ public class ShapPointFile {
                 inputStream.close();
                 fileInputStream.close();
 
-//                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-//                        this.mShapPoint.toString());
+                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
+                        this.mShapPoint.toString());
             } catch (Exception e) {
                 ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
                         e.getStackTrace().toString());
@@ -65,22 +83,6 @@ public class ShapPointFile {
         } else {
             ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
                     String.format("数据文件%s不存在", shapPointFile));
-        }
-    }
-
-    // 获取地物编辑-画点数据
-    public ShapPoint getShapPoint() {
-        return this.mShapPoint;
-    }
-
-    private String getFile() {
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
-                    "Data" + File.separator +
-                    "ShapPoint.dat";
-        } else {
-            return null;
         }
     }
 }

@@ -9,6 +9,7 @@ import java.util.Hashtable;
 
 /**
  * Created by GuHeng on 2016/11/10.
+ * 用户信息类
  */
 public class UserInfo implements KvmSerializable {
     private String mId; // ID
@@ -182,39 +183,25 @@ public class UserInfo implements KvmSerializable {
         this.mErrorString = errorString;
     }
 
+    @Override
     public String toString() {
-        return String.format(
-                "Id:%s, " +
-                        "UserName:%s, " +
-                        "Password:%s, " +
-                        "NickName:%s, " +
-                        "TelNumber:%s, " +
-                        "EMail:%s, " +
-                        "VipLevel:%s, " +
-                        "UserType:%s, " +
-                        "CreateDate:%s, " +
-                        "ModifyDate:%s, " +
-                        "LoginDate:%s, " +
-                        "Online:%d, " +
-                        "LogoutDate:%s, " +
-                        "Success:%s, " +
-                        "ErrorString:%s",
-
-                mId,
-                mUserName,
-                mPassword,
-                mNickName,
-                mTelNumber,
-                mEMail,
-                mVipLevel,
-                mUserType,
-                mCreateDate,
-                mModifyDate,
-                mLoginDate,
-                mOnline,
-                mLogoutDate,
-                mSuccess,
-                mErrorString);
+        return "UserInfo{" +
+                "mId='" + mId + '\'' +
+                ", mUserName='" + mUserName + '\'' +
+                ", mPassword='" + mPassword + '\'' +
+                ", mNickName='" + mNickName + '\'' +
+                ", mTelNumber='" + mTelNumber + '\'' +
+                ", mEMail='" + mEMail + '\'' +
+                ", mVipLevel='" + mVipLevel + '\'' +
+                ", mUserType='" + mUserType + '\'' +
+                ", mCreateDate='" + mCreateDate + '\'' +
+                ", mModifyDate='" + mModifyDate + '\'' +
+                ", mLoginDate='" + mLoginDate + '\'' +
+                ", mOnline=" + mOnline +
+                ", mLogoutDate='" + mLogoutDate + '\'' +
+                ", mSuccess=" + mSuccess +
+                ", mErrorString='" + mErrorString + '\'' +
+                '}';
     }
 
     @Override
