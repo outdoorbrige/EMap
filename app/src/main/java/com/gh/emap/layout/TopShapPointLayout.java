@@ -20,6 +20,7 @@ public class TopShapPointLayout {
     private View mLayout; // 布局
     private TextView mPointType; // 画点的类型
     private EditText mPointName; // 画点的名称
+    private Button mPointCancel; // 取消
     private Button mPointSave; // 保存
 
     public TopShapPointLayout(Context context) {
@@ -30,10 +31,12 @@ public class TopShapPointLayout {
         this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.top_shap_point);
         this.mPointType = (TextView)((MainActivity)this.mContext).findViewById(R.id.point_type);
         this.mPointName = (EditText)((MainActivity)this.mContext).findViewById(R.id.point_name);
+        this.mPointCancel = (Button)((MainActivity)this.mContext).findViewById(R.id.point_cancel);
         this.mPointSave = (Button)((MainActivity)this.mContext).findViewById(R.id.point_save);
 
         this.mPointType.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
         this.mPointName.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
+        this.mPointCancel.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
         this.mPointSave.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
     }
 

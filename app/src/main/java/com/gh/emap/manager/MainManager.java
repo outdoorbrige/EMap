@@ -9,7 +9,6 @@ import android.content.Context;
 public class MainManager {
     private Context mContext;
     private LogManager mLogManager;
-    private MyPermissionManager mMyPermissionManager;
     private ListenerManager mListenerManager;
     private FileManager mFileManager;
     private MapManager mMapManager;
@@ -29,9 +28,6 @@ public class MainManager {
 
         this.mListenerManager = new ListenerManager(this.mContext);
         this.mListenerManager.init();
-
-        this.mMyPermissionManager = new MyPermissionManager(this.mContext);
-        this.mMyPermissionManager.init();
 
         this.mFileManager = new FileManager(this.mContext);
         this.mFileManager.init();
@@ -68,10 +64,6 @@ public class MainManager {
 
     public ListenerManager getListenerManager() {
         return this.mListenerManager;
-    }
-
-    public MyPermissionManager getMyPermissionManager() {
-        return this.mMyPermissionManager;
     }
 
     public FileManager getFileManager() {

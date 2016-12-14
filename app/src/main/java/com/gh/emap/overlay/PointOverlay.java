@@ -30,6 +30,7 @@ public class PointOverlay extends Overlay {
         this.mContext = context;
         this.mDrawable = ContextCompat.getDrawable(this.mContext, R.mipmap.overlay_poi);
         this.mDrawableOption = new DrawableOption();
+        this.mGeoPoint = null;
     }
 
     // 设置覆盖物的位置
@@ -37,6 +38,12 @@ public class PointOverlay extends Overlay {
         this.mGeoPoint = geoPoint;
     }
 
+    // 获取覆盖物的位置
+    public GeoPoint getGeoPoint() {
+        return this.mGeoPoint;
+    }
+
+    // 单击事件
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         this.mGeoPoint = geoPoint;
@@ -44,6 +51,7 @@ public class PointOverlay extends Overlay {
         return true;
     }
 
+    // 动画叠加绘制调用
     @Override
     public void draw(GL10 gl10, MapView mapView, boolean shadow) {
         if(shadow) {
