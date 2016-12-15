@@ -17,6 +17,7 @@ public class MainManager {
     private UserManager mUserManager;
     private LayoutManager mLayoutManager;
     private WebServiceManager mWebServiceManager;
+    private MyUserOverlaysManager mMyUserOverlaysManager;
 
     public MainManager(Context context) {
         this.mContext = context;
@@ -49,6 +50,9 @@ public class MainManager {
 
         this.mWebServiceManager = new WebServiceManager(this.mContext);
         this.mWebServiceManager.init();
+
+        this.mMyUserOverlaysManager = new MyUserOverlaysManager(this.mContext);
+        this.mMyUserOverlaysManager.init();
     }
 
     public void unInit() {
@@ -92,5 +96,9 @@ public class MainManager {
 
     public WebServiceManager getWebServiceManager() {
         return this.mWebServiceManager;
+    }
+
+    public MyUserOverlaysManager getMyUserOverlaysManager() {
+        return this.mMyUserOverlaysManager;
     }
 }

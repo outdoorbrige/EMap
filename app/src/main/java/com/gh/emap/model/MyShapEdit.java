@@ -1,5 +1,6 @@
 package com.gh.emap.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,6 +21,12 @@ public class MyShapEdit {
 
     public void put(MyUserPoint myUserPoint) {
         mMyUserPoints.put(myUserPoint.getName(), myUserPoint);
+    }
+
+    public void put(ArrayList<MyUserPoint> myUserPoints) {
+        for(MyUserPoint myUserPoint : myUserPoints) {
+            put(myUserPoint);
+        }
     }
 
     public MyUserPoint get(String key) {

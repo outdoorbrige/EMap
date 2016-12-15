@@ -1,9 +1,13 @@
 package com.gh.emap.file;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import com.gh.emap.model.MyUserOverlays;
 import com.gh.emap.model.MyUserPoint;
+
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2016/12/14.
@@ -11,19 +15,30 @@ import com.gh.emap.model.MyUserPoint;
  */
 
 public class MyUserPointFile {
-    private Context mContext;
+    private static TObjectFile<MyUserPoint> mTObjectFile = new TObjectFile<MyUserPoint>();
 
-    public MyUserPointFile(Context context) {
-        this.mContext = context;
+    public static MyUserPoint read(String file) {
+        return mTObjectFile.read(file);
     }
 
-    public boolean read(String file, MyUserPoint myUserPoint) {
-        TObjectFile<MyUserPoint> tObjectFile = new TObjectFile<MyUserPoint>();
-        return tObjectFile.read(file, myUserPoint);
+    public static ArrayList<MyUserPoint> read(ArrayList<File> files) {
+        if(files == null || files.size() == 0) {
+            return null;
+        }
+
+        ArrayList<MyUserPoint> myUserPoints = new ArrayList<MyUserPoint>();
+
+        for(int i = 0; i < files.size(); i ++) {
+            MyUserPoint myUserPoint = read(files.get(i).getPath());
+            if(myUserPoint != null) {
+                myUserPoints.add(myUserPoint);
+            }
+        }
+
+        return myUserPoints;
     }
 
-    public boolean write(String file, MyUserPoint myUserPoint) {
-        TObjectFile<MyUserPoint> tObjectFile = new TObjectFile<MyUserPoint>();
-        return tObjectFile.write(file, myUserPoint);
+    public static boolean write(String file, MyUserPoint myUserPoint) {
+        return mTObjectFile.write(file, myUserPoint);
     }
 }

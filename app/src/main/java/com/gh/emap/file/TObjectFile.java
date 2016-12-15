@@ -16,47 +16,47 @@ public class TObjectFile<T> {
 
     // 从文件中读取对象
     @SuppressWarnings("unchecked")
-    public boolean read(String file, T object) {
+    public T read(String file) {
         File f = new File(file);
         if(f.exists()) { // 判断文件是否存在
             try {
                 FileInputStream fileInputStream = new FileInputStream(f);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-                object = (T)objectInputStream.readObject();
+                T object = (T)objectInputStream.readObject();
 
                 objectInputStream.close();
                 fileInputStream.close();
-            } catch (Exception e) {
-                return false;
-            }
 
-            return true;
+                return object;
+            } catch (Exception e) {
+                return null;
+            }
         } else {
-            return false;
+            return null;
         }
     }
 
     // 从文件中读取对象集合
     @SuppressWarnings("unchecked")
-    public boolean readList(String file, List<T> objects) {
+    public List<T> readList(String file) {
         File f = new File(file);
         if(f.exists()) { // 判断文件是否存在
             try {
                 FileInputStream fileInputStream = new FileInputStream(f);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-                objects = (List<T>)objectInputStream.readObject();
+                List<T> objects = (List<T>)objectInputStream.readObject();
 
                 objectInputStream.close();
                 fileInputStream.close();
-            } catch (Exception e) {
-                return false;
-            }
 
-            return true;
+                return objects;
+            } catch (Exception e) {
+                return null;
+            }
         } else {
-            return false;
+            return null;
         }
     }
 

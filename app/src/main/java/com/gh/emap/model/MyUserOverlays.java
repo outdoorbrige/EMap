@@ -2,6 +2,7 @@ package com.gh.emap.model;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -23,6 +24,10 @@ public class MyUserOverlays {
 
     public void putMyUserPoint(MyUserPoint myUserPoint) {
         mMyShapEdit.put(myUserPoint);
+    }
+
+    public void putMyUserPoint(ArrayList<MyUserPoint> myUserPoints) {
+        mMyShapEdit.put(myUserPoints);
     }
 
     public MyUserPoint getMyUserPoint(String key) {

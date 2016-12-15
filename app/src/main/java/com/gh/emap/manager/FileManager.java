@@ -5,6 +5,8 @@ import android.content.Context;
 import com.gh.emap.MainActivity;
 import com.gh.emap.file.EMapFile;
 import com.gh.emap.file.ShapPointFile;
+import com.gh.emap.file.TObjectFile;
+import com.gh.emap.model.MyUserPoint;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

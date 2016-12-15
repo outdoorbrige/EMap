@@ -11,6 +11,7 @@ import com.gh.emap.file.MyUserPointFile;
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.model.MyUserPoint;
 import com.gh.emap.overlay.PointOverlay;
+import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.maps.GeoPointEx;
 
 import java.io.File;
@@ -69,10 +70,10 @@ public class TopEditPointListener implements View.OnClickListener {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
 
-        // 删除画点覆盖物
-        PointOverlay pointOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().removeOverlay(pointOverlay);
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+//        // 删除画点覆盖物
+//        PointOverlay pointOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
+//        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().removeOverlay(pointOverlay);
+//        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 保存
@@ -103,11 +104,15 @@ public class TopEditPointListener implements View.OnClickListener {
             myUserPoint.setLongitude(pointOverlay.getGeoPoint().getLongitudeE6());
             myUserPoint.setLatitude(pointOverlay.getGeoPoint().getLatitudeE6());
 
-            MyUserPointFile myUserPointFile = new MyUserPointFile(this.mContext);
-            myUserPointFile.write(path + File.separator + myUserPoint.getName() + ".p", myUserPoint);
+            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getMyUserOverlays().putMyUserPoint(myUserPoint);
+
+            MyUserPointFile.write(path + File.separator + myUserPoint.getName() + ".p", myUserPoint);
+
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(pointOverlay);
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().hide();
+        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().hide();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
