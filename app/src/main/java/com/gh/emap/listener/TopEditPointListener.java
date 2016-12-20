@@ -90,7 +90,8 @@ public class TopEditPointListener implements View.OnClickListener {
             return;
         }
 
-        PointOverlay pointOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
+        PointOverlay pointOverlay = new PointOverlay(this.mContext);
+        pointOverlay.setGeoPoint(((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().getGeoPoint());
 
         String path = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath();
         if(path == null || path.isEmpty()) {

@@ -1,17 +1,15 @@
 package com.gh.emap.overlay;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 
-import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
 import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.OverlayItem;
 import com.tianditu.android.maps.renderoption.DrawableOption;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -28,7 +26,7 @@ public class PointOverlay extends Overlay {
 
     public PointOverlay(Context context) {
         this.mContext = context;
-        this.mDrawable = ContextCompat.getDrawable(this.mContext, R.mipmap.overlay_poi);
+        this.mDrawable = ContextCompat.getDrawable(this.mContext, R.mipmap.added_icon);
         this.mDrawableOption = new DrawableOption();
         this.mGeoPoint = null;
     }
@@ -61,6 +59,13 @@ public class PointOverlay extends Overlay {
         // 绘制点击位置
         MapViewRender mapViewRender = mapView.getMapViewRender();
         mapViewRender.drawDrawable(gl10, this.mDrawableOption, this.mDrawable, this.mGeoPoint);
+    }
 
+    // 触摸事件
+    @Override
+    public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+        int action = event.getAction();
+
+        return false;
     }
 }
