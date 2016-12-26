@@ -55,12 +55,18 @@ public class MapManager {
         // 离线地图设置之后会在程序显示时默认加载
         this.mTOfflineMapManager.setMapPath(offlinePath);
         this.mTOfflineMapManager.getMapList(); // 获取所有离线地图列表
-        this.mMapView.setOfflineMaps(this.mTOfflineMapManager.searchLocalMaps());
+        //this.mMapView.setOfflineMaps(this.mTOfflineMapManager.searchLocalMaps());
 
         enableTMyLocationOverlay(); // 启用我的位置
 
         // 设置LOGO位置为右下角
         this.mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
+
+        // 设置在缩放动画过程中绘制overlay，默认为不绘制
+        //this.mMapView.setDrawOverlayWhenZooming(true);
+
+        // 设置覆盖物监听器
+        this.mMapView.setOverlayListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getMyOverlayListener());
 
         ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
                 String.format("地图缓存路径" + this.mMapView.getCachePath() + " " + "离线地图路径:" + this.mTOfflineMapManager.getMapPath()));

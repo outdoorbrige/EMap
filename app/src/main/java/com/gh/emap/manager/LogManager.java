@@ -112,7 +112,7 @@ public class LogManager {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
                     ((MainActivity)this.mContext).getApplationName() + File.separator +
                     "Log" + File.separator +
-                    simpleDateFormat.format(date) + ".log";
+                    simpleDateFormat.format(date) + ".txt";
         } else {
             return null;
         }

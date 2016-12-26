@@ -7,10 +7,10 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.file.MyUserPointFile;
+import com.gh.emap.file.RWPointFile;
 import com.gh.emap.manager.LogManager;
-import com.gh.emap.model.MyUserPoint;
-import com.gh.emap.overlay.PointOverlay;
+import com.gh.emap.overlay.PointOverlayItem;
+import com.gh.emap.overlay.PointOverlayItems;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.maps.GeoPointEx;
 
@@ -90,8 +90,7 @@ public class TopEditPointListener implements View.OnClickListener {
             return;
         }
 
-        PointOverlay pointOverlay = new PointOverlay(this.mContext);
-        pointOverlay.setGeoPoint(((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().getGeoPoint());
+        GeoPoint point = GeoPointEx.Double2GeoPoint(116.3919236741D, 39.9057789520D); // ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().getGeoPoint();
 
         String path = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath();
         if(path == null || path.isEmpty()) {
@@ -99,17 +98,17 @@ public class TopEditPointListener implements View.OnClickListener {
             return;
         } else {
             // 保存点信息到文件
-            MyUserPoint myUserPoint = new MyUserPoint();
-            myUserPoint.setType(pointType);
-            myUserPoint.setName(pointName);
-            myUserPoint.setLongitude(pointOverlay.getGeoPoint().getLongitudeE6());
-            myUserPoint.setLatitude(pointOverlay.getGeoPoint().getLatitudeE6());
 
-            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getMyUserOverlays().putMyUserPoint(myUserPoint);
+            PointOverlayItem overlay = new PointOverlayItem(point.getLatitudeE6(), point.getLongitudeE6(), "", "", mContext);
+            overlay.getPointObject().setType(pointType);
+            overlay.getPointObject().setName(pointName);
 
-            MyUserPointFile.write(path + File.separator + myUserPoint.getName() + ".p", myUserPoint);
+            PointOverlayItems overlayItems = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems();
+            overlayItems.put(overlay);
 
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(pointOverlay);
+            RWPointFile.write(path + File.separator + overlay.getPointObject().getName() + ".p", overlay.getPointObject());
+
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(overlayItems);
             ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
         }
 

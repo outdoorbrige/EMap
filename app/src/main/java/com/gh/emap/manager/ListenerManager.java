@@ -6,6 +6,7 @@ import com.gh.emap.listener.BottomEditPointListener;
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
+import com.gh.emap.listener.MyOverlayListener;
 import com.gh.emap.listener.OperationListener;
 import com.gh.emap.listener.TopEditListener;
 import com.gh.emap.listener.ShapEditListener;
@@ -33,6 +34,7 @@ public class ListenerManager {
     private ShapEditListener mShapEditListener;
     private TopEditPointListener mTopEditPointListener;
     private BottomEditPointListener mBottomEditPointListener;
+    private MyOverlayListener mMyOverlayListener;
 
 
     public ListenerManager(Context context) {
@@ -52,7 +54,7 @@ public class ListenerManager {
         this.mShapEditListener = new ShapEditListener(this.mContext);
         this.mTopEditPointListener = new TopEditPointListener(this.mContext);
         this.mBottomEditPointListener = new BottomEditPointListener(this.mContext);
-
+        this.mMyOverlayListener = new MyOverlayListener(this.mContext);
     }
 
     public MyLocationListener getMyLocationListener() {
@@ -101,5 +103,9 @@ public class ListenerManager {
 
     public BottomEditPointListener getBottomEditPointListener() {
         return this.mBottomEditPointListener;
+    }
+
+    public MyOverlayListener getMyOverlayListener() {
+        return this.mMyOverlayListener;
     }
 }

@@ -3,8 +3,6 @@ package com.gh.emap.overlay;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
-import android.view.MotionEvent;
-
 import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
@@ -59,13 +57,5 @@ public class PointOverlay extends Overlay {
         // 绘制点击位置
         MapViewRender mapViewRender = mapView.getMapViewRender();
         mapViewRender.drawDrawable(gl10, this.mDrawableOption, this.mDrawable, this.mGeoPoint);
-    }
-
-    // 触摸事件
-    @Override
-    public boolean onTouchEvent(MotionEvent event, MapView mapView) {
-        int action = event.getAction();
-
-        return false;
     }
 }

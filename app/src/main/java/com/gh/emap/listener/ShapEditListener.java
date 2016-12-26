@@ -5,10 +5,12 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.file.MyUserPointFile;
+import com.gh.emap.file.RWPointFile;
 import com.gh.emap.file.OperateFolder;
-import com.gh.emap.model.MyUserPoint;
+import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
+import com.gh.emap.overlay.PointOverlayItem;
+import com.gh.emap.overlay.PointOverlayItems;
 import com.tianditu.android.maps.GeoPoint;
 
 import java.io.File;
@@ -60,26 +62,34 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
         OperateFolder.TraverseFindFlies(((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath(), ".p", files);
 
         // 解析点文件
-        ArrayList<MyUserPoint> myUserPoints = MyUserPointFile.read(files);
+        ArrayList<PointObject> pointObjects = RWPointFile.read(files);
+        if(pointObjects != null) {
+            PointOverlayItems pointOverlayItems = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems();
+            pointOverlayItems.clear();
 
-        if(myUserPoints != null && myUserPoints.size() > 0) {
-            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getMyUserOverlays().putMyUserPoint(myUserPoints);
-        }
+            for (int i = 0; i < pointObjects.size(); i++) {
+                PointObject pointObject = pointObjects.get(i);
 
-        // 添加已保存的覆盖物
-        for(int i = 0; i < myUserPoints.size(); i ++) {
-            MyUserPoint myUserPoint = myUserPoints.get(i);
-            PointOverlay pointOverlay = new PointOverlay(this.mContext);
-            pointOverlay.setGeoPoint(new GeoPoint(myUserPoint.getLatitude(), myUserPoint.getLongitude()));
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(pointOverlay);
+                PointOverlayItem pointOverlayItem = new PointOverlayItem(pointObject.getLatitude(), pointObject.getLongitude(), pointObject.getTitle(), pointObject.getSnippet(), mContext);
+
+                pointOverlayItem.getPointObject().setIndex(i);
+                pointOverlayItem.getPointObject().setType(pointObject.getType());
+                pointOverlayItem.getPointObject().setName(pointObject.getName());
+
+                pointOverlayItems.put(pointOverlayItem);
+            }
+
+            // 添加已保存的覆盖物
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(pointOverlayItems);
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
         // 添加当前位置覆盖物
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(
-                ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay());
+        PointOverlay overlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
+        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(overlay);
 
-        ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().setGeoPoint(
-                ((MainActivity) this.mContext).getMainManager().getMyLocationManager().getGeoPoint());
+        GeoPoint geoPoint = ((MainActivity) this.mContext).getMainManager().getMyLocationManager().getGeoPoint();
+        ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().setGeoPoint(geoPoint);
 
         ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
     }
