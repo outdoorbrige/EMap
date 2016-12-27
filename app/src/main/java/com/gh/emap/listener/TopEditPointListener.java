@@ -9,12 +9,15 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.file.RWPointFile;
 import com.gh.emap.manager.LogManager;
+import com.gh.emap.overlay.PointObject;
+import com.gh.emap.overlay.PointOverlay;
 import com.gh.emap.overlay.PointOverlayItem;
 import com.gh.emap.overlay.PointOverlayItems;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.maps.GeoPointEx;
 
 import java.io.File;
+import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2016/11/15.
@@ -70,16 +73,16 @@ public class TopEditPointListener implements View.OnClickListener {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
 
-//        // 删除画点覆盖物
-//        PointOverlay pointOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
-//        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().removeOverlay(pointOverlay);
-//        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+        // 删除画点覆盖物
+        PointOverlay pointOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
+        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().removeOverlay(pointOverlay);
+        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 保存
     private void onClickedPointSave(View view) {
         String pointType = ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).getText().toString();
-        if(pointType.contains("选择类别")) {
+        if(pointType.isEmpty()) {
             ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请选择类别"));
             return;
         }
@@ -90,7 +93,17 @@ public class TopEditPointListener implements View.OnClickListener {
             return;
         }
 
-        GeoPoint point = GeoPointEx.Double2GeoPoint(116.3919236741D, 39.9057789520D); // ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().getGeoPoint();
+        // 检查点名是否存在
+        if(PointNameExist(pointName)) {
+            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("点-名称已存在"));
+            return;
+        }
+
+        GeoPoint point = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().getGeoPoint();
+        if(point == null) {
+            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请选择点的位置"));
+            return;
+        }
 
         String path = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath();
         if(path == null || path.isEmpty()) {
@@ -117,5 +130,25 @@ public class TopEditPointListener implements View.OnClickListener {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
+    }
+
+    // 检查点-名称是否存在
+    boolean PointNameExist(String pointName) {
+        HashMap<String, PointOverlayItem> items = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getItems();
+        if(items != null) {
+            for(int i = 0; i < items.size(); i ++) {
+                PointOverlayItem item = items.get(String.valueOf(i));
+                if(item != null) {
+                    PointObject pointObject = item.getPointObject();
+                    if(pointObject != null) {
+                        if(pointObject.getName().equals(pointName)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

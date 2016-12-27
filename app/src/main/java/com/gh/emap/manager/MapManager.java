@@ -45,17 +45,17 @@ public class MapManager {
     }
 
     public void init() {
-        String cachePath = getCachePath(); // 地图缓存路径
-        String offlinePath = getOfflinePath(); // 离线地图存储路径
+//        String cachePath = getCachePath(); // 地图缓存路径
+//        String offlinePath = getOfflinePath(); // 离线地图存储路径
 
         // 设置地图缓冲区路径
-        this.mMapView.setCachePath(cachePath);
+//        this.mMapView.setCachePath(cachePath);
 
         // 设置离线地图数据信息，用于地图显示加载
         // 离线地图设置之后会在程序显示时默认加载
-        this.mTOfflineMapManager.setMapPath(offlinePath);
-        this.mTOfflineMapManager.getMapList(); // 获取所有离线地图列表
-        //this.mMapView.setOfflineMaps(this.mTOfflineMapManager.searchLocalMaps());
+//        this.mTOfflineMapManager.setMapPath(offlinePath);
+//        this.mTOfflineMapManager.getMapList(); // 获取所有离线地图列表
+//        this.mMapView.setOfflineMaps(this.mTOfflineMapManager.searchLocalMaps());
 
         enableTMyLocationOverlay(); // 启用我的位置
 
@@ -72,25 +72,25 @@ public class MapManager {
                 String.format("地图缓存路径" + this.mMapView.getCachePath() + " " + "离线地图路径:" + this.mTOfflineMapManager.getMapPath()));
     }
 
-    private String getCachePath() {
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
-                    "MapCache" + File.separator;
-        } else {
-            return null;
-        }
-    }
-
-    private String getOfflinePath() {
-        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
-                    "OfflineMap" + File.separator;
-        } else {
-            return null;
-        }
-    }
+//    private String getCachePath() {
+//        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//            return Environment.getExternalStorageDirectory().toString() + File.separator +
+//                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+//                    "MapCache" + File.separator;
+//        } else {
+//            return null;
+//        }
+//    }
+//
+//    private String getOfflinePath() {
+//        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+//            return Environment.getExternalStorageDirectory().toString() + File.separator +
+//                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+//                    "OfflineMap" + File.separator;
+//        } else {
+//            return null;
+//        }
+//    }
 
     // 启用我的位置
     public void enableTMyLocationOverlay () {

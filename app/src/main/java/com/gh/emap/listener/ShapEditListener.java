@@ -3,8 +3,10 @@ package com.gh.emap.listener;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 
 import com.gh.emap.MainActivity;
+import com.gh.emap.R;
 import com.gh.emap.file.RWPointFile;
 import com.gh.emap.file.OperateFolder;
 import com.gh.emap.overlay.PointObject;
@@ -64,8 +66,7 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
         // 解析点文件
         ArrayList<PointObject> pointObjects = RWPointFile.read(files);
         if(pointObjects != null) {
-            PointOverlayItems pointOverlayItems = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems();
-            pointOverlayItems.clear();
+            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
 
             for (int i = 0; i < pointObjects.size(); i++) {
                 PointObject pointObject = pointObjects.get(i);
@@ -76,13 +77,17 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
                 pointOverlayItem.getPointObject().setType(pointObject.getType());
                 pointOverlayItem.getPointObject().setName(pointObject.getName());
 
-                pointOverlayItems.put(pointOverlayItem);
+                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(pointOverlayItem);
             }
 
             // 添加已保存的覆盖物
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(pointOverlayItems);
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
             ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
         }
+
+        // 设置默认点的名称
+        EditText defaultPointName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.point_name));
+        defaultPointName.setText("点" + String.valueOf(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
 
         // 添加当前位置覆盖物
         PointOverlay overlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();

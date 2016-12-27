@@ -124,7 +124,7 @@ public class MenuLayout {
         double angleRadians = (90 / mArrayListButtons.size() / 2) * Math.PI / 180; // 角度换算成弧度
 
         // 计算半径(dp)
-        radius = (int)Math.round(c / Math.sin(angleRadians));
+        radius = (int)Math.round(c * 1.2 / Math.sin(angleRadians));
 
         ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
                 String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正弦值:%f, 近似半径:%d, 动画半径:%d",

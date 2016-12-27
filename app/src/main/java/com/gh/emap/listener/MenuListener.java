@@ -61,6 +61,7 @@ public class MenuListener implements View.OnClickListener {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().runMenuAnimation(view);
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopNormalLayout().hide();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().show();
+        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().hide();
     }
 
     // 设置按钮
