@@ -59,30 +59,34 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
         ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().show();
         ((MainActivity) this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
 
-        // 加载文件数据
-        ArrayList<File> files = new ArrayList<>();
-        OperateFolder.TraverseFindFlies(((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath(), ".p", files);
+        // 防止重复加载文件数据
+        if(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() == 0) {
+            // 加载文件数据
+            ArrayList<File> files = new ArrayList<>();
+            OperateFolder.TraverseFindFlies(((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath(), ".p", files);
 
-        // 解析点文件
-        ArrayList<PointObject> pointObjects = RWPointFile.read(files);
-        if(pointObjects != null) {
-            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
+            // 解析点文件
+            ArrayList<PointObject> pointObjects = RWPointFile.read(files);
+            if (pointObjects != null) {
+                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
 
-            for (int i = 0; i < pointObjects.size(); i++) {
-                PointObject pointObject = pointObjects.get(i);
+                for (int i = 0; i < pointObjects.size(); i++) {
+                    PointObject pointObject = pointObjects.get(i);
 
-                PointOverlayItem pointOverlayItem = new PointOverlayItem(pointObject.getLatitude(), pointObject.getLongitude(), pointObject.getTitle(), pointObject.getSnippet(), mContext);
+                    PointOverlayItem pointOverlayItem = new PointOverlayItem(pointObject.getLatitude(), pointObject.getLongitude(), pointObject.getTitle(), pointObject.getSnippet(), mContext);
 
-                pointOverlayItem.getPointObject().setIndex(i);
-                pointOverlayItem.getPointObject().setType(pointObject.getType());
-                pointOverlayItem.getPointObject().setName(pointObject.getName());
+                    pointOverlayItem.getPointObject().setIndex(i);
+                    pointOverlayItem.getPointObject().setType(pointObject.getType());
+                    pointOverlayItem.getPointObject().setName(pointObject.getName());
 
-                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(pointOverlayItem);
+                    ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(pointOverlayItem);
+                    ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
+                }
+
+                // 添加已保存的覆盖物
+                ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
+                ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
             }
-
-            // 添加已保存的覆盖物
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
         // 设置默认点的名称

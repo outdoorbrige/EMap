@@ -12,12 +12,10 @@ import com.gh.emap.manager.LogManager;
 import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
 import com.gh.emap.overlay.PointOverlayItem;
-import com.gh.emap.overlay.PointOverlayItems;
 import com.tianditu.android.maps.GeoPoint;
-import com.tianditu.maps.GeoPointEx;
 
 import java.io.File;
-import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by GuHeng on 2016/11/15.
@@ -81,12 +79,6 @@ public class TopEditPointListener implements View.OnClickListener {
 
     // 保存
     private void onClickedPointSave(View view) {
-        String pointType = ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).getText().toString();
-        if(pointType.isEmpty()) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请选择类别"));
-            return;
-        }
-
         String pointName = ((EditText)((MainActivity)this.mContext).findViewById(R.id.point_name)).getText().toString();
         if(pointName.isEmpty()) {
             ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请输入名称"));
@@ -96,6 +88,12 @@ public class TopEditPointListener implements View.OnClickListener {
         // 检查点名是否存在
         if(PointNameExist(pointName)) {
             ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("点-名称已存在"));
+            return;
+        }
+
+        String pointType = ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).getText().toString();
+        if(pointType.isEmpty()) {
+            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请选择类别"));
             return;
         }
 
@@ -116,12 +114,13 @@ public class TopEditPointListener implements View.OnClickListener {
             overlay.getPointObject().setType(pointType);
             overlay.getPointObject().setName(pointName);
 
-            PointOverlayItems overlayItems = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems();
-            overlayItems.put(overlay);
+            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(overlay);
+            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
 
             RWPointFile.write(path + File.separator + overlay.getPointObject().getName() + ".p", overlay.getPointObject());
 
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(overlayItems);
+            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(
+                    ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
             ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
@@ -134,10 +133,10 @@ public class TopEditPointListener implements View.OnClickListener {
 
     // 检查点-名称是否存在
     boolean PointNameExist(String pointName) {
-        HashMap<String, PointOverlayItem> items = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getItems();
+        List<PointOverlayItem> items = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getItems();
         if(items != null) {
             for(int i = 0; i < items.size(); i ++) {
-                PointOverlayItem item = items.get(String.valueOf(i));
+                PointOverlayItem item = items.get(i);
                 if(item != null) {
                     PointObject pointObject = item.getPointObject();
                     if(pointObject != null) {
