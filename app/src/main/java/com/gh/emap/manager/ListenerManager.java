@@ -2,12 +2,14 @@ package com.gh.emap.manager;
 
 import android.content.Context;
 
+import com.gh.emap.listener.BottomEditLineListener;
 import com.gh.emap.listener.BottomEditPointListener;
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.MyOverlayListener;
 import com.gh.emap.listener.OperationListener;
+import com.gh.emap.listener.TopEditLineListener;
 import com.gh.emap.listener.TopEditListener;
 import com.gh.emap.listener.ShapEditListener;
 import com.gh.emap.listener.TopEditPointListener;
@@ -34,6 +36,8 @@ public class ListenerManager {
     private ShapEditListener mShapEditListener;
     private TopEditPointListener mTopEditPointListener;
     private BottomEditPointListener mBottomEditPointListener;
+    private TopEditLineListener mTopEditLineListener;
+    private BottomEditLineListener mBottomEditLineListener;
     private MyOverlayListener mMyOverlayListener;
 
 
@@ -54,6 +58,8 @@ public class ListenerManager {
         this.mShapEditListener = new ShapEditListener(this.mContext);
         this.mTopEditPointListener = new TopEditPointListener(this.mContext);
         this.mBottomEditPointListener = new BottomEditPointListener(this.mContext);
+        this.mTopEditLineListener = new TopEditLineListener(this.mContext);
+        this.mBottomEditLineListener = new BottomEditLineListener(this.mContext);
         this.mMyOverlayListener = new MyOverlayListener(this.mContext);
     }
 
@@ -103,6 +109,14 @@ public class ListenerManager {
 
     public BottomEditPointListener getBottomEditPointListener() {
         return this.mBottomEditPointListener;
+    }
+
+    public TopEditLineListener getTopEditLineListener() {
+        return this.mTopEditLineListener;
+    }
+
+    public BottomEditLineListener getBottomEditLineListener() {
+        return this.mBottomEditLineListener;
     }
 
     public MyOverlayListener getMyOverlayListener() {

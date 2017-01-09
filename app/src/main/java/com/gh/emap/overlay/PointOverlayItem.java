@@ -10,7 +10,7 @@ import java.io.Serializable;
  * Created by GuHeng on 2016/11/14.
  * 画点覆盖物
  */
-public class PointOverlayItem extends OverlayItem implements Serializable {
+public class PointOverlayItem extends OverlayItem {
     private Context mContext;
     private PointObject mPointObject;
 

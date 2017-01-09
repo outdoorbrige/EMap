@@ -93,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 this.getMainManager().getLayoutManager().getOperationLayout().show();
             }
 
+            view = findViewById(R.id.bottom_shap_line);
+            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomShapLineLayout布局
+                this.getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
+                this.getMainManager().getLayoutManager().getMenuLayout().show();
+                this.getMainManager().getLayoutManager().getOperationLayout().show();
+            }
+
             return super.dispatchTouchEvent(motionEvent);
         }
 

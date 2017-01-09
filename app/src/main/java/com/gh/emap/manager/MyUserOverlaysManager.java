@@ -17,7 +17,7 @@ import java.util.HashMap;
 
 public class MyUserOverlaysManager {
     private Context mContext;
-    private Drawable mMarker;
+    private Drawable mPointOverlayItemMarker;
     private PointOverlayItems mPointOverlayItems;
 
     public MyUserOverlaysManager(Context context) {
@@ -25,8 +25,8 @@ public class MyUserOverlaysManager {
     }
 
     public void init() {
-        this.mMarker = ContextCompat.getDrawable(this.mContext, R.mipmap.added_icon);
-        this.mPointOverlayItems = new PointOverlayItems(this.mMarker, this.mContext);
+        this.mPointOverlayItemMarker = ContextCompat.getDrawable(this.mContext, R.mipmap.added_icon);
+        this.mPointOverlayItems = new PointOverlayItems(this.mPointOverlayItemMarker, this.mContext);
         this.mPointOverlayItems.init();
     }
 

@@ -105,7 +105,8 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
 
     // 画线
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
-
+        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().show();
+        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
     }
 
     // 画面

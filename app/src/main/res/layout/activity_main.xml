@@ -310,6 +310,106 @@
 
     </LinearLayout>
 
+    <!--地物信息-画线-顶部布局-->
+    <LinearLayout
+        android:id="@+id/top_shap_line"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/white_bg"
+        android:gravity="center_vertical"
+        android:layout_below="@id/top"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="线-名称："/>
+
+                <EditText
+                    android:id="@+id/line_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="true"
+                    android:maxLines="1"
+                    android:background="@null"
+                    android:layout_weight="1"/>
+
+                <Button
+                    android:id="@+id/line_save"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="保存"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="线-类别："/>
+
+                <TextView
+                    android:id="@+id/line_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="选择类别"
+                    android:maxLines="1"
+                    android:layout_weight="1">
+                </TextView>
+
+                <Button
+                    android:id="@+id/line_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="取消"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--地物信息-画线-底部布局-->
+    <LinearLayout
+        android:id="@+id/bottom_shap_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@+id/map_view"
+        android:background="@mipmap/white_bg"
+        android:visibility="invisible">
+
+        <com.wx.wheelview.widget.WheelView
+            android:id="@+id/line_scroll_one"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <com.wx.wheelview.widget.WheelView
+            android:id="@+id/line_scroll_two"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+    </LinearLayout>
+
     <!--菜单(编辑、设置、下载)-->
     <RelativeLayout
         android:id="@+id/menu"

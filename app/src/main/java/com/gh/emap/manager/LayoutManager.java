@@ -2,12 +2,14 @@ package com.gh.emap.manager;
 
 import android.content.Context;
 
+import com.gh.emap.layout.BottomShapLineLayout;
 import com.gh.emap.layout.BottomShapPointLayout;
 import com.gh.emap.layout.LayerLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
 import com.gh.emap.layout.TopEditLayout;
 import com.gh.emap.layout.TopNormalLayout;
+import com.gh.emap.layout.TopShapLineLayout;
 import com.gh.emap.layout.TopShapPointLayout;
 import com.gh.emap.layout.UserLoginLayout;
 import com.gh.emap.layout.UserLogoutLayout;
@@ -26,6 +28,8 @@ public class LayoutManager {
     private TopEditLayout mTopEditLayout;
     private TopShapPointLayout mTopShapPointLayout;
     private BottomShapPointLayout mBottomShapPointLayout;
+    private TopShapLineLayout mTopShapLineLayout;
+    private BottomShapLineLayout mBottomShapLineLayout;
     private UserLoginLayout mUserLoginLayout;
     private UserRegisterLayout mUserRegisterLayout;
     private UserLogoutLayout mUserLogoutLayout;
@@ -55,6 +59,12 @@ public class LayoutManager {
 
         this.mBottomShapPointLayout = new BottomShapPointLayout(this.mContext);
         this.mBottomShapPointLayout.init();
+
+        this.mTopShapLineLayout = new TopShapLineLayout(this.mContext);
+        this.mTopShapLineLayout.init();
+
+        this.mBottomShapLineLayout = new BottomShapLineLayout(this.mContext);
+        this.mBottomShapLineLayout.init();
 
         this.mUserLoginLayout = new UserLoginLayout(this.mContext);
         this.mUserLoginLayout.init();
@@ -92,6 +102,14 @@ public class LayoutManager {
 
     public BottomShapPointLayout getBottomShapPointLayout() {
         return this.mBottomShapPointLayout;
+    }
+
+    public TopShapLineLayout getTopShapLineLayout() {
+        return this.mTopShapLineLayout;
+    }
+
+    public BottomShapLineLayout getBottomShapLineLayout() {
+        return this.mBottomShapLineLayout;
     }
 
     public UserLoginLayout getUserLoginLayout() {

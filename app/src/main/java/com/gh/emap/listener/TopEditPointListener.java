@@ -129,22 +129,32 @@ public class TopEditPointListener implements View.OnClickListener {
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
         ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
+
+        // 设置默认点的名称
+        EditText defaultPointName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.point_name));
+        defaultPointName.setText("点" + String.valueOf(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
     }
 
     // 检查点-名称是否存在
     boolean PointNameExist(String pointName) {
         List<PointOverlayItem> items = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getItems();
-        if(items != null) {
-            for(int i = 0; i < items.size(); i ++) {
-                PointOverlayItem item = items.get(i);
-                if(item != null) {
-                    PointObject pointObject = item.getPointObject();
-                    if(pointObject != null) {
-                        if(pointObject.getName().equals(pointName)) {
-                            return true;
-                        }
-                    }
-                }
+        if(items == null) {
+            return false;
+        }
+
+        for(int i = 0; i < items.size(); i ++) {
+            PointOverlayItem item = items.get(i);
+            if(item == null) {
+                continue;
+            }
+
+            PointObject pointObject = item.getPointObject();
+            if(pointObject == null) {
+                continue;
+            }
+
+            if(pointObject.getName().equals(pointName)) {
+                return true;
             }
         }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.file.EMapFile;
+import com.gh.emap.file.ShapLineFile;
 import com.gh.emap.file.ShapPointFile;
 
 import java.io.ByteArrayOutputStream;
@@ -21,6 +22,7 @@ public class FileManager {
     private Context mContext;
     private EMapFile mEMapFile;
     private ShapPointFile mShapPointFile;
+    private ShapLineFile mShapLineFile;
 
     public FileManager(Context context) {
         this.mContext = context;
@@ -32,6 +34,9 @@ public class FileManager {
 
         this.mShapPointFile = new ShapPointFile(this.mContext);
         this.mShapPointFile.init();
+
+        this.mShapLineFile = new ShapLineFile(this.mContext);
+        this.mShapLineFile.init();
     }
 
     public EMapFile getEMapFile() {
@@ -40,6 +45,10 @@ public class FileManager {
 
     public ShapPointFile getShapPointFile() {
         return this.mShapPointFile;
+    }
+
+    public ShapLineFile getShapLineFile() {
+        return this.mShapLineFile;
     }
 
     // 写对象到文件中
