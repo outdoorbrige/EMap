@@ -4,8 +4,6 @@ import android.content.Context;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.OverlayItem;
 
-import java.io.Serializable;
-
 /**
  * Created by GuHeng on 2016/11/14.
  * 画点覆盖物
@@ -19,12 +17,7 @@ public class PointOverlayItem extends OverlayItem {
 
         this.mContext = context;
 
-        mPointObject = new PointObject();
-
-        mPointObject.setTitle(title);
-        mPointObject.setSnippet(snippet);
-        mPointObject.setLatitude(latitude);
-        mPointObject.setLongitude(longitude);
+        mPointObject = new PointObject(title, snippet, -1, "", "", latitude, longitude);
     }
 
     public PointObject getPointObject() {

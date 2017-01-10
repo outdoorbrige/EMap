@@ -9,6 +9,7 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.file.RWPointFile;
 import com.gh.emap.file.OperateFolder;
+import com.gh.emap.overlay.LineOverlay;
 import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
 import com.gh.emap.overlay.PointOverlayItem;
@@ -107,6 +108,16 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
         ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().show();
         ((MainActivity) this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+
+        // 设置默认点的名称
+        EditText defaultLineName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.line_name));
+        defaultLineName.setText("线" + String.valueOf(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
+
+        // 添加当前位置覆盖物
+        LineOverlay overlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getLineOverlay();
+        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(overlay);
+
+        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 画面

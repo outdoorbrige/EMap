@@ -19,6 +19,16 @@ public class PointObject implements Serializable {
     private int mLatitude; // 点-纬度
     private int mLongitude; // 点-经度
 
+    public PointObject(String title, String snippet, int index, String type, String name, int latitude, int longitude) {
+        this.mTitle = title;
+        this.mSnippet = snippet;
+        this.mIndex = index;
+        this.mType = type;
+        this.mName = name;
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
+    }
+
     public String getTitle() {
         return mTitle;
     }
