@@ -110,7 +110,7 @@ public class TopEditPointListener implements View.OnClickListener {
         } else {
             // 保存点信息到文件
 
-            PointOverlayItem overlay = new PointOverlayItem(point.getLatitudeE6(), point.getLongitudeE6(), "", "", mContext);
+            PointOverlayItem overlay = new PointOverlayItem(mContext, "", "", point.getLatitudeE6(), point.getLongitudeE6());
             overlay.getPointObject().setType(pointType);
             overlay.getPointObject().setName(pointName);
 

@@ -25,7 +25,7 @@ public class BottomEditLineListener implements WheelView.OnWheelItemSelectedList
     }
 
     private void onItemSelectedWheel(int position, String item) {
-        ((TextView)((MainActivity)this.mContext).findViewById(R.id.point_type)).setText(
+        ((TextView)((MainActivity)this.mContext).findViewById(R.id.line_type)).setText(
                 (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
     }
 }

@@ -19,7 +19,7 @@ public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
     private List<PointOverlayItem> mPointOverlayItems = new ArrayList<>();
 
     // 构造方法
-    public PointOverlayItems(Drawable marker, Context context) {
+    public PointOverlayItems(Context context, Drawable marker) {
         super(boundCenterBottom(marker));
         this.mMarker = marker;
         this.mContext = context;

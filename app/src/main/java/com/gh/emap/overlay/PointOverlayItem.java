@@ -12,12 +12,11 @@ public class PointOverlayItem extends OverlayItem {
     private Context mContext;
     private PointObject mPointObject;
 
-    public PointOverlayItem(int latitude, int longitude, String title, String snippet, Context context) {
+    public PointOverlayItem(Context context, String title, String snippet, int latitude, int longitude) {
         super(new GeoPoint(latitude, longitude), title, snippet);
 
         this.mContext = context;
-
-        mPointObject = new PointObject(title, snippet, -1, "", "", latitude, longitude);
+        mPointObject = new PointObject();
     }
 
     public PointObject getPointObject() {

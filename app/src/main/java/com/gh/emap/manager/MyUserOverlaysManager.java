@@ -6,10 +6,7 @@ import android.support.v4.content.ContextCompat;
 import com.gh.emap.R;
 
 import com.gh.emap.overlay.LineOverlayItems;
-import com.gh.emap.overlay.PointOverlayItem;
 import com.gh.emap.overlay.PointOverlayItems;
-
-import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2016/12/15.
@@ -28,10 +25,10 @@ public class MyUserOverlaysManager {
 
     public void init() {
         this.mPointOverlayItemMarker = ContextCompat.getDrawable(this.mContext, R.mipmap.added_icon);
-        this.mPointOverlayItems = new PointOverlayItems(this.mPointOverlayItemMarker, this.mContext);
+        this.mPointOverlayItems = new PointOverlayItems(this.mContext, this.mPointOverlayItemMarker);
         this.mPointOverlayItems.init();
 
-        this.mLineOverlayItems = new LineOverlayItems(null, this.mContext);
+        this.mLineOverlayItems = new LineOverlayItems(this.mContext);
         this.mLineOverlayItems.init();
     }
 

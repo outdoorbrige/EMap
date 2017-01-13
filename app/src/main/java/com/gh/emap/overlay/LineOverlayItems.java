@@ -1,103 +1,203 @@
 package com.gh.emap.overlay;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 
-import com.tianditu.android.maps.ItemizedOverlay;
+import com.tianditu.android.maps.overlay.PolylineOverlay;
+import com.tianditu.android.maps.renderoption.LineOption;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
- * Created by GuHeng on 2017/1/10.
+ * Created by GuHeng on 2017/1/12.
  * 地物编辑-画线-覆盖物集合
  */
 
-public class LineOverlayItems extends ItemizedOverlay<LineOverlayItem> {
+public class LineOverlayItems {
     private Context mContext;
-    private Drawable mMarker;
-    private List<LineOverlayItem> mLineOverlayItems = new ArrayList<>();
+    private ArrayList<LineObject> mLineObjects = new ArrayList<>();
+    private ArrayList<PolylineOverlay> mPolylineOverlays = new ArrayList<>();
 
-    // 构造方法
-    public LineOverlayItems(Drawable marker, Context context) {
-        super(boundCenterBottom(marker));
-        this.mMarker = marker;
+    public LineOverlayItems(Context context) {
         this.mContext = context;
     }
 
-    // 初始化
     public void init() {
 
     }
 
-    // 创建指定的条目，由父类调用
-    @Override
-    protected LineOverlayItem createItem(int index) {
-        return mLineOverlayItems.get(index);
+    public PolylineOverlay LineObjectToPolylineOverlay(LineObject o) {
+       if(o == null) {
+            return null;
+        }
+
+        LineOption lineOption = new LineOption();
+        lineOption.setStrokeWidth(o.getStrokeWidth());
+        lineOption.setStrokeColor(o.getStrokeColor());
+        lineOption.setDottedLine(o.isDottedLine());
+        lineOption.setIntervals(o.getIntervals());
+
+        PolylineOverlay polylineOverlay = new PolylineOverlay();
+        polylineOverlay.setOption(lineOption);
+        polylineOverlay.setPoints(o.getGeoPoints());
+
+        return polylineOverlay;
     }
 
-    // 覆盖物数量
-    @Override
+    public LineObject PolylineOverlayToLineObject(PolylineOverlay o) {
+        if(o == null) {
+            return null;
+        }
+
+        LineObject lineObject = new LineObject();
+        lineObject.setStrokeWidth(o.getOption().getStrokeWidth());
+        lineObject.setStrokeColor(o.getOption().getStrokeColor());
+        lineObject.setDottedLine(o.getOption().isDottedLine());
+        lineObject.addGeoPoints(o.getPoints());
+
+        return lineObject;
+    }
+
+    public ArrayList<PolylineOverlay> LineObjectsToPolylineOverlays(ArrayList<LineObject> objects) {
+        if(objects == null) {
+            return null;
+        }
+
+        ArrayList<PolylineOverlay> os = new ArrayList<>();
+        for(int i = 0; i < objects.size(); i ++) {
+            PolylineOverlay o = LineObjectToPolylineOverlay(objects.get(i));
+            os.add(o);
+        }
+
+        return os;
+    }
+
+    public ArrayList<LineObject> PolylineOverlaysToLineObjects(ArrayList<PolylineOverlay> objects) {
+        if(objects == null) {
+            return null;
+        }
+
+        ArrayList<LineObject> os = new ArrayList<>();
+        for(int i = 0; i < objects.size(); i ++) {
+            LineObject o = PolylineOverlayToLineObject(objects.get(i));
+            os.add(o);
+        }
+
+        return os;
+    }
+
     public int size() {
-        return this.mLineOverlayItems.size();
+        return mLineObjects.size();
     }
 
-    // 在某个条目被点击时调用
-    @Override
-    protected boolean onTap(int index) {
-
-        super.setFocusID(-1);
-        return true;
+    public boolean isEmpty() {
+        return mLineObjects.isEmpty();
     }
 
-    // 获取覆盖物集合
-    public List<LineOverlayItem> getItems() {
-        return mLineOverlayItems;
+    public int indexOf(LineObject o) {
+        return mLineObjects.indexOf(o);
     }
 
-    // 查找覆盖物
-    public LineOverlayItem get(int index) {
-        LineOverlayItem overlayItem = mLineOverlayItems.get(index);
-        return overlayItem;
+    public int indexOf(PolylineOverlay o) {
+        return mPolylineOverlays.indexOf(o);
     }
 
-    // 添加覆盖物
-    // 警告：添加完成后必须调用populate方法
-    public void put(LineOverlayItem item) {
-        if(item != null) {
-            item.setMarker(mMarker);
-            mLineOverlayItems.add(item);
-        }
+    public int lastIndexOf(LineObject o) {
+        return mLineObjects.lastIndexOf(o);
     }
 
-    // 添加覆盖物集合
-    // 警告：添加完成后必须调用populate方法
-    public void put(ArrayList<LineOverlayItem> items) {
-        if(items == null) {
-            return;
-        }
-
-        for(int i = 0; i < items.size(); i ++) {
-            this.put(items.get(i));
-        }
+    public int lastIndexOf(PolylineOverlay o) {
+        return mPolylineOverlays.lastIndexOf(0);
     }
 
-    // 删除覆盖物
-    // 警告：删除完成后必须调用populate方法
-    public LineOverlayItem remove(int index) {
-        LineOverlayItem overlayItem = mLineOverlayItems.remove(index);
-        return overlayItem;
+    public LineObject getLineObject(int index) {
+        return mLineObjects.get(index);
     }
 
-    // 清空覆盖物
-    // 警告：清空完成后必须调用populate方法
+    public PolylineOverlay getPolylineOverlay(int index) {
+        return mPolylineOverlays.get(index);
+    }
+
+    public LineObject set(int index, LineObject element) {
+        mPolylineOverlays.set(index, LineObjectToPolylineOverlay(element));
+        return mLineObjects.set(index, element);
+    }
+
+    public boolean add(LineObject e) {
+        mPolylineOverlays.add(LineObjectToPolylineOverlay(e));
+        return mLineObjects.add(e);
+    }
+
+    public void add(int index, LineObject element) {
+        mPolylineOverlays.add(index, LineObjectToPolylineOverlay(element));
+        mLineObjects.add(index, element);
+    }
+
+    public LineObject remove(int index) {
+        mPolylineOverlays.remove(index);
+        return mLineObjects.remove(index);
+    }
+
+    public boolean remove(LineObject o) {
+        mPolylineOverlays.remove(LineObjectToPolylineOverlay(o));
+        return mLineObjects.remove(o);
+    }
+
     public void clear() {
-        mLineOverlayItems.clear();
+        mPolylineOverlays.clear();
+        mLineObjects.clear();
     }
 
-    // 刷新覆盖物列表
-    // 警告：添加和删除 覆盖物后必须要调用次方法，才能调用其他方法
-    public void populate() {
-        super.populate(); // 一旦有了数据，在调用其他方法前，必须首先调用这个方法
+    public boolean addAll(ArrayList<LineObject> c) {
+        mPolylineOverlays.addAll(LineObjectsToPolylineOverlays(c));
+        return mLineObjects.addAll(c);
     }
+
+    public boolean addAll(int index, ArrayList<LineObject> c) {
+        mPolylineOverlays.addAll(index, LineObjectsToPolylineOverlays(c));
+        return mLineObjects.addAll(index, c);
+    }
+
+
+    protected boolean removeAll(ArrayList<LineObject> c) {
+        mPolylineOverlays.removeAll(LineObjectsToPolylineOverlays(c));
+        return mLineObjects.removeAll(c);
+    }
+
+    public ArrayList<LineObject> getLineObjects() {
+        return this.mLineObjects;
+    }
+//
+//    public ArrayList<PolylineOverlay> getPolylineOverlayItems() {
+//        return this.mPolylineOverlays;
+//    }
+//
+//    public void addLineObject(LineObject lineObject) {
+//        if(lineObject == null) {
+//            return;
+//        }
+//
+//        LineOption lineOption = new LineOption();
+//        lineOption.setStrokeWidth(lineObject.getStrokeWidth());
+//        lineOption.setStrokeColor(lineObject.getStrokeColor());
+//        lineOption.setDottedLine(lineObject.isDottedLine());
+//        lineOption.setIntervals(lineObject.getIntervals());
+//
+//        PolylineOverlay polylineOverlay = new PolylineOverlay();
+//        polylineOverlay.setOption(lineOption);
+//        polylineOverlay.setPoints(lineObject.getGeoPoints());
+//
+//        this.mLineObjects.add(lineObject);
+//        this.mPolylineOverlays.add(polylineOverlay);
+//    }
+//
+//    public void addLineObjects(ArrayList<LineObject> lineObjects) {
+//        if(lineObjects == null) {
+//            return;
+//        }
+//
+//        for (int i = 0; i < lineObjects.size(); i ++) {
+//            addLineObject(lineObjects.get(i));
+//        }
+//    }
 }

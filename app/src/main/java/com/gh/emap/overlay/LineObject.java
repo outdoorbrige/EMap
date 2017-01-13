@@ -11,22 +11,86 @@ import java.util.ArrayList;
  */
 
 public class LineObject implements Serializable {
+    String mTitle;
+    String mSnippet;
+
+    private int mIndex; // 线-索引
+    private String mType; // 线-类型
+    private String mName; // 线-名称
+    ArrayList<String> mStrPoints = new ArrayList<>(); // 点的集合 数据格式：“纬度*10E6,经度*10E6”
+
     // LineOption
-    private int mStrokeWidth = 5; // 线的宽度
-    private int mStrokeColor = 0xAA000000; // 线的颜色RGBA
-    private boolean mDottedLine = false; // 虚线
+    private int mStrokeWidth; // 线的宽度
+    private int mStrokeColor; // 线的颜色RGBA
+    private boolean mDottedLine; // 虚线
     private int[] mIntervals = new int[]{13, 10, 13, 10}; // 虚线点间隔
 
-    ArrayList<String> mListPoints = new ArrayList<>(); // 点的集合 数据格式：“纬度*10E6,经度*10E6”
-
     public LineObject() {
-
+        this.mTitle = "";
+        this.mSnippet = "";
+        this.mIndex = -1;
+        this.mType = "";
+        this.mName = "";
+        this.mStrokeWidth = 5;
+        this.mStrokeColor = 0xAA000000;
+        this.mDottedLine = false;
     }
 
-    public LineObject(int strokeWidth, int strokeColor, boolean dottedLine) {
-        this.mStrokeWidth = strokeWidth;
-        this.mStrokeColor = strokeColor;
-        this.mDottedLine = dottedLine;
+    public String getTitle() {
+        return mTitle;
+    }
+
+    public void setTitle(String title) {
+        this.mTitle = title;
+    }
+
+    public String getSnippet() {
+        return mSnippet;
+    }
+
+    public void setSnippet(String snippet) {
+        this.mSnippet = snippet;
+    }
+
+    public int getIndex() {
+        return mIndex;
+    }
+
+    public void setIndex(int index) {
+        this.mIndex = index;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String type) {
+        this.mType = type;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public void setName(String name) {
+        this.mName = name;
+    }
+
+    public void setStrPoints(ArrayList<String> listPoints) {
+        this.mStrPoints = listPoints;
+    }
+
+    public void setGeoPoints(ArrayList<GeoPoint> listPoints) {
+        if(listPoints == null) {
+            return;
+        }
+
+        mStrPoints.clear();
+        addGeoPoints(listPoints);
+    }
+
+    public ArrayList<String> getStrPoints() {
+        return this.mStrPoints;
     }
 
     public void setStrokeWidth(int width) {
@@ -67,31 +131,47 @@ public class LineObject implements Serializable {
         return this.mIntervals;
     }
 
-    public void setListPoints(ArrayList<String> listPoints) {
-        this.mListPoints = listPoints;
+    public boolean addGeoPoint(GeoPoint geoPoint) {
+        return this.mStrPoints.add(GeoPointToStrPoint(geoPoint));
     }
 
-    public ArrayList<String> getListPoints() {
-        return this.mListPoints;
-    }
-
-    public boolean addPoint(GeoPoint geoPoint) {
-        if(geoPoint == null) {
-            return false;
-        }
-
-        String value = String.valueOf(geoPoint.getLatitudeE6()) + "," + String.valueOf(geoPoint.getLongitudeE6());
-
-        return this.mListPoints.add(value);
-    }
-
-    public void addPoints(ArrayList<GeoPoint> geoPointList) {
+    public void addGeoPoints(ArrayList<GeoPoint> geoPointList) {
         if(geoPointList == null) {
             return;
         }
 
         for (int i = 0; i < geoPointList.size(); i ++) {
-            this.addPoint(geoPointList.get(i));
+            this.addGeoPoint(geoPointList.get(i));
         }
+    }
+
+    public static String GeoPointToStrPoint(GeoPoint geo) {
+        if(geo == null) {
+            return "";
+        }
+
+        return String.valueOf(geo.getLatitudeE6()) + "," + String.valueOf(geo.getLongitudeE6());
+    }
+
+    public static GeoPoint StrPointToGeoPoint(String str) {
+        if(str == null || str.isEmpty()) {
+            return null;
+        }
+
+        String[] latitudeAndLongitudeArray = str.split(",");
+        int latitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
+        int longitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
+
+        return new GeoPoint(latitude, longitude);
+    }
+
+    public ArrayList<GeoPoint> getGeoPoints() {
+        ArrayList<GeoPoint> geoPoints = new ArrayList<>();
+
+        for (int i = 0; i < this.mStrPoints.size(); i ++) {
+            geoPoints.add(StrPointToGeoPoint(this.mStrPoints.get(i)));
+        }
+
+        return geoPoints;
     }
 }

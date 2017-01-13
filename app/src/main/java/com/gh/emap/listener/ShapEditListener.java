@@ -7,13 +7,14 @@ import android.widget.EditText;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
+import com.gh.emap.file.RWLineFile;
 import com.gh.emap.file.RWPointFile;
 import com.gh.emap.file.OperateFolder;
+import com.gh.emap.overlay.LineObject;
 import com.gh.emap.overlay.LineOverlay;
 import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
 import com.gh.emap.overlay.PointOverlayItem;
-import com.gh.emap.overlay.PointOverlayItems;
 import com.tianditu.android.maps.GeoPoint;
 
 import java.io.File;
@@ -74,7 +75,7 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
                 for (int i = 0; i < pointObjects.size(); i++) {
                     PointObject pointObject = pointObjects.get(i);
 
-                    PointOverlayItem pointOverlayItem = new PointOverlayItem(pointObject.getLatitude(), pointObject.getLongitude(), pointObject.getTitle(), pointObject.getSnippet(), mContext);
+                    PointOverlayItem pointOverlayItem = new PointOverlayItem(mContext, pointObject.getTitle(), pointObject.getSnippet(), pointObject.getLatitude(), pointObject.getLongitude());
 
                     pointOverlayItem.getPointObject().setIndex(i);
                     pointOverlayItem.getPointObject().setType(pointObject.getType());
@@ -108,6 +109,28 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
         ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().show();
         ((MainActivity) this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+
+        // 防止重复加载文件数据
+        if(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() == 0) {
+            // 加载文件数据
+            ArrayList<File> files = new ArrayList<>();
+            OperateFolder.TraverseFindFlies(((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath(), ".l", files);
+
+            // 解析线文件
+            ArrayList<LineObject> lineObjects = RWLineFile.read(files);
+            if (lineObjects != null) {
+                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().clear();
+                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().addAll(lineObjects);
+
+                for (int i = 0; i < ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size(); i ++) {
+                    // 添加已保存的覆盖物
+                    ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(
+                            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(i));
+                }
+
+                ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+            }
+        }
 
         // 设置默认点的名称
         EditText defaultLineName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.line_name));

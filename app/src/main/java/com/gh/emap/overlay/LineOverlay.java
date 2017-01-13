@@ -20,21 +20,14 @@ import javax.microedition.khronos.opengles.GL10;
 public class LineOverlay extends Overlay {
     private Context mContext;
     private LineOption mLineOption;
-    private ArrayList<GeoPoint> mGeoPointArrayList;
+    private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
     public LineOverlay(Context context) {
         this.mContext = context;
         this.mLineOption = new LineOption();
         this.mLineOption.setStrokeWidth(5);
-        this.mLineOption.setDottedLine(false);
         this.mLineOption.setStrokeColor(0xAA000000);
-        mGeoPointArrayList = new ArrayList<>();
-    }
-
-    public LineOverlay(Context context, LineOption lineOption, ArrayList<GeoPoint> geoPoints) {
-        this.mContext = context;
-        this.mLineOption = lineOption;
-        this.mGeoPointArrayList = geoPoints;
+        this.mLineOption.setDottedLine(false);
     }
 
     public void setLineOption(LineOption lineOption) {
