@@ -1,6 +1,5 @@
 package com.gh.emap.layout;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,35 +16,35 @@ import java.io.File;
  */
 
 public class TopShapLineLayout {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private View mLayout; // 布局
     private TextView mLineType; // 画线的类型
     private EditText mLineName; // 画线的名称
     private Button mLineCancel; // 取消
     private Button mLineSave; // 保存
 
-    public TopShapLineLayout(Context context) {
-        this.mContext = context;
+    public TopShapLineLayout(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.top_shap_line);
-        this.mLineType = (TextView)((MainActivity)this.mContext).findViewById(R.id.line_type);
-        this.mLineName = (EditText)((MainActivity)this.mContext).findViewById(R.id.line_name);
-        this.mLineCancel = (Button)((MainActivity)this.mContext).findViewById(R.id.line_cancel);
-        this.mLineSave = (Button)((MainActivity)this.mContext).findViewById(R.id.line_save);
+        mLayout = mMainActivity.findViewById(R.id.top_shap_line);
+        mLineType = (TextView)mMainActivity.findViewById(R.id.line_type);
+        mLineName = (EditText)mMainActivity.findViewById(R.id.line_name);
+        mLineCancel = (Button)mMainActivity.findViewById(R.id.line_cancel);
+        mLineSave = (Button)mMainActivity.findViewById(R.id.line_save);
 
-        this.mLineType.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditLineListener());
-        this.mLineName.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditLineListener());
-        this.mLineCancel.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditLineListener());
-        this.mLineSave.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditLineListener());
+        mLineType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
+        mLineName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
+        mLineCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
+        mLineSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
     }
 
     // 获取地物编辑-画点工作目录
     public String getShapLinePath() {
         String path = null;
 
-        String fatherPath = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
+        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
         if(fatherPath != null) {
             path = fatherPath + "MyLine" + File.separator;
 
@@ -60,7 +59,7 @@ public class TopShapLineLayout {
 
     // 显示布局
     public void show() {
-        this.mLayout.setVisibility(View.VISIBLE);
+        mLayout.setVisibility(View.VISIBLE);
         clear();
     }
 
@@ -71,12 +70,12 @@ public class TopShapLineLayout {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
-        this.mLayout.setVisibility(View.GONE);
+        mLayout.setVisibility(View.GONE);
     }
 
     // 清理上次数据
     private void clear() {
-        this.mLineType.setText("");
-        this.mLineName.setText("");
+        mLineType.setText("");
+        mLineName.setText("");
     }
 }

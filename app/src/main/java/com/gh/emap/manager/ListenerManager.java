@@ -1,7 +1,6 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
-
+import com.gh.emap.MainActivity;
 import com.gh.emap.listener.BottomEditLineListener;
 import com.gh.emap.listener.BottomEditPointListener;
 import com.gh.emap.listener.LayerListener;
@@ -23,7 +22,7 @@ import com.gh.emap.listener.UserRegisterListener;
  * 监听管理类
  */
 public class ListenerManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private MyLocationListener mMyLocationListener;
     private TopNormalListener mTopNormalListener;
     private MenuListener mMenuListener;
@@ -41,85 +40,85 @@ public class ListenerManager {
     private MyOverlayListener mMyOverlayListener;
 
 
-    public ListenerManager(Context context) {
-        this.mContext = context;
+    public ListenerManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mMyLocationListener = new MyLocationListener(this.mContext);
-        this.mTopNormalListener = new TopNormalListener(this.mContext);
-        this.mMenuListener = new MenuListener(this.mContext);
-        this.mLayerListener = new LayerListener(this.mContext);
-        this.mOperationListener = new OperationListener(this.mContext);
-        this.mUserLoginListener = new UserLoginListener(this.mContext);
-        this.mUserRegisterListener = new UserRegisterListener(this.mContext);
-        this.mUserLogoutListener = new UserLogoutListener(this.mContext);
-        this.mTopEditListener = new TopEditListener(this.mContext);
-        this.mShapEditListener = new ShapEditListener(this.mContext);
-        this.mTopEditPointListener = new TopEditPointListener(this.mContext);
-        this.mBottomEditPointListener = new BottomEditPointListener(this.mContext);
-        this.mTopEditLineListener = new TopEditLineListener(this.mContext);
-        this.mBottomEditLineListener = new BottomEditLineListener(this.mContext);
-        this.mMyOverlayListener = new MyOverlayListener(this.mContext);
+        mMyLocationListener = new MyLocationListener(mMainActivity);
+        mTopNormalListener = new TopNormalListener(mMainActivity);
+        mMenuListener = new MenuListener(mMainActivity);
+        mLayerListener = new LayerListener(mMainActivity);
+        mOperationListener = new OperationListener(mMainActivity);
+        mUserLoginListener = new UserLoginListener(mMainActivity);
+        mUserRegisterListener = new UserRegisterListener(mMainActivity);
+        mUserLogoutListener = new UserLogoutListener(mMainActivity);
+        mTopEditListener = new TopEditListener(mMainActivity);
+        mShapEditListener = new ShapEditListener(mMainActivity);
+        mTopEditPointListener = new TopEditPointListener(mMainActivity);
+        mBottomEditPointListener = new BottomEditPointListener(mMainActivity);
+        mTopEditLineListener = new TopEditLineListener(mMainActivity);
+        mBottomEditLineListener = new BottomEditLineListener(mMainActivity);
+        mMyOverlayListener = new MyOverlayListener(mMainActivity);
     }
 
     public MyLocationListener getMyLocationListener() {
-        return this.mMyLocationListener;
+        return mMyLocationListener;
     }
 
     public TopNormalListener getTopNormalListener() {
-        return this.mTopNormalListener;
+        return mTopNormalListener;
     }
 
     public MenuListener getMenuListener() {
-        return this.mMenuListener;
+        return mMenuListener;
     }
 
     public LayerListener getLayerListener() {
-        return this.mLayerListener;
+        return mLayerListener;
     }
 
     public OperationListener getOperationListener() {
-        return this.mOperationListener;
+        return mOperationListener;
     }
 
     public UserLoginListener getUserLoginListener() {
-        return this.mUserLoginListener;
+        return mUserLoginListener;
     }
 
     public UserRegisterListener getUserRegisterListener() {
-        return this.mUserRegisterListener;
+        return mUserRegisterListener;
     }
 
     public UserLogoutListener getUserLogoutListener() {
-        return this.mUserLogoutListener;
+        return mUserLogoutListener;
     }
 
     public TopEditListener getTopEditListener() {
-        return this.mTopEditListener;
+        return mTopEditListener;
     }
 
     public ShapEditListener getShapEditListener() {
-        return this.mShapEditListener;
+        return mShapEditListener;
     }
 
     public TopEditPointListener getTopEditPointListener() {
-        return this.mTopEditPointListener;
+        return mTopEditPointListener;
     }
 
     public BottomEditPointListener getBottomEditPointListener() {
-        return this.mBottomEditPointListener;
+        return mBottomEditPointListener;
     }
 
     public TopEditLineListener getTopEditLineListener() {
-        return this.mTopEditLineListener;
+        return mTopEditLineListener;
     }
 
     public BottomEditLineListener getBottomEditLineListener() {
-        return this.mBottomEditLineListener;
+        return mBottomEditLineListener;
     }
 
     public MyOverlayListener getMyOverlayListener() {
-        return this.mMyOverlayListener;
+        return mMyOverlayListener;
     }
 }

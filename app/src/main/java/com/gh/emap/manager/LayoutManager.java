@@ -1,7 +1,6 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
-
+import com.gh.emap.MainActivity;
 import com.gh.emap.layout.BottomShapLineLayout;
 import com.gh.emap.layout.BottomShapPointLayout;
 import com.gh.emap.layout.LayerLayout;
@@ -20,7 +19,7 @@ import com.gh.emap.layout.UserRegisterLayout;
  * 布局管理类
  */
 public class LayoutManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private TopNormalLayout mTopNormalLayout;
     private MenuLayout mMenuLayout;
     private LayerLayout mLayerLayout;
@@ -34,93 +33,93 @@ public class LayoutManager {
     private UserRegisterLayout mUserRegisterLayout;
     private UserLogoutLayout mUserLogoutLayout;
 
-    public LayoutManager(Context context) {
-        this.mContext = context;
+    public LayoutManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mTopNormalLayout = new TopNormalLayout(this.mContext);
-        this.mTopNormalLayout.init();
+        mTopNormalLayout = new TopNormalLayout(mMainActivity);
+        mTopNormalLayout.init();
 
-        this.mMenuLayout = new MenuLayout(this.mContext);
-        this.mMenuLayout.init();
+        mMenuLayout = new MenuLayout(mMainActivity);
+        mMenuLayout.init();
 
-        this.mLayerLayout = new LayerLayout(this.mContext);
-        this.mLayerLayout.init();
+        mLayerLayout = new LayerLayout(mMainActivity);
+        mLayerLayout.init();
 
-        this.mOperationLayout = new OperationLayout(this.mContext);
-        this.mOperationLayout.init();
+        mOperationLayout = new OperationLayout(mMainActivity);
+        mOperationLayout.init();
 
-        this.mTopEditLayout = new TopEditLayout(this.mContext);
-        this.mTopEditLayout.init();
+        mTopEditLayout = new TopEditLayout(mMainActivity);
+        mTopEditLayout.init();
 
-        this.mTopShapPointLayout = new TopShapPointLayout(this.mContext);
-        this.mTopShapPointLayout.init();
+        mTopShapPointLayout = new TopShapPointLayout(mMainActivity);
+        mTopShapPointLayout.init();
 
-        this.mBottomShapPointLayout = new BottomShapPointLayout(this.mContext);
-        this.mBottomShapPointLayout.init();
+        mBottomShapPointLayout = new BottomShapPointLayout(mMainActivity);
+        mBottomShapPointLayout.init();
 
-        this.mTopShapLineLayout = new TopShapLineLayout(this.mContext);
-        this.mTopShapLineLayout.init();
+        mTopShapLineLayout = new TopShapLineLayout(mMainActivity);
+        mTopShapLineLayout.init();
 
-        this.mBottomShapLineLayout = new BottomShapLineLayout(this.mContext);
-        this.mBottomShapLineLayout.init();
+        mBottomShapLineLayout = new BottomShapLineLayout(mMainActivity);
+        mBottomShapLineLayout.init();
 
-        this.mUserLoginLayout = new UserLoginLayout(this.mContext);
-        this.mUserLoginLayout.init();
+        mUserLoginLayout = new UserLoginLayout(mMainActivity);
+        mUserLoginLayout.init();
 
-        this.mUserRegisterLayout = new UserRegisterLayout(this.mContext);
-        this.mUserRegisterLayout.init();
+        mUserRegisterLayout = new UserRegisterLayout(mMainActivity);
+        mUserRegisterLayout.init();
 
-        this.mUserLogoutLayout = new UserLogoutLayout(this.mContext);
-        this.mUserLogoutLayout.init();
+        mUserLogoutLayout = new UserLogoutLayout(mMainActivity);
+        mUserLogoutLayout.init();
     }
 
     public TopNormalLayout getTopNormalLayout() {
-        return this.mTopNormalLayout;
+        return mTopNormalLayout;
     }
 
     public MenuLayout getMenuLayout() {
-        return this.mMenuLayout;
+        return mMenuLayout;
     }
 
     public LayerLayout getLayerLayout() {
-        return this.mLayerLayout;
+        return mLayerLayout;
     }
 
     public OperationLayout getOperationLayout() {
-        return this.mOperationLayout;
+        return mOperationLayout;
     }
 
     public TopEditLayout getTopEditLayout() {
-        return this.mTopEditLayout;
+        return mTopEditLayout;
     }
 
     public TopShapPointLayout getTopShapPointLayout() {
-        return this.mTopShapPointLayout;
+        return mTopShapPointLayout;
     }
 
     public BottomShapPointLayout getBottomShapPointLayout() {
-        return this.mBottomShapPointLayout;
+        return mBottomShapPointLayout;
     }
 
     public TopShapLineLayout getTopShapLineLayout() {
-        return this.mTopShapLineLayout;
+        return mTopShapLineLayout;
     }
 
     public BottomShapLineLayout getBottomShapLineLayout() {
-        return this.mBottomShapLineLayout;
+        return mBottomShapLineLayout;
     }
 
     public UserLoginLayout getUserLoginLayout() {
-        return this.mUserLoginLayout;
+        return mUserLoginLayout;
     }
 
     public UserRegisterLayout getUserRegisterLayout() {
-        return this.mUserRegisterLayout;
+        return mUserRegisterLayout;
     }
 
     public UserLogoutLayout getUserLogoutLayout() {
-        return this.mUserLogoutLayout;
+        return mUserLogoutLayout;
     }
 }

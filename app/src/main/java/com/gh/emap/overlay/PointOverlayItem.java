@@ -1,6 +1,6 @@
 package com.gh.emap.overlay;
 
-import android.content.Context;
+import com.gh.emap.MainActivity;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.OverlayItem;
 
@@ -9,13 +9,13 @@ import com.tianditu.android.maps.OverlayItem;
  * 画点覆盖物
  */
 public class PointOverlayItem extends OverlayItem {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private PointObject mPointObject;
 
-    public PointOverlayItem(Context context, String title, String snippet, int latitude, int longitude) {
+    public PointOverlayItem(MainActivity mainActivity, String title, String snippet, int latitude, int longitude) {
         super(new GeoPoint(latitude, longitude), title, snippet);
 
-        this.mContext = context;
+        mMainActivity = mainActivity;
         mPointObject = new PointObject();
     }
 
@@ -24,6 +24,6 @@ public class PointOverlayItem extends OverlayItem {
     }
 
     public void setPointObject(PointObject pointObject) {
-        this.mPointObject = pointObject;
+        mPointObject = pointObject;
     }
 }

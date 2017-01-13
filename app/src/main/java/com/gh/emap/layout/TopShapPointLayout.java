@@ -1,6 +1,5 @@
 package com.gh.emap.layout;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,35 +15,35 @@ import java.io.File;
  * 地物编辑-画点 顶部布局
  */
 public class TopShapPointLayout {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private View mLayout; // 布局
     private TextView mPointType; // 画点的类型
     private EditText mPointName; // 画点的名称
     private Button mPointCancel; // 取消
     private Button mPointSave; // 保存
 
-    public TopShapPointLayout(Context context) {
-        this.mContext = context;
+    public TopShapPointLayout(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.top_shap_point);
-        this.mPointType = (TextView)((MainActivity)this.mContext).findViewById(R.id.point_type);
-        this.mPointName = (EditText)((MainActivity)this.mContext).findViewById(R.id.point_name);
-        this.mPointCancel = (Button)((MainActivity)this.mContext).findViewById(R.id.point_cancel);
-        this.mPointSave = (Button)((MainActivity)this.mContext).findViewById(R.id.point_save);
+        mLayout = mMainActivity.findViewById(R.id.top_shap_point);
+        mPointType = (TextView)mMainActivity.findViewById(R.id.point_type);
+        mPointName = (EditText)mMainActivity.findViewById(R.id.point_name);
+        mPointCancel = (Button)mMainActivity.findViewById(R.id.point_cancel);
+        mPointSave = (Button)mMainActivity.findViewById(R.id.point_save);
 
-        this.mPointType.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
-        this.mPointName.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
-        this.mPointCancel.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
-        this.mPointSave.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getTopEditPointListener());
+        mPointType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
+        mPointName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
+        mPointCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
+        mPointSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
     }
 
     // 获取地物编辑-画点工作目录
     public String getShapPointPath() {
         String path = null;
 
-        String fatherPath = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
+        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
         if(fatherPath != null) {
             path = fatherPath + "MyPoint" + File.separator;
 
@@ -59,7 +58,7 @@ public class TopShapPointLayout {
 
     // 显示布局
     public void show() {
-        this.mLayout.setVisibility(View.VISIBLE);
+        mLayout.setVisibility(View.VISIBLE);
         clear();
     }
 
@@ -70,12 +69,12 @@ public class TopShapPointLayout {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
-        this.mLayout.setVisibility(View.GONE);
+        mLayout.setVisibility(View.GONE);
     }
 
     // 清理上次数据
     private void clear() {
-        this.mPointType.setText("");
-        this.mPointName.setText("");
+        mPointType.setText("");
+        mPointName.setText("");
     }
 }

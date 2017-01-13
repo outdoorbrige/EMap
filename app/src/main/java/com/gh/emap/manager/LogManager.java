@@ -1,6 +1,5 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
 import android.os.Environment;
 import android.widget.Toast;
 
@@ -20,11 +19,11 @@ import de.mindpipe.android.logging.log4j.LogConfigurator;
  * 日志管理类
  */
 public class LogManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private Logger mLogger;
 
-    public LogManager(Context context) {
-        this.mContext = context;
+    public LogManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
@@ -102,7 +101,7 @@ public class LogManager {
 
     // 显示消息
     public void show(String message) {
-        Toast.makeText(this.mContext, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(mMainActivity, message, Toast.LENGTH_SHORT).show();
     }
 
     private String getFile() {
@@ -110,7 +109,7 @@ public class LogManager {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
             Date date = new Date(System.currentTimeMillis());
             return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    mMainActivity.getApplationName() + File.separator +
                     "Log" + File.separator +
                     simpleDateFormat.format(date) + ".txt";
         } else {

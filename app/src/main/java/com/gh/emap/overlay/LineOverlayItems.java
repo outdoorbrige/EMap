@@ -1,12 +1,10 @@
 package com.gh.emap.overlay;
 
-import android.content.Context;
-
+import com.gh.emap.MainActivity;
 import com.tianditu.android.maps.overlay.PolylineOverlay;
 import com.tianditu.android.maps.renderoption.LineOption;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 /**
  * Created by GuHeng on 2017/1/12.
@@ -14,12 +12,12 @@ import java.util.Collection;
  */
 
 public class LineOverlayItems {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private ArrayList<LineObject> mLineObjects = new ArrayList<>();
     private ArrayList<PolylineOverlay> mPolylineOverlays = new ArrayList<>();
 
-    public LineOverlayItems(Context context) {
-        this.mContext = context;
+    public LineOverlayItems(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
@@ -165,11 +163,11 @@ public class LineOverlayItems {
     }
 
     public ArrayList<LineObject> getLineObjects() {
-        return this.mLineObjects;
+        return mLineObjects;
     }
 //
 //    public ArrayList<PolylineOverlay> getPolylineOverlayItems() {
-//        return this.mPolylineOverlays;
+//        return mPolylineOverlays;
 //    }
 //
 //    public void addLineObject(LineObject lineObject) {
@@ -187,8 +185,8 @@ public class LineOverlayItems {
 //        polylineOverlay.setOption(lineOption);
 //        polylineOverlay.setPoints(lineObject.getGeoPoints());
 //
-//        this.mLineObjects.add(lineObject);
-//        this.mPolylineOverlays.add(polylineOverlay);
+//        mLineObjects.add(lineObject);
+//        mPolylineOverlays.add(polylineOverlay);
 //    }
 //
 //    public void addLineObjects(ArrayList<LineObject> lineObjects) {

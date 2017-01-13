@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 
@@ -11,11 +10,11 @@ import com.gh.emap.R;
  * Created by GuHeng on 2016/11/10.
  */
 public class LayerListener implements View.OnClickListener, AdapterView.OnItemClickListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
     // 构造函数
-    public LayerListener(Context context) {
-        this.mContext = context;
+    public LayerListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
@@ -31,17 +30,17 @@ public class LayerListener implements View.OnClickListener, AdapterView.OnItemCl
 
     // 地图切换按钮
     private void onClickedLayerButton(View view) {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getLayerLayout().showPopupWindow(view);
+        mMainActivity.getMainManager().getLayoutManager().getLayerLayout().showPopupWindow(view);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // id == -1 点击的是headerView或者footerView
         if(-1 < position && position < parent.getCount()) {
-            ((MainActivity)this.mContext).getMainManager().getLayoutManager().getLayerLayout().setCurrentSelectItemIndex(position);
-            ((MainActivity)this.mContext).getMainManager().getMapManager().getMapView().setMapType(position + 1);
+            mMainActivity.getMainManager().getLayoutManager().getLayerLayout().setCurrentSelectItemIndex(position);
+            mMainActivity.getMainManager().getMapManager().getMapView().setMapType(position + 1);
         }
 
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getLayerLayout().closePopupWindow();
+        mMainActivity.getMainManager().getLayoutManager().getLayerLayout().closePopupWindow();
     }
 }

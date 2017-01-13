@@ -1,9 +1,7 @@
 package com.gh.emap.layout;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -11,14 +9,13 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.listener.UserLoginListener;
 
 /**
  * Created by GuHeng on 2016/11/10.
  * 用户登录布局
  */
 public class UserLoginLayout {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private View mLayout; // 布局
     private AlertDialog mAlertDialog; // 弹出式对话框
     private EditText mUserName; // 用户名
@@ -31,20 +28,20 @@ public class UserLoginLayout {
     private TextView mForgetPassword; // 忘记密码
 
 
-    public UserLoginLayout(Context context) {
-        this.mContext = context;
+    public UserLoginLayout(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        View layout = ((MainActivity)this.mContext).getLayoutInflater().inflate(R.layout.user_login, null, false);
-        this.mAlertDialog = new AlertDialog.Builder(this.mContext).create();
-        this.mAlertDialog.setView(layout);
-        this.mAlertDialog.setCancelable(false); // 点击对话框外地方是否不消失
+        View layout = mMainActivity.getLayoutInflater().inflate(R.layout.user_login, null, false);
+        mAlertDialog = new AlertDialog.Builder(mMainActivity).create();
+        mAlertDialog.setView(layout);
+        mAlertDialog.setCancelable(false); // 点击对话框外地方是否不消失
     }
 
     // 显示对话框
     public void show() {
-        this.mAlertDialog.show();
+        mAlertDialog.show();
 
         // AlertDialog自定义setView
         // 必须show对话框，然后才能查找控件
@@ -53,40 +50,40 @@ public class UserLoginLayout {
 
     // 初始化控件
     private void initWidget() {
-        if(this.mLayout == null) { // 只初始化一次控件对象
-            this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.user_login);
-            this.mUserName = (EditText) this.mAlertDialog.findViewById(R.id.login_name);
-            this.mPassword = (EditText) this.mAlertDialog.findViewById(R.id.login_pwd);
-            this.mKeepPassword = (CheckBox) this.mAlertDialog.findViewById(R.id.keep_pwd);
-            this.mAutoLogin = (CheckBox) this.mAlertDialog.findViewById(R.id.auto_login);
-            this.mRegisterButton = (Button) this.mAlertDialog.findViewById(R.id.register_button);
-            this.mLoginButton = (Button) this.mAlertDialog.findViewById(R.id.login_button);
-            this.mCloseButton = (Button) this.mAlertDialog.findViewById(R.id.login_cancel_button);
-            this.mForgetPassword = (TextView) this.mAlertDialog.findViewById(R.id.forget_pwd);
+        if(mLayout == null) { // 只初始化一次控件对象
+            mLayout = mMainActivity.findViewById(R.id.user_login);
+            mUserName = (EditText) mAlertDialog.findViewById(R.id.login_name);
+            mPassword = (EditText) mAlertDialog.findViewById(R.id.login_pwd);
+            mKeepPassword = (CheckBox) mAlertDialog.findViewById(R.id.keep_pwd);
+            mAutoLogin = (CheckBox) mAlertDialog.findViewById(R.id.auto_login);
+            mRegisterButton = (Button) mAlertDialog.findViewById(R.id.register_button);
+            mLoginButton = (Button) mAlertDialog.findViewById(R.id.login_button);
+            mCloseButton = (Button) mAlertDialog.findViewById(R.id.login_cancel_button);
+            mForgetPassword = (TextView) mAlertDialog.findViewById(R.id.forget_pwd);
 
-            this.mRegisterButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getUserLoginListener());
-            this.mLoginButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getUserLoginListener());
-            this.mCloseButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getUserLoginListener());
+            mRegisterButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLoginListener());
+            mLoginButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLoginListener());
+            mCloseButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLoginListener());
         } else { // 清空所有控件的内容
-            this.mUserName.setText("");
-            this.mPassword.setText("");
-            this.mKeepPassword.setChecked(false);
-            this.mAutoLogin.setChecked(false);
+            mUserName.setText("");
+            mPassword.setText("");
+            mKeepPassword.setChecked(false);
+            mAutoLogin.setChecked(false);
         }
     }
 
     // 隐藏对话框
     public void hide() {
-        this.mAlertDialog.hide();
+        mAlertDialog.hide();
     }
 
     // 销毁对话框
     public void dimiss() {
-        this.mAlertDialog.dismiss();
+        mAlertDialog.dismiss();
     }
 
     // 获取对话框句柄
     public AlertDialog getAlertDialog() {
-        return this.mAlertDialog;
+        return mAlertDialog;
     }
 }

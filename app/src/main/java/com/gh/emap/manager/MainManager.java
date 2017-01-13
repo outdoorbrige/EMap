@@ -1,13 +1,13 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
+import com.gh.emap.MainActivity;
 
 /**
  * Created by GuHeng on 2016/11/9.
  * 主管理类
  */
 public class MainManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private LogManager mLogManager;
     private ListenerManager mListenerManager;
     private FileManager mFileManager;
@@ -19,86 +19,86 @@ public class MainManager {
     private WebServiceManager mWebServiceManager;
     private MyUserOverlaysManager mMyUserOverlaysManager;
 
-    public MainManager(Context context) {
-        this.mContext = context;
+    public MainManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mLogManager = new LogManager(this.mContext);
-        this.mLogManager.init();
+        mLogManager = new LogManager(mMainActivity);
+        mLogManager.init();
 
-        this.mListenerManager = new ListenerManager(this.mContext);
-        this.mListenerManager.init();
+        mListenerManager = new ListenerManager(mMainActivity);
+        mListenerManager.init();
 
-        this.mFileManager = new FileManager(this.mContext);
-        this.mFileManager.init();
+        mFileManager = new FileManager(mMainActivity);
+        mFileManager.init();
 
-        this.mMapManager = new MapManager(this.mContext);
-        this.mMapManager.init();
+        mMapManager = new MapManager(mMainActivity);
+        mMapManager.init();
 
-        this.mOverlayManager = new OverlayManager(this.mContext);
-        this.mOverlayManager.init();
+        mOverlayManager = new OverlayManager(mMainActivity);
+        mOverlayManager.init();
 
-        this.mMyLocationManager = new MyLocationManager(this.mContext);
-        this.mMyLocationManager.init();
+        mMyLocationManager = new MyLocationManager(mMainActivity);
+        mMyLocationManager.init();
 
-        this.mUserManager = new UserManager(this.mContext);
-        this.mUserManager.init();
+        mUserManager = new UserManager(mMainActivity);
+        mUserManager.init();
 
-        this.mLayoutManager = new LayoutManager(this.mContext);
-        this.mLayoutManager.init();
+        mLayoutManager = new LayoutManager(mMainActivity);
+        mLayoutManager.init();
 
-        this.mWebServiceManager = new WebServiceManager(this.mContext);
-        this.mWebServiceManager.init();
+        mWebServiceManager = new WebServiceManager(mMainActivity);
+        mWebServiceManager.init();
 
-        this.mMyUserOverlaysManager = new MyUserOverlaysManager(this.mContext);
-        this.mMyUserOverlaysManager.init();
+        mMyUserOverlaysManager = new MyUserOverlaysManager(mMainActivity);
+        mMyUserOverlaysManager.init();
     }
 
     public void unInit() {
-        this.getLayoutManager().getUserLoginLayout().dimiss();
-        this.getLayoutManager().getUserRegisterLayout().dimiss();
-        this.getLayoutManager().getUserLogoutLayout().dimiss();
-        this.getMyLocationManager().removeUpdates();
+        getLayoutManager().getUserLoginLayout().dimiss();
+        getLayoutManager().getUserRegisterLayout().dimiss();
+        getLayoutManager().getUserLogoutLayout().dimiss();
+        getMyLocationManager().removeUpdates();
     }
 
     public LogManager getLogManager() {
-        return this.mLogManager;
+        return mLogManager;
     }
 
     public ListenerManager getListenerManager() {
-        return this.mListenerManager;
+        return mListenerManager;
     }
 
     public FileManager getFileManager() {
-        return this.mFileManager;
+        return mFileManager;
     }
 
     public MapManager getMapManager() {
-        return this.mMapManager;
+        return mMapManager;
     }
 
     public OverlayManager getOverlayManager() {
-        return this.mOverlayManager;
+        return mOverlayManager;
     }
 
     public MyLocationManager getMyLocationManager() {
-        return this.mMyLocationManager;
+        return mMyLocationManager;
     }
 
     public UserManager getUserManager() {
-        return this.mUserManager;
+        return mUserManager;
     }
 
     public LayoutManager getLayoutManager() {
-        return this.mLayoutManager;
+        return mLayoutManager;
     }
 
     public WebServiceManager getWebServiceManager() {
-        return this.mWebServiceManager;
+        return mWebServiceManager;
     }
 
     public MyUserOverlaysManager getMyUserOverlaysManager() {
-        return this.mMyUserOverlaysManager;
+        return mMyUserOverlaysManager;
     }
 }

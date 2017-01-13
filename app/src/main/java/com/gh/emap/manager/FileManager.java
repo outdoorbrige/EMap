@@ -1,7 +1,5 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
-
 import com.gh.emap.MainActivity;
 import com.gh.emap.file.EMapFile;
 import com.gh.emap.file.ShapLineFile;
@@ -19,36 +17,36 @@ import java.io.ObjectOutputStream;
  * 文件管理类
  */
 public class FileManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private EMapFile mEMapFile;
     private ShapPointFile mShapPointFile;
     private ShapLineFile mShapLineFile;
 
-    public FileManager(Context context) {
-        this.mContext = context;
+    public FileManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mEMapFile = new EMapFile(this.mContext);
-        this.mEMapFile.init();
+        mEMapFile = new EMapFile(mMainActivity);
+        mEMapFile.init();
 
-        this.mShapPointFile = new ShapPointFile(this.mContext);
-        this.mShapPointFile.init();
+        mShapPointFile = new ShapPointFile(mMainActivity);
+        mShapPointFile.init();
 
-        this.mShapLineFile = new ShapLineFile(this.mContext);
-        this.mShapLineFile.init();
+        mShapLineFile = new ShapLineFile(mMainActivity);
+        mShapLineFile.init();
     }
 
     public EMapFile getEMapFile() {
-        return this.mEMapFile;
+        return mEMapFile;
     }
 
     public ShapPointFile getShapPointFile() {
-        return this.mShapPointFile;
+        return mShapPointFile;
     }
 
     public ShapLineFile getShapLineFile() {
-        return this.mShapLineFile;
+        return mShapLineFile;
     }
 
     // 写对象到文件中
@@ -69,7 +67,7 @@ public class FileManager {
             fileOutputStream.flush();
             fileOutputStream.close();
         } catch (Exception e) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     e.getStackTrace().toString());
         }
     }
@@ -86,7 +84,7 @@ public class FileManager {
             objectInputStream.close();
             fileInputStream.close();
         } catch (Exception e) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     e.getStackTrace().toString());
         }
 

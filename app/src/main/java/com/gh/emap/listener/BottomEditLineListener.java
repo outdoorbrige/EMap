@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
@@ -12,11 +11,11 @@ import com.wx.wheelview.widget.WheelView;
  */
 
 public class BottomEditLineListener implements WheelView.OnWheelItemSelectedListener<String> {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
     // 构造函数
-    public BottomEditLineListener(Context context) {
-        this.mContext = context;
+    public BottomEditLineListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
@@ -25,7 +24,7 @@ public class BottomEditLineListener implements WheelView.OnWheelItemSelectedList
     }
 
     private void onItemSelectedWheel(int position, String item) {
-        ((TextView)((MainActivity)this.mContext).findViewById(R.id.line_type)).setText(
-                (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
+        ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(
+                (String)mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
     }
 }

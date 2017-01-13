@@ -5,7 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2016/12/14.
@@ -39,14 +39,14 @@ public class TObjectFile<T> {
 
     // 从文件中读取对象集合
     @SuppressWarnings("unchecked")
-    public List<T> readList(String file) {
+    public ArrayList<T> readList(String file) {
         File f = new File(file);
         if(f.exists()) { // 判断文件是否存在
             try {
                 FileInputStream fileInputStream = new FileInputStream(f);
                 ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 
-                List<T> objects = (List<T>)objectInputStream.readObject();
+                ArrayList<T> objects = (ArrayList<T>)objectInputStream.readObject();
 
                 objectInputStream.close();
                 fileInputStream.close();
@@ -78,7 +78,7 @@ public class TObjectFile<T> {
     }
 
     // 写对象集合到文件
-    public boolean writeList(String file, List<T> objects) {
+    public boolean writeList(String file, ArrayList<T> objects) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);

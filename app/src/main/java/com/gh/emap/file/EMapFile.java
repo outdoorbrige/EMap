@@ -1,6 +1,5 @@
 package com.gh.emap.file;
 
-import android.content.Context;
 import android.os.Environment;
 import android.util.Xml;
 
@@ -20,27 +19,27 @@ import java.io.InputStream;
  * 解析配置文件
  */
 public class EMapFile {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private EMap mEMap;
 
-    public EMapFile(Context context) {
-        this.mContext = context;
+    public EMapFile(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mEMap = new EMap();
+        mEMap = new EMap();
 
         loadFile();
     }
 
     public EMap getEMap() {
-        return this.mEMap;
+        return mEMap;
     }
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    mMainActivity.getApplationName() + File.separator +
                     "EMap.config";
         } else {
             return null;
@@ -65,29 +64,29 @@ public class EMapFile {
                         case XmlPullParser.START_DOCUMENT: // 文档开始事件
                             break;
                         case XmlPullParser.START_TAG: // 标签开始
-                            if(((MainActivity)this.mContext).getApplationName().equals(tagName)) {
+                            if(mMainActivity.getApplationName().equals(tagName)) {
 
                             } else if("WebService".equals(tagName)) {
-                                this.mEMap.setNameSpace(parser.getAttributeValue("", "NameSpace"));
-                                this.mEMap.setServer(parser.getAttributeValue("", "Server"));
-                                this.mEMap.setPort(parser.getAttributeValue("", "Port"));
-                                this.mEMap.setProtocol(parser.getAttributeValue("", "Protocol"));
-                                this.mEMap.setSoapVersion(parser.getAttributeValue("", "SoapVersion"));
+                                mEMap.setNameSpace(parser.getAttributeValue("", "NameSpace"));
+                                mEMap.setServer(parser.getAttributeValue("", "Server"));
+                                mEMap.setPort(parser.getAttributeValue("", "Port"));
+                                mEMap.setProtocol(parser.getAttributeValue("", "Protocol"));
+                                mEMap.setSoapVersion(parser.getAttributeValue("", "SoapVersion"));
                             } else if("Register".equals(tagName)) {
-                                this.mEMap.setRegisterMethodName(parser.getAttributeValue("", "Method"));
-                                this.mEMap.setRegisterUrlPath(parser.getAttributeValue("", "UrlPath"));
-                                this.mEMap.setRegisterMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
-                                this.mEMap.setRegisterMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
+                                mEMap.setRegisterMethodName(parser.getAttributeValue("", "Method"));
+                                mEMap.setRegisterUrlPath(parser.getAttributeValue("", "UrlPath"));
+                                mEMap.setRegisterMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
+                                mEMap.setRegisterMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
                             } else if("Login".equals(tagName)) {
-                                this.mEMap.setLoginMethodName(parser.getAttributeValue("", "Method"));
-                                this.mEMap.setLoginUrlPath(parser.getAttributeValue("", "UrlPath"));
-                                this.mEMap.setLoginMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
-                                this.mEMap.setLoginMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
+                                mEMap.setLoginMethodName(parser.getAttributeValue("", "Method"));
+                                mEMap.setLoginUrlPath(parser.getAttributeValue("", "UrlPath"));
+                                mEMap.setLoginMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
+                                mEMap.setLoginMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
                             } else if("Logout".equals(tagName)) {
-                                this.mEMap.setLogoutMethodName(parser.getAttributeValue("", "Method"));
-                                this.mEMap.setLogoutUrlPath(parser.getAttributeValue("", "UrlPath"));
-                                this.mEMap.setLogoutMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
-                                this.mEMap.setLogoutMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
+                                mEMap.setLogoutMethodName(parser.getAttributeValue("", "Method"));
+                                mEMap.setLogoutUrlPath(parser.getAttributeValue("", "UrlPath"));
+                                mEMap.setLogoutMethodParam1Name(parser.getAttributeValue("", "Param1Name"));
+                                mEMap.setLogoutMethodReturnParamName(parser.getAttributeValue("", "ReturnParamName"));
                             } else{
 
                             }
@@ -103,14 +102,14 @@ public class EMapFile {
                 inputStream.close();
                 fileInputStream.close();
 
-                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-                        this.mEMap.toString());
+                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+                        mEMap.toString());
             }catch (Exception e) {
-                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                         e.getStackTrace().toString());
             }
         } else {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     String.format("配置文件%s不存在", configFile));
         }
     }

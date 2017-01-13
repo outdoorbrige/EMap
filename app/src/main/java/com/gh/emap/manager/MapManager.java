@@ -1,7 +1,5 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
-import android.os.Environment;
 import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
@@ -10,37 +8,34 @@ import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MyLocationOverlay;
-import com.tianditu.android.maps.TOfflineMapManager;
 import com.tianditu.maps.GeoPointEx;
-
-import java.io.File;
 
 /**
  * Created by GuHeng on 2016/11/9.
  * 地图管理类
  */
 public class MapManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private MapView mMapView;
     private MapController mMapController;
-    private TOfflineMapManager mTOfflineMapManager;
+//    private TOfflineMapManager mTOfflineMapManager;
     private MyLocationOverlay mMyLocationOverlay;
     private GeoPoint mGeoPoint;
     private int mMaxZoomLevel; // 当前地图支持的最大比例尺
     private int mMinZoomLevel; // 当前地图支持的最小比例尺
     private int mCurrentZoomLevel; // 当前地图的缩放级别
 
-    public MapManager(Context context) {
-        this.mContext = context;
-        this.mMapView = (MapView)((MainActivity)this.mContext).findViewById(R.id.map_view);
-        this.mMapController = this.mMapView.getController();
-        this.mTOfflineMapManager = new TOfflineMapManager(this.mContext, null);
-        this.mMyLocationOverlay = new MyLocationOverlay(this.mContext, this.mMapView);
-        this.mMaxZoomLevel = this.mMapView.getMaxZoomLevel();
-        this.mMinZoomLevel = this.mMapView.getMinZoomLevel();
-        this.mCurrentZoomLevel = this.mMapView.getZoomLevel();
+    public MapManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
+        mMapView = (MapView)mMainActivity.findViewById(R.id.map_view);
+        mMapController = mMapView.getController();
+//        mTOfflineMapManager = new TOfflineMapManager(mMainActivity, null);
+        mMyLocationOverlay = new MyLocationOverlay(mMainActivity, mMapView);
+        mMaxZoomLevel = mMapView.getMaxZoomLevel();
+        mMinZoomLevel = mMapView.getMinZoomLevel();
+        mCurrentZoomLevel = mMapView.getZoomLevel();
 
-        ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
                 String.format("ZOOM:%d, MIN:%d, MAX:%d", mCurrentZoomLevel, mMinZoomLevel, mMaxZoomLevel));
     }
 
@@ -49,33 +44,33 @@ public class MapManager {
 //        String offlinePath = getOfflinePath(); // 离线地图存储路径
 
         // 设置地图缓冲区路径
-//        this.mMapView.setCachePath(cachePath);
+//        mMapView.setCachePath(cachePath);
 
         // 设置离线地图数据信息，用于地图显示加载
         // 离线地图设置之后会在程序显示时默认加载
-//        this.mTOfflineMapManager.setMapPath(offlinePath);
-//        this.mTOfflineMapManager.getMapList(); // 获取所有离线地图列表
-//        this.mMapView.setOfflineMaps(this.mTOfflineMapManager.searchLocalMaps());
+//        mTOfflineMapManager.setMapPath(offlinePath);
+//        mTOfflineMapManager.getMapList(); // 获取所有离线地图列表
+//        mMapView.setOfflineMaps(mTOfflineMapManager.searchLocalMaps());
 
         enableTMyLocationOverlay(); // 启用我的位置
 
         // 设置LOGO位置为右下角
-        this.mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
+        mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
 
         // 设置在缩放动画过程中绘制overlay，默认为不绘制
-        //this.mMapView.setDrawOverlayWhenZooming(true);
+        //mMapView.setDrawOverlayWhenZooming(true);
 
 //        // 设置覆盖物监听器
-//        this.mMapView.setOverlayListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getMyOverlayListener());
+//        mMapView.setOverlayListener(mMainActivity.getMainManager().getListenerManager().getMyOverlayListener());
 
-//        ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-//                String.format("地图缓存路径" + this.mMapView.getCachePath() + " " + "离线地图路径:" + this.mTOfflineMapManager.getMapPath()));
+//        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+//                String.format("地图缓存路径" + mMapView.getCachePath() + " " + "离线地图路径:" + mTOfflineMapManager.getMapPath()));
     }
 
 //    private String getCachePath() {
 //        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 //            return Environment.getExternalStorageDirectory().toString() + File.separator +
-//                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+//                    mMainActivity.getApplationName() + File.separator +
 //                    "MapCache" + File.separator;
 //        } else {
 //            return null;
@@ -85,7 +80,7 @@ public class MapManager {
 //    private String getOfflinePath() {
 //        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 //            return Environment.getExternalStorageDirectory().toString() + File.separator +
-//                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+//                    mMainActivity.getApplationName() + File.separator +
 //                    "OfflineMap" + File.separator;
 //        } else {
 //            return null;
@@ -94,20 +89,20 @@ public class MapManager {
 
     // 启用我的位置
     public void enableTMyLocationOverlay () {
-        this.mMyLocationOverlay.enableMyLocation(); // 启用我的位置
-        this.mMyLocationOverlay.setGpsFollow(true); // 设置跟随状态
-        this.mMapView.addOverlay(this.mMyLocationOverlay);
+        mMyLocationOverlay.enableMyLocation(); // 启用我的位置
+        mMyLocationOverlay.setGpsFollow(true); // 设置跟随状态
+        mMapView.addOverlay(mMyLocationOverlay);
     }
 
     // 禁用我的位置
     public void disableTMyLocationOverlay() {
-        this.mMyLocationOverlay.disableMyLocation(); // 禁用我的位置
-        this.mMapView.removeOverlay(this.mMyLocationOverlay);
+        mMyLocationOverlay.disableMyLocation(); // 禁用我的位置
+        mMapView.removeOverlay(mMyLocationOverlay);
     }
 
     // 获取天地图地图控件
     public MapView getMapView() {
-        return this.mMapView;
+        return mMapView;
     }
 
     // 获取天地图控制器
@@ -117,23 +112,23 @@ public class MapManager {
 
     // 获取我的位置
     public MyLocationOverlay getMyLocationOverlay() {
-        return this.mMyLocationOverlay;
+        return mMyLocationOverlay;
     }
 
     // 更新当前经纬度
     public void updateCurrentGeoPoint() {
-        if(this.mGeoPoint == null) {
-            this.mGeoPoint = this.mMapView.getMapCenter();
+        if(mGeoPoint == null) {
+            mGeoPoint = mMapView.getMapCenter();
         } else {
-            this.mGeoPoint = this.mMyLocationOverlay.getMyLocation();
+            mGeoPoint = mMyLocationOverlay.getMyLocation();
         }
 
-        if(this.mGeoPoint == null) {
+        if(mGeoPoint == null) {
             // 默认天安门
-            this.mGeoPoint = GeoPointEx.Double2GeoPoint(116.3919236741D, 39.9057789520D);
+            mGeoPoint = GeoPointEx.Double2GeoPoint(116.3919236741D, 39.9057789520D);
         }
 
-        showPositionInfo(this.mGeoPoint);
+        showPositionInfo(mGeoPoint);
     }
 
     // 显示纬度、经度、高程信息
@@ -143,30 +138,30 @@ public class MapManager {
         String longitude = "";
         String elevation = "";
 
-        if(this.mGeoPoint != null) {
-            String[] strings = toSexagesimalString(this.mGeoPoint.getLatitudeE6(), this.mGeoPoint.getLongitudeE6());
+        if(mGeoPoint != null) {
+            String[] strings = toSexagesimalString(mGeoPoint.getLatitudeE6(), mGeoPoint.getLongitudeE6());
             latitude = strings[0];
             longitude = strings[1];
         }
 
-        ((TextView)((MainActivity)this.mContext).findViewById(R.id.latitude)).setText(latitude);
-        ((TextView)((MainActivity)this.mContext).findViewById(R.id.longitude)).setText(longitude);
-        ((TextView)((MainActivity)this.mContext).findViewById(R.id.elevation)).setText(elevation);
+        ((TextView)mMainActivity.findViewById(R.id.latitude)).setText(latitude);
+        ((TextView)mMainActivity.findViewById(R.id.longitude)).setText(longitude);
+        ((TextView)mMainActivity.findViewById(R.id.elevation)).setText(elevation);
     }
 
     // 设置中心点
     public void setCenter() {
         updateCurrentGeoPoint();
 
-        if(this.mGeoPoint != null) {
-            mMapController.setCenter(this.mGeoPoint);
+        if(mGeoPoint != null) {
+            mMapController.setCenter(mGeoPoint);
         }
 
         // 恢复初始缩放级别
-        this.mMapController.setZoom(this.mCurrentZoomLevel);
+        mMapController.setZoom(mCurrentZoomLevel);
 
         // 取消地图旋转，恢复正常状态
-        this.mMapView.setMapRotation(0.00f);
+        mMapView.setMapRotation(0.00f);
     }
 
     // 放大地图

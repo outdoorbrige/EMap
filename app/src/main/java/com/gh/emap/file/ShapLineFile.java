@@ -1,6 +1,5 @@
 package com.gh.emap.file;
 
-import android.content.Context;
 import android.os.Environment;
 
 import com.gh.emap.MainActivity;
@@ -20,28 +19,28 @@ import java.io.InputStreamReader;
  */
 
 public class ShapLineFile {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private ShapLine mShapLine;
 
-    public ShapLineFile(Context context) {
-        this.mContext = context;
+    public ShapLineFile(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mShapLine = new ShapLine();
+        mShapLine = new ShapLine();
 
         loadFile();
     }
 
     // 获取地物编辑-画点数据
     public ShapLine getShapLine() {
-        return this.mShapLine;
+        return mShapLine;
     }
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    mMainActivity.getApplationName() + File.separator +
                     "Data" + File.separator +
                     "ShapLine.dat";
         } else {
@@ -66,7 +65,7 @@ public class ShapLineFile {
                     String[] values = line.split(",");
 
                     if(values != null) {
-                        this.mShapLine.put(values[2], values[0] + values[1]);
+                        mShapLine.put(values[2], values[0] + values[1]);
                     }
                 }
 
@@ -75,14 +74,14 @@ public class ShapLineFile {
                 inputStream.close();
                 fileInputStream.close();
 
-                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-                        this.mShapLine.toString());
+                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+                        mShapLine.toString());
             } catch (Exception e) {
-                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                         e.getStackTrace().toString());
             }
         } else {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     String.format("数据文件%s不存在", shapLineFile));
         }
     }

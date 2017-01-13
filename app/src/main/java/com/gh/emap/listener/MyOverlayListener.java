@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -15,10 +14,10 @@ import com.tianditu.android.maps.Overlay;
  */
 
 public class MyOverlayListener implements MapView.OnOverlayListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
-    public MyOverlayListener(Context context) {
-        this.mContext = context;
+    public MyOverlayListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void onAddOverlay(Overlay overlay) {
@@ -30,7 +29,7 @@ public class MyOverlayListener implements MapView.OnOverlayListener {
     }
 
     public void onTouchOverlayUp(Point point, Overlay overlay) {
-        MyUserOverlaysManager myUserOverlaysManager = ((MainActivity)this.mContext).getMainManager().getMyUserOverlaysManager();
+        MyUserOverlaysManager myUserOverlaysManager = mMainActivity.getMainManager().getMyUserOverlaysManager();
     }
 
     public void onTouchOverlayLongPress(Point point, Overlay overlay) {

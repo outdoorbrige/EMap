@@ -1,11 +1,5 @@
 package com.gh.emap.manager;
 
-/**
- * Created by GuHeng on 2016/11/10.
- * 用户信息管理类
- */
-
-import android.content.Context;
 import android.os.Environment;
 
 import com.gh.emap.MainActivity;
@@ -18,12 +12,12 @@ import java.io.File;
  * 用户信息管理类
  */
 public class UserManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private UserInfo mUserInfo; // 用户信息
 
     // 构造函数
-    public UserManager (Context context) {
-        this.mContext = context;
+    public UserManager (MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     // 初始化
@@ -33,7 +27,7 @@ public class UserManager {
 
     // 设置用户信息
     public void setUserInfo(UserInfo userInfo) {
-        this.mUserInfo = userInfo;
+        mUserInfo = userInfo;
     }
 
     // 获取用户信息
@@ -52,14 +46,14 @@ public class UserManager {
             return null;
         }
 
-        if(this.mUserInfo == null || !this.mUserInfo.isSuccess()) {
+        if(mUserInfo == null || !mUserInfo.isSuccess()) {
             return null;
         }
 
         String homePath = Environment.getExternalStorageDirectory().toString() + File.separator +
-                ((MainActivity)this.mContext).getApplationName() + File.separator +
+                mMainActivity.getApplationName() + File.separator +
                 "Users" + File.separator +
-                this.mUserInfo.getUserName() + File.separator;
+                mUserInfo.getUserName() + File.separator;
 
         // 如果目录不存在，就创建
         File homeDir = new File(homePath);

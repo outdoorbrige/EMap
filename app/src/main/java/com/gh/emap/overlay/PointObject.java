@@ -1,7 +1,5 @@
 package com.gh.emap.overlay;
 
-import com.tianditu.android.maps.GeoPoint;
-
 import java.io.Serializable;
 
 /**
@@ -20,13 +18,13 @@ public class PointObject implements Serializable {
     private int mLongitude; // 点-经度
 
     public PointObject() {
-        this.mTitle = "";
-        this.mSnippet = "";
-        this.mIndex = -1;
-        this.mType = "";
-        this.mName = "";
-        this.mLatitude = -1;
-        this.mLongitude = -1;
+        mTitle = "";
+        mSnippet = "";
+        mIndex = -1;
+        mType = "";
+        mName = "";
+        mLatitude = -1;
+        mLongitude = -1;
     }
 
     public String getTitle() {
@@ -34,7 +32,7 @@ public class PointObject implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.mTitle = title;
+        mTitle = title;
     }
 
     public String getSnippet() {
@@ -42,7 +40,7 @@ public class PointObject implements Serializable {
     }
 
     public void setSnippet(String snippet) {
-        this.mSnippet = snippet;
+        mSnippet = snippet;
     }
 
     public int getIndex() {
@@ -50,7 +48,7 @@ public class PointObject implements Serializable {
     }
 
     public void setIndex(int index) {
-        this.mIndex = index;
+        mIndex = index;
     }
 
     public String getType() {
@@ -58,7 +56,7 @@ public class PointObject implements Serializable {
     }
 
     public void setType(String type) {
-        this.mType = type;
+        mType = type;
     }
 
     public String getName() {
@@ -66,7 +64,7 @@ public class PointObject implements Serializable {
     }
 
     public void setName(String name) {
-        this.mName = name;
+        mName = name;
     }
 
     public int getLatitude() {
@@ -74,7 +72,7 @@ public class PointObject implements Serializable {
     }
 
     public void setLatitude(int latitude) {
-        this.mLatitude = latitude;
+        mLatitude = latitude;
     }
 
     public int getLongitude() {
@@ -82,6 +80,6 @@ public class PointObject implements Serializable {
     }
 
     public void setLongitude(int longitude) {
-        this.mLongitude = longitude;
+        mLongitude = longitude;
     }
 }

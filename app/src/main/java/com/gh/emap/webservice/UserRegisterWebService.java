@@ -1,6 +1,5 @@
 package com.gh.emap.webservice;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 
@@ -21,7 +20,7 @@ import org.ksoap2.transport.HttpTransportSE;
  * 用户注册服务
  */
 public class UserRegisterWebService implements Runnable {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private Handler mHandler;
     private EMap mEMap;
     private String mSoapEndPoint;
@@ -30,39 +29,39 @@ public class UserRegisterWebService implements Runnable {
     private SoapSerializationEnvelope mSoapSerializationEnvelope;
     private HttpTransportSE mHttpTransportSE;
 
-    public UserRegisterWebService(Context context) {
-        this.mContext = context;
+    public UserRegisterWebService(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     // 初始化
     public void init() {
-        this.mEMap = ((MainActivity) this.mContext).getMainManager().getFileManager().getEMapFile().getEMap();
-        this.mSoapEnvelopeVer = getSoapEnvelopeVer(this.mEMap.getSoapVersion());
+        mEMap = mMainActivity.getMainManager().getFileManager().getEMapFile().getEMap();
+        mSoapEnvelopeVer = getSoapEnvelopeVer(mEMap.getSoapVersion());
     }
 
     // 预处理
     public void prepare(Handler handler, UserInfo userInfo) {
-        this.mHandler = handler;
+        mHandler = handler;
 
-        this.mSoapEndPoint = this.mEMap.getProtocol() + this.mEMap.getServer() + ":" + this.mEMap.getPort() + this.mEMap.getRegisterUrlPath();
-        this.mSoapAction = this.mEMap.getNameSpace() + this.mEMap.getRegisterMethodName();
+        mSoapEndPoint = mEMap.getProtocol() + mEMap.getServer() + ":" + mEMap.getPort() + mEMap.getRegisterUrlPath();
+        mSoapAction = mEMap.getNameSpace() + mEMap.getRegisterMethodName();
 
-        SoapObject soapObject = new SoapObject(this.mEMap.getNameSpace(), this.mEMap.getRegisterMethodName());
+        SoapObject soapObject = new SoapObject(mEMap.getNameSpace(), mEMap.getRegisterMethodName());
 
         PropertyInfo property_info = new PropertyInfo();
-        property_info.setName(this.mEMap.getRegisterMethodParam1Name());
+        property_info.setName(mEMap.getRegisterMethodParam1Name());
         property_info.setValue(userInfo);
         property_info.setType(UserInfo.class);
 
         soapObject.addProperty(property_info);
 
-        this.mHttpTransportSE = new HttpTransportSE(this.mSoapEndPoint);
-        this.mHttpTransportSE.debug = true;
+        mHttpTransportSE = new HttpTransportSE(mSoapEndPoint);
+        mHttpTransportSE.debug = true;
 
-        this.mSoapSerializationEnvelope = new SoapSerializationEnvelope(this.mSoapEnvelopeVer);
-        this.mSoapSerializationEnvelope.dotNet = true;
-        this.mSoapSerializationEnvelope.setOutputSoapObject(soapObject);
-        this.mSoapSerializationEnvelope.addMapping(this.mEMap.getNameSpace(), UserInfo.class.getSimpleName(), UserInfo.class);
+        mSoapSerializationEnvelope = new SoapSerializationEnvelope(mSoapEnvelopeVer);
+        mSoapSerializationEnvelope.dotNet = true;
+        mSoapSerializationEnvelope.setOutputSoapObject(soapObject);
+        mSoapSerializationEnvelope.addMapping(mEMap.getNameSpace(), UserInfo.class.getSimpleName(), UserInfo.class);
     }
 
     @Override
@@ -72,20 +71,20 @@ public class UserRegisterWebService implements Runnable {
         Message message = new Message();
         message.what = WebServiceManager.WebServiceMsgType.WS_MSG_REGISTER;
         message.obj = userInfo;
-        this.mHandler.sendMessage(message);
+        mHandler.sendMessage(message);
     }
 
     // 调用服务
     protected boolean call(UserInfo userInfo) {
         boolean success = false;
         try {
-            this.mHttpTransportSE.call(this.mSoapAction, this.mSoapSerializationEnvelope);
+            mHttpTransportSE.call(mSoapAction, mSoapSerializationEnvelope);
             success = parseResponse(userInfo);
         } catch (Exception e) {
             success = false;
             userInfo.setSuccess(false);
             userInfo.setErrorString(e.toString());
-            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     e.getStackTrace().toString());
         } finally {
             return success;
@@ -95,7 +94,7 @@ public class UserRegisterWebService implements Runnable {
     // 解析WEBSERVICE返回的数据
     private boolean parseResponse(UserInfo userInfo) {
         boolean success = false;
-        SoapObject object = (SoapObject)(((SoapObject) this.mSoapSerializationEnvelope.bodyIn).getProperty(0));
+        SoapObject object = (SoapObject)(((SoapObject) mSoapSerializationEnvelope.bodyIn).getProperty(0));
         if(object != null) {
             userInfo.setId(parseProperty(object, "mId"));
             userInfo.setUserName(parseProperty(object, "mUserName"));
@@ -117,7 +116,7 @@ public class UserRegisterWebService implements Runnable {
             success = false;
             String error = String.format("解析服务返回结果失败!");
             userInfo.setErrorString(error);
-            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     error);
         }
 
@@ -134,7 +133,7 @@ public class UserRegisterWebService implements Runnable {
         }else if("1.2".equals(soapVersion)) {
             ver = SoapEnvelope.VER12;
         } else {
-            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     String.format("SOAP协议版本号:%s无效！", soapVersion));
         }
 
@@ -151,7 +150,7 @@ public class UserRegisterWebService implements Runnable {
                 value = temp_value;
             }
         } else {
-            ((MainActivity) this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     String.format("属性:%s不存在！", key));
         }
 

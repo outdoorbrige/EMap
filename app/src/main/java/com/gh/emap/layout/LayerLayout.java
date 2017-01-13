@@ -1,6 +1,5 @@
 package com.gh.emap.layout;
 
-import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.PopupWindow;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.listener.LayerListener;
 import com.gh.emap.view.MyListView;
 
 /**
@@ -19,7 +17,7 @@ import com.gh.emap.view.MyListView;
  * 地图类型切换布局
  */
 public class LayerLayout {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private View mLayout; // 布局
     private Button mLayerButton; // 地图类型切换按钮
     private String[] mListItems = {"影像图", "矢量图", "地形图"};
@@ -29,57 +27,57 @@ public class LayerLayout {
     private ArrayAdapter<String> mArrayAdapter;
     private int mCurrentSelectItemIndex = -1; // 当前选中的Item索引
 
-    public LayerLayout(Context context) {
-        this.mContext = context;
+    public LayerLayout(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.layer);
-        this.mLayerButton = (Button)((MainActivity)this.mContext).findViewById(R.id.layer_button);
+        mLayout = mMainActivity.findViewById(R.id.layer);
+        mLayerButton = (Button)mMainActivity.findViewById(R.id.layer_button);
 
-        this.mLayerButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getLayerListener());
+        mLayerButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getLayerListener());
     }
 
     // 显示弹出菜单
     public void showPopupWindow(View parentView) {
-        if (this.mPopupWindow == null) {
-            this.mPopupLayout = LayoutInflater.from(this.mContext).inflate(R.layout.layer_popup_menu, null);;
-            this.mMyListView = (MyListView) this.mPopupLayout.findViewById(R.id.layer_view);
-            this.mArrayAdapter = new ArrayAdapter<>(this.mContext, android.R.layout.simple_list_item_single_choice, this.mListItems);
-            this.mMyListView.setAdapter(this.mArrayAdapter);
-            this.mMyListView.setItemsCanFocus(false);
-            this.mMyListView.setOnItemClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getLayerListener());
+        if (mPopupWindow == null) {
+            mPopupLayout = LayoutInflater.from(mMainActivity).inflate(R.layout.layer_popup_menu, null);;
+            mMyListView = (MyListView) mPopupLayout.findViewById(R.id.layer_view);
+            mArrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mListItems);
+            mMyListView.setAdapter(mArrayAdapter);
+            mMyListView.setItemsCanFocus(false);
+            mMyListView.setOnItemClickListener(mMainActivity.getMainManager().getListenerManager().getLayerListener());
 
-            this.mMyListView.setItemChecked(1, true);
+            mMyListView.setItemChecked(1, true);
 
-            this.mPopupWindow = new PopupWindow(this.mPopupLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-            this.mPopupWindow.setBackgroundDrawable(new ColorDrawable());
-            this.mPopupWindow.setOutsideTouchable(true);
+            mPopupWindow = new PopupWindow(mPopupLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            mPopupWindow.setBackgroundDrawable(new ColorDrawable());
+            mPopupWindow.setOutsideTouchable(true);
         } else {
 
         }
 
-        this.mPopupWindow.showAsDropDown(parentView);
+        mPopupWindow.showAsDropDown(parentView);
     }
 
     // 关闭弹出菜单
     public void closePopupWindow() {
-        this.mPopupWindow.dismiss();
+        mPopupWindow.dismiss();
     }
 
     // 设置当前选中的Item索引
     public void setCurrentSelectItemIndex(int index) {
-        this.mCurrentSelectItemIndex = index;
+        mCurrentSelectItemIndex = index;
     }
 
     // 获取当前选中的Item索引
     public int getCurrentSelectItemIndex() {
-        return this.mCurrentSelectItemIndex;
+        return mCurrentSelectItemIndex;
     }
 
     // 显示布局
     public void show() {
-        this.mLayout.setVisibility(View.VISIBLE);
+        mLayout.setVisibility(View.VISIBLE);
     }
 
     // 隐藏布局
@@ -89,6 +87,6 @@ public class LayerLayout {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
-        this.mLayout.setVisibility(View.GONE);
+        mLayout.setVisibility(View.GONE);
     }
 }

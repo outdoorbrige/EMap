@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -24,11 +23,11 @@ import java.util.ArrayList;
  * Created by GuHeng on 2016/11/15.
  */
 public class ShapEditListener implements AdapterView.OnItemClickListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
     // 构造函数
-    public ShapEditListener(Context context) {
-        this.mContext = context;
+    public ShapEditListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
@@ -50,97 +49,97 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
         }
 
         if(-2 < position && position < parent.getCount()) {
-            ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopEditLayout().setShapEditSelectedIndex(position);
+            mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().setShapEditSelectedIndex(position);
         }
 
-        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopEditLayout().closeShapPopupWindow();
+        mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().closeShapPopupWindow();
     }
 
     // 画点
     private void onItemClickedPoint(AdapterView<?> parent, View view, int position, long id) {
-        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().show();
-        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
 
         // 防止重复加载文件数据
-        if(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() == 0) {
+        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath(), ".p", files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath(), ".p", files);
 
             // 解析点文件
             ArrayList<PointObject> pointObjects = RWPointFile.read(files);
             if (pointObjects != null) {
-                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
 
                 for (int i = 0; i < pointObjects.size(); i++) {
                     PointObject pointObject = pointObjects.get(i);
 
-                    PointOverlayItem pointOverlayItem = new PointOverlayItem(mContext, pointObject.getTitle(), pointObject.getSnippet(), pointObject.getLatitude(), pointObject.getLongitude());
+                    PointOverlayItem pointOverlayItem = new PointOverlayItem(mMainActivity, pointObject.getTitle(), pointObject.getSnippet(), pointObject.getLatitude(), pointObject.getLongitude());
 
                     pointOverlayItem.getPointObject().setIndex(i);
                     pointOverlayItem.getPointObject().setType(pointObject.getType());
                     pointOverlayItem.getPointObject().setName(pointObject.getName());
 
-                    ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(pointOverlayItem);
-                    ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
+                    mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(pointOverlayItem);
+                    mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
                 }
 
                 // 添加已保存的覆盖物
-                ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
-                ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+                mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
+                mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
             }
         }
 
         // 设置默认点的名称
-        EditText defaultPointName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.point_name));
-        defaultPointName.setText("点" + String.valueOf(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
+        EditText defaultPointName = (EditText)(mMainActivity.findViewById(R.id.point_name));
+        defaultPointName.setText("点" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
 
         // 添加当前位置覆盖物
-        PointOverlay overlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay();
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(overlay);
+        PointOverlay overlay = mMainActivity.getMainManager().getOverlayManager().getPointOverlay();
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(overlay);
 
-        GeoPoint geoPoint = ((MainActivity) this.mContext).getMainManager().getMyLocationManager().getGeoPoint();
-        ((MainActivity) this.mContext).getMainManager().getOverlayManager().getPointOverlay().setGeoPoint(geoPoint);
+        GeoPoint geoPoint = mMainActivity.getMainManager().getMyLocationManager().getGeoPoint();
+        mMainActivity.getMainManager().getOverlayManager().getPointOverlay().setGeoPoint(geoPoint);
 
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 画线
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
-        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().show();
-        ((MainActivity) this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
 
         // 防止重复加载文件数据
-        if(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() == 0) {
+        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(((MainActivity) this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath(), ".l", files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath(), ".l", files);
 
             // 解析线文件
             ArrayList<LineObject> lineObjects = RWLineFile.read(files);
             if (lineObjects != null) {
-                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().clear();
-                ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().addAll(lineObjects);
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().clear();
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().addAll(lineObjects);
 
-                for (int i = 0; i < ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size(); i ++) {
+                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size(); i ++) {
                     // 添加已保存的覆盖物
-                    ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(
-                            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(i));
+                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
+                            mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(i));
                 }
 
-                ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+                mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
             }
         }
 
         // 设置默认点的名称
-        EditText defaultLineName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.line_name));
-        defaultLineName.setText("线" + String.valueOf(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
+        EditText defaultLineName = (EditText)(mMainActivity.findViewById(R.id.line_name));
+        defaultLineName.setText("线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
 
         // 添加当前位置覆盖物
-        LineOverlay overlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getLineOverlay();
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(overlay);
+        LineOverlay overlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(overlay);
 
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 画面

@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,18 +15,17 @@ import com.tianditu.android.maps.overlay.PolylineOverlay;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by GuHeng on 2017/1/9.
  */
 
 public class TopEditLineListener implements View.OnClickListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
     // 构造函数
-    public TopEditLineListener(Context context) {
-        this.mContext = context;
+    public TopEditLineListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
@@ -52,12 +50,12 @@ public class TopEditLineListener implements View.OnClickListener {
 
     // 画线类型
     private void onClickedLineType(View view) {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().hide();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().hide();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getMenuLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getOperationLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().show();
 
-        ((TextView)((MainActivity)this.mContext).findViewById(R.id.line_type)).setText(
-                (String)((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
+        ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(
+                (String)mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
     }
 
     // 画线名称
@@ -67,50 +65,50 @@ public class TopEditLineListener implements View.OnClickListener {
 
     // 取消
     private void onClickedLineCancel(View view) {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().hide();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
-        LineOverlay lineOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getLineOverlay();
+        LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
         lineOverlay.getPoints().clear();
 
         // 删除画线覆盖物
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().removeOverlay(lineOverlay);
+        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(lineOverlay);
 
-        ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 保存
     private void onClickedLineSave(View view) {
-        String lineName = ((EditText)((MainActivity)this.mContext).findViewById(R.id.line_name)).getText().toString();
+        String lineName = ((EditText)mMainActivity.findViewById(R.id.line_name)).getText().toString();
         if(lineName.isEmpty()) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请输入线-名称"));
+            mMainActivity.getMainManager().getLogManager().show(String.format("请输入线-名称"));
             return;
         }
 
         // 检查线名是否存在
         if(LineNameExist(lineName)) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("线-名称已存在"));
+            mMainActivity.getMainManager().getLogManager().show(String.format("线-名称已存在"));
             return;
         }
 
-        String lineType = ((TextView)((MainActivity)this.mContext).findViewById(R.id.line_type)).getText().toString();
+        String lineType = ((TextView)mMainActivity.findViewById(R.id.line_type)).getText().toString();
         if(lineType.isEmpty()) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请选择线-类别"));
+            mMainActivity.getMainManager().getLogManager().show(String.format("请选择线-类别"));
             return;
         }
 
-        ArrayList<GeoPoint> points = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getLineOverlay().getPoints();
+        ArrayList<GeoPoint> points = mMainActivity.getMainManager().getOverlayManager().getLineOverlay().getPoints();
         if(points == null || points.size() < 2) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show(String.format("请选择线的位置"));
+            mMainActivity.getMainManager().getLogManager().show(String.format("请选择线的位置"));
             return;
         }
 
-        String path = ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath();
+        String path = mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath();
         if(path == null || path.isEmpty()) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError, String.format("用户未登录!"));
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError, String.format("用户未登录!"));
             return;
         } else {
             // 保存线信息到文件
@@ -122,33 +120,33 @@ public class TopEditLineListener implements View.OnClickListener {
 
             RWLineFile.write(path + File.separator + lineObject.getName() + ".l", lineObject);
 
-            ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
+            mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
 
-            PolylineOverlay polylineOverlay = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(
-                    ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
+            PolylineOverlay polylineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(
+                    mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
 
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().addOverlay(polylineOverlay);
+            mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(polylineOverlay);
 
-            LineOverlay lineOverlay = ((MainActivity) this.mContext).getMainManager().getOverlayManager().getLineOverlay();
+            LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
             lineOverlay.getPoints().clear();
 
-            ((MainActivity) this.mContext).getMainManager().getMapManager().getMapView().postInvalidate();
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopShapLineLayout().show();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getOperationLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
         // 设置默认线的名称
-        EditText defaultLineName = (EditText)(((MainActivity) this.mContext).findViewById(R.id.line_name));
-        defaultLineName.setText("线" + String.valueOf(((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
+        EditText defaultLineName = (EditText)(mMainActivity.findViewById(R.id.line_name));
+        defaultLineName.setText("线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
     }
 
     // 检查线-名称是否存在
     boolean LineNameExist(String lineName) {
-        ArrayList<LineObject> items = ((MainActivity) this.mContext).getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineObjects();
+        ArrayList<LineObject> items = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineObjects();
         if(items == null) {
             return false;
         }

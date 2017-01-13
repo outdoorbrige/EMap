@@ -1,12 +1,10 @@
 package com.gh.emap.layout;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.listener.MenuListener;
 import com.gh.emap.manager.LogManager;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorSet;
@@ -19,7 +17,7 @@ import java.util.ArrayList;
  * 地图菜单布局
  */
 public class MenuLayout {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private View mLayout; // 布局
     private Button mEditButton; // 编辑按钮
     private Button mSetButton; // 配置按钮
@@ -32,33 +30,33 @@ public class MenuLayout {
     private static final int ANIMATION_ACTION_CLOSE = 0; // 动画菜单折叠
     private static final int ANIMATION_ACTION_OPEN = 1; // 动画菜单展开
 
-    public MenuLayout(Context context) {
-        this.mContext = context;
+    public MenuLayout(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.menu);
-        this.mEditButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.menu_edit);
-        this.mSetButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.menu_setting);
-        this.mDownloadButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.menu_download);
-        this.mMenuButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.menu_main);
+        mLayout = mMainActivity.findViewById(R.id.menu);
+        mEditButton = (Button)mMainActivity.findViewById(R.id.menu_edit);
+        mSetButton = (Button)mMainActivity.findViewById(R.id.menu_setting);
+        mDownloadButton = (Button)mMainActivity.findViewById(R.id.menu_download);
+        mMenuButton = (Button)mMainActivity.findViewById(R.id.menu_main);
 
         // 注意：
         // 按钮排列数序是从下向上排列的
         // 底部的按钮在List的队首，顶部的按钮在List的队尾
-        this.mArrayListButtons.add(mDownloadButton);
-        this.mArrayListButtons.add(mSetButton);
-        this.mArrayListButtons.add(mEditButton);
+        mArrayListButtons.add(mDownloadButton);
+        mArrayListButtons.add(mSetButton);
+        mArrayListButtons.add(mEditButton);
 
-        this.mEditButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getMenuListener());
-        this.mSetButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getMenuListener());
-        this.mDownloadButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getMenuListener());
-        this.mMenuButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getMenuListener());
+        mEditButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
+        mSetButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
+        mDownloadButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
+        mMenuButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
     }
 
     // 显示布局
     public void show() {
-        this.mLayout.setVisibility(View.VISIBLE);
+        mLayout.setVisibility(View.VISIBLE);
     }
 
     // 隐藏布局
@@ -68,7 +66,7 @@ public class MenuLayout {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
-        this.mLayout.setVisibility(View.GONE);
+        mLayout.setVisibility(View.GONE);
     }
 
     // 运行动画
@@ -115,7 +113,7 @@ public class MenuLayout {
         int radius = 0;
 
         // 获取按钮边长(dp)
-        int a = (int)(Math.round(view.getHeight() / this.mContext.getResources().getDisplayMetrics().density));
+        int a = (int)(Math.round(view.getHeight() / mMainActivity.getResources().getDisplayMetrics().density));
 
         // 按钮对角线长度的一半(dp)
         int c = (int)Math.round(Math.sqrt(a * a * 2) / 2);
@@ -126,7 +124,7 @@ public class MenuLayout {
         // 计算半径(dp)
         radius = (int)Math.round(c * 1.2 / Math.sin(angleRadians));
 
-        ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
                 String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正弦值:%f, 近似半径:%d, 动画半径:%d",
                         a, c, mArrayListButtons.size(), angleRadians, Math.sin(angleRadians), radius, radius + a));
 

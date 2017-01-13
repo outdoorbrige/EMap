@@ -1,12 +1,11 @@
 package com.gh.emap.overlay;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 
+import com.gh.emap.MainActivity;
 import com.tianditu.android.maps.ItemizedOverlay;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by GuHeng on 2016/12/22.
@@ -14,15 +13,15 @@ import java.util.List;
  */
 
 public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private Drawable mMarker;
-    private List<PointOverlayItem> mPointOverlayItems = new ArrayList<>();
+    private ArrayList<PointOverlayItem> mPointOverlayItems = new ArrayList<>();
 
     // 构造方法
-    public PointOverlayItems(Context context, Drawable marker) {
+    public PointOverlayItems(MainActivity mainActivity, Drawable marker) {
         super(boundCenterBottom(marker));
-        this.mMarker = marker;
-        this.mContext = context;
+        mMarker = marker;
+        mMainActivity = mainActivity;
     }
 
     // 初始化
@@ -40,7 +39,7 @@ public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
     // 覆盖物数量
     @Override
     public int size() {
-        return this.mPointOverlayItems.size();
+        return mPointOverlayItems.size();
     }
 
     // 在某个条目被点击时调用
@@ -52,7 +51,7 @@ public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
     }
 
     // 获取覆盖物集合
-    public List<PointOverlayItem> getItems() {
+    public ArrayList<PointOverlayItem> getItems() {
         return mPointOverlayItems;
     }
 
@@ -79,7 +78,7 @@ public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
         }
 
         for(int i = 0; i < items.size(); i ++) {
-            this.put(items.get(i));
+            put(items.get(i));
         }
     }
 

@@ -1,6 +1,5 @@
 package com.gh.emap.file;
 
-import android.content.Context;
 import android.os.Environment;
 
 import com.gh.emap.MainActivity;
@@ -19,28 +18,28 @@ import java.io.InputStreamReader;
  * 解析数据文件
  */
 public class ShapPointFile {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private ShapPoint mShapPoint;
 
-    public ShapPointFile(Context context) {
-        this.mContext = context;
+    public ShapPointFile(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mShapPoint = new ShapPoint();
+        mShapPoint = new ShapPoint();
 
         loadFile();
     }
 
     // 获取地物编辑-画点数据
     public ShapPoint getShapPoint() {
-        return this.mShapPoint;
+        return mShapPoint;
     }
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    ((MainActivity)this.mContext).getApplationName() + File.separator +
+                    mMainActivity.getApplationName() + File.separator +
                     "Data" + File.separator +
                     "ShapPoint.dat";
         } else {
@@ -65,7 +64,7 @@ public class ShapPointFile {
                     String[] values = line.split(",");
 
                     if(values != null) {
-                        this.mShapPoint.put(values[2], values[0] + values[1]);
+                        mShapPoint.put(values[2], values[0] + values[1]);
                     }
                 }
 
@@ -74,14 +73,14 @@ public class ShapPointFile {
                 inputStream.close();
                 fileInputStream.close();
 
-                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
-                        this.mShapPoint.toString());
+                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+                        mShapPoint.toString());
             } catch (Exception e) {
-                ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                         e.getStackTrace().toString());
             }
         } else {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                     String.format("数据文件%s不存在", shapPointFile));
         }
     }

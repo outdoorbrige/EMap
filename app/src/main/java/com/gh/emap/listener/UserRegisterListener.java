@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
@@ -18,14 +17,14 @@ import com.tianditu.maps.Utils.MD5;
  * Created by GuHeng on 2016/11/10.
  */
 public class UserRegisterListener implements View.OnClickListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private UserInfo mUserInfo; // 用户信息
     private Handler mHandler; // 消息句柄
     private UserInfo mReturnUserInfo; // 返回的用户信息
 
     // 构造函数
-    public UserRegisterListener(Context context) {
-        this.mContext = context;
+    public UserRegisterListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
@@ -44,25 +43,25 @@ public class UserRegisterListener implements View.OnClickListener {
 
     // 注册
     private void onClickedRegister() {
-        String userName = ((EditText)((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.register_name)).getText().toString();
-        String password = ((EditText)((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.register_pwd)).getText().toString();
-        String mConfirmPassword = ((EditText)((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.register_confirm_pwd)).getText().toString();
-        String nickName = ((EditText)((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.nick_name)).getText().toString();
-        String telNumber = ((EditText)((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.tel_number)).getText().toString();
-        String eMail = ((EditText)((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.email)).getText().toString();
+        String userName = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.register_name)).getText().toString();
+        String password = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.register_pwd)).getText().toString();
+        String mConfirmPassword = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.register_confirm_pwd)).getText().toString();
+        String nickName = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.nick_name)).getText().toString();
+        String telNumber = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.tel_number)).getText().toString();
+        String eMail = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.email)).getText().toString();
 
         if(userName.isEmpty()) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show("用户名不能为空!");
+            mMainActivity.getMainManager().getLogManager().show("用户名不能为空!");
             return;
         }
 
         if(password.isEmpty()) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show("密码不能为空!");
+            mMainActivity.getMainManager().getLogManager().show("密码不能为空!");
             return;
         }
 
         if(!password.equals(mConfirmPassword)) {
-            ((MainActivity)this.mContext).getMainManager().getLogManager().show("两次输入的密码不一致，请重新输入!");
+            mMainActivity.getMainManager().getLogManager().show("两次输入的密码不一致，请重新输入!");
             return;
         }
 
@@ -73,14 +72,14 @@ public class UserRegisterListener implements View.OnClickListener {
         mUserInfo.setTelNumber(telNumber);
         mUserInfo.setEMail(eMail);
         mUserInfo.setUserType(UserManager.UserType.mNormalType);
-        mUserInfo.setCreateDate(((MainActivity)this.mContext).getCurrentDate());
+        mUserInfo.setCreateDate(mMainActivity.getCurrentDate());
         mUserInfo.setOnline(0);
 
         if(nickName.isEmpty()) {
             mUserInfo.setNickName(mUserInfo.getUserName());
         }
 
-        ((MainActivity)this.mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
                 String.format("用户注册：%s", mUserInfo.getUserName()));
 
         mHandler = new Handler() {
@@ -90,23 +89,23 @@ public class UserRegisterListener implements View.OnClickListener {
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if(mReturnUserInfo.isSuccess()) {
-                        ((MainActivity)mContext).getMainManager().getLogManager().show("注册成功！");
+                        mMainActivity.getMainManager().getLogManager().show("注册成功！");
                         onClickedCancel(); // 关闭注册窗口
                     } else {
                         // 注册失败
-                        ((MainActivity)mContext).getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
-                        ((MainActivity)mContext).getMainManager().getLogManager().log(this.getClass(), LogManager.LogLevel.mError,
+                        mMainActivity.getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
+                        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                                 mReturnUserInfo.getErrorString());
                     }
                 }
             }
         };
 
-        ((MainActivity)this.mContext).getMainManager().getWebServiceManager().userRegisterWebService(mHandler, mUserInfo);
+        mMainActivity.getMainManager().getWebServiceManager().userRegisterWebService(mHandler, mUserInfo);
     }
 
     // 取消
     private void onClickedCancel() {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getUserRegisterLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().hide();
     }
 }

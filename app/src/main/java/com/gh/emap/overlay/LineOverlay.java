@@ -1,7 +1,6 @@
 package com.gh.emap.overlay;
 
-import android.content.Context;
-
+import com.gh.emap.MainActivity;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
@@ -18,32 +17,32 @@ import javax.microedition.khronos.opengles.GL10;
  */
 
 public class LineOverlay extends Overlay {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private LineOption mLineOption;
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
-    public LineOverlay(Context context) {
-        this.mContext = context;
-        this.mLineOption = new LineOption();
-        this.mLineOption.setStrokeWidth(5);
-        this.mLineOption.setStrokeColor(0xAA000000);
-        this.mLineOption.setDottedLine(false);
+    public LineOverlay(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
+        mLineOption = new LineOption();
+        mLineOption.setStrokeWidth(5);
+        mLineOption.setStrokeColor(0xAA000000);
+        mLineOption.setDottedLine(false);
     }
 
     public void setLineOption(LineOption lineOption) {
-        this.mLineOption = lineOption;
+        mLineOption = lineOption;
     }
 
     public LineOption getLineOption() {
-        return this.mLineOption;
+        return mLineOption;
     }
 
     public void setPoints(ArrayList<GeoPoint> points) {
-        this.mGeoPointArrayList = points;
+        mGeoPointArrayList = points;
     }
 
     public ArrayList<GeoPoint> getPoints() {
-        return this.mGeoPointArrayList;
+        return mGeoPointArrayList;
     }
 
     public boolean addPoint(GeoPoint point) {
@@ -57,7 +56,7 @@ public class LineOverlay extends Overlay {
     // 单击事件
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
-        this.addPoint(geoPoint);
+        addPoint(geoPoint);
 
         return true;
     }
@@ -71,6 +70,6 @@ public class LineOverlay extends Overlay {
 
         // 绘制折线
         MapViewRender mapViewRender = mapView.getMapViewRender();
-        mapViewRender.drawPolyLine(gl10, this.mLineOption, this.mGeoPointArrayList);
+        mapViewRender.drawPolyLine(gl10, mLineOption, mGeoPointArrayList);
     }
 }

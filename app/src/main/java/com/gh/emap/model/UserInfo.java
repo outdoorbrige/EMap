@@ -1,7 +1,5 @@
 package com.gh.emap.model;
 
-import com.nineoldandroids.util.Property;
-
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;
 
@@ -46,21 +44,21 @@ public class UserInfo implements KvmSerializable {
                     String logoutDate,
                     boolean success,
                     String errorString) {
-        this.mId = id;
-        this.mUserName = userName;
-        this.mPassword = password;
-        this.mNickName = nickName;
-        this.mTelNumber = telNumber;
-        this.mEMail = eMail;
-        this.mVipLevel = vipLevel;
-        this.mUserType = userType;
-        this.mCreateDate = createDate;
-        this.mModifyDate = modifyDate;
-        this.mLoginDate = loginDate;
-        this.mOnline = online;
-        this.mLogoutDate = logoutDate;
-        this.mSuccess = success;
-        this.mErrorString = errorString;
+        mId = id;
+        mUserName = userName;
+        mPassword = password;
+        mNickName = nickName;
+        mTelNumber = telNumber;
+        mEMail = eMail;
+        mVipLevel = vipLevel;
+        mUserType = userType;
+        mCreateDate = createDate;
+        mModifyDate = modifyDate;
+        mLoginDate = loginDate;
+        mOnline = online;
+        mLogoutDate = logoutDate;
+        mSuccess = success;
+        mErrorString = errorString;
     }
 
     public String getId() {
@@ -68,7 +66,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setId(String id) {
-        this.mId = id;
+        mId = id;
     }
 
     public String getUserName() {
@@ -76,7 +74,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setUserName(String userName) {
-        this.mUserName = userName;
+        mUserName = userName;
     }
 
     public String getPassword() {
@@ -84,7 +82,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setPassword(String password) {
-        this.mPassword = password;
+        mPassword = password;
     }
 
     public String getNickName() {
@@ -92,7 +90,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setNickName(String nickName) {
-        this.mNickName = nickName;
+        mNickName = nickName;
     }
 
     public String getTelNumber() {
@@ -100,7 +98,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setTelNumber(String telNumber) {
-        this.mTelNumber = telNumber;
+        mTelNumber = telNumber;
     }
 
     public String getEMail() {
@@ -108,7 +106,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setEMail(String eMail) {
-        this.mEMail = eMail;
+        mEMail = eMail;
     }
 
     public String getVipLevel() {
@@ -116,7 +114,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setVipLevel(String vipLevel) {
-        this.mVipLevel = vipLevel;
+        mVipLevel = vipLevel;
     }
 
     public String getUserType() {
@@ -124,7 +122,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setUserType(String userType) {
-        this.mUserType = userType;
+        mUserType = userType;
     }
 
     public String getCreateDate() {
@@ -132,7 +130,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setCreateDate(String createDate) {
-        this.mCreateDate = createDate;
+        mCreateDate = createDate;
     }
 
     public String getModifyDate() {
@@ -140,7 +138,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setModifyDate(String modifyDate) {
-        this.mModifyDate = modifyDate;
+        mModifyDate = modifyDate;
     }
 
     public String getLoginDate() {
@@ -148,7 +146,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setLoginDate(String loginDate) {
-        this.mLoginDate = loginDate;
+        mLoginDate = loginDate;
     }
 
     public int getOnline() {
@@ -156,7 +154,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setOnline(int online) {
-        this.mOnline = online;
+        mOnline = online;
     }
 
     public String getLogoutDate() {
@@ -164,7 +162,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setLogoutDate(String logoutDate) {
-        this.mLogoutDate = logoutDate;
+        mLogoutDate = logoutDate;
     }
 
     public boolean isSuccess() {
@@ -172,7 +170,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setSuccess(boolean success) {
-        this.mSuccess = success;
+        mSuccess = success;
     }
 
     public String getErrorString() {
@@ -180,7 +178,7 @@ public class UserInfo implements KvmSerializable {
     }
 
     public void setErrorString(String errorString) {
-        this.mErrorString = errorString;
+        mErrorString = errorString;
     }
 
     @Override

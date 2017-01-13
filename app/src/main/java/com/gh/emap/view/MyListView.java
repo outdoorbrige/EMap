@@ -9,6 +9,7 @@ import android.widget.ListView;
  * Created by GuHeng on 2016/11/9.
  */
 public class MyListView extends ListView {
+
     public MyListView(Context context) {
         super(context);
     }

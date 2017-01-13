@@ -1,6 +1,5 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -13,17 +12,17 @@ import com.tianditu.maps.GeoPointEx;
  * Created by GuHeng on 2016/11/14.
  */
 public class MyLocationListener implements LocationListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
-    public MyLocationListener(Context context) {
-        this.mContext = context;
+    public MyLocationListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
     public void onLocationChanged(Location location) {
         GeoPoint geoPoint = GeoPointEx.Double2GeoPoint(location.getLongitude(), location.getLatitude());
-        ((MainActivity)this.mContext).getMainManager().getMapManager().showPositionInfo(geoPoint);
-        ((MainActivity)this.mContext).getMainManager().getMyLocationManager().setGeoPoint(geoPoint);
+        mMainActivity.getMainManager().getMapManager().showPositionInfo(geoPoint);
+        mMainActivity.getMainManager().getMyLocationManager().setGeoPoint(geoPoint);
     }
 
     @Override

@@ -1,8 +1,9 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+
+import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 
 import com.gh.emap.overlay.LineOverlayItems;
@@ -14,29 +15,29 @@ import com.gh.emap.overlay.PointOverlayItems;
  */
 
 public class MyUserOverlaysManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private Drawable mPointOverlayItemMarker;
     private PointOverlayItems mPointOverlayItems;
     private LineOverlayItems mLineOverlayItems;
 
-    public MyUserOverlaysManager(Context context) {
-        this.mContext = context;
+    public MyUserOverlaysManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mPointOverlayItemMarker = ContextCompat.getDrawable(this.mContext, R.mipmap.added_icon);
-        this.mPointOverlayItems = new PointOverlayItems(this.mContext, this.mPointOverlayItemMarker);
-        this.mPointOverlayItems.init();
+        mPointOverlayItemMarker = ContextCompat.getDrawable(mMainActivity, R.mipmap.added_icon);
+        mPointOverlayItems = new PointOverlayItems(mMainActivity, mPointOverlayItemMarker);
+        mPointOverlayItems.init();
 
-        this.mLineOverlayItems = new LineOverlayItems(this.mContext);
-        this.mLineOverlayItems.init();
+        mLineOverlayItems = new LineOverlayItems(mMainActivity);
+        mLineOverlayItems.init();
     }
 
     public PointOverlayItems getPointOverlayItems() {
-        return this.mPointOverlayItems;
+        return mPointOverlayItems;
     }
 
     public LineOverlayItems getLineOverlayItems() {
-        return this.mLineOverlayItems;
+        return mLineOverlayItems;
     }
 }

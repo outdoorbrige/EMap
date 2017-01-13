@@ -1,8 +1,8 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
 import android.os.Handler;
 
+import com.gh.emap.MainActivity;
 import com.gh.emap.model.UserInfo;
 import com.gh.emap.webservice.UserLoginWebService;
 import com.gh.emap.webservice.UserLogoutWebService;
@@ -13,44 +13,44 @@ import com.gh.emap.webservice.UserRegisterWebService;
  * Web服务管理类
  */
 public class WebServiceManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private UserRegisterWebService mUserRegisterWebService; // 用户注册服务
     private UserLoginWebService mUserLoginWebService; // 用户登录服务
     private UserLogoutWebService mUserLogoutWebService; // 用户注销服务
 
     // 构造函数
-    public WebServiceManager(Context context) {
-        this.mContext = context;
+    public WebServiceManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     // 初始化
     public void init() {
-        this.mUserRegisterWebService = new UserRegisterWebService(this.mContext);
-        this.mUserRegisterWebService.init();
+        mUserRegisterWebService = new UserRegisterWebService(mMainActivity);
+        mUserRegisterWebService.init();
 
-        this.mUserLoginWebService = new UserLoginWebService(this.mContext);
-        this.mUserLoginWebService.init();
+        mUserLoginWebService = new UserLoginWebService(mMainActivity);
+        mUserLoginWebService.init();
 
-        this.mUserLogoutWebService = new UserLogoutWebService(this.mContext);
-        this.mUserLogoutWebService.init();
+        mUserLogoutWebService = new UserLogoutWebService(mMainActivity);
+        mUserLogoutWebService.init();
     }
 
     // 注册服务
     public void userRegisterWebService(Handler handler, UserInfo userInfo) {
-        this.mUserRegisterWebService.prepare(handler, userInfo);
-        new Thread(this.mUserRegisterWebService).start();
+        mUserRegisterWebService.prepare(handler, userInfo);
+        new Thread(mUserRegisterWebService).start();
     }
 
     // 登录服务
     public void userLoginWebService(Handler handler, UserInfo userInfo) {
-        this.mUserLoginWebService.prepare(handler, userInfo);
-        new Thread(this.mUserLoginWebService).start();
+        mUserLoginWebService.prepare(handler, userInfo);
+        new Thread(mUserLoginWebService).start();
     }
 
     // 注销服务
     public void userLogoutWebService(Handler handler, UserInfo userInfo) {
-        this.mUserLogoutWebService.prepare(handler, userInfo);
-        new Thread(this.mUserLogoutWebService).start();
+        mUserLogoutWebService.prepare(handler, userInfo);
+        new Thread(mUserLogoutWebService).start();
     }
 
     // Web Service 消息类型

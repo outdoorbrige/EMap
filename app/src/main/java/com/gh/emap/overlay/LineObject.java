@@ -26,14 +26,14 @@ public class LineObject implements Serializable {
     private int[] mIntervals = new int[]{13, 10, 13, 10}; // 虚线点间隔
 
     public LineObject() {
-        this.mTitle = "";
-        this.mSnippet = "";
-        this.mIndex = -1;
-        this.mType = "";
-        this.mName = "";
-        this.mStrokeWidth = 5;
-        this.mStrokeColor = 0xAA000000;
-        this.mDottedLine = false;
+        mTitle = "";
+        mSnippet = "";
+        mIndex = -1;
+        mType = "";
+        mName = "";
+        mStrokeWidth = 5;
+        mStrokeColor = 0xAA000000;
+        mDottedLine = false;
     }
 
     public String getTitle() {
@@ -41,7 +41,7 @@ public class LineObject implements Serializable {
     }
 
     public void setTitle(String title) {
-        this.mTitle = title;
+        mTitle = title;
     }
 
     public String getSnippet() {
@@ -49,7 +49,7 @@ public class LineObject implements Serializable {
     }
 
     public void setSnippet(String snippet) {
-        this.mSnippet = snippet;
+        mSnippet = snippet;
     }
 
     public int getIndex() {
@@ -57,7 +57,7 @@ public class LineObject implements Serializable {
     }
 
     public void setIndex(int index) {
-        this.mIndex = index;
+        mIndex = index;
     }
 
     public String getType() {
@@ -65,7 +65,7 @@ public class LineObject implements Serializable {
     }
 
     public void setType(String type) {
-        this.mType = type;
+        mType = type;
     }
 
     public String getName() {
@@ -73,11 +73,11 @@ public class LineObject implements Serializable {
     }
 
     public void setName(String name) {
-        this.mName = name;
+        mName = name;
     }
 
     public void setStrPoints(ArrayList<String> listPoints) {
-        this.mStrPoints = listPoints;
+        mStrPoints = listPoints;
     }
 
     public void setGeoPoints(ArrayList<GeoPoint> listPoints) {
@@ -90,49 +90,49 @@ public class LineObject implements Serializable {
     }
 
     public ArrayList<String> getStrPoints() {
-        return this.mStrPoints;
+        return mStrPoints;
     }
 
     public void setStrokeWidth(int width) {
         if(width > 0) {
-            this.mStrokeWidth = width;
+            mStrokeWidth = width;
         }
     }
 
     public int getStrokeWidth() {
-        return this.mStrokeWidth;
+        return mStrokeWidth;
     }
 
     public void setStrokeColor(int color) {
-        this.mStrokeColor = color;
+        mStrokeColor = color;
     }
 
     public int getStrokeColor() {
-        return this.mStrokeColor;
+        return mStrokeColor;
     }
 
     public void setDottedLine(boolean b) {
-        this.mDottedLine = b;
+        mDottedLine = b;
     }
 
     public boolean isDottedLine() {
-        return this.mDottedLine;
+        return mDottedLine;
     }
 
     public void setIntervals(int[] intervals) {
         if(intervals != null) {
             if(intervals.length >= 2 && intervals.length % 2 == 0) {
-                this.mIntervals = intervals;
+                mIntervals = intervals;
             }
         }
     }
 
     public int[] getIntervals() {
-        return this.mIntervals;
+        return mIntervals;
     }
 
     public boolean addGeoPoint(GeoPoint geoPoint) {
-        return this.mStrPoints.add(GeoPointToStrPoint(geoPoint));
+        return mStrPoints.add(GeoPointToStrPoint(geoPoint));
     }
 
     public void addGeoPoints(ArrayList<GeoPoint> geoPointList) {
@@ -141,7 +141,7 @@ public class LineObject implements Serializable {
         }
 
         for (int i = 0; i < geoPointList.size(); i ++) {
-            this.addGeoPoint(geoPointList.get(i));
+            addGeoPoint(geoPointList.get(i));
         }
     }
 
@@ -168,8 +168,8 @@ public class LineObject implements Serializable {
     public ArrayList<GeoPoint> getGeoPoints() {
         ArrayList<GeoPoint> geoPoints = new ArrayList<>();
 
-        for (int i = 0; i < this.mStrPoints.size(); i ++) {
-            geoPoints.add(StrPointToGeoPoint(this.mStrPoints.get(i)));
+        for (int i = 0; i < mStrPoints.size(); i ++) {
+            geoPoints.add(StrPointToGeoPoint(mStrPoints.get(i)));
         }
 
         return geoPoints;

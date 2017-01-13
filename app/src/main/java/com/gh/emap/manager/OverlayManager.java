@@ -1,7 +1,6 @@
 package com.gh.emap.manager;
 
-import android.content.Context;
-
+import com.gh.emap.MainActivity;
 import com.gh.emap.overlay.LineOverlay;
 import com.gh.emap.overlay.PointOverlay;
 
@@ -11,17 +10,17 @@ import com.gh.emap.overlay.PointOverlay;
  */
 
 public class OverlayManager {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private PointOverlay mPointOverlay;
     private LineOverlay mLineOverlay;
 
-    public OverlayManager(Context context) {
-        this.mContext = context;
+    public OverlayManager(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        mPointOverlay = new PointOverlay(this.mContext);
-        mLineOverlay = new LineOverlay(this.mContext);
+        mPointOverlay = new PointOverlay(mMainActivity);
+        mLineOverlay = new LineOverlay(mMainActivity);
     }
 
     public PointOverlay getPointOverlay() {

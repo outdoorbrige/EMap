@@ -31,7 +31,7 @@ public class EMap {
     }
 
     public void setNameSpace(String nameSpace) {
-        this.mNameSpace = nameSpace;
+        mNameSpace = nameSpace;
     }
 
     public String getServer() {
@@ -39,7 +39,7 @@ public class EMap {
     }
 
     public void setServer(String server) {
-        this.mServer = server;
+        mServer = server;
     }
 
     public String getPort() {
@@ -47,7 +47,7 @@ public class EMap {
     }
 
     public void setPort(String port) {
-        this.mPort = port;
+        mPort = port;
     }
 
     public String getProtocol() {
@@ -55,7 +55,7 @@ public class EMap {
     }
 
     public void setProtocol(String protocol) {
-        this.mProtocol = protocol;
+        mProtocol = protocol;
     }
 
     public String getSoapVersion() {
@@ -63,7 +63,7 @@ public class EMap {
     }
 
     public void setSoapVersion(String soapVersion) {
-        this.mSoapVersion = soapVersion;
+        mSoapVersion = soapVersion;
     }
 
     public String getRegisterMethodName() {
@@ -71,7 +71,7 @@ public class EMap {
     }
 
     public void setRegisterMethodName(String registerMethodName) {
-        this.mRegisterMethodName = registerMethodName;
+        mRegisterMethodName = registerMethodName;
     }
 
     public String getRegisterUrlPath() {
@@ -79,7 +79,7 @@ public class EMap {
     }
 
     public void setRegisterUrlPath(String registerUrlPath) {
-        this.mRegisterUrlPath = registerUrlPath;
+        mRegisterUrlPath = registerUrlPath;
     }
 
     public String getRegisterMethodParam1Name() {
@@ -87,7 +87,7 @@ public class EMap {
     }
 
     public void setRegisterMethodParam1Name(String registerMethodParam1Name) {
-        this.mRegisterMethodParam1Name = registerMethodParam1Name;
+        mRegisterMethodParam1Name = registerMethodParam1Name;
     }
 
     public String getRegisterMethodReturnParamName() {
@@ -95,7 +95,7 @@ public class EMap {
     }
 
     public void setRegisterMethodReturnParamName(String registerMethodReturnParamName) {
-        this.mRegisterMethodReturnParamName = registerMethodReturnParamName;
+        mRegisterMethodReturnParamName = registerMethodReturnParamName;
     }
 
     public String getLoginMethodName() {
@@ -103,7 +103,7 @@ public class EMap {
     }
 
     public void setLoginMethodName(String loginMethodName) {
-        this.mLoginMethodName = loginMethodName;
+        mLoginMethodName = loginMethodName;
     }
 
     public String getLoginUrlPath() {
@@ -111,7 +111,7 @@ public class EMap {
     }
 
     public void setLoginUrlPath(String loginUrlPath) {
-        this.mLoginUrlPath = loginUrlPath;
+        mLoginUrlPath = loginUrlPath;
     }
 
     public String getLoginMethodParam1Name() {
@@ -119,7 +119,7 @@ public class EMap {
     }
 
     public void setLoginMethodParam1Name(String loginMethodParam1Name) {
-        this.mLoginMethodParam1Name = loginMethodParam1Name;
+        mLoginMethodParam1Name = loginMethodParam1Name;
     }
 
     public String getLoginMethodReturnParamName() {
@@ -127,7 +127,7 @@ public class EMap {
     }
 
     public void setLoginMethodReturnParamName(String loginMethodReturnParamName) {
-        this.mLoginMethodReturnParamName = loginMethodReturnParamName;
+        mLoginMethodReturnParamName = loginMethodReturnParamName;
     }
 
     public String getLogoutMethodName() {
@@ -135,7 +135,7 @@ public class EMap {
     }
 
     public void setLogoutMethodName(String logoutMethodName) {
-        this.mLogoutMethodName = logoutMethodName;
+        mLogoutMethodName = logoutMethodName;
     }
 
     public String getLogoutUrlPath() {
@@ -143,7 +143,7 @@ public class EMap {
     }
 
     public void setLogoutUrlPath(String logoutUrlPath) {
-        this.mLogoutUrlPath = logoutUrlPath;
+        mLogoutUrlPath = logoutUrlPath;
     }
 
     public String getLogoutMethodParam1Name() {
@@ -151,7 +151,7 @@ public class EMap {
     }
 
     public void setLogoutMethodParam1Name(String logoutMethodParam1Name) {
-        this.mLogoutMethodParam1Name = logoutMethodParam1Name;
+        mLogoutMethodParam1Name = logoutMethodParam1Name;
     }
 
     public String getLogoutMethodReturnParamName() {
@@ -159,7 +159,7 @@ public class EMap {
     }
 
     public void setLogoutMethodReturnParamName(String logoutMethodReturnParamName) {
-        this.mLogoutMethodReturnParamName = logoutMethodReturnParamName;
+        mLogoutMethodReturnParamName = logoutMethodReturnParamName;
     }
 
     @Override

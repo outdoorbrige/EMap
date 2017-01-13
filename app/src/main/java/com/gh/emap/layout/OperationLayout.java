@@ -1,37 +1,35 @@
 package com.gh.emap.layout;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.listener.OperationListener;
 
 /**
  * Created by GuHeng on 2016/11/9.
  * 地图操作布局
  */
 public class OperationLayout {
-    private Context mContext;
+    private MainActivity mMainActivity;
     private View mLayout; // 布局
     private Button mZoomInButton; // 放大按钮
     private Button mZoomOutButton; // 缩小按钮
     private Button mLocationButton; // 定位按钮
 
-    public OperationLayout(Context context) {
-        this.mContext = context;
+    public OperationLayout(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     public void init() {
-        this.mLayout = ((MainActivity)this.mContext).findViewById(R.id.operation);
-        this.mZoomInButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.zoon_in);
-        this.mZoomOutButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.zoom_out);
-        this.mLocationButton = (Button) ((MainActivity)this.mContext).findViewById(R.id.location);
+        mLayout = mMainActivity.findViewById(R.id.operation);
+        mZoomInButton = (Button)mMainActivity.findViewById(R.id.zoon_in);
+        mZoomOutButton = (Button)mMainActivity.findViewById(R.id.zoom_out);
+        mLocationButton = (Button)mMainActivity.findViewById(R.id.location);
 
-        this.mZoomInButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getOperationListener());
-        this.mZoomOutButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getOperationListener());
-        this.mLocationButton.setOnClickListener(((MainActivity)this.mContext).getMainManager().getListenerManager().getOperationListener());
+        mZoomInButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getOperationListener());
+        mZoomOutButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getOperationListener());
+        mLocationButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getOperationListener());
     }
 
     // 显示布局

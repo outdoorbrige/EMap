@@ -1,23 +1,19 @@
 package com.gh.emap.listener;
 
-import android.content.Context;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.wx.wheelview.widget.WheelView;
 
 /**
  * Created by GuHeng on 2016/11/10.
  */
 public class TopEditListener implements View.OnClickListener {
-    private Context mContext;
+    private MainActivity mMainActivity;
 
     // 构造函数
-    public TopEditListener(Context context) {
-        this.mContext = context;
+    public TopEditListener(MainActivity mainActivity) {
+        mMainActivity = mainActivity;
     }
 
     @Override
@@ -42,7 +38,7 @@ public class TopEditListener implements View.OnClickListener {
 
     // 地物编辑
     private void onClickedMenuShap(View view) {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().showShapPopupWindow(view);
+        mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().showShapPopupWindow(view);
     }
 
     // 线路编辑
@@ -56,8 +52,8 @@ public class TopEditListener implements View.OnClickListener {
 
     // 退出编辑
     private void onClickedMenuExit(View view) {
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopNormalLayout().show();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getMenuLayout().show();
-        ((MainActivity)this.mContext).getMainManager().getLayoutManager().getTopEditLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getTopNormalLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().hide();
     }
 }

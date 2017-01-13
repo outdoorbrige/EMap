@@ -2,7 +2,6 @@ package com.gh.emap.file;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Created by GuHeng on 2016/12/15.
