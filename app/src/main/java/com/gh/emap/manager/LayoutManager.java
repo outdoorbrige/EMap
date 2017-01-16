@@ -1,15 +1,15 @@
 package com.gh.emap.manager;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.layout.BottomShapLineLayout;
-import com.gh.emap.layout.BottomShapPointLayout;
+import com.gh.emap.layout.BottomGroundRenderLineLayout;
+import com.gh.emap.layout.BottomGroundRenderPointLayout;
 import com.gh.emap.layout.LayerLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
-import com.gh.emap.layout.TopEditLayout;
+import com.gh.emap.layout.TopRenderLayout;
 import com.gh.emap.layout.TopNormalLayout;
-import com.gh.emap.layout.TopShapLineLayout;
-import com.gh.emap.layout.TopShapPointLayout;
+import com.gh.emap.layout.TopGroundRenderLineLayout;
+import com.gh.emap.layout.TopGroundRenderPointLayout;
 import com.gh.emap.layout.UserLoginLayout;
 import com.gh.emap.layout.UserLogoutLayout;
 import com.gh.emap.layout.UserRegisterLayout;
@@ -24,11 +24,11 @@ public class LayoutManager {
     private MenuLayout mMenuLayout;
     private LayerLayout mLayerLayout;
     private OperationLayout mOperationLayout;
-    private TopEditLayout mTopEditLayout;
-    private TopShapPointLayout mTopShapPointLayout;
-    private BottomShapPointLayout mBottomShapPointLayout;
-    private TopShapLineLayout mTopShapLineLayout;
-    private BottomShapLineLayout mBottomShapLineLayout;
+    private TopRenderLayout mTopRenderLayout;
+    private TopGroundRenderPointLayout mTopGroundRenderPointLayout;
+    private BottomGroundRenderPointLayout mBottomGroundRenderPointLayout;
+    private TopGroundRenderLineLayout mTopGroundRenderLineLayout;
+    private BottomGroundRenderLineLayout mBottomGroundRenderLineLayout;
     private UserLoginLayout mUserLoginLayout;
     private UserRegisterLayout mUserRegisterLayout;
     private UserLogoutLayout mUserLogoutLayout;
@@ -50,20 +50,20 @@ public class LayoutManager {
         mOperationLayout = new OperationLayout(mMainActivity);
         mOperationLayout.init();
 
-        mTopEditLayout = new TopEditLayout(mMainActivity);
-        mTopEditLayout.init();
+        mTopRenderLayout = new TopRenderLayout(mMainActivity);
+        mTopRenderLayout.init();
 
-        mTopShapPointLayout = new TopShapPointLayout(mMainActivity);
-        mTopShapPointLayout.init();
+        mTopGroundRenderPointLayout = new TopGroundRenderPointLayout(mMainActivity);
+        mTopGroundRenderPointLayout.init();
 
-        mBottomShapPointLayout = new BottomShapPointLayout(mMainActivity);
-        mBottomShapPointLayout.init();
+        mBottomGroundRenderPointLayout = new BottomGroundRenderPointLayout(mMainActivity);
+        mBottomGroundRenderPointLayout.init();
 
-        mTopShapLineLayout = new TopShapLineLayout(mMainActivity);
-        mTopShapLineLayout.init();
+        mTopGroundRenderLineLayout = new TopGroundRenderLineLayout(mMainActivity);
+        mTopGroundRenderLineLayout.init();
 
-        mBottomShapLineLayout = new BottomShapLineLayout(mMainActivity);
-        mBottomShapLineLayout.init();
+        mBottomGroundRenderLineLayout = new BottomGroundRenderLineLayout(mMainActivity);
+        mBottomGroundRenderLineLayout.init();
 
         mUserLoginLayout = new UserLoginLayout(mMainActivity);
         mUserLoginLayout.init();
@@ -91,24 +91,24 @@ public class LayoutManager {
         return mOperationLayout;
     }
 
-    public TopEditLayout getTopEditLayout() {
-        return mTopEditLayout;
+    public TopRenderLayout getTopRenderLayout() {
+        return mTopRenderLayout;
     }
 
-    public TopShapPointLayout getTopShapPointLayout() {
-        return mTopShapPointLayout;
+    public TopGroundRenderPointLayout getTopGroundRenderPointLayout() {
+        return mTopGroundRenderPointLayout;
     }
 
-    public BottomShapPointLayout getBottomShapPointLayout() {
-        return mBottomShapPointLayout;
+    public BottomGroundRenderPointLayout getBottomGroundRenderPointLayout() {
+        return mBottomGroundRenderPointLayout;
     }
 
-    public TopShapLineLayout getTopShapLineLayout() {
-        return mTopShapLineLayout;
+    public TopGroundRenderLineLayout getTopGroundRenderLineLayout() {
+        return mTopGroundRenderLineLayout;
     }
 
-    public BottomShapLineLayout getBottomShapLineLayout() {
-        return mBottomShapLineLayout;
+    public BottomGroundRenderLineLayout getBottomGroundRenderLineLayout() {
+        return mBottomGroundRenderLineLayout;
     }
 
     public UserLoginLayout getUserLoginLayout() {

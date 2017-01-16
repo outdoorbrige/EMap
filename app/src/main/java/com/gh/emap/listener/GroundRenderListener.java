@@ -22,11 +22,11 @@ import java.util.ArrayList;
 /**
  * Created by GuHeng on 2016/11/15.
  */
-public class ShapEditListener implements AdapterView.OnItemClickListener {
+public class GroundRenderListener implements AdapterView.OnItemClickListener {
     private MainActivity mMainActivity;
 
     // 构造函数
-    public ShapEditListener(MainActivity mainActivity) {
+    public GroundRenderListener(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
@@ -49,22 +49,23 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
         }
 
         if(-2 < position && position < parent.getCount()) {
-            mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().setShapEditSelectedIndex(position);
+            mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().setGroundRenderSelectedIndex(position);
         }
 
-        mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().closeShapPopupWindow();
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().closeGroundRenderPopupWindow();
     }
 
     // 画点
     private void onItemClickedPoint(AdapterView<?> parent, View view, int position, long id) {
-        mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().clear();
 
         // 防止重复加载文件数据
         if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath(), ".p", files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointPath(),
+                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(), files);
 
             // 解析点文件
             ArrayList<PointObject> pointObjects = RWPointFile.read(files);
@@ -106,14 +107,15 @@ public class ShapEditListener implements AdapterView.OnItemClickListener {
 
     // 画线
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
-        mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().clear();
 
         // 防止重复加载文件数据
         if(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath(), ".l", files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLinePath(),
+                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLineFileSuffix(), files);
 
             // 解析线文件
             ArrayList<LineObject> lineObjects = RWLineFile.read(files);

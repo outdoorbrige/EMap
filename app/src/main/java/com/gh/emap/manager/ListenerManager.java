@@ -1,17 +1,17 @@
 package com.gh.emap.manager;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.listener.BottomEditLineListener;
-import com.gh.emap.listener.BottomEditPointListener;
+import com.gh.emap.listener.BottomGroundRenderLineListener;
+import com.gh.emap.listener.BottomGroundRenderPointListener;
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.MyOverlayListener;
 import com.gh.emap.listener.OperationListener;
-import com.gh.emap.listener.TopEditLineListener;
-import com.gh.emap.listener.TopEditListener;
-import com.gh.emap.listener.ShapEditListener;
-import com.gh.emap.listener.TopEditPointListener;
+import com.gh.emap.listener.TopGroundRenderLineListener;
+import com.gh.emap.listener.TopRenderListener;
+import com.gh.emap.listener.GroundRenderListener;
+import com.gh.emap.listener.TopGroundRenderPointListener;
 import com.gh.emap.listener.TopNormalListener;
 import com.gh.emap.listener.UserLoginListener;
 import com.gh.emap.listener.UserLogoutListener;
@@ -31,12 +31,12 @@ public class ListenerManager {
     private UserLoginListener mUserLoginListener;
     private UserRegisterListener mUserRegisterListener;
     private UserLogoutListener mUserLogoutListener;
-    private TopEditListener mTopEditListener;
-    private ShapEditListener mShapEditListener;
-    private TopEditPointListener mTopEditPointListener;
-    private BottomEditPointListener mBottomEditPointListener;
-    private TopEditLineListener mTopEditLineListener;
-    private BottomEditLineListener mBottomEditLineListener;
+    private TopRenderListener mTopRenderListener;
+    private GroundRenderListener mGroundRenderListener;
+    private TopGroundRenderPointListener mTopGroundRenderPointListener;
+    private BottomGroundRenderPointListener mBottomGroundRenderPointListener;
+    private TopGroundRenderLineListener mTopGroundRenderLineListener;
+    private BottomGroundRenderLineListener mBottomGroundRenderLineListener;
     private MyOverlayListener mMyOverlayListener;
 
 
@@ -53,12 +53,12 @@ public class ListenerManager {
         mUserLoginListener = new UserLoginListener(mMainActivity);
         mUserRegisterListener = new UserRegisterListener(mMainActivity);
         mUserLogoutListener = new UserLogoutListener(mMainActivity);
-        mTopEditListener = new TopEditListener(mMainActivity);
-        mShapEditListener = new ShapEditListener(mMainActivity);
-        mTopEditPointListener = new TopEditPointListener(mMainActivity);
-        mBottomEditPointListener = new BottomEditPointListener(mMainActivity);
-        mTopEditLineListener = new TopEditLineListener(mMainActivity);
-        mBottomEditLineListener = new BottomEditLineListener(mMainActivity);
+        mTopRenderListener = new TopRenderListener(mMainActivity);
+        mGroundRenderListener = new GroundRenderListener(mMainActivity);
+        mTopGroundRenderPointListener = new TopGroundRenderPointListener(mMainActivity);
+        mBottomGroundRenderPointListener = new BottomGroundRenderPointListener(mMainActivity);
+        mTopGroundRenderLineListener = new TopGroundRenderLineListener(mMainActivity);
+        mBottomGroundRenderLineListener = new BottomGroundRenderLineListener(mMainActivity);
         mMyOverlayListener = new MyOverlayListener(mMainActivity);
     }
 
@@ -94,28 +94,28 @@ public class ListenerManager {
         return mUserLogoutListener;
     }
 
-    public TopEditListener getTopEditListener() {
-        return mTopEditListener;
+    public TopRenderListener getTopRenderListener() {
+        return mTopRenderListener;
     }
 
-    public ShapEditListener getShapEditListener() {
-        return mShapEditListener;
+    public GroundRenderListener getGroundRenderEditListener() {
+        return mGroundRenderListener;
     }
 
-    public TopEditPointListener getTopEditPointListener() {
-        return mTopEditPointListener;
+    public TopGroundRenderPointListener getTopGroundRenderPointListener() {
+        return mTopGroundRenderPointListener;
     }
 
-    public BottomEditPointListener getBottomEditPointListener() {
-        return mBottomEditPointListener;
+    public BottomGroundRenderPointListener getBottomGroundRenderPointListener() {
+        return mBottomGroundRenderPointListener;
     }
 
-    public TopEditLineListener getTopEditLineListener() {
-        return mTopEditLineListener;
+    public TopGroundRenderLineListener getTopGroundRenderLineListener() {
+        return mTopGroundRenderLineListener;
     }
 
-    public BottomEditLineListener getBottomEditLineListener() {
-        return mBottomEditLineListener;
+    public BottomGroundRenderLineListener getBottomGroundRenderLineListener() {
+        return mBottomGroundRenderLineListener;
     }
 
     public MyOverlayListener getMyOverlayListener() {

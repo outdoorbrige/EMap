@@ -22,8 +22,8 @@ public class MenuListener implements View.OnClickListener {
             case R.id.menu_main: // 主菜单按钮
                 onClickedMenuMain(view);
                 break;
-            case R.id.menu_edit: // 编辑按钮
-                onClickedMenuEdit(view);
+            case R.id.menu_render: // 绘制按钮
+                onClickedMenuRender(view);
                 break;
             case R.id.menu_setting: // 设置按钮
                 onClickedMenuSetting(view);
@@ -41,8 +41,8 @@ public class MenuListener implements View.OnClickListener {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().runMenuAnimation(view);
     }
 
-    // 编辑按钮
-    private void onClickedMenuEdit(View view) {
+    // 绘制按钮
+    private void onClickedMenuRender(View view) {
 
         // 此处代码只是为了测试
         UserInfo userInfo = mMainActivity.getMainManager().getUserManager().getUserInfo();
@@ -56,7 +56,7 @@ public class MenuListener implements View.OnClickListener {
 
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().runMenuAnimation(view);
         mMainActivity.getMainManager().getLayoutManager().getTopNormalLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().hide();
     }
 

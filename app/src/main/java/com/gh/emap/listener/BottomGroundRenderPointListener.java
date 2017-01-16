@@ -7,14 +7,13 @@ import com.gh.emap.R;
 import com.wx.wheelview.widget.WheelView;
 
 /**
- * Created by GuHeng on 2017/1/9.
+ * Created by GuHeng on 2016/11/15.
  */
-
-public class BottomEditLineListener implements WheelView.OnWheelItemSelectedListener<String> {
+public class BottomGroundRenderPointListener implements WheelView.OnWheelItemSelectedListener<String> {
     private MainActivity mMainActivity;
 
     // 构造函数
-    public BottomEditLineListener(MainActivity mainActivity) {
+    public BottomGroundRenderPointListener(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
@@ -24,7 +23,7 @@ public class BottomEditLineListener implements WheelView.OnWheelItemSelectedList
     }
 
     private void onItemSelectedWheel(int position, String item) {
-        ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(
-                (String)mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
+        ((TextView)mMainActivity.findViewById(R.id.point_type)).setText(
+                (String)mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().getWheelViewTwo().getSelectionItem());
     }
 }

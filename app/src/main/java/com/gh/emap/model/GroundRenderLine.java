@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by GuHeng on 2016/11/9.
- * 地物编辑-画点 配置文件类
+ * Created by GuHeng on 2017/1/9.
+ * 地物编辑-画线 配置文件类
  */
-public class ShapPoint {
+
+public class GroundRenderLine {
     private HashMap<String, ArrayList<String>> mData;
 
-    public ShapPoint() {
+    public GroundRenderLine() {
         mData = new HashMap<>();
     }
 
@@ -36,7 +37,7 @@ public class ShapPoint {
 
     @Override
     public String toString() {
-        return "ShapPoint{" +
+        return "GroundRenderLine{" +
                 "mData=" + mData +
                 '}';
     }

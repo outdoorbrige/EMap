@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.model.ShapLine;
+import com.gh.emap.model.GroundRenderLine;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 
@@ -15,15 +15,15 @@ import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2017/1/9.
- * 地物编辑-画线 底部布局
+ * 地物绘制-画线 底部布局
  */
 
-public class BottomShapLineLayout {
+public class BottomGroundRenderLineLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
     private WheelView mWheelViewOne; // 滚动选择器
     private WheelView mWheelViewTwo; // 滚动选择器
-    private ShapLine mShapLine; // 地物编辑-画线数据
+    private GroundRenderLine mGroundRenderLine; // 地物绘制-画线数据
     private int mDefaultSelectedItemOne; // 滚动选择器数据默认选中项
     private int mDefaultSelectedItemTwo; // 滚动选择器数据默认选中项
     private int mLastSelectedItemOne; // 滚动选择器数据上次选中项
@@ -31,15 +31,15 @@ public class BottomShapLineLayout {
     private int mCurrentSelectedItemOne; // 滚动选择器数据选中项
     private int mCurrentSelectedItemTwo; // 滚动选择器数据选中项
 
-    public BottomShapLineLayout(MainActivity mainActivity) {
+    public BottomGroundRenderLineLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.bottom_shap_line);
+        mLayout = mMainActivity.findViewById(R.id.bottom_ground_render__line);
         mWheelViewOne = (WheelView)mMainActivity.findViewById(R.id.line_scroll_one);
         mWheelViewTwo = (WheelView)mMainActivity.findViewById(R.id.line_scroll_two);
-        mShapLine = mMainActivity.getMainManager().getFileManager().getShapLineFile().getShapLine();
+        mGroundRenderLine = mMainActivity.getMainManager().getFileManager().getGroundRenderLineFile().getShapLine();
         mDefaultSelectedItemOne = 0;
         mDefaultSelectedItemTwo = 0;
         mLastSelectedItemOne = -1;
@@ -49,7 +49,7 @@ public class BottomShapLineLayout {
 
         int wheelCount = 3;
 
-        HashMap<String, ArrayList<String>> hashMap = mShapLine.getData();
+        HashMap<String, ArrayList<String>> hashMap = mGroundRenderLine.getData();
         ArrayList<String> listOne = new ArrayList(hashMap.keySet());
 
         WheelView.Skin skin = WheelView.Skin.Holo;
@@ -85,8 +85,8 @@ public class BottomShapLineLayout {
         mWheelViewOne.join(mWheelViewTwo);
         mWheelViewOne.joinDatas(hashMap);
 
-        mWheelViewOne.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomEditLineListener());
-        mWheelViewTwo.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomEditLineListener());
+        mWheelViewOne.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderLineListener());
+        mWheelViewTwo.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderLineListener());
 
          // 初始化画线类型
         ((TextView)mMainActivity.findViewById(R.id.line_type)).setText((String)mWheelViewTwo.getSelectedItem());

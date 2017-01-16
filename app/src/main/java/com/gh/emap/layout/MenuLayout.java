@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class MenuLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
-    private Button mEditButton; // 编辑按钮
+    private Button mRenderButton; // 绘制按钮
     private Button mSetButton; // 配置按钮
     private Button mDownloadButton; // 下载按钮
     private Button mMenuButton; // 菜单按钮
@@ -36,7 +36,7 @@ public class MenuLayout {
 
     public void init() {
         mLayout = mMainActivity.findViewById(R.id.menu);
-        mEditButton = (Button)mMainActivity.findViewById(R.id.menu_edit);
+        mRenderButton = (Button)mMainActivity.findViewById(R.id.menu_render);
         mSetButton = (Button)mMainActivity.findViewById(R.id.menu_setting);
         mDownloadButton = (Button)mMainActivity.findViewById(R.id.menu_download);
         mMenuButton = (Button)mMainActivity.findViewById(R.id.menu_main);
@@ -46,9 +46,9 @@ public class MenuLayout {
         // 底部的按钮在List的队首，顶部的按钮在List的队尾
         mArrayListButtons.add(mDownloadButton);
         mArrayListButtons.add(mSetButton);
-        mArrayListButtons.add(mEditButton);
+        mArrayListButtons.add(mRenderButton);
 
-        mEditButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
+        mRenderButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
         mSetButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
         mDownloadButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
         mMenuButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getMenuListener());
@@ -110,25 +110,31 @@ public class MenuLayout {
 
     // 计算动画半径
     private int calculateAnimationRadius(View view) {
-        int radius = 0;
 
-        // 获取按钮边长(dp)
-        int a = (int)(Math.round(view.getHeight() / mMainActivity.getResources().getDisplayMetrics().density));
+        // 获取View宽度(dp)
+        int viewWidth = (int)(Math.round(view.getWidth() / mMainActivity.getResources().getDisplayMetrics().density));
 
-        // 按钮对角线长度的一半(dp)
-        int c = (int)Math.round(Math.sqrt(a * a * 2) / 2);
+        // 获取View高度(dp)
+        int viewHeight = (int)(Math.round(view.getHeight() / mMainActivity.getResources().getDisplayMetrics().density));
 
-        // 一个按钮对应角度的弧度的一半
-        double angleRadians = (90 / mArrayListButtons.size() / 2) * Math.PI / 180; // 角度换算成弧度
+        // 获取View对角线长(dp)
+        int viewDiagonal = (int)Math.round(Math.sqrt(viewWidth * viewWidth + viewHeight * viewHeight));
+
+
+        // 一个View对应角度的弧度
+        double radian = Math.PI / 180 * (90 / (mArrayListButtons.size() + 1)); // 角度换算成弧度
 
         // 计算半径(dp)
-        radius = (int)Math.round(c * 1.2 / Math.sin(angleRadians));
+        int radius = (int)Math.round(viewDiagonal / radian);
+
+        // 动画半径(dp)
+        int animalRadius = radius + viewWidth;
 
         mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
-                String.format("按钮边长:%d, 斜边长:%d, 按钮个数:%d, 度数:%f, 正弦值:%f, 近似半径:%d, 动画半径:%d",
-                        a, c, mArrayListButtons.size(), angleRadians, Math.sin(angleRadians), radius, radius + a));
+                String.format("宽:%d, 高:%d, 对角线:%d, 数量:%d, 弧度:%f, 近似半径:%d, 动画半径:%d",
+                        viewWidth, viewHeight, viewDiagonal, mArrayListButtons.size(), radian, radius, animalRadius));
 
-        return (radius + a);
+        return animalRadius;
     }
 
     /**

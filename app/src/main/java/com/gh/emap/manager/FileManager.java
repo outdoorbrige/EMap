@@ -2,8 +2,8 @@ package com.gh.emap.manager;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.file.EMapFile;
-import com.gh.emap.file.ShapLineFile;
-import com.gh.emap.file.ShapPointFile;
+import com.gh.emap.file.GroundRenderLineFile;
+import com.gh.emap.file.GroundRenderPointFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -19,8 +19,8 @@ import java.io.ObjectOutputStream;
 public class FileManager {
     private MainActivity mMainActivity;
     private EMapFile mEMapFile;
-    private ShapPointFile mShapPointFile;
-    private ShapLineFile mShapLineFile;
+    private GroundRenderPointFile mGroundRenderPointFile;
+    private GroundRenderLineFile mGroundRenderLineFile;
 
     public FileManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -30,23 +30,23 @@ public class FileManager {
         mEMapFile = new EMapFile(mMainActivity);
         mEMapFile.init();
 
-        mShapPointFile = new ShapPointFile(mMainActivity);
-        mShapPointFile.init();
+        mGroundRenderPointFile = new GroundRenderPointFile(mMainActivity);
+        mGroundRenderPointFile.init();
 
-        mShapLineFile = new ShapLineFile(mMainActivity);
-        mShapLineFile.init();
+        mGroundRenderLineFile = new GroundRenderLineFile(mMainActivity);
+        mGroundRenderLineFile.init();
     }
 
     public EMapFile getEMapFile() {
         return mEMapFile;
     }
 
-    public ShapPointFile getShapPointFile() {
-        return mShapPointFile;
+    public GroundRenderPointFile getGroundRenderPointFile() {
+        return mGroundRenderPointFile;
     }
 
-    public ShapLineFile getShapLineFile() {
-        return mShapLineFile;
+    public GroundRenderLineFile getGroundRenderLineFile() {
+        return mGroundRenderLineFile;
     }
 
     // 写对象到文件中

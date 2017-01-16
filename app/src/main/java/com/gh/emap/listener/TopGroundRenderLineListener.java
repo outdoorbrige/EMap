@@ -20,11 +20,11 @@ import java.util.ArrayList;
  * Created by GuHeng on 2017/1/9.
  */
 
-public class TopEditLineListener implements View.OnClickListener {
+public class TopGroundRenderLineListener implements View.OnClickListener {
     private MainActivity mMainActivity;
 
     // 构造函数
-    public TopEditLineListener(MainActivity mainActivity) {
+    public TopGroundRenderLineListener(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
@@ -52,10 +52,10 @@ public class TopEditLineListener implements View.OnClickListener {
     private void onClickedLineType(View view) {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().show();
 
         ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(
-                (String)mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().getWheelViewTwo().getSelectionItem());
+                (String)mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().getWheelViewTwo().getSelectionItem());
     }
 
     // 画线名称
@@ -65,9 +65,9 @@ public class TopEditLineListener implements View.OnClickListener {
 
     // 取消
     private void onClickedLineCancel(View view) {
-        mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().clear();
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
@@ -106,7 +106,7 @@ public class TopEditLineListener implements View.OnClickListener {
             return;
         }
 
-        String path = mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().getShapLinePath();
+        String path = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLinePath();
         if(path == null || path.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError, String.format("用户未登录!"));
             return;
@@ -118,7 +118,8 @@ public class TopEditLineListener implements View.OnClickListener {
             lineObject.setName(lineName);
             lineObject.addGeoPoints(points);
 
-            RWLineFile.write(path + File.separator + lineObject.getName() + ".l", lineObject);
+            RWLineFile.write(path + File.separator + lineObject.getName() +
+                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLineFileSuffix(), lineObject);
 
             mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
 
@@ -133,9 +134,9 @@ public class TopEditLineListener implements View.OnClickListener {
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
-        mMainActivity.getMainManager().getLayoutManager().getTopShapLineLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().clear();
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 

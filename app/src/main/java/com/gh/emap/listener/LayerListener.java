@@ -5,6 +5,7 @@ import android.widget.AdapterView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
+import com.tianditu.android.maps.MapView;
 
 /**
  * Created by GuHeng on 2016/11/10.
@@ -38,7 +39,7 @@ public class LayerListener implements View.OnClickListener, AdapterView.OnItemCl
         // id == -1 点击的是headerView或者footerView
         if(-1 < position && position < parent.getCount()) {
             mMainActivity.getMainManager().getLayoutManager().getLayerLayout().setCurrentSelectItemIndex(position);
-            mMainActivity.getMainManager().getMapManager().getMapView().setMapType(position + 1);
+            mMainActivity.getMainManager().getMapManager().getMapView().setMapType(MapView.TMapType.MAP_TYPE_IMG + position);
         }
 
         mMainActivity.getMainManager().getLayoutManager().getLayerLayout().closePopupWindow();

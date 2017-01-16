@@ -34,7 +34,6 @@ public class LayerLayout {
     public void init() {
         mLayout = mMainActivity.findViewById(R.id.layer);
         mLayerButton = (Button)mMainActivity.findViewById(R.id.layer_button);
-
         mLayerButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getLayerListener());
     }
 

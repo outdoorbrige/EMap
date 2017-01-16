@@ -57,6 +57,9 @@ public class MapManager {
         // 设置LOGO位置为右下角
         mMapView.setLogoPos(MapView.LOGO_RIGHT_BOTTOM);
 
+        // 设置默认地图类型
+        mMapView.setMapType(MapView.TMapType.MAP_TYPE_VEC);
+
         // 设置在缩放动画过程中绘制overlay，默认为不绘制
         //mMapView.setDrawOverlayWhenZooming(true);
 

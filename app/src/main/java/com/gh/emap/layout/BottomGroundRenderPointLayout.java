@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.model.ShapPoint;
+import com.gh.emap.model.GroundRenderPoint;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 
@@ -15,14 +15,14 @@ import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2016/11/10.
- * 地物编辑-画点 底部布局
+ * 地物绘制-画点 底部布局
  */
-public class BottomShapPointLayout {
+public class BottomGroundRenderPointLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
     private WheelView mWheelViewOne; // 滚动选择器
     private WheelView mWheelViewTwo; // 滚动选择器
-    private ShapPoint mShapPoint; // 地物编辑-画点数据
+    private GroundRenderPoint mGroundRenderPoint; // 地物绘制-画点数据
     private int mDefaultSelectedItemOne; // 滚动选择器数据默认选中项
     private int mDefaultSelectedItemTwo; // 滚动选择器数据默认选中项
     private int mLastSelectedItemOne; // 滚动选择器数据上次选中项
@@ -30,15 +30,15 @@ public class BottomShapPointLayout {
     private int mCurrentSelectedItemOne; // 滚动选择器数据选中项
     private int mCurrentSelectedItemTwo; // 滚动选择器数据选中项
 
-    public BottomShapPointLayout(MainActivity mainActivity) {
+    public BottomGroundRenderPointLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.bottom_shap_point);
+        mLayout = mMainActivity.findViewById(R.id.bottom_ground_render_point);
         mWheelViewOne = (WheelView)mMainActivity.findViewById(R.id.point_scroll_one);
         mWheelViewTwo = (WheelView)mMainActivity.findViewById(R.id.point_scroll_two);
-        mShapPoint = mMainActivity.getMainManager().getFileManager().getShapPointFile().getShapPoint();
+        mGroundRenderPoint = mMainActivity.getMainManager().getFileManager().getGroundRenderPointFile().getShapPoint();
         mDefaultSelectedItemOne = 0;
         mDefaultSelectedItemTwo = 0;
         mLastSelectedItemOne = -1;
@@ -48,7 +48,7 @@ public class BottomShapPointLayout {
 
         int wheelCount = 3;
 
-        HashMap<String, ArrayList<String>> hashMap = mShapPoint.getData();
+        HashMap<String, ArrayList<String>> hashMap = mGroundRenderPoint.getData();
         ArrayList<String> listOne = new ArrayList(hashMap.keySet());
 
         WheelView.Skin skin = WheelView.Skin.Holo;
@@ -84,8 +84,8 @@ public class BottomShapPointLayout {
         mWheelViewOne.join(mWheelViewTwo);
         mWheelViewOne.joinDatas(hashMap);
 
-        mWheelViewOne.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomEditPointListener());
-        mWheelViewTwo.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomEditPointListener());
+        mWheelViewOne.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointListener());
+        mWheelViewTwo.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointListener());
 
         // 初始化画点类型
         ((TextView)mMainActivity.findViewById(R.id.point_type)).setText((String)mWheelViewTwo.getSelectedItem());

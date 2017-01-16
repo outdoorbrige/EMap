@@ -12,9 +12,9 @@ import java.io.File;
 
 /**
  * Created by GuHeng on 2016/11/10.
- * 地物编辑-画点 顶部布局
+ * 地物绘制-画点 顶部布局
  */
-public class TopShapPointLayout {
+public class TopGroundRenderPointLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
     private TextView mPointType; // 画点的类型
@@ -22,30 +22,30 @@ public class TopShapPointLayout {
     private Button mPointCancel; // 取消
     private Button mPointSave; // 保存
 
-    public TopShapPointLayout(MainActivity mainActivity) {
+    public TopGroundRenderPointLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.top_shap_point);
+        mLayout = mMainActivity.findViewById(R.id.top_ground_render_point);
         mPointType = (TextView)mMainActivity.findViewById(R.id.point_type);
         mPointName = (EditText)mMainActivity.findViewById(R.id.point_name);
         mPointCancel = (Button)mMainActivity.findViewById(R.id.point_cancel);
         mPointSave = (Button)mMainActivity.findViewById(R.id.point_save);
 
-        mPointType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
-        mPointName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
-        mPointCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
-        mPointSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditPointListener());
+        mPointType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
+        mPointName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
+        mPointCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
+        mPointSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
     }
 
-    // 获取地物编辑-画点工作目录
-    public String getShapPointPath() {
+    // 获取地物绘制-画点工作目录
+    public String getGroundRenderPointPath() {
         String path = null;
 
-        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
+        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().getGroundRenderPath();
         if(fatherPath != null) {
-            path = fatherPath + "MyPoint" + File.separator;
+            path = fatherPath + "Points" + File.separator;
 
             File dir = new File(path);
             if(!dir.exists()) {
@@ -54,6 +54,11 @@ public class TopShapPointLayout {
         }
 
         return path;
+    }
+
+    // 获取地物绘制-画点文件后缀名
+    public String getGroundRenderPointFileSuffix() {
+        return ".point";
     }
 
     // 显示布局

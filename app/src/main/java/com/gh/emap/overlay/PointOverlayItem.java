@@ -16,7 +16,12 @@ public class PointOverlayItem extends OverlayItem {
         super(new GeoPoint(latitude, longitude), title, snippet);
 
         mMainActivity = mainActivity;
+
         mPointObject = new PointObject();
+        mPointObject.setTitle(title);
+        mPointObject.setSnippet(snippet);
+        mPointObject.setLatitude(latitude);
+        mPointObject.setLongitude(longitude);
     }
 
     public PointObject getPointObject() {

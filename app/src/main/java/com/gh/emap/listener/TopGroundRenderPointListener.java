@@ -19,11 +19,11 @@ import java.util.ArrayList;
 /**
  * Created by GuHeng on 2016/11/15.
  */
-public class TopEditPointListener implements View.OnClickListener {
+public class TopGroundRenderPointListener implements View.OnClickListener {
     private MainActivity mMainActivity;
 
     // 构造函数
-    public TopEditPointListener(MainActivity mainActivity) {
+    public TopGroundRenderPointListener(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
@@ -51,10 +51,10 @@ public class TopEditPointListener implements View.OnClickListener {
     private void onClickedPointType(View view) {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().show();
 
         ((TextView)mMainActivity.findViewById(R.id.point_type)).setText(
-                (String)mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().getWheelViewTwo().getSelectionItem());
+                (String)mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().getWheelViewTwo().getSelectionItem());
     }
 
     // 画点名称
@@ -64,9 +64,9 @@ public class TopEditPointListener implements View.OnClickListener {
 
     // 取消
     private void onClickedPointCancel(View view) {
-        mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().clear();
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
@@ -102,7 +102,7 @@ public class TopEditPointListener implements View.OnClickListener {
             return;
         }
 
-        String path = mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().getShapPointPath();
+        String path = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointPath();
         if(path == null || path.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError, String.format("用户未登录!"));
             return;
@@ -116,16 +116,18 @@ public class TopEditPointListener implements View.OnClickListener {
             mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(overlay);
             mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
 
-            RWPointFile.write(path + File.separator + overlay.getPointObject().getName() + ".p", overlay.getPointObject());
+            RWPointFile.write(path + File.separator + overlay.getPointObject().getName() +
+                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(),
+                    overlay.getPointObject());
 
             mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
                     mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
 
-        mMainActivity.getMainManager().getLayoutManager().getTopShapPointLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getBottomShapPointLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().hide();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().clear();
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 

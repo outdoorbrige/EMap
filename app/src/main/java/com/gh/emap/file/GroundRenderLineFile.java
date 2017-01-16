@@ -4,7 +4,7 @@ import android.os.Environment;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.manager.LogManager;
-import com.gh.emap.model.ShapLine;
+import com.gh.emap.model.GroundRenderLine;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -18,31 +18,30 @@ import java.io.InputStreamReader;
  * 解析数据文件
  */
 
-public class ShapLineFile {
+public class GroundRenderLineFile {
     private MainActivity mMainActivity;
-    private ShapLine mShapLine;
+    private GroundRenderLine mGroundRenderLine;
 
-    public ShapLineFile(MainActivity mainActivity) {
+    public GroundRenderLineFile(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mShapLine = new ShapLine();
+        mGroundRenderLine = new GroundRenderLine();
 
         loadFile();
     }
 
     // 获取地物编辑-画点数据
-    public ShapLine getShapLine() {
-        return mShapLine;
+    public GroundRenderLine getShapLine() {
+        return mGroundRenderLine;
     }
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
                     mMainActivity.getApplationName() + File.separator +
-                    "Data" + File.separator +
-                    "ShapLine.dat";
+                    "GroundRenderLine.config";
         } else {
             return null;
         }
@@ -65,7 +64,7 @@ public class ShapLineFile {
                     String[] values = line.split(",");
 
                     if(values != null) {
-                        mShapLine.put(values[2], values[0] + values[1]);
+                        mGroundRenderLine.put(values[2], values[0] + values[1]);
                     }
                 }
 
@@ -74,8 +73,8 @@ public class ShapLineFile {
                 inputStream.close();
                 fileInputStream.close();
 
-                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
-                        mShapLine.toString());
+//                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+//                        mGroundRenderLine.toString());
             } catch (Exception e) {
                 mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                         e.getStackTrace().toString());

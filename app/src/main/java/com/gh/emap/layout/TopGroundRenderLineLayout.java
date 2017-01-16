@@ -12,10 +12,10 @@ import java.io.File;
 
 /**
  * Created by GuHeng on 2017/1/9.
- * 地物编辑-画线 顶部布局
+ * 地物绘制-画线 顶部布局
  */
 
-public class TopShapLineLayout {
+public class TopGroundRenderLineLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
     private TextView mLineType; // 画线的类型
@@ -23,30 +23,30 @@ public class TopShapLineLayout {
     private Button mLineCancel; // 取消
     private Button mLineSave; // 保存
 
-    public TopShapLineLayout(MainActivity mainActivity) {
+    public TopGroundRenderLineLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.top_shap_line);
+        mLayout = mMainActivity.findViewById(R.id.top_ground_render__line);
         mLineType = (TextView)mMainActivity.findViewById(R.id.line_type);
         mLineName = (EditText)mMainActivity.findViewById(R.id.line_name);
         mLineCancel = (Button)mMainActivity.findViewById(R.id.line_cancel);
         mLineSave = (Button)mMainActivity.findViewById(R.id.line_save);
 
-        mLineType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
-        mLineName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
-        mLineCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
-        mLineSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopEditLineListener());
+        mLineType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
+        mLineName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
+        mLineCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
+        mLineSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
     }
 
-    // 获取地物编辑-画点工作目录
-    public String getShapLinePath() {
+    // 获取地物绘制-画点工作目录
+    public String getGroundRenderLinePath() {
         String path = null;
 
-        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopEditLayout().getShapEditPath();
+        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().getGroundRenderPath();
         if(fatherPath != null) {
-            path = fatherPath + "MyLine" + File.separator;
+            path = fatherPath + "Lines" + File.separator;
 
             File dir = new File(path);
             if(!dir.exists()) {
@@ -55,6 +55,11 @@ public class TopShapLineLayout {
         }
 
         return path;
+    }
+
+    // 获取地物绘制-画点工作目录
+    public String getGroundRenderLineFileSuffix() {
+        return ".line";
     }
 
     // 显示布局

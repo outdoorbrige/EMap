@@ -106,12 +106,16 @@ public class LogManager {
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-            Date date = new Date(System.currentTimeMillis());
-            return Environment.getExternalStorageDirectory().toString() + File.separator +
+            String fileLog = Environment.getExternalStorageDirectory().toString() + File.separator +
                     mMainActivity.getApplationName() + File.separator +
-                    "Log" + File.separator +
-                    simpleDateFormat.format(date) + ".txt";
+                    mMainActivity.getApplationName() + ".txt";
+
+            File file = new File(fileLog);
+            if(file.exists()) {
+                file.delete();
+            }
+
+            return fileLog;
         } else {
             return null;
         }

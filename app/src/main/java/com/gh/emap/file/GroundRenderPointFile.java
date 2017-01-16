@@ -4,7 +4,7 @@ import android.os.Environment;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.manager.LogManager;
-import com.gh.emap.model.ShapPoint;
+import com.gh.emap.model.GroundRenderPoint;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -17,31 +17,30 @@ import java.io.InputStreamReader;
  * Created by GuHeng on 2016/11/9.
  * 解析数据文件
  */
-public class ShapPointFile {
+public class GroundRenderPointFile {
     private MainActivity mMainActivity;
-    private ShapPoint mShapPoint;
+    private GroundRenderPoint mGroundRenderPoint;
 
-    public ShapPointFile(MainActivity mainActivity) {
+    public GroundRenderPointFile(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mShapPoint = new ShapPoint();
+        mGroundRenderPoint = new GroundRenderPoint();
 
         loadFile();
     }
 
     // 获取地物编辑-画点数据
-    public ShapPoint getShapPoint() {
-        return mShapPoint;
+    public GroundRenderPoint getShapPoint() {
+        return mGroundRenderPoint;
     }
 
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
                     mMainActivity.getApplationName() + File.separator +
-                    "Data" + File.separator +
-                    "ShapPoint.dat";
+                    "GroundRenderPoint.config";
         } else {
             return null;
         }
@@ -64,7 +63,7 @@ public class ShapPointFile {
                     String[] values = line.split(",");
 
                     if(values != null) {
-                        mShapPoint.put(values[2], values[0] + values[1]);
+                        mGroundRenderPoint.put(values[2], values[0] + values[1]);
                     }
                 }
 
@@ -73,8 +72,8 @@ public class ShapPointFile {
                 inputStream.close();
                 fileInputStream.close();
 
-                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
-                        mShapPoint.toString());
+//                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+//                        mGroundRenderPoint.toString());
             } catch (Exception e) {
                 mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
                         e.getStackTrace().toString());

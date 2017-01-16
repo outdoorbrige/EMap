@@ -23,10 +23,13 @@ public class MainActivity extends AppCompatActivity {
         mMainManager.init();
 
         mMainManager.getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
-                String.format("像素(长*宽):%d * %d, 像素密度:%f, 设备独立像素(长*宽):%d * %d",
+                String.format("屏幕 宽:%d, 高:%d; 密度 density:%f, densityDpi:%d; 精确密度 xdpi:%f, ydpi:%f; 物理 宽:%d, 高%d;",
                         getResources().getDisplayMetrics().widthPixels,
                         getResources().getDisplayMetrics().heightPixels,
                         getResources().getDisplayMetrics().density,
+                        getResources().getDisplayMetrics().densityDpi,
+                        getResources().getDisplayMetrics().xdpi,
+                        getResources().getDisplayMetrics().ydpi,
                         (int)(Math.round(getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().density)),
                         (int)(Math.round(getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density))));
     }
@@ -85,16 +88,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent motionEvent) {
         if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            View view = findViewById(R.id.bottom_shap_point);
-            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomShapPointLayout布局
-                getMainManager().getLayoutManager().getBottomShapPointLayout().hide();
+            View view = findViewById(R.id.bottom_ground_render_point);
+            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderPointLayout布局
+                getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().hide();
                 getMainManager().getLayoutManager().getMenuLayout().show();
                 getMainManager().getLayoutManager().getOperationLayout().show();
             }
 
-            view = findViewById(R.id.bottom_shap_line);
-            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomShapLineLayout布局
-                getMainManager().getLayoutManager().getBottomShapLineLayout().hide();
+            view = findViewById(R.id.bottom_ground_render__line);
+            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderLineLayout布局
+                getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().hide();
                 getMainManager().getLayoutManager().getMenuLayout().show();
                 getMainManager().getLayoutManager().getOperationLayout().show();
             }
