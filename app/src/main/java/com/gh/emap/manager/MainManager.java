@@ -56,10 +56,11 @@ public class MainManager {
     }
 
     public void unInit() {
-        getLayoutManager().getUserLoginLayout().dimiss();
-        getLayoutManager().getUserRegisterLayout().dimiss();
-        getLayoutManager().getUserLogoutLayout().dimiss();
-        getMyLocationManager().removeUpdates();
+        mLayoutManager.getUserLoginLayout().dimiss();
+        mLayoutManager.getUserRegisterLayout().dimiss();
+        mLayoutManager.getUserLogoutLayout().dimiss();
+        mMyLocationManager.removeUpdates();
+        mLogManager.close();
     }
 
     public LogManager getLogManager() {

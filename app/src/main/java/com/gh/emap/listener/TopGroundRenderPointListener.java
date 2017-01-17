@@ -104,7 +104,7 @@ public class TopGroundRenderPointListener implements View.OnClickListener {
 
         String path = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointPath();
         if(path == null || path.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError, String.format("用户未登录!"));
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError, String.format("用户未登录!"));
             return;
         } else {
             // 保存点信息到文件

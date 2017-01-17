@@ -35,7 +35,7 @@ public class MapManager {
         mMinZoomLevel = mMapView.getMinZoomLevel();
         mCurrentZoomLevel = mMapView.getZoomLevel();
 
-        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("ZOOM:%d, MIN:%d, MAX:%d", mCurrentZoomLevel, mMinZoomLevel, mMaxZoomLevel));
     }
 
@@ -66,7 +66,7 @@ public class MapManager {
 //        // 设置覆盖物监听器
 //        mMapView.setOverlayListener(mMainActivity.getMainManager().getListenerManager().getMyOverlayListener());
 
-//        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+//        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
 //                String.format("地图缓存路径" + mMapView.getCachePath() + " " + "离线地图路径:" + mTOfflineMapManager.getMapPath()));
     }
 

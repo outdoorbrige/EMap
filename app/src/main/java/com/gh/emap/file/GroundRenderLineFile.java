@@ -73,14 +73,14 @@ public class GroundRenderLineFile {
                 inputStream.close();
                 fileInputStream.close();
 
-//                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+//                mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
 //                        mGroundRenderLine.toString());
             } catch (Exception e) {
-                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+                mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                         e.getStackTrace().toString());
             }
         } else {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     String.format("数据文件%s不存在", shapLineFile));
         }
     }

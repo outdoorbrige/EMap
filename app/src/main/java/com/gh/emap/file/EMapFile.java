@@ -102,14 +102,14 @@ public class EMapFile {
                 inputStream.close();
                 fileInputStream.close();
 
-                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+                mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                         mEMap.toString());
             }catch (Exception e) {
-                mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+                mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                         e.getStackTrace().toString());
             }
         } else {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     String.format("配置文件%s不存在", configFile));
         }
     }

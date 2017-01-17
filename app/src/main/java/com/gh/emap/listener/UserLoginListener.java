@@ -73,7 +73,7 @@ public class UserLoginListener implements View.OnClickListener {
         mUserInfo.setLoginDate(mMainActivity.getCurrentDate());
         mUserInfo.setOnline(1);
 
-        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("用户登录：%s", mUserInfo.getUserName()));
 
         mHandler = new Handler() {
@@ -99,7 +99,7 @@ public class UserLoginListener implements View.OnClickListener {
                     } else {
                         // 登录失败
                         mMainActivity.getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+                        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                                 mReturnUserInfo.getErrorString());
                     }
                 }

@@ -130,7 +130,7 @@ public class MenuLayout {
         // 动画半径(dp)
         int animalRadius = radius + viewWidth;
 
-        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("宽:%d, 高:%d, 对角线:%d, 数量:%d, 弧度:%f, 近似半径:%d, 动画半径:%d",
                         viewWidth, viewHeight, viewDiagonal, mArrayListButtons.size(), radian, radius, animalRadius));
 

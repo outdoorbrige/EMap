@@ -67,7 +67,7 @@ public class FileManager {
             fileOutputStream.flush();
             fileOutputStream.close();
         } catch (Exception e) {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     e.getStackTrace().toString());
         }
     }
@@ -84,7 +84,7 @@ public class FileManager {
             objectInputStream.close();
             fileInputStream.close();
         } catch (Exception e) {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     e.getStackTrace().toString());
         }
 

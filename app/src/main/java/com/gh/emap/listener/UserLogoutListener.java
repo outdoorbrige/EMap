@@ -48,7 +48,7 @@ public class UserLogoutListener implements View.OnClickListener {
         mUserInfo.setLogoutDate(mMainActivity.getCurrentDate());
         mUserInfo.setOnline(0);
 
-        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("用户注销：%s", mUserInfo.getUserName()));
 
         mHandler = new Handler() {
@@ -71,7 +71,7 @@ public class UserLogoutListener implements View.OnClickListener {
                         // 注销失败
                         mMainActivity.getMainManager().getLogManager().show("注销失败!");
                         mMainActivity.getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+                        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                                 mReturnUserInfo.getErrorString());
                     }
                 }

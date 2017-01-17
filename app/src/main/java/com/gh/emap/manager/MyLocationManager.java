@@ -33,7 +33,7 @@ public class MyLocationManager {
         // 获取当前可用的位置控制器
         List<String> providerList = mLocationManager.getProviders(true);
 
-        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("位置控制器列表：%s", providerList.toString()));
 
         if (providerList.contains(LocationManager.GPS_PROVIDER)) {
@@ -41,7 +41,7 @@ public class MyLocationManager {
         } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
             mProvider = LocationManager.NETWORK_PROVIDER;
         } else {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     String.format("位置控制器无效！"));
             return;
         }

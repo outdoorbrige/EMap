@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         mMainManager = new MainManager(this);
         mMainManager.init();
 
-        mMainManager.getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainManager.getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("屏幕 宽:%d, 高:%d; 密度 density:%f, densityDpi:%d; 精确密度 xdpi:%f, ydpi:%f; 物理 宽:%d, 高%d;",
                         getResources().getDisplayMetrics().widthPixels,
                         getResources().getDisplayMetrics().heightPixels,

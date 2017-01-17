@@ -5,14 +5,12 @@ import android.widget.Toast;
 
 import com.gh.emap.MainActivity;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
+import java.io.BufferedWriter;
 import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-import de.mindpipe.android.logging.log4j.LogConfigurator;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * Created by GuHeng on 2016/11/9.
@@ -20,83 +18,26 @@ import de.mindpipe.android.logging.log4j.LogConfigurator;
  */
 public class LogManager {
     private MainActivity mMainActivity;
-    private Logger mLogger;
+    private FileWriter mFileWriter;
+    private Writer mWriter;
+    private int mBufferSize = 2048;
+    private Lock mLock;
 
     public LogManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        final LogConfigurator logConfigurator = new LogConfigurator();
-
-        //设置文件名
-        logConfigurator.setFileName(getFile());
-
-        //设置root日志输出级别 默认为DEBUG
-        logConfigurator.setRootLevel(Level.DEBUG);
-
-        // 设置日志输出级别
-        logConfigurator.setLevel("org.apache", Level.INFO);
-
-        //设置 输出到日志文件的文字格式 默认 %d %-5p [%c{2}]-[%L] %m%n
-        logConfigurator.setFilePattern("[%d{dd年MM月yyyy日HH时mm分ss秒}] [%p] %m%n");
-
-        //设置输出到控制台的文字格式 默认%m%n
-        logConfigurator.setLogCatPattern("%m%n");
-
-        //设置总文件大小
-        logConfigurator.setMaxFileSize(1024 * 1024 * 5);
-
-        //设置最大产生的文件个数
-        logConfigurator.setMaxBackupSize(1);
-
-        //设置所有消息是否被立刻输出 默认为true,false 不输出
-        logConfigurator.setImmediateFlush(true);
-
-        //是否本地控制台打印输出 默认为true ，false不输出
-        logConfigurator.setUseLogCatAppender(true);
-
-        //设置是否启用文件附加,默认为true。false为覆盖文件
-        logConfigurator.setUseFileAppender(true);
-
-        //设置是否重置配置文件，默认为true
-        logConfigurator.setResetConfiguration(true);
-
-        //是否显示内部初始化日志,默认为false
-        logConfigurator.setInternalDebugging(false);
-
-        logConfigurator.configure();
-    }
-
-    // 写日志
-    public void log(Class clazz, LogLevel logLevel, String message) {
-        mLogger = Logger.getLogger(clazz);
-
-        String msg = "";
-
-        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
-        if(stackTraceElement != null) {
-            msg = "[" + stackTraceElement.getFileName() + "]" +
-                    "[" + stackTraceElement.getMethodName() + "]" +
-                    "[" + stackTraceElement.getLineNumber() + "]";
-        }
-        msg += message;
-
-        if(logLevel == LogLevel.mVerBose) {
-
-        } else if(logLevel == LogLevel.mDebug) {
-            mLogger.debug(msg);
-        } else if(logLevel == LogLevel.mInfo) {
-            mLogger.info(msg);
-        } else if(logLevel == LogLevel.mWarn) {
-            mLogger.warn(msg);
-        } else if(logLevel == LogLevel.mError) {
-            mLogger.error(msg);
-        } else if(logLevel == LogLevel.mAssert) {
-
-        } else {
+        try {
+            mFileWriter = new FileWriter(getFileName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
 
         }
+
+        mWriter = new BufferedWriter(mFileWriter, mBufferSize);
+        mLock = new ReentrantLock();
     }
 
     // 显示消息
@@ -104,7 +45,64 @@ public class LogManager {
         Toast.makeText(mMainActivity, message, Toast.LENGTH_SHORT).show();
     }
 
-    private String getFile() {
+    // 写日志
+    public void log(LogLevel logLevel, String msg) {
+        String message = formatMessage(logLevel, msg);
+
+        try {
+            mLock.lock();
+            mWriter.write(message);
+            mLock.unlock();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
+    protected String getLevel(LogLevel logLevel) {
+        if(logLevel == LogLevel.mVerBose) {
+            return "VERBOSE";
+        } else if(logLevel == LogLevel.mDebug) {
+            return "DEBUG";
+        } else if(logLevel == LogLevel.mInfo) {
+            return "INFO";
+        } else if(logLevel == LogLevel.mWarn) {
+            return "WARN";
+        } else if(logLevel == LogLevel.mError) {
+            return "ERROR";
+        } else if(logLevel == LogLevel.mAssert) {
+            return "ASSERT";
+        } else {
+            return "UNKNOWN";
+        }
+    }
+
+    protected  String formatMessage(LogLevel logLevel, String msg) {
+        String stackTrace = "";
+        StackTraceElement stackTraceElement = Thread.currentThread().getStackTrace()[3];
+        if(stackTraceElement != null) {
+            stackTrace = "[" + stackTraceElement.getFileName() + "]" + "[" + stackTraceElement.getMethodName() + "]" + "[" + stackTraceElement.getLineNumber() + "]";
+        }
+
+        String message = mMainActivity.getCurrentDate() + " " + getLevel(logLevel) + " " + stackTrace + " " + msg + "\n";
+
+        return message;
+    }
+
+    // 关闭日志
+    public void close() {
+        try {
+            mWriter.flush();
+            mWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
+    protected String getFileName() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             String fileLog = Environment.getExternalStorageDirectory().toString() + File.separator +
                     mMainActivity.getApplationName() + File.separator +
@@ -121,6 +119,7 @@ public class LogManager {
         }
     }
 
+    // 日志等级
     public enum LogLevel {
         mVerBose,
         mDebug,

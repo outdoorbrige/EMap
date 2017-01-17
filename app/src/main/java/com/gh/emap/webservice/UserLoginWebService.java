@@ -83,7 +83,7 @@ public class UserLoginWebService implements Runnable {
             success = false;
             userInfo.setSuccess(false);
             userInfo.setErrorString(e.toString());
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     e.getStackTrace().toString());
         } finally {
             return success;
@@ -115,7 +115,7 @@ public class UserLoginWebService implements Runnable {
             success = false;
             String error = String.format("解析服务返回结果失败!");
             userInfo.setErrorString(error);
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     error);
         }
 
@@ -132,7 +132,7 @@ public class UserLoginWebService implements Runnable {
         }else if("1.2".equals(soapVersion)) {
             ver = SoapEnvelope.VER12;
         } else {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     String.format("SOAP协议版本号:%s无效！", soapVersion));
         }
 
@@ -149,7 +149,7 @@ public class UserLoginWebService implements Runnable {
                 value = temp_value;
             }
         } else {
-            mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                     String.format("属性:%s不存在！", key));
         }
 

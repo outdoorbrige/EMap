@@ -79,7 +79,7 @@ public class UserRegisterListener implements View.OnClickListener {
             mUserInfo.setNickName(mUserInfo.getUserName());
         }
 
-        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mInfo,
+        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("用户注册：%s", mUserInfo.getUserName()));
 
         mHandler = new Handler() {
@@ -94,7 +94,7 @@ public class UserRegisterListener implements View.OnClickListener {
                     } else {
                         // 注册失败
                         mMainActivity.getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
-                        mMainActivity.getMainManager().getLogManager().log(getClass(), LogManager.LogLevel.mError,
+                        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                                 mReturnUserInfo.getErrorString());
                     }
                 }
