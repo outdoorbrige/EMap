@@ -9,6 +9,7 @@ import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.MyOverlayListener;
 import com.gh.emap.listener.OperationListener;
 import com.gh.emap.listener.TopGroundRenderLineListener;
+import com.gh.emap.listener.TopGroundRenderPlaneListener;
 import com.gh.emap.listener.TopRenderListener;
 import com.gh.emap.listener.GroundRenderListener;
 import com.gh.emap.listener.TopGroundRenderPointListener;
@@ -37,6 +38,7 @@ public class ListenerManager {
     private BottomGroundRenderPointListener mBottomGroundRenderPointListener;
     private TopGroundRenderLineListener mTopGroundRenderLineListener;
     private BottomGroundRenderLineListener mBottomGroundRenderLineListener;
+    private TopGroundRenderPlaneListener mTopGroundRenderPlaneListener;
     private MyOverlayListener mMyOverlayListener;
 
 
@@ -59,6 +61,7 @@ public class ListenerManager {
         mBottomGroundRenderPointListener = new BottomGroundRenderPointListener(mMainActivity);
         mTopGroundRenderLineListener = new TopGroundRenderLineListener(mMainActivity);
         mBottomGroundRenderLineListener = new BottomGroundRenderLineListener(mMainActivity);
+        mTopGroundRenderPlaneListener = new TopGroundRenderPlaneListener(mMainActivity);
         mMyOverlayListener = new MyOverlayListener(mMainActivity);
     }
 
@@ -116,6 +119,10 @@ public class ListenerManager {
 
     public BottomGroundRenderLineListener getBottomGroundRenderLineListener() {
         return mBottomGroundRenderLineListener;
+    }
+
+    public TopGroundRenderPlaneListener getTopGroundRenderPlaneListener() {
+        return mTopGroundRenderPlaneListener;
     }
 
     public MyOverlayListener getMyOverlayListener() {

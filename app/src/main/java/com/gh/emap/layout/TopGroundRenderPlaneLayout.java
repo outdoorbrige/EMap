@@ -11,42 +11,42 @@ import com.gh.emap.R;
 import java.io.File;
 
 /**
- * Created by GuHeng on 2017/1/9.
- * 地物绘制-画线 顶部布局
+ * Created by GuHeng on 2017/1/17.
+ * 地物绘制-画面 顶部布局
  */
 
-public class TopGroundRenderLineLayout {
+public class TopGroundRenderPlaneLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
-    private TextView mLineType; // 画线的类型
-    private EditText mLineName; // 画线的名称
-    private Button mLineCancel; // 取消
-    private Button mLineSave; // 保存
+    private TextView mPlaneType; // 画面的类型
+    private EditText mPlaneName; // 画面的名称
+    private Button mPlaneCancel; // 取消
+    private Button mPlaneSave; // 保存
 
-    public TopGroundRenderLineLayout(MainActivity mainActivity) {
+    public TopGroundRenderPlaneLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.top_ground_render_line);
-        mLineType = (TextView)mMainActivity.findViewById(R.id.line_type);
-        mLineName = (EditText)mMainActivity.findViewById(R.id.line_name);
-        mLineCancel = (Button)mMainActivity.findViewById(R.id.line_cancel);
-        mLineSave = (Button)mMainActivity.findViewById(R.id.line_save);
+        mLayout = mMainActivity.findViewById(R.id.top_ground_render_plane);
+        mPlaneType = (TextView)mMainActivity.findViewById(R.id.plane_type);
+        mPlaneName = (EditText)mMainActivity.findViewById(R.id.plane_name);
+        mPlaneCancel = (Button)mMainActivity.findViewById(R.id.plane_cancel);
+        mPlaneSave = (Button)mMainActivity.findViewById(R.id.plane_save);
 
-        mLineType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
-        mLineName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
-        mLineCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
-        mLineSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
+        mPlaneType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPlaneListener());
+        mPlaneName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPlaneListener());
+        mPlaneCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPlaneListener());
+        mPlaneSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPlaneListener());
     }
 
     // 获取地物绘制-画点工作目录
-    public String getGroundRenderLinePath() {
+    public String getGroundRenderPlanePath() {
         String path = null;
 
         String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().getGroundRenderPath();
         if(fatherPath != null) {
-            path = fatherPath + "Lines" + File.separator;
+            path = fatherPath + "Planes" + File.separator;
 
             File dir = new File(path);
             if(!dir.exists()) {
@@ -58,8 +58,8 @@ public class TopGroundRenderLineLayout {
     }
 
     // 获取地物绘制-画点工作目录
-    public String getGroundRenderLineFileSuffix() {
-        return ".line";
+    public String getGroundRenderPlaneFileSuffix() {
+        return ".plane";
     }
 
     // 显示布局
@@ -80,7 +80,7 @@ public class TopGroundRenderLineLayout {
 
     // 清理上次数据
     private void clear() {
-        mLineType.setText("");
-        mLineName.setText("");
+        mPlaneType.setText("");
+        mPlaneName.setText("");
     }
 }

@@ -71,12 +71,9 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
-        LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
-        lineOverlay.getPoints().clear();
-
         // 删除画线覆盖物
+        LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
         mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(lineOverlay);
-
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
@@ -110,29 +107,27 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
         if(path == null || path.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError, String.format("用户未登录!"));
             return;
-        } else {
-            // 保存线信息到文件
-
-            LineObject lineObject = new LineObject();
-            lineObject.setType(lineType);
-            lineObject.setName(lineName);
-            lineObject.addGeoPoints(points);
-
-            RWLineFile.write(path + File.separator + lineObject.getName() +
-                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLineFileSuffix(), lineObject);
-
-            mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
-
-            PolylineOverlay polylineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(
-                    mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
-
-            mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(polylineOverlay);
-
-            LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
-            lineOverlay.getPoints().clear();
-
-            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
+
+        // 保存线信息到文件
+
+        LineObject lineObject = new LineObject();
+        lineObject.setType(lineType);
+        lineObject.setName(lineName);
+        lineObject.addGeoPoints(points);
+
+        RWLineFile.write(path + File.separator + lineObject.getName() +
+                mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLineFileSuffix(), lineObject);
+
+        mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
+
+        PolylineOverlay polylineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
+
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(polylineOverlay);
+
+        mMainActivity.getMainManager().getOverlayManager().getLineOverlay().getPoints().clear();
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().hide();

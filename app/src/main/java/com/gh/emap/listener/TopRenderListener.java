@@ -55,5 +55,11 @@ public class TopRenderListener implements View.OnClickListener {
         mMainActivity.getMainManager().getLayoutManager().getTopNormalLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().hide();
+
+        // 删除覆盖物
+        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(mMainActivity.getMainManager().getOverlayManager().getPointOverlay());
+        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(mMainActivity.getMainManager().getOverlayManager().getLineOverlay());
+        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay());
+        mMainActivity.getMainManager().getMapManager().getMapView().invalidate();
     }
 }

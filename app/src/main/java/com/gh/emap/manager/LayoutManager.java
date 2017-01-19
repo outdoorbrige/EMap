@@ -6,6 +6,7 @@ import com.gh.emap.layout.BottomGroundRenderPointLayout;
 import com.gh.emap.layout.LayerLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
+import com.gh.emap.layout.TopGroundRenderPlaneLayout;
 import com.gh.emap.layout.TopRenderLayout;
 import com.gh.emap.layout.TopNormalLayout;
 import com.gh.emap.layout.TopGroundRenderLineLayout;
@@ -29,6 +30,7 @@ public class LayoutManager {
     private BottomGroundRenderPointLayout mBottomGroundRenderPointLayout;
     private TopGroundRenderLineLayout mTopGroundRenderLineLayout;
     private BottomGroundRenderLineLayout mBottomGroundRenderLineLayout;
+    private TopGroundRenderPlaneLayout mTopGroundRenderPlaneLayout;
     private UserLoginLayout mUserLoginLayout;
     private UserRegisterLayout mUserRegisterLayout;
     private UserLogoutLayout mUserLogoutLayout;
@@ -64,6 +66,9 @@ public class LayoutManager {
 
         mBottomGroundRenderLineLayout = new BottomGroundRenderLineLayout(mMainActivity);
         mBottomGroundRenderLineLayout.init();
+
+        mTopGroundRenderPlaneLayout = new TopGroundRenderPlaneLayout(mMainActivity);
+        mTopGroundRenderPlaneLayout.init();
 
         mUserLoginLayout = new UserLoginLayout(mMainActivity);
         mUserLoginLayout.init();
@@ -109,6 +114,10 @@ public class LayoutManager {
 
     public BottomGroundRenderLineLayout getBottomGroundRenderLineLayout() {
         return mBottomGroundRenderLineLayout;
+    }
+
+    public TopGroundRenderPlaneLayout getTopGroundRenderPlaneLayout() {
+        return mTopGroundRenderPlaneLayout;
     }
 
     public UserLoginLayout getUserLoginLayout() {

@@ -51,12 +51,11 @@ public class PointOverlay extends Overlay {
     // 动画叠加绘制调用
     @Override
     public void draw(GL10 gl10, MapView mapView, boolean shadow) {
-        if(shadow) {
-            return;
+        if(!shadow) {
+            if(mGeoPoint != null && mDrawableOption != null && mDrawable != null) {
+                MapViewRender mapViewRender = mapView.getMapViewRender();
+                mapViewRender.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPoint);
+            }
         }
-
-        // 绘制点击位置
-        MapViewRender mapViewRender = mapView.getMapViewRender();
-        mapViewRender.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPoint);
     }
 }

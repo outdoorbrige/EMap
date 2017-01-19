@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2017/1/12.
- * 地物编辑-画线-覆盖物集合
+ * 地物绘制-画线-覆盖物集合
  */
 
 public class LineOverlayItems {
@@ -51,6 +51,7 @@ public class LineOverlayItems {
         lineObject.setStrokeWidth(o.getOption().getStrokeWidth());
         lineObject.setStrokeColor(o.getOption().getStrokeColor());
         lineObject.setDottedLine(o.getOption().isDottedLine());
+        lineObject.setIntervals(o.getOption().getIntervals());
         lineObject.addGeoPoints(o.getPoints());
 
         return lineObject;
@@ -165,37 +166,4 @@ public class LineOverlayItems {
     public ArrayList<LineObject> getLineObjects() {
         return mLineObjects;
     }
-//
-//    public ArrayList<PolylineOverlay> getPolylineOverlayItems() {
-//        return mPolylineOverlays;
-//    }
-//
-//    public void addLineObject(LineObject lineObject) {
-//        if(lineObject == null) {
-//            return;
-//        }
-//
-//        LineOption lineOption = new LineOption();
-//        lineOption.setStrokeWidth(lineObject.getStrokeWidth());
-//        lineOption.setStrokeColor(lineObject.getStrokeColor());
-//        lineOption.setDottedLine(lineObject.isDottedLine());
-//        lineOption.setIntervals(lineObject.getIntervals());
-//
-//        PolylineOverlay polylineOverlay = new PolylineOverlay();
-//        polylineOverlay.setOption(lineOption);
-//        polylineOverlay.setPoints(lineObject.getGeoPoints());
-//
-//        mLineObjects.add(lineObject);
-//        mPolylineOverlays.add(polylineOverlay);
-//    }
-//
-//    public void addLineObjects(ArrayList<LineObject> lineObjects) {
-//        if(lineObjects == null) {
-//            return;
-//        }
-//
-//        for (int i = 0; i < lineObjects.size(); i ++) {
-//            addLineObject(lineObjects.get(i));
-//        }
-//    }
 }

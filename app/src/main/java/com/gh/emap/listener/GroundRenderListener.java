@@ -7,10 +7,13 @@ import android.widget.EditText;
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.file.RWLineFile;
+import com.gh.emap.file.RWPlaneFile;
 import com.gh.emap.file.RWPointFile;
 import com.gh.emap.file.OperateFolder;
 import com.gh.emap.overlay.LineObject;
 import com.gh.emap.overlay.LineOverlay;
+import com.gh.emap.overlay.PlaneObject;
+import com.gh.emap.overlay.PlaneOverlay;
 import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
 import com.gh.emap.overlay.PointOverlayItem;
@@ -133,7 +136,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             }
         }
 
-        // 设置默认点的名称
+        // 设置默认线的名称
         EditText defaultLineName = (EditText)(mMainActivity.findViewById(R.id.line_name));
         defaultLineName.setText("线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
 
@@ -146,6 +149,40 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
 
     // 画面
     private void onItemClickedCircle(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().show();
+//        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneLayout().clear();
 
+        // 防止重复加载文件数据
+        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() == 0) {
+            // 加载文件数据
+            ArrayList<File> files = new ArrayList<>();
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getGroundRenderPlanePath(),
+                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getGroundRenderPlaneFileSuffix(), files);
+
+            // 解析面文件
+            ArrayList<PlaneObject> planeObjects = RWPlaneFile.read(files);
+            if (planeObjects != null) {
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().clear();
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().addAll(planeObjects);
+
+                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size(); i ++) {
+                    // 添加已保存的覆盖物
+                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
+                            mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPolygonOverlay(i));
+                }
+
+                mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+            }
+        }
+
+        // 设置默认面的名称
+        EditText defaultPlaneName = (EditText)(mMainActivity.findViewById(R.id.plane_name));
+        defaultPlaneName.setText("面" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() + 1));
+
+        // 添加当前位置覆盖物
+        PlaneOverlay overlay = mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay();
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(overlay);
+
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 }

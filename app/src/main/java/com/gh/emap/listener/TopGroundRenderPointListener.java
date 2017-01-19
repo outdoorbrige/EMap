@@ -106,24 +106,24 @@ public class TopGroundRenderPointListener implements View.OnClickListener {
         if(path == null || path.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError, String.format("用户未登录!"));
             return;
-        } else {
-            // 保存点信息到文件
-
-            PointOverlayItem overlay = new PointOverlayItem(mMainActivity, "", "", point.getLatitudeE6(), point.getLongitudeE6());
-            overlay.getPointObject().setType(pointType);
-            overlay.getPointObject().setName(pointName);
-
-            mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(overlay);
-            mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
-
-            RWPointFile.write(path + File.separator + overlay.getPointObject().getName() +
-                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(),
-                    overlay.getPointObject());
-
-            mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
-                    mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
-            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
+
+        // 保存点信息到文件
+
+        PointOverlayItem overlay = new PointOverlayItem(mMainActivity, "", "", point.getLatitudeE6(), point.getLongitudeE6());
+        overlay.getPointObject().setType(pointType);
+        overlay.getPointObject().setName(pointName);
+
+        mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(overlay);
+        mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
+
+        RWPointFile.write(path + File.separator + overlay.getPointObject().getName() +
+                mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(),
+                overlay.getPointObject());
+
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().hide();

@@ -5,36 +5,37 @@ import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
 import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.renderoption.LineOption;
+import com.tianditu.android.maps.renderoption.PlaneOption;
 
 import java.util.ArrayList;
 
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by GuHeng on 2017/1/10.
- * 画线覆盖物
+ * Created by GuHeng on 2017/1/17.
+ * 画面覆盖物
  */
 
-public class LineOverlay extends Overlay {
-    private MainActivity mMainActivity;
-    private LineOption mLineOption;
+public class PlaneOverlay extends Overlay {
+    public MainActivity mMainActivity;
+    public PlaneOption mPlaneOption;
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
-    public LineOverlay(MainActivity mainActivity) {
+    public PlaneOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
-        mLineOption = new LineOption();
-        mLineOption.setStrokeWidth(5);
-        mLineOption.setStrokeColor(0xAA000000);
-        mLineOption.setDottedLine(false);
+        mPlaneOption = new PlaneOption();
+        mPlaneOption.setStrokeWidth(5);
+        mPlaneOption.setStrokeColor(0xAA000000);
+        mPlaneOption.setDottedLine(false);
+        mPlaneOption.setFillColor(0x7F696969);
     }
 
-    public void setLineOption(LineOption lineOption) {
-        mLineOption = lineOption;
+    public void setPlaneOption(PlaneOption planeOption) {
+        mPlaneOption = planeOption;
     }
 
-    public LineOption getLineOption() {
-        return mLineOption;
+    public PlaneOption getPlaneOption() {
+        return mPlaneOption;
     }
 
     public void setPoints(ArrayList<GeoPoint> points) {
@@ -64,10 +65,11 @@ public class LineOverlay extends Overlay {
     // 动画叠加绘制调用
     @Override
     public void draw(GL10 gl10, MapView mapView, boolean shadow) {
+        super.draw(gl10, mapView, shadow);
         if(!shadow) {
-            if(mGeoPointArrayList != null && mLineOption != null) {
+            if(mGeoPointArrayList != null && mGeoPointArrayList.size() >= 2 && !mGeoPointArrayList.contains((Object)null)) {
                 MapViewRender render = mapView.getMapViewRender();
-                render.drawPolyLine(gl10, mLineOption, mGeoPointArrayList);
+                render.drawPolygon(gl10, mPlaneOption, mGeoPointArrayList);
             }
         }
     }
