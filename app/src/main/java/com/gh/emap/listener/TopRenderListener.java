@@ -38,7 +38,15 @@ public class TopRenderListener implements View.OnClickListener {
 
     // 地物绘制
     private void onClickedGroundRender(View view) {
-        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().showShapPopupWindow(view);
+
+        // 如果已经选择过选择并且没有操作完成，就禁止菜单弹出
+        if(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getVisibility() == View.VISIBLE ||
+                mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getVisibility() == View.VISIBLE ||
+                mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getVisibility() == View.VISIBLE) {
+            return;
+        }
+
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().popupGroundRenderMenu(view);
     }
 
     // 线路绘制
@@ -47,7 +55,7 @@ public class TopRenderListener implements View.OnClickListener {
 
     // 测绘
     private void onClickedDraw(View view) {
-
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().popupDrawMenu(view);
     }
 
     // 退出绘制

@@ -1,7 +1,6 @@
 package com.gh.emap.overlay;
 
 import com.gh.emap.MainActivity;
-import com.tianditu.android.maps.overlay.PolygonOverlay;
 import com.tianditu.android.maps.renderoption.PlaneOption;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 public class PlaneOverlayItems {
     private MainActivity mMainActivity;
     private ArrayList<PlaneObject> mPlaneObjects = new ArrayList<>();
-    private ArrayList<PolygonOverlay> mPolygonOverlays = new ArrayList<>();
+    private ArrayList<PlaneOverlay> mPlaneOverlays = new ArrayList<>();
 
     public PlaneOverlayItems(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -23,7 +22,7 @@ public class PlaneOverlayItems {
 
     }
 
-    public PolygonOverlay PlaneObjectToPolygonOverlay(PlaneObject o) {
+    public PlaneOverlay PlaneObjectToPlaneOverlay(PlaneObject o) {
         if(o == null) {
             return null;
         }
@@ -35,14 +34,14 @@ public class PlaneOverlayItems {
         planeOption.setIntervals(o.getIntervals());
         planeOption.setFillColor(o.getFillColor());
 
-        PolygonOverlay polygonOverlay = new PolygonOverlay();
-        polygonOverlay.setOption(planeOption);
-        polygonOverlay.setPoints(o.getGeoPoints());
+        PlaneOverlay planeOverlay = new PlaneOverlay(mMainActivity);
+        planeOverlay.setOption(planeOption);
+        planeOverlay.setPoints(o.getGeoPoints());
 
-        return polygonOverlay;
+        return planeOverlay;
     }
 
-    public PlaneObject PolygonOverlayToPlaneObject(PolygonOverlay o) {
+    public PlaneObject PlaneOverlayToPlaneObject(PlaneOverlay o) {
         if(o == null) {
             return null;
         }
@@ -58,28 +57,28 @@ public class PlaneOverlayItems {
         return planeObject;
     }
 
-    public ArrayList<PolygonOverlay> PlaneObjectsToPolygonOverlays(ArrayList<PlaneObject> objects) {
+    public ArrayList<PlaneOverlay> PlaneObjectsToPlaneOverlays(ArrayList<PlaneObject> objects) {
         if(objects == null) {
             return null;
         }
 
-        ArrayList<PolygonOverlay> os = new ArrayList<>();
+        ArrayList<PlaneOverlay> os = new ArrayList<>();
         for(int i = 0; i < objects.size(); i ++) {
-            PolygonOverlay o = PlaneObjectToPolygonOverlay(objects.get(i));
+            PlaneOverlay o = PlaneObjectToPlaneOverlay(objects.get(i));
             os.add(o);
         }
 
         return os;
     }
 
-    public ArrayList<PlaneObject> PolygonOverlaysToPlaneObjects(ArrayList<PolygonOverlay> objects) {
+    public ArrayList<PlaneObject> PlaneOverlaysToPlaneObjects(ArrayList<PlaneOverlay> objects) {
         if(objects == null) {
             return null;
         }
 
         ArrayList<PlaneObject> os = new ArrayList<>();
         for(int i = 0; i < objects.size(); i ++) {
-            PlaneObject o = PolygonOverlayToPlaneObject(objects.get(i));
+            PlaneObject o = PlaneOverlayToPlaneObject(objects.get(i));
             os.add(o);
         }
 
@@ -98,69 +97,69 @@ public class PlaneOverlayItems {
         return mPlaneObjects.indexOf(o);
     }
 
-    public int indexOf(PolygonOverlay o) {
-        return mPolygonOverlays.indexOf(o);
+    public int indexOf(PlaneOverlay o) {
+        return mPlaneOverlays.indexOf(o);
     }
 
     public int lastIndexOf(PlaneObject o) {
         return mPlaneObjects.lastIndexOf(o);
     }
 
-    public int lastIndexOf(PolygonOverlay o) {
-        return mPolygonOverlays.lastIndexOf(0);
+    public int lastIndexOf(PlaneOverlay o) {
+        return mPlaneOverlays.lastIndexOf(0);
     }
 
     public PlaneObject getPlaneObject(int index) {
         return mPlaneObjects.get(index);
     }
 
-    public PolygonOverlay getPolygonOverlay(int index) {
-        return mPolygonOverlays.get(index);
+    public PlaneOverlay getPlaneOverlay(int index) {
+        return mPlaneOverlays.get(index);
     }
 
     public PlaneObject set(int index, PlaneObject element) {
-        mPolygonOverlays.set(index, PlaneObjectToPolygonOverlay(element));
+        mPlaneOverlays.set(index, PlaneObjectToPlaneOverlay(element));
         return mPlaneObjects.set(index, element);
     }
 
     public boolean add(PlaneObject e) {
-        mPolygonOverlays.add(PlaneObjectToPolygonOverlay(e));
+        mPlaneOverlays.add(PlaneObjectToPlaneOverlay(e));
         return mPlaneObjects.add(e);
     }
 
     public void add(int index, PlaneObject element) {
-        mPolygonOverlays.add(index, PlaneObjectToPolygonOverlay(element));
+        mPlaneOverlays.add(index, PlaneObjectToPlaneOverlay(element));
         mPlaneObjects.add(index, element);
     }
 
     public PlaneObject remove(int index) {
-        mPolygonOverlays.remove(index);
+        mPlaneOverlays.remove(index);
         return mPlaneObjects.remove(index);
     }
 
     public boolean remove(PlaneObject o) {
-        mPolygonOverlays.remove(PlaneObjectToPolygonOverlay(o));
+        mPlaneOverlays.remove(PlaneObjectToPlaneOverlay(o));
         return mPlaneObjects.remove(o);
     }
 
     public void clear() {
-        mPolygonOverlays.clear();
+        mPlaneOverlays.clear();
         mPlaneObjects.clear();
     }
 
     public boolean addAll(ArrayList<PlaneObject> c) {
-        mPolygonOverlays.addAll(PlaneObjectsToPolygonOverlays(c));
+        mPlaneOverlays.addAll(PlaneObjectsToPlaneOverlays(c));
         return mPlaneObjects.addAll(c);
     }
 
     public boolean addAll(int index, ArrayList<PlaneObject> c) {
-        mPolygonOverlays.addAll(index, PlaneObjectsToPolygonOverlays(c));
+        mPlaneOverlays.addAll(index, PlaneObjectsToPlaneOverlays(c));
         return mPlaneObjects.addAll(index, c);
     }
 
 
     protected boolean removeAll(ArrayList<PlaneObject> c) {
-        mPolygonOverlays.removeAll(PlaneObjectsToPolygonOverlays(c));
+        mPlaneOverlays.removeAll(PlaneObjectsToPlaneOverlays(c));
         return mPlaneObjects.removeAll(c);
     }
 

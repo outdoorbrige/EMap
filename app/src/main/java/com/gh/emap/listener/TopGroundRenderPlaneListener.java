@@ -73,6 +73,7 @@ public class TopGroundRenderPlaneListener implements View.OnClickListener {
 
         // 删除画面覆盖物
         PlaneOverlay planeOverlay = mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay();
+        planeOverlay.getPoints().clear();
         mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(planeOverlay);
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
@@ -121,10 +122,10 @@ public class TopGroundRenderPlaneListener implements View.OnClickListener {
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().add(planeObject);
 
-        PolygonOverlay polygonOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPolygonOverlay(
+        PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() - 1);
 
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(polygonOverlay);
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(planeOverlay);
 
         mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay().getPoints().clear();
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();

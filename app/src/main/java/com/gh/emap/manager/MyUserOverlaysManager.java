@@ -27,7 +27,7 @@ public class MyUserOverlaysManager {
     }
 
     public void init() {
-        mPointOverlayItemMarker = ContextCompat.getDrawable(mMainActivity, R.mipmap.added_icon);
+        mPointOverlayItemMarker = ContextCompat.getDrawable(mMainActivity, R.mipmap.point_bg);
         mPointOverlayItems = new PointOverlayItems(mMainActivity, mPointOverlayItemMarker);
         mPointOverlayItems.init();
 

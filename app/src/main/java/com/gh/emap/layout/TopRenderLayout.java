@@ -26,9 +26,13 @@ public class TopRenderLayout {
     private TextView mDrawView; // 测绘
     private TextView mExitRenderView; // 退出绘制
 
-    private String[] mListItems = {"画点", "画线", "画面"};
-    private PopupWindow mGroundRenderPopupWindow; // 弹出地物绘制式菜单
+    private String[] mGroundRenderListItems = {"画点", "画线", "画面"};
+    private PopupWindow mGroundRenderPopupWindow; // 弹出地物绘制菜单
     private int mGroundRenderSelectedIndex; // 当前地物绘制选择的索引
+
+    private String[] mDrawListItems = {"测距", "测面积"};
+    private PopupWindow mDrawPopupWindow; // 弹出测绘菜单
+    private int mDrawSelectedIndex; // 当前测绘选择的索引
 
     public TopRenderLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -47,15 +51,15 @@ public class TopRenderLayout {
         mExitRenderView.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopRenderListener());
     }
 
-    // 显示地物绘制弹出菜单
-    public void showShapPopupWindow(View parentView) {
+    // 弹出地物绘制菜单
+    public void popupGroundRenderMenu(View parentView) {
         if (mGroundRenderPopupWindow == null) {
             View popupLayout = LayoutInflater.from(mMainActivity).inflate(R.layout.ground_render_popup_menu, null);
             MyListView myListView = (MyListView) popupLayout.findViewById(R.id.ground_render_view);
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mListItems);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mGroundRenderListItems);
             myListView.setAdapter(arrayAdapter);
             myListView.setItemsCanFocus(false);
-            myListView.setOnItemClickListener(mMainActivity.getMainManager().getListenerManager().getGroundRenderEditListener());
+            myListView.setOnItemClickListener(mMainActivity.getMainManager().getListenerManager().getGroundRenderListener());
 
             mGroundRenderPopupWindow = new PopupWindow(popupLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             mGroundRenderPopupWindow.setBackgroundDrawable(new ColorDrawable());
@@ -69,8 +73,8 @@ public class TopRenderLayout {
         mGroundRenderPopupWindow.showAsDropDown(parentView);
     }
 
-    // 关闭地物绘制弹出菜单
-    public void closeGroundRenderPopupWindow() {
+    // 关闭地物绘制菜单
+    public void closeGroundRenderMenu() {
         mGroundRenderPopupWindow.dismiss();
     }
 
@@ -101,8 +105,49 @@ public class TopRenderLayout {
         return path;
     }
 
+    // 弹出测绘菜单
+    public void popupDrawMenu(View parentView) {
+        if (mDrawPopupWindow == null) {
+            View popupLayout = LayoutInflater.from(mMainActivity).inflate(R.layout.draw_popup_menu, null);
+            MyListView myListView = (MyListView) popupLayout.findViewById(R.id.draw_view);
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mDrawListItems);
+            myListView.setAdapter(arrayAdapter);
+            myListView.setItemsCanFocus(false);
+            myListView.setOnItemClickListener(mMainActivity.getMainManager().getListenerManager().getDrawListener());
+
+            mDrawPopupWindow = new PopupWindow(popupLayout, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            mDrawPopupWindow.setBackgroundDrawable(new ColorDrawable());
+            mDrawPopupWindow.setOutsideTouchable(true);
+        } else {
+
+        }
+
+        setDrawSelectedIndex(-2);
+
+        mDrawPopupWindow.showAsDropDown(parentView);
+    }
+
+    // 关闭测绘菜单
+    public void closeDrawMenu() {
+        mDrawPopupWindow.dismiss();
+    }
+
+    // 设置当前测绘选择的索引
+    public void setDrawSelectedIndex(int index) {
+        mDrawSelectedIndex = index;
+    }
+
+    // 获取当前测绘选择的索引
+    public int getDrawSelectedIndex() {
+        return mDrawSelectedIndex;
+    }
+
     // 显示布局
     public void show() {
+        if(mLayout.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
         mLayout.setVisibility(View.VISIBLE);
     }
 
@@ -113,6 +158,19 @@ public class TopRenderLayout {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
+
+        if(mLayout.getVisibility() == View.GONE) {
+            return;
+        }
+
         mLayout.setVisibility(View.GONE);
+    }
+
+    // 判断布局的隐藏性
+    public int getVisibility() {
+        // View.VISIBLE    可见
+        // View.INVISIBLE    不可见但是占用布局空间
+        // View.GONE    不可见也不占用布局空搜索间
+        return mLayout.getVisibility();
     }
 }

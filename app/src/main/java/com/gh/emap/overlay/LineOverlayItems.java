@@ -1,7 +1,6 @@
 package com.gh.emap.overlay;
 
 import com.gh.emap.MainActivity;
-import com.tianditu.android.maps.overlay.PolylineOverlay;
 import com.tianditu.android.maps.renderoption.LineOption;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 public class LineOverlayItems {
     private MainActivity mMainActivity;
     private ArrayList<LineObject> mLineObjects = new ArrayList<>();
-    private ArrayList<PolylineOverlay> mPolylineOverlays = new ArrayList<>();
+    private ArrayList<LineOverlay> mLineOverlays = new ArrayList<>();
 
     public LineOverlayItems(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -24,7 +23,7 @@ public class LineOverlayItems {
 
     }
 
-    public PolylineOverlay LineObjectToPolylineOverlay(LineObject o) {
+    public LineOverlay LineObjectToLineOverlay(LineObject o) {
        if(o == null) {
             return null;
         }
@@ -35,14 +34,14 @@ public class LineOverlayItems {
         lineOption.setDottedLine(o.isDottedLine());
         lineOption.setIntervals(o.getIntervals());
 
-        PolylineOverlay polylineOverlay = new PolylineOverlay();
-        polylineOverlay.setOption(lineOption);
-        polylineOverlay.setPoints(o.getGeoPoints());
+        LineOverlay lineOverlay = new LineOverlay(mMainActivity);
+        lineOverlay.setOption(lineOption);
+        lineOverlay.setPoints(o.getGeoPoints());
 
-        return polylineOverlay;
+        return lineOverlay;
     }
 
-    public LineObject PolylineOverlayToLineObject(PolylineOverlay o) {
+    public LineObject LineOverlayToLineObject(LineOverlay o) {
         if(o == null) {
             return null;
         }
@@ -57,28 +56,28 @@ public class LineOverlayItems {
         return lineObject;
     }
 
-    public ArrayList<PolylineOverlay> LineObjectsToPolylineOverlays(ArrayList<LineObject> objects) {
+    public ArrayList<LineOverlay> LineObjectsToLineOverlays(ArrayList<LineObject> objects) {
         if(objects == null) {
             return null;
         }
 
-        ArrayList<PolylineOverlay> os = new ArrayList<>();
+        ArrayList<LineOverlay> os = new ArrayList<>();
         for(int i = 0; i < objects.size(); i ++) {
-            PolylineOverlay o = LineObjectToPolylineOverlay(objects.get(i));
+            LineOverlay o = LineObjectToLineOverlay(objects.get(i));
             os.add(o);
         }
 
         return os;
     }
 
-    public ArrayList<LineObject> PolylineOverlaysToLineObjects(ArrayList<PolylineOverlay> objects) {
+    public ArrayList<LineObject> LineOverlaysToLineObjects(ArrayList<LineOverlay> objects) {
         if(objects == null) {
             return null;
         }
 
         ArrayList<LineObject> os = new ArrayList<>();
         for(int i = 0; i < objects.size(); i ++) {
-            LineObject o = PolylineOverlayToLineObject(objects.get(i));
+            LineObject o = LineOverlayToLineObject(objects.get(i));
             os.add(o);
         }
 
@@ -97,69 +96,69 @@ public class LineOverlayItems {
         return mLineObjects.indexOf(o);
     }
 
-    public int indexOf(PolylineOverlay o) {
-        return mPolylineOverlays.indexOf(o);
+    public int indexOf(LineOverlay o) {
+        return mLineOverlays.indexOf(o);
     }
 
     public int lastIndexOf(LineObject o) {
         return mLineObjects.lastIndexOf(o);
     }
 
-    public int lastIndexOf(PolylineOverlay o) {
-        return mPolylineOverlays.lastIndexOf(0);
+    public int lastIndexOf(LineOverlay o) {
+        return mLineOverlays.lastIndexOf(0);
     }
 
     public LineObject getLineObject(int index) {
         return mLineObjects.get(index);
     }
 
-    public PolylineOverlay getPolylineOverlay(int index) {
-        return mPolylineOverlays.get(index);
+    public LineOverlay getLineOverlay(int index) {
+        return mLineOverlays.get(index);
     }
 
     public LineObject set(int index, LineObject element) {
-        mPolylineOverlays.set(index, LineObjectToPolylineOverlay(element));
+        mLineOverlays.set(index, LineObjectToLineOverlay(element));
         return mLineObjects.set(index, element);
     }
 
     public boolean add(LineObject e) {
-        mPolylineOverlays.add(LineObjectToPolylineOverlay(e));
+        mLineOverlays.add(LineObjectToLineOverlay(e));
         return mLineObjects.add(e);
     }
 
     public void add(int index, LineObject element) {
-        mPolylineOverlays.add(index, LineObjectToPolylineOverlay(element));
+        mLineOverlays.add(index, LineObjectToLineOverlay(element));
         mLineObjects.add(index, element);
     }
 
     public LineObject remove(int index) {
-        mPolylineOverlays.remove(index);
+        mLineOverlays.remove(index);
         return mLineObjects.remove(index);
     }
 
     public boolean remove(LineObject o) {
-        mPolylineOverlays.remove(LineObjectToPolylineOverlay(o));
+        mLineOverlays.remove(LineObjectToLineOverlay(o));
         return mLineObjects.remove(o);
     }
 
     public void clear() {
-        mPolylineOverlays.clear();
+        mLineOverlays.clear();
         mLineObjects.clear();
     }
 
     public boolean addAll(ArrayList<LineObject> c) {
-        mPolylineOverlays.addAll(LineObjectsToPolylineOverlays(c));
+        mLineOverlays.addAll(LineObjectsToLineOverlays(c));
         return mLineObjects.addAll(c);
     }
 
     public boolean addAll(int index, ArrayList<LineObject> c) {
-        mPolylineOverlays.addAll(index, LineObjectsToPolylineOverlays(c));
+        mLineOverlays.addAll(index, LineObjectsToLineOverlays(c));
         return mLineObjects.addAll(index, c);
     }
 
 
     protected boolean removeAll(ArrayList<LineObject> c) {
-        mPolylineOverlays.removeAll(LineObjectsToPolylineOverlays(c));
+        mLineOverlays.removeAll(LineObjectsToLineOverlays(c));
         return mLineObjects.removeAll(c);
     }
 

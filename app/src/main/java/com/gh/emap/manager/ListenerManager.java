@@ -3,6 +3,7 @@ package com.gh.emap.manager;
 import com.gh.emap.MainActivity;
 import com.gh.emap.listener.BottomGroundRenderLineListener;
 import com.gh.emap.listener.BottomGroundRenderPointListener;
+import com.gh.emap.listener.DrawListener;
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
@@ -34,6 +35,7 @@ public class ListenerManager {
     private UserLogoutListener mUserLogoutListener;
     private TopRenderListener mTopRenderListener;
     private GroundRenderListener mGroundRenderListener;
+    private DrawListener mDrawListener;
     private TopGroundRenderPointListener mTopGroundRenderPointListener;
     private BottomGroundRenderPointListener mBottomGroundRenderPointListener;
     private TopGroundRenderLineListener mTopGroundRenderLineListener;
@@ -57,6 +59,7 @@ public class ListenerManager {
         mUserLogoutListener = new UserLogoutListener(mMainActivity);
         mTopRenderListener = new TopRenderListener(mMainActivity);
         mGroundRenderListener = new GroundRenderListener(mMainActivity);
+        mDrawListener = new DrawListener(mMainActivity);
         mTopGroundRenderPointListener = new TopGroundRenderPointListener(mMainActivity);
         mBottomGroundRenderPointListener = new BottomGroundRenderPointListener(mMainActivity);
         mTopGroundRenderLineListener = new TopGroundRenderLineListener(mMainActivity);
@@ -101,8 +104,12 @@ public class ListenerManager {
         return mTopRenderListener;
     }
 
-    public GroundRenderListener getGroundRenderEditListener() {
+    public GroundRenderListener getGroundRenderListener() {
         return mGroundRenderListener;
+    }
+
+    public DrawListener getDrawListener() {
+        return mDrawListener;
     }
 
     public TopGroundRenderPointListener getTopGroundRenderPointListener() {

@@ -55,7 +55,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().setGroundRenderSelectedIndex(position);
         }
 
-        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().closeGroundRenderPopupWindow();
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().closeGroundRenderMenu();
     }
 
     // 画点
@@ -129,7 +129,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                 for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size(); i ++) {
                     // 添加已保存的覆盖物
                     mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
-                            mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(i));
+                            mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(i));
                 }
 
                 mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
@@ -168,7 +168,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                 for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size(); i ++) {
                     // 添加已保存的覆盖物
                     mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
-                            mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPolygonOverlay(i));
+                            mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(i));
                 }
 
                 mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();

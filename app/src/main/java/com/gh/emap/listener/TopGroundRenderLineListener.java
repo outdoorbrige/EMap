@@ -73,6 +73,8 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
 
         // 删除画线覆盖物
         LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
+
+        lineOverlay.getPoints().clear();
         mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(lineOverlay);
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
@@ -121,10 +123,10 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
 
-        PolylineOverlay polylineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getPolylineOverlay(
+        LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
 
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(polylineOverlay);
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(lineOverlay);
 
         mMainActivity.getMainManager().getOverlayManager().getLineOverlay().getPoints().clear();
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();

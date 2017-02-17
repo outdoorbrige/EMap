@@ -104,6 +104,10 @@ public class BottomGroundRenderLineLayout {
 
     // 显示布局
     public void show() {
+        if(mLayout.getVisibility() == View.VISIBLE) {
+            return;
+        }
+
         mLayout.setVisibility(View.VISIBLE);
     }
 
@@ -114,7 +118,20 @@ public class BottomGroundRenderLineLayout {
 
         // View.GONE        控制该控件面板消失;
         //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
+
+        if(mLayout.getVisibility() == View.GONE) {
+            return;
+        }
+
         mLayout.setVisibility(View.GONE);
+    }
+
+    // 判断布局的隐藏性
+    public int getVisibility() {
+        // View.VISIBLE    可见
+        // View.INVISIBLE    不可见但是占用布局空间
+        // View.GONE    不可见也不占用布局空搜索间
+        return mLayout.getVisibility();
     }
 
     // 上次数据清理

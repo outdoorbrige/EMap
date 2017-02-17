@@ -25,8 +25,9 @@ public class PointOverlay extends Overlay {
 
     public PointOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
-        mDrawable = ContextCompat.getDrawable(mMainActivity, R.mipmap.added_icon);
+        mDrawable = ContextCompat.getDrawable(mMainActivity, R.mipmap.point_bg);
         mDrawableOption = new DrawableOption();
+        mDrawableOption.setAnchor(0.5f, 0.5f); // 设置锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
         mGeoPoint = null;
     }
 
@@ -52,9 +53,10 @@ public class PointOverlay extends Overlay {
     @Override
     public void draw(GL10 gl10, MapView mapView, boolean shadow) {
         if(!shadow) {
+            MapViewRender render = mapView.getMapViewRender();
+
             if(mGeoPoint != null && mDrawableOption != null && mDrawable != null) {
-                MapViewRender mapViewRender = mapView.getMapViewRender();
-                mapViewRender.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPoint);
+                render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPoint);
             }
         }
     }
