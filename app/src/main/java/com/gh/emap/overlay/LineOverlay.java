@@ -30,6 +30,8 @@ public class LineOverlay extends Overlay {
     private LineOption mLineOption;
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
+    private boolean mEditStatus; // 可编辑状态
+
     public LineOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
 
@@ -41,6 +43,8 @@ public class LineOverlay extends Overlay {
         mLineOption.setStrokeWidth(5);
         mLineOption.setStrokeColor(0xAA000000);
         mLineOption.setDottedLine(false);
+
+        mEditStatus = true;
     }
 
     public void setOption(LineOption lineOption) {
@@ -67,10 +71,20 @@ public class LineOverlay extends Overlay {
         return mGeoPointArrayList.addAll(points);
     }
 
+    public void setEditStatus(boolean status) {
+        mEditStatus = status;
+    }
+
+    public boolean isEditStatus() {
+        return mEditStatus;
+    }
+
     // 单击事件
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
-        addPoint(geoPoint);
+        if(isEditStatus()) {
+            addPoint(geoPoint);
+        }
 
         return true;
     }
@@ -78,18 +92,22 @@ public class LineOverlay extends Overlay {
     // 动画叠加绘制调用
     @Override
     public void draw(GL10 gl10, MapView mapView, boolean shadow) {
-        if(!shadow) {
-            if(mGeoPointArrayList != null && mLineOption != null) {
-                MapViewRender render = mapView.getMapViewRender();
-
-                // 画转角点
-                for(int i = 0; i < mGeoPointArrayList.size(); i ++) {
-                    render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPointArrayList.get(i));
-                }
-
-                // 画折线
-                render.drawPolyLine(gl10, mLineOption, mGeoPointArrayList);
-            }
+        if (shadow) {
+            return;
         }
+
+        if (mGeoPointArrayList == null || mLineOption == null) {
+            return;
+        }
+
+        MapViewRender render = mapView.getMapViewRender();
+
+        // 画转角点
+        for (int i = 0; i < mGeoPointArrayList.size(); i++) {
+            render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPointArrayList.get(i));
+        }
+
+        // 画折线
+        render.drawPolyLine(gl10, mLineOption, mGeoPointArrayList);
     }
 }

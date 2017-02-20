@@ -11,10 +11,12 @@ import com.gh.emap.manager.LogManager;
 import com.gh.emap.overlay.PlaneObject;
 import com.gh.emap.overlay.PlaneOverlay;
 import com.tianditu.android.maps.GeoPoint;
+import com.tianditu.android.maps.Overlay;
 import com.tianditu.android.maps.overlay.PolygonOverlay;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by GuHeng on 2017/1/17.
@@ -71,10 +73,10 @@ public class TopGroundRenderPlaneListener implements View.OnClickListener {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
-        // 删除画面覆盖物
-        PlaneOverlay planeOverlay = mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay();
-        planeOverlay.getPoints().clear();
-        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(planeOverlay);
+        // 删除覆盖物
+        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
+        overlays.remove(overlays.size() - 1);
+
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
@@ -98,7 +100,11 @@ public class TopGroundRenderPlaneListener implements View.OnClickListener {
 //            return;
 //        }
 
-        ArrayList<GeoPoint> points = mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay().getPoints();
+        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
+        PlaneOverlay currentPlaneOverlay = (PlaneOverlay)overlays.get(overlays.size() - 1);
+        ArrayList<GeoPoint> points = currentPlaneOverlay.getPoints();
+        overlays.remove(overlays.size() - 1);
+
         if (points == null || points.size() < 3) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择面的位置"));
             return;
@@ -125,9 +131,11 @@ public class TopGroundRenderPlaneListener implements View.OnClickListener {
         PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() - 1);
 
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(planeOverlay);
+        planeOverlay.setEditStatus(false);
 
-        mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay().getPoints().clear();
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(planeOverlay);
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new PlaneOverlay(mMainActivity));
+
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().show();

@@ -12,7 +12,6 @@ public class MainManager {
     private ListenerManager mListenerManager;
     private FileManager mFileManager;
     private MapManager mMapManager;
-    private OverlayManager mOverlayManager;
     private MyLocationManager mMyLocationManager;
     private UserManager mUserManager;
     private LayoutManager mLayoutManager;
@@ -35,9 +34,6 @@ public class MainManager {
 
         mMapManager = new MapManager(mMainActivity);
         mMapManager.init();
-
-        mOverlayManager = new OverlayManager(mMainActivity);
-        mOverlayManager.init();
 
         mMyLocationManager = new MyLocationManager(mMainActivity);
         mMyLocationManager.init();
@@ -77,10 +73,6 @@ public class MainManager {
 
     public MapManager getMapManager() {
         return mMapManager;
-    }
-
-    public OverlayManager getOverlayManager() {
-        return mOverlayManager;
     }
 
     public MyLocationManager getMyLocationManager() {

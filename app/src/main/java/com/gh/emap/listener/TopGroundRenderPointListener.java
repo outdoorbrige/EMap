@@ -10,11 +10,12 @@ import com.gh.emap.file.RWPointFile;
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
-import com.gh.emap.overlay.PointOverlayItem;
 import com.tianditu.android.maps.GeoPoint;
+import com.tianditu.android.maps.Overlay;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by GuHeng on 2016/11/15.
@@ -70,9 +71,10 @@ public class TopGroundRenderPointListener implements View.OnClickListener {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
-        // 删除画点覆盖物
-        PointOverlay pointOverlay = mMainActivity.getMainManager().getOverlayManager().getPointOverlay();
-        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(pointOverlay);
+        // 删除覆盖物
+        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
+        overlays.remove(overlays.size() - 1);
+
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
@@ -96,7 +98,11 @@ public class TopGroundRenderPointListener implements View.OnClickListener {
             return;
         }
 
-        GeoPoint point = mMainActivity.getMainManager().getOverlayManager().getPointOverlay().getGeoPoint();
+        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
+        PointOverlay currentPointOverlay = (PointOverlay)overlays.get(overlays.size() - 1);
+        GeoPoint point = currentPointOverlay.getGeoPoint();
+        overlays.remove(overlays.size() - 1);
+
         if(point == null) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择点的位置"));
             return;
@@ -110,19 +116,24 @@ public class TopGroundRenderPointListener implements View.OnClickListener {
 
         // 保存点信息到文件
 
-        PointOverlayItem overlay = new PointOverlayItem(mMainActivity, "", "", point.getLatitudeE6(), point.getLongitudeE6());
-        overlay.getPointObject().setType(pointType);
-        overlay.getPointObject().setName(pointName);
+        PointObject pointObject = new PointObject();
+        pointObject.setType(pointType);
+        pointObject.setName(pointName);
+        pointObject.setGeoPoint(point);
 
-        mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(overlay);
-        mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
+        RWPointFile.write(path + File.separator + pointObject.getName() +
+                mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(), pointObject);
 
-        RWPointFile.write(path + File.separator + overlay.getPointObject().getName() +
-                mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(),
-                overlay.getPointObject());
+        mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().add(pointObject);
 
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
+        PointOverlay pointOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getPointOverlay(
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() - 1);
+
+        pointOverlay.setEditStatus(false);
+
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(pointOverlay);
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new PointOverlay(mMainActivity));
+
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().show();
@@ -138,23 +149,18 @@ public class TopGroundRenderPointListener implements View.OnClickListener {
 
     // 检查点-名称是否存在
     boolean PointNameExist(String pointName) {
-        ArrayList<PointOverlayItem> items = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getItems();
+        ArrayList<PointObject> items = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getPointObjects();
         if(items == null) {
             return false;
         }
 
         for(int i = 0; i < items.size(); i ++) {
-            PointOverlayItem item = items.get(i);
+            PointObject item = items.get(i);
             if(item == null) {
                 continue;
             }
 
-            PointObject pointObject = item.getPointObject();
-            if(pointObject == null) {
-                continue;
-            }
-
-            if(pointObject.getName().equals(pointName)) {
+            if(item.getName().equals(pointName)) {
                 return true;
             }
         }

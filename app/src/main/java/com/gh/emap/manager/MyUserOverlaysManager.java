@@ -8,6 +8,7 @@ import com.gh.emap.R;
 
 import com.gh.emap.overlay.LineOverlayItems;
 import com.gh.emap.overlay.PlaneOverlayItems;
+import com.gh.emap.overlay.PointOverlay;
 import com.gh.emap.overlay.PointOverlayItems;
 
 /**
@@ -17,7 +18,6 @@ import com.gh.emap.overlay.PointOverlayItems;
 
 public class MyUserOverlaysManager {
     private MainActivity mMainActivity;
-    private Drawable mPointOverlayItemMarker;
     private PointOverlayItems mPointOverlayItems;
     private LineOverlayItems mLineOverlayItems;
     private PlaneOverlayItems mPlaneOverlayItems;
@@ -27,8 +27,7 @@ public class MyUserOverlaysManager {
     }
 
     public void init() {
-        mPointOverlayItemMarker = ContextCompat.getDrawable(mMainActivity, R.mipmap.point_bg);
-        mPointOverlayItems = new PointOverlayItems(mMainActivity, mPointOverlayItemMarker);
+        mPointOverlayItems = new PointOverlayItems(mMainActivity);
         mPointOverlayItems.init();
 
         mLineOverlayItems = new LineOverlayItems(mMainActivity);

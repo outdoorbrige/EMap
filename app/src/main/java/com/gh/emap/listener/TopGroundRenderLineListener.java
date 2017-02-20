@@ -11,10 +11,11 @@ import com.gh.emap.manager.LogManager;
 import com.gh.emap.overlay.LineObject;
 import com.gh.emap.overlay.LineOverlay;
 import com.tianditu.android.maps.GeoPoint;
-import com.tianditu.android.maps.overlay.PolylineOverlay;
+import com.tianditu.android.maps.Overlay;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by GuHeng on 2017/1/9.
@@ -71,11 +72,10 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
 
-        // 删除画线覆盖物
-        LineOverlay lineOverlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
+        // 删除覆盖物
+        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
+        overlays.remove(overlays.size() - 1);
 
-        lineOverlay.getPoints().clear();
-        mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(lineOverlay);
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
@@ -99,7 +99,11 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
             return;
         }
 
-        ArrayList<GeoPoint> points = mMainActivity.getMainManager().getOverlayManager().getLineOverlay().getPoints();
+        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
+        LineOverlay currentLineOverlay = (LineOverlay)overlays.get(overlays.size() - 1);
+        ArrayList<GeoPoint> points = currentLineOverlay.getPoints();
+        overlays.remove(overlays.size() - 1);
+
         if(points == null || points.size() < 2) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择线的位置"));
             return;
@@ -126,9 +130,11 @@ public class TopGroundRenderLineListener implements View.OnClickListener {
         LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
 
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(lineOverlay);
+        lineOverlay.setEditStatus(false);
 
-        mMainActivity.getMainManager().getOverlayManager().getLineOverlay().getPoints().clear();
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(lineOverlay);
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new LineOverlay(mMainActivity));
+
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().show();

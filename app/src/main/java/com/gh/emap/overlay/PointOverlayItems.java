@@ -1,9 +1,6 @@
 package com.gh.emap.overlay;
 
-import android.graphics.drawable.Drawable;
-
 import com.gh.emap.MainActivity;
-import com.tianditu.android.maps.ItemizedOverlay;
 
 import java.util.ArrayList;
 
@@ -12,15 +9,14 @@ import java.util.ArrayList;
  * 地物编辑-画点-覆盖物集合
  */
 
-public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
+public class PointOverlayItems {
     private MainActivity mMainActivity;
-    private Drawable mMarker;
-    private ArrayList<PointOverlayItem> mPointOverlayItems = new ArrayList<>();
+    private ArrayList<PointObject> mPointObjects = new ArrayList<>();
+    private ArrayList<PointOverlay> mPointOverlays = new ArrayList<>();
+    private PointOverlay mNewPointObject;
 
     // 构造方法
-    public PointOverlayItems(MainActivity mainActivity, Drawable marker) {
-        super(boundCenterBottom(marker));
-        mMarker = marker;
+    public PointOverlayItems(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
@@ -29,75 +25,144 @@ public class PointOverlayItems extends ItemizedOverlay<PointOverlayItem> {
 
     }
 
-    // 创建指定的条目，由父类调用
-    @Override
-    protected PointOverlayItem createItem(int index) {
-        PointOverlayItem overlayItem = mPointOverlayItems.get(index);
-        return overlayItem;
+    public PointOverlay createNewPointObject() {
+        mNewPointObject = new PointOverlay(mMainActivity);
+        return mNewPointObject;
     }
 
-    // 覆盖物数量
-    @Override
+    public PointOverlay getNewPointObject() {
+        return mNewPointObject;
+    }
+
+    public PointOverlay PointObjectToPointOverlay(PointObject o) {
+        if(o == null) {
+            return null;
+        }
+
+        PointOverlay pointOverlay = new PointOverlay(mMainActivity);
+        pointOverlay.setGeoPoint(o.getGeoPoint());
+
+        return pointOverlay;
+    }
+
+    public PointObject PointOverlayToPointObject(PointOverlay o) {
+        if(o == null) {
+            return null;
+        }
+
+        PointObject pointObject = new PointObject();
+        pointObject.setGeoPoint(o.getGeoPoint());
+
+        return pointObject;
+    }
+
+    public ArrayList<PointOverlay> PointObjectsToPointOverlays(ArrayList<PointObject> objects) {
+        if(objects == null) {
+            return null;
+        }
+
+        ArrayList<PointOverlay> os = new ArrayList<>();
+        for(int i = 0; i < objects.size(); i ++) {
+            PointOverlay o = PointObjectToPointOverlay(objects.get(i));
+            os.add(o);
+        }
+
+        return os;
+    }
+
+    public ArrayList<PointObject> PointOverlaysToPointObjects(ArrayList<PointOverlay> objects) {
+        if(objects == null) {
+            return null;
+        }
+
+        ArrayList<PointObject> os = new ArrayList<>();
+        for(int i = 0; i < objects.size(); i ++) {
+            PointObject o = PointOverlayToPointObject(objects.get(i));
+            os.add(o);
+        }
+
+        return os;
+    }
+
     public int size() {
-        return mPointOverlayItems.size();
+        return mPointObjects.size();
     }
 
-    // 在某个条目被点击时调用
-    @Override
-    protected boolean onTap(int index) {
-
-        super.setFocusID(-1);
-        return true;
+    public boolean isEmpty() {
+        return mPointObjects.isEmpty();
     }
 
-    // 获取覆盖物集合
-    public ArrayList<PointOverlayItem> getItems() {
-        return mPointOverlayItems;
+    public int indexOf(PointObject o) {
+        return mPointObjects.indexOf(o);
     }
 
-    // 查找覆盖物
-    public PointOverlayItem get(int index) {
-        PointOverlayItem overlayItem = mPointOverlayItems.get(index);
-        return overlayItem;
+    public int indexOf(PointOverlay o) {
+        return mPointOverlays.indexOf(o);
     }
 
-    // 添加覆盖物
-    // 警告：添加完成后必须调用populate方法
-    public void put(PointOverlayItem item) {
-        if(item != null) {
-            item.setMarker(mMarker);
-            mPointOverlayItems.add(item);
-        }
+    public int lastIndexOf(PointObject o) {
+        return mPointObjects.lastIndexOf(o);
     }
 
-    // 添加覆盖物集合
-    // 警告：添加完成后必须调用populate方法
-    public void put(ArrayList<PointOverlayItem> items) {
-        if(items == null) {
-            return;
-        }
-
-        for(int i = 0; i < items.size(); i ++) {
-            put(items.get(i));
-        }
+    public int lastIndexOf(PointOverlay o) {
+        return mPointOverlays.lastIndexOf(o);
     }
 
-    // 删除覆盖物
-    // 警告：删除完成后必须调用populate方法
-    public PointOverlayItem remove(int index) {
-        PointOverlayItem overlayItem = mPointOverlayItems.remove(index);
-        return overlayItem;
+    public PointObject getPointObject(int index) {
+        return mPointObjects.get(index);
     }
 
-    // 清空覆盖物
-    // 警告：清空完成后必须调用populate方法
+    public PointOverlay getPointOverlay(int index) {
+        return mPointOverlays.get(index);
+    }
+
+    public PointObject set(int index, PointObject element) {
+        mPointOverlays.set(index, PointObjectToPointOverlay(element));
+        return mPointObjects.set(index, element);
+    }
+
+    public boolean add(PointObject e) {
+        mPointOverlays.add(PointObjectToPointOverlay(e));
+        return mPointObjects.add(e);
+    }
+
+    public void add(int index, PointObject element) {
+        mPointOverlays.add(index, PointObjectToPointOverlay(element));
+        mPointObjects.add(index, element);
+    }
+
+    public PointObject remove(int index) {
+        mPointOverlays.remove(index);
+        return mPointObjects.remove(index);
+    }
+
+    public boolean remove(PointObject o) {
+        mPointOverlays.remove(PointObjectToPointOverlay(o));
+        return mPointObjects.remove(o);
+    }
+
     public void clear() {
-        mPointOverlayItems.clear();
+        mPointOverlays.clear();
+        mPointObjects.clear();
     }
 
-    // 刷新覆盖物列表
-    // 警告：添加和删除 覆盖物后必须要调用次方法，才能调用其他方法
-    public void populate() {
-        super.populate(); // 一旦有了数据，在调用其他方法前，必须首先调用这个方法
+    public boolean addAll(ArrayList<PointObject> c) {
+        mPointOverlays.addAll(PointObjectsToPointOverlays(c));
+        return mPointObjects.addAll(c);
+    }
+
+    public boolean addAll(int index, ArrayList<PointObject> c) {
+        mPointOverlays.addAll(index, PointObjectsToPointOverlays(c));
+        return mPointObjects.addAll(index, c);
+    }
+
+
+    protected boolean removeAll(ArrayList<PointObject> c) {
+        mPointOverlays.removeAll(PointObjectsToPointOverlays(c));
+        return mPointObjects.removeAll(c);
+    }
+
+    public ArrayList<PointObject> getPointObjects() {
+        return mPointObjects;
     }
 }

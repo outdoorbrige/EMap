@@ -30,6 +30,8 @@ public class PlaneOverlay extends Overlay {
     public PlaneOption mPlaneOption;
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
+    private boolean mEditStatus; // 可编辑状态
+
     public PlaneOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
 
@@ -42,6 +44,8 @@ public class PlaneOverlay extends Overlay {
         mPlaneOption.setStrokeColor(0xAA000000);
         mPlaneOption.setDottedLine(false);
         mPlaneOption.setFillColor(0x7F696969);
+
+        mEditStatus = true;
     }
 
     public void setOption(PlaneOption planeOption) {
@@ -68,10 +72,20 @@ public class PlaneOverlay extends Overlay {
         return mGeoPointArrayList.addAll(points);
     }
 
+    public void setEditStatus(boolean status) {
+        mEditStatus = status;
+    }
+
+    public boolean isEditStatus() {
+        return mEditStatus;
+    }
+
     // 单击事件
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
-        addPoint(geoPoint);
+        if(isEditStatus()) {
+            addPoint(geoPoint);
+        }
 
         return true;
     }
@@ -79,16 +93,26 @@ public class PlaneOverlay extends Overlay {
     // 动画叠加绘制调用
     @Override
     public void draw(GL10 gl10, MapView mapView, boolean shadow) {
-        if(!shadow) {
-            MapViewRender render = mapView.getMapViewRender();
-
-            for(int i = 0; i < mGeoPointArrayList.size(); i ++) {
-                render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPointArrayList.get(i));
-            }
-
-            if(mGeoPointArrayList != null && mGeoPointArrayList.size() >= 2 && !mGeoPointArrayList.contains((Object)null)) {
-                render.drawPolygon(gl10, mPlaneOption, mGeoPointArrayList);
-            }
+        if(shadow) {
+            return;
         }
+
+        if(mGeoPointArrayList == null)
+        {
+            return;
+        }
+
+        MapViewRender render = mapView.getMapViewRender();
+
+        for(int i = 0; i < mGeoPointArrayList.size(); i ++) {
+            render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPointArrayList.get(i));
+        }
+
+        if(mGeoPointArrayList.size() < 2 || mGeoPointArrayList.contains((Object)null))
+        {
+            return;
+        }
+
+        render.drawPolygon(gl10, mPlaneOption, mGeoPointArrayList);
     }
 }

@@ -16,8 +16,6 @@ import com.gh.emap.overlay.PlaneObject;
 import com.gh.emap.overlay.PlaneOverlay;
 import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
-import com.gh.emap.overlay.PointOverlayItem;
-import com.tianditu.android.maps.GeoPoint;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -74,22 +72,16 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             ArrayList<PointObject> pointObjects = RWPointFile.read(files);
             if (pointObjects != null) {
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().addAll(pointObjects);
 
-                for (int i = 0; i < pointObjects.size(); i++) {
-                    PointObject pointObject = pointObjects.get(i);
+                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size(); i ++) {
+                    PointOverlay pointOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getPointOverlay(i);
+                    pointOverlay.setEditStatus(false);
 
-                    PointOverlayItem pointOverlayItem = new PointOverlayItem(mMainActivity, pointObject.getTitle(), pointObject.getSnippet(), pointObject.getLatitude(), pointObject.getLongitude());
-
-                    pointOverlayItem.getPointObject().setIndex(i);
-                    pointOverlayItem.getPointObject().setType(pointObject.getType());
-                    pointOverlayItem.getPointObject().setName(pointObject.getName());
-
-                    mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().put(pointOverlayItem);
-                    mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().populate();
+                    // 添加已保存的覆盖物
+                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(pointOverlay);
                 }
 
-                // 添加已保存的覆盖物
-                mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems());
                 mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
             }
         }
@@ -98,12 +90,8 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
         EditText defaultPointName = (EditText)(mMainActivity.findViewById(R.id.point_name));
         defaultPointName.setText("点" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
 
-        // 添加当前位置覆盖物
-        PointOverlay overlay = mMainActivity.getMainManager().getOverlayManager().getPointOverlay();
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(overlay);
-
-        GeoPoint geoPoint = mMainActivity.getMainManager().getMyLocationManager().getGeoPoint();
-        mMainActivity.getMainManager().getOverlayManager().getPointOverlay().setGeoPoint(geoPoint);
+        // 添加覆盖物
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new PointOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
@@ -127,9 +115,11 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().addAll(lineObjects);
 
                 for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size(); i ++) {
+                    LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(i);
+                    lineOverlay.setEditStatus(false);
+
                     // 添加已保存的覆盖物
-                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
-                            mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(i));
+                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(lineOverlay);
                 }
 
                 mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
@@ -140,9 +130,8 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
         EditText defaultLineName = (EditText)(mMainActivity.findViewById(R.id.line_name));
         defaultLineName.setText("线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
 
-        // 添加当前位置覆盖物
-        LineOverlay overlay = mMainActivity.getMainManager().getOverlayManager().getLineOverlay();
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(overlay);
+        // 添加覆盖物
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new LineOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
@@ -166,9 +155,11 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                 mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().addAll(planeObjects);
 
                 for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size(); i ++) {
+                    PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(i);
+                    planeOverlay.setEditStatus(false);
+
                     // 添加已保存的覆盖物
-                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(
-                            mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(i));
+                    mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(planeOverlay);
                 }
 
                 mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
@@ -179,9 +170,8 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
         EditText defaultPlaneName = (EditText)(mMainActivity.findViewById(R.id.plane_name));
         defaultPlaneName.setText("面" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() + 1));
 
-        // 添加当前位置覆盖物
-        PlaneOverlay overlay = mMainActivity.getMainManager().getOverlayManager().getPlaneOverlay();
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(overlay);
+        // 添加覆盖物
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new PlaneOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
