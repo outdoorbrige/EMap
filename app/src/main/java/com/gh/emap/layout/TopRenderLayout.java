@@ -30,7 +30,7 @@ public class TopRenderLayout {
     private PopupWindow mGroundRenderPopupWindow; // 弹出地物绘制菜单
     private int mGroundRenderSelectedIndex; // 当前地物绘制选择的索引
 
-    private String[] mDrawListItems = {"测距", "测面积"};
+    private String[] mDrawListItems = {"测距与方位角", "测面积与周长"};
     private PopupWindow mDrawPopupWindow; // 弹出测绘菜单
     private int mDrawSelectedIndex; // 当前测绘选择的索引
 

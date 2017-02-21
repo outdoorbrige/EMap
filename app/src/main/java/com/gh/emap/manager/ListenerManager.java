@@ -7,8 +7,9 @@ import com.gh.emap.listener.DrawListener;
 import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
-import com.gh.emap.listener.MyOverlayListener;
 import com.gh.emap.listener.OperationListener;
+import com.gh.emap.listener.TopDrawAreaGirthListener;
+import com.gh.emap.listener.TopDrawDistanceAzimuthListener;
 import com.gh.emap.listener.TopGroundRenderLineListener;
 import com.gh.emap.listener.TopGroundRenderPlaneListener;
 import com.gh.emap.listener.TopRenderListener;
@@ -41,8 +42,8 @@ public class ListenerManager {
     private TopGroundRenderLineListener mTopGroundRenderLineListener;
     private BottomGroundRenderLineListener mBottomGroundRenderLineListener;
     private TopGroundRenderPlaneListener mTopGroundRenderPlaneListener;
-    private MyOverlayListener mMyOverlayListener;
-
+    private TopDrawDistanceAzimuthListener mTopDrawDistanceAzimuthListener;
+    private TopDrawAreaGirthListener mTopDrawAreaGirthListener;
 
     public ListenerManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -65,7 +66,8 @@ public class ListenerManager {
         mTopGroundRenderLineListener = new TopGroundRenderLineListener(mMainActivity);
         mBottomGroundRenderLineListener = new BottomGroundRenderLineListener(mMainActivity);
         mTopGroundRenderPlaneListener = new TopGroundRenderPlaneListener(mMainActivity);
-        mMyOverlayListener = new MyOverlayListener(mMainActivity);
+        mTopDrawDistanceAzimuthListener = new TopDrawDistanceAzimuthListener(mMainActivity);
+        mTopDrawAreaGirthListener = new TopDrawAreaGirthListener(mMainActivity);
     }
 
     public MyLocationListener getMyLocationListener() {
@@ -132,7 +134,11 @@ public class ListenerManager {
         return mTopGroundRenderPlaneListener;
     }
 
-    public MyOverlayListener getMyOverlayListener() {
-        return mMyOverlayListener;
+    public TopDrawDistanceAzimuthListener getTopDrawDistanceAzimuthListener() {
+        return mTopDrawDistanceAzimuthListener;
+    }
+
+    public TopDrawAreaGirthListener getTopDrawAreaGirthListener() {
+        return mTopDrawAreaGirthListener;
     }
 }

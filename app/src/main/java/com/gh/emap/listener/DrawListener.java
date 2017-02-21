@@ -22,11 +22,11 @@ public class DrawListener implements AdapterView.OnItemClickListener {
         switch (position) {
             case -1: // 点击的是headerView或者footerView
                 break;
-            case 0: // 测距
-                onItemClickedDistance(parent, view, position, id);
+            case 0: // 测距与方位角
+                onItemClickedDistanceAzimuth(parent, view, position, id);
                 break;
-            case 1: // 测面积
-                onItemClickedArea(parent, view, position, id);
+            case 1: // 测面积与周长
+                onItemClickedAreaGirth(parent, view, position, id);
                 break;
             default:
                 break;
@@ -39,13 +39,13 @@ public class DrawListener implements AdapterView.OnItemClickListener {
         mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().closeDrawMenu();
     }
 
-    // 测距
-    private void onItemClickedDistance(AdapterView<?> parent, View view, int position, long id) {
-
+    // 测距与方位角
+    private void onItemClickedDistanceAzimuth(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopDrawDistanceAzimuthLayout().show();
     }
 
-    // 测面积
-    private void onItemClickedArea(AdapterView<?> parent, View view, int position, long id) {
-
+    // 测面积与周长
+    private void onItemClickedAreaGirth(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopDrawAreaGirthLayout().show();
     }
 }
