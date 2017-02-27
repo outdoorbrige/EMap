@@ -4,7 +4,6 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.listener.BottomGroundRenderLineListener;
 import com.gh.emap.listener.BottomGroundRenderPointListener;
 import com.gh.emap.listener.DrawListener;
-import com.gh.emap.listener.LayerListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.OperationListener;
@@ -29,7 +28,6 @@ public class ListenerManager {
     private MyLocationListener mMyLocationListener;
     private TopNormalListener mTopNormalListener;
     private MenuListener mMenuListener;
-    private LayerListener mLayerListener;
     private OperationListener mOperationListener;
     private UserLoginListener mUserLoginListener;
     private UserRegisterListener mUserRegisterListener;
@@ -53,7 +51,6 @@ public class ListenerManager {
         mMyLocationListener = new MyLocationListener(mMainActivity);
         mTopNormalListener = new TopNormalListener(mMainActivity);
         mMenuListener = new MenuListener(mMainActivity);
-        mLayerListener = new LayerListener(mMainActivity);
         mOperationListener = new OperationListener(mMainActivity);
         mUserLoginListener = new UserLoginListener(mMainActivity);
         mUserRegisterListener = new UserRegisterListener(mMainActivity);
@@ -80,10 +77,6 @@ public class ListenerManager {
 
     public MenuListener getMenuListener() {
         return mMenuListener;
-    }
-
-    public LayerListener getLayerListener() {
-        return mLayerListener;
     }
 
     public OperationListener getOperationListener() {

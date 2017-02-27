@@ -1,16 +1,12 @@
 package com.gh.emap.overlay;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Point;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
 import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.renderoption.DrawableOption;
-import com.tianditu.android.maps.renderoption.PlaneOption;
 
 import java.util.ArrayList;
 
@@ -24,10 +20,6 @@ import javax.microedition.khronos.opengles.GL10;
 public class PlaneOverlay extends Overlay {
     public MainActivity mMainActivity;
 
-    private Drawable mDrawable;
-    private DrawableOption mDrawableOption;
-
-    public PlaneOption mPlaneOption;
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
     private boolean mEditStatus; // 可编辑状态
@@ -35,25 +27,7 @@ public class PlaneOverlay extends Overlay {
     public PlaneOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
 
-        mDrawable = ContextCompat.getDrawable(mMainActivity, R.mipmap.corner_blue_bg);
-        mDrawableOption = new DrawableOption();
-        mDrawableOption.setAnchor(0.5f, 0.5f); // 设置锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
-
-        mPlaneOption = new PlaneOption();
-        mPlaneOption.setStrokeWidth(5);
-        mPlaneOption.setStrokeColor(0xAA000000);
-        mPlaneOption.setDottedLine(false);
-        mPlaneOption.setFillColor(0x7F696969);
-
         mEditStatus = true;
-    }
-
-    public void setOption(PlaneOption planeOption) {
-        mPlaneOption = planeOption;
-    }
-
-    public PlaneOption getOption() {
-        return mPlaneOption;
     }
 
     public void setPoints(ArrayList<GeoPoint> points) {
@@ -97,22 +71,23 @@ public class PlaneOverlay extends Overlay {
             return;
         }
 
-        if(mGeoPointArrayList == null)
+        if(mGeoPointArrayList == null || mGeoPointArrayList.size() == 0)
         {
             return;
         }
 
         MapViewRender render = mapView.getMapViewRender();
 
+        // 画面
+        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), mGeoPointArrayList);
+
+        // 画拐点
         for(int i = 0; i < mGeoPointArrayList.size(); i ++) {
-            render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPointArrayList.get(i));
-        }
+            GeoPoint geoPoint = mGeoPointArrayList.get(i);
+            Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
-        if(mGeoPointArrayList.size() < 2 || mGeoPointArrayList.contains((Object)null))
-        {
-            return;
+            render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
+                    mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
         }
-
-        render.drawPolygon(gl10, mPlaneOption, mGeoPointArrayList);
     }
 }

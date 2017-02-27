@@ -1,7 +1,6 @@
 package com.gh.emap.overlay;
 
 import com.gh.emap.MainActivity;
-import com.tianditu.android.maps.renderoption.PlaneOption;
 
 import java.util.ArrayList;
 
@@ -27,15 +26,7 @@ public class PlaneOverlayItems {
             return null;
         }
 
-        PlaneOption planeOption = new PlaneOption();
-        planeOption.setStrokeWidth(o.getStrokeWidth());
-        planeOption.setStrokeColor(o.getStrokeColor());
-        planeOption.setDottedLine(o.isDottedLine());
-        planeOption.setIntervals(o.getIntervals());
-        planeOption.setFillColor(o.getFillColor());
-
         PlaneOverlay planeOverlay = new PlaneOverlay(mMainActivity);
-        planeOverlay.setOption(planeOption);
         planeOverlay.setPoints(o.getGeoPoints());
 
         return planeOverlay;
@@ -47,11 +38,6 @@ public class PlaneOverlayItems {
         }
 
         PlaneObject planeObject = new PlaneObject();
-        planeObject.setStrokeWidth(o.getOption().getStrokeWidth());
-        planeObject.setStrokeColor(o.getOption().getStrokeColor());
-        planeObject.setDottedLine(o.getOption().isDottedLine());
-        planeObject.setIntervals(o.getOption().getIntervals());
-        planeObject.setFillColor(o.getOption().getFillColor());
         planeObject.addGeoPoints(o.getPoints());
 
         return planeObject;
@@ -106,7 +92,7 @@ public class PlaneOverlayItems {
     }
 
     public int lastIndexOf(PlaneOverlay o) {
-        return mPlaneOverlays.lastIndexOf(0);
+        return mPlaneOverlays.lastIndexOf(o);
     }
 
     public PlaneObject getPlaneObject(int index) {

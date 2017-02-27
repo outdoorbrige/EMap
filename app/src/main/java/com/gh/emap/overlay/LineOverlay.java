@@ -1,16 +1,12 @@
 package com.gh.emap.overlay;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Point;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
 import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.renderoption.DrawableOption;
-import com.tianditu.android.maps.renderoption.LineOption;
 
 import java.util.ArrayList;
 
@@ -24,10 +20,6 @@ import javax.microedition.khronos.opengles.GL10;
 public class LineOverlay extends Overlay {
     private MainActivity mMainActivity;
 
-    private Drawable mDrawable;
-    private DrawableOption mDrawableOption;
-
-    private LineOption mLineOption;
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
 
     private boolean mEditStatus; // 可编辑状态
@@ -35,24 +27,7 @@ public class LineOverlay extends Overlay {
     public LineOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
 
-        mDrawable = ContextCompat.getDrawable(mMainActivity, R.mipmap.corner_red_bg);
-        mDrawableOption = new DrawableOption();
-        mDrawableOption.setAnchor(0.5f, 0.5f); // 设置锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
-
-        mLineOption = new LineOption();
-        mLineOption.setStrokeWidth(5);
-        mLineOption.setStrokeColor(0xAA000000);
-        mLineOption.setDottedLine(false);
-
         mEditStatus = true;
-    }
-
-    public void setOption(LineOption lineOption) {
-        mLineOption = lineOption;
-    }
-
-    public LineOption getOption() {
-        return mLineOption;
     }
 
     public void setPoints(ArrayList<GeoPoint> points) {
@@ -96,18 +71,22 @@ public class LineOverlay extends Overlay {
             return;
         }
 
-        if (mGeoPointArrayList == null || mLineOption == null) {
+        if (mGeoPointArrayList == null || mGeoPointArrayList.size() == 0) {
             return;
         }
 
         MapViewRender render = mapView.getMapViewRender();
 
-        // 画转角点
-        for (int i = 0; i < mGeoPointArrayList.size(); i++) {
-            render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPointArrayList.get(i));
-        }
-
         // 画折线
-        render.drawPolyLine(gl10, mLineOption, mGeoPointArrayList);
+        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), mGeoPointArrayList);
+
+        // 画拐点
+        for (int i = 0; i < mGeoPointArrayList.size(); i++) {
+            GeoPoint geoPoint = mGeoPointArrayList.get(i);
+            Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
+
+            render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
+                    mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
+        }
     }
 }

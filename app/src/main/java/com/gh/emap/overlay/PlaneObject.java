@@ -19,23 +19,12 @@ public class PlaneObject implements Serializable {
     private String mName; // 面-名称
     ArrayList<String> mStrPoints = new ArrayList<>(); // 面边线点的集合 数据格式：“纬度*10E6,经度*10E6”
 
-    // PlaneOption
-    private int mStrokeWidth; // 面边线的宽度
-    private int mStrokeColor; // 面边线的颜色RGBA
-    private boolean mDottedLine; // 面边线虚线
-    private int[] mIntervals = new int[]{13, 10, 13, 10}; // 面边虚线点间隔
-    int mFillColor; // 面的填充颜色
-
     public PlaneObject() {
         mTitle = "";
         mSnippet = "";
         mIndex = -1;
         mType = "";
         mName = "";
-        mStrokeWidth = 5;
-        mStrokeColor = 0xAA000000;
-        mDottedLine = false;
-        mFillColor = 0x7F696969;
     }
 
     public String getTitle() {
@@ -93,52 +82,6 @@ public class PlaneObject implements Serializable {
 
     public ArrayList<String> getStrPoints() {
         return mStrPoints;
-    }
-
-    public void setStrokeWidth(int width) {
-        if(width > 0) {
-            mStrokeWidth = width;
-        }
-    }
-
-    public int getStrokeWidth() {
-        return mStrokeWidth;
-    }
-
-    public void setStrokeColor(int color) {
-        mStrokeColor = color;
-    }
-
-    public int getStrokeColor() {
-        return mStrokeColor;
-    }
-
-    public void setDottedLine(boolean b) {
-        mDottedLine = b;
-    }
-
-    public boolean isDottedLine() {
-        return mDottedLine;
-    }
-
-    public void setIntervals(int[] intervals) {
-        if(intervals != null) {
-            if(intervals.length >= 2 && intervals.length % 2 == 0) {
-                mIntervals = intervals;
-            }
-        }
-    }
-
-    public int[] getIntervals() {
-        return mIntervals;
-    }
-
-    public void setFillColor(int color) {
-        mFillColor = color;
-    }
-
-    public int getFillColor() {
-        return mFillColor;
     }
 
     public boolean addGeoPoint(GeoPoint geoPoint) {

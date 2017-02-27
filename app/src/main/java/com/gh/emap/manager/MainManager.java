@@ -11,6 +11,7 @@ public class MainManager {
     private LogManager mLogManager;
     private ListenerManager mListenerManager;
     private FileManager mFileManager;
+    private RenderOptionManager mRenderOptionManager;
     private MapManager mMapManager;
     private MyLocationManager mMyLocationManager;
     private UserManager mUserManager;
@@ -31,6 +32,9 @@ public class MainManager {
 
         mFileManager = new FileManager(mMainActivity);
         mFileManager.init();
+
+        mRenderOptionManager = new RenderOptionManager(mMainActivity);
+        mRenderOptionManager.init();
 
         mMapManager = new MapManager(mMainActivity);
         mMapManager.init();
@@ -69,6 +73,10 @@ public class MainManager {
 
     public FileManager getFileManager() {
         return mFileManager;
+    }
+
+    public RenderOptionManager getRenderOptionManager() {
+        return mRenderOptionManager;
     }
 
     public MapManager getMapManager() {

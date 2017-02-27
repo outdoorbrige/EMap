@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2017/1/9.
- * 地物编辑-线-读写文件对象
+ * 地物绘制-线-读写文件对象
  */
 
 public class LineObject implements Serializable {
@@ -19,21 +19,12 @@ public class LineObject implements Serializable {
     private String mName; // 线-名称
     ArrayList<String> mStrPoints = new ArrayList<>(); // 点的集合 数据格式：“纬度*10E6,经度*10E6”
 
-    // LineOption
-    private int mStrokeWidth; // 线的宽度
-    private int mStrokeColor; // 线的颜色RGBA
-    private boolean mDottedLine; // 虚线
-    private int[] mIntervals = new int[]{13, 10, 13, 10}; // 虚线点间隔
-
     public LineObject() {
         mTitle = "";
         mSnippet = "";
         mIndex = -1;
         mType = "";
         mName = "";
-        mStrokeWidth = 5;
-        mStrokeColor = 0xAA000000;
-        mDottedLine = false;
     }
 
     public String getTitle() {
@@ -91,44 +82,6 @@ public class LineObject implements Serializable {
 
     public ArrayList<String> getStrPoints() {
         return mStrPoints;
-    }
-
-    public void setStrokeWidth(int width) {
-        if(width > 0) {
-            mStrokeWidth = width;
-        }
-    }
-
-    public int getStrokeWidth() {
-        return mStrokeWidth;
-    }
-
-    public void setStrokeColor(int color) {
-        mStrokeColor = color;
-    }
-
-    public int getStrokeColor() {
-        return mStrokeColor;
-    }
-
-    public void setDottedLine(boolean b) {
-        mDottedLine = b;
-    }
-
-    public boolean isDottedLine() {
-        return mDottedLine;
-    }
-
-    public void setIntervals(int[] intervals) {
-        if(intervals != null) {
-            if(intervals.length >= 2 && intervals.length % 2 == 0) {
-                mIntervals = intervals;
-            }
-        }
-    }
-
-    public int[] getIntervals() {
-        return mIntervals;
     }
 
     public boolean addGeoPoint(GeoPoint geoPoint) {

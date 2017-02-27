@@ -1,7 +1,6 @@
 package com.gh.emap.overlay;
 
 import com.gh.emap.MainActivity;
-import com.tianditu.android.maps.renderoption.LineOption;
 
 import java.util.ArrayList;
 
@@ -28,14 +27,7 @@ public class LineOverlayItems {
             return null;
         }
 
-        LineOption lineOption = new LineOption();
-        lineOption.setStrokeWidth(o.getStrokeWidth());
-        lineOption.setStrokeColor(o.getStrokeColor());
-        lineOption.setDottedLine(o.isDottedLine());
-        lineOption.setIntervals(o.getIntervals());
-
         LineOverlay lineOverlay = new LineOverlay(mMainActivity);
-        lineOverlay.setOption(lineOption);
         lineOverlay.setPoints(o.getGeoPoints());
 
         return lineOverlay;
@@ -47,10 +39,6 @@ public class LineOverlayItems {
         }
 
         LineObject lineObject = new LineObject();
-        lineObject.setStrokeWidth(o.getOption().getStrokeWidth());
-        lineObject.setStrokeColor(o.getOption().getStrokeColor());
-        lineObject.setDottedLine(o.getOption().isDottedLine());
-        lineObject.setIntervals(o.getOption().getIntervals());
         lineObject.addGeoPoints(o.getPoints());
 
         return lineObject;
@@ -105,7 +93,7 @@ public class LineOverlayItems {
     }
 
     public int lastIndexOf(LineOverlay o) {
-        return mLineOverlays.lastIndexOf(0);
+        return mLineOverlays.lastIndexOf(o);
     }
 
     public LineObject getLineObject(int index) {

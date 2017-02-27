@@ -240,18 +240,17 @@ public class MapManager {
 
     // 把经纬度十进制单位转换成标准的度分秒单位
     public static String toSexagesimalString(int degree) {
-        final double factor1 = 1000000.0D;
-        final int factor2 = 60;
+        final int SIXTY = 60;
 
         degree = Math.abs(degree);
 
-        double hDegree = degree / factor1;
+        double hDegree = GeoPointEx.getdX(new GeoPoint(0, degree));
         int h = (int)hDegree; // 度数
 
-        double mDegree = (hDegree - h) * factor2;
+        double mDegree = (hDegree - h) * SIXTY;
         int m = (int)mDegree; // 分数
 
-        double sDegree = (mDegree - m) * factor2;
+        double sDegree = (mDegree - m) * SIXTY;
         int s = (int)sDegree; // 秒数
 
         return String.format("%d°%d′%d″", h, m, s);

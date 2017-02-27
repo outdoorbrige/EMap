@@ -3,7 +3,6 @@ package com.gh.emap.manager;
 import com.gh.emap.MainActivity;
 import com.gh.emap.layout.BottomGroundRenderLineLayout;
 import com.gh.emap.layout.BottomGroundRenderPointLayout;
-import com.gh.emap.layout.LayerLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
 import com.gh.emap.layout.TopDrawAreaGirthLayout;
@@ -25,7 +24,6 @@ public class LayoutManager {
     private MainActivity mMainActivity;
     private TopNormalLayout mTopNormalLayout;
     private MenuLayout mMenuLayout;
-    private LayerLayout mLayerLayout;
     private OperationLayout mOperationLayout;
     private TopRenderLayout mTopRenderLayout;
     private TopGroundRenderPointLayout mTopGroundRenderPointLayout;
@@ -49,9 +47,6 @@ public class LayoutManager {
 
         mMenuLayout = new MenuLayout(mMainActivity);
         mMenuLayout.init();
-
-        mLayerLayout = new LayerLayout(mMainActivity);
-        mLayerLayout.init();
 
         mOperationLayout = new OperationLayout(mMainActivity);
         mOperationLayout.init();
@@ -96,10 +91,6 @@ public class LayoutManager {
 
     public MenuLayout getMenuLayout() {
         return mMenuLayout;
-    }
-
-    public LayerLayout getLayerLayout() {
-        return mLayerLayout;
     }
 
     public OperationLayout getOperationLayout() {

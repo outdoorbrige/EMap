@@ -1,15 +1,12 @@
 package com.gh.emap.overlay;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
+import android.graphics.Point;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
 import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.renderoption.DrawableOption;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -19,18 +16,12 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class PointOverlay extends Overlay {
     private MainActivity mMainActivity;
-    private Drawable mDrawable;
-    private DrawableOption mDrawableOption;
     private GeoPoint mGeoPoint;
 
     private boolean mEditStatus; // 可编辑状态
 
     public PointOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
-
-        mDrawable = ContextCompat.getDrawable(mMainActivity, R.mipmap.point_bg);
-        mDrawableOption = new DrawableOption();
-        mDrawableOption.setAnchor(0.5f, 0.5f); // 设置锚点比例，默认（0.5f, 1.0f）水平居中，垂直下对齐
 
         mGeoPoint = null;
 
@@ -70,12 +61,16 @@ public class PointOverlay extends Overlay {
             return;
         }
 
-        if(mDrawableOption == null || mDrawable == null || mGeoPoint == null) {
+        if(mGeoPoint == null) {
             return;
         }
 
+        Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(getGeoPoint(), null);
+
         MapViewRender render = mapView.getMapViewRender();
 
-        render.drawDrawable(gl10, mDrawableOption, mDrawable, mGeoPoint);
+        // 画点
+        render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
+                mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
     }
 }

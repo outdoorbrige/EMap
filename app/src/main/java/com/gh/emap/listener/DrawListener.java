@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.gh.emap.MainActivity;
+import com.gh.emap.overlay.MeasureLineOverlay;
 
 /**
  * Created by GuHeng on 2017/2/14.
@@ -42,6 +43,13 @@ public class DrawListener implements AdapterView.OnItemClickListener {
     // 测距与方位角
     private void onItemClickedDistanceAzimuth(AdapterView<?> parent, View view, int position, long id) {
         mMainActivity.getMainManager().getLayoutManager().getTopDrawDistanceAzimuthLayout().show();
+
+        mMainActivity.getMainManager().getLayoutManager().getTopDrawDistanceAzimuthLayout().show();
+
+        // 添加覆盖物
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new MeasureLineOverlay(mMainActivity));
+
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 测面积与周长

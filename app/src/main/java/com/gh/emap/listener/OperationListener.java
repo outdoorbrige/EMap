@@ -1,15 +1,17 @@
 package com.gh.emap.listener;
 
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
+import com.tianditu.android.maps.MapView;
 
 /**
  * Created by GuHeng on 2016/11/9.
  */
-public class OperationListener implements View.OnClickListener {
+public class OperationListener implements View.OnClickListener, AdapterView.OnItemClickListener {
     private MainActivity mMainActivity;
 
     public OperationListener(MainActivity mainActivity) {
@@ -19,6 +21,9 @@ public class OperationListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
+            case R.id.layer: // 地图切换按钮
+                onClickedLayerButton(view);
+                break;
             case R.id.zoon_in:
                 onClickedZoomIn(view);
                 break;
@@ -31,6 +36,22 @@ public class OperationListener implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    // 地图切换按钮
+    private void onClickedLayerButton(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getOperationLayout().showPopupWindow(view);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        // id == -1 点击的是headerView或者footerView
+        if(-1 < position && position < parent.getCount()) {
+            mMainActivity.getMainManager().getLayoutManager().getOperationLayout().setCurrentSelectItemIndex(position);
+            mMainActivity.getMainManager().getMapManager().getMapView().setMapType(MapView.TMapType.MAP_TYPE_IMG + position);
+        }
+
+        mMainActivity.getMainManager().getLayoutManager().getOperationLayout().closePopupWindow();
     }
 
     // 放大

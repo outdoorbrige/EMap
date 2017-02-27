@@ -176,22 +176,6 @@
 
     </LinearLayout>
 
-    <!--地图切换(矢量图、影像图、地形图)-->
-    <LinearLayout
-        android:id="@+id/layer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true">
-
-        <Button
-            android:id="@+id/layer_button"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:background="@mipmap/layer_button_bg"/>
-
-    </LinearLayout>
-
     <!--地图切换弹出式菜单-->
     <LinearLayout
         android:id="@+id/layer_popup_menu"
@@ -660,6 +644,7 @@
         android:id="@+id/menu"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -668,8 +653,8 @@
         <!--绘制-->
         <Button
             android:id="@+id/menu_render"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@mipmap/menu_render_bg"/>
@@ -677,8 +662,8 @@
         <!--设置-->
         <Button
             android:id="@+id/menu_setting"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@mipmap/menu_setting_bg"/>
@@ -686,8 +671,8 @@
         <!--下载-->
         <Button
             android:id="@+id/menu_download"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@mipmap/menu_download_bg"/>
@@ -695,8 +680,8 @@
         <!--菜单-->
         <Button
             android:id="@+id/menu_main"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:background="@mipmap/meun_main_bg"/>
@@ -709,30 +694,40 @@
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
         android:layout_marginBottom="20dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view">
 
+	<!--地图切换(矢量图、影像图、地形图)-->
+        <Button
+            android:id="@+id/layer"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="5dp"
+            android:background="@mipmap/layer_button_bg"/>
+
         <!--放大-->
         <Button
             android:id="@+id/zoon_in"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@mipmap/zoon_in_bg"/>
 
         <!--缩小-->
         <Button
             android:id="@+id/zoom_out"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginBottom="5dp"
             android:background="@mipmap/zoom_out_bg"/>
 
         <!--定位 -->
         <Button
             android:id="@+id/location"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:background="@mipmap/location_bg"/>
 
     </LinearLayout>
