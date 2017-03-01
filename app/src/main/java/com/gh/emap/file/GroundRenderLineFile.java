@@ -68,6 +68,8 @@ public class GroundRenderLineFile {
                     }
                 }
 
+                mGroundRenderLine.compareIndex();
+
                 bufferedReader.close();
                 inputStreamReader.close();
                 inputStream.close();

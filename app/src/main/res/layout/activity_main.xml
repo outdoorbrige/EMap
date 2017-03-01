@@ -235,12 +235,6 @@
                     android:background="@null"
                     android:layout_weight="1"/>
 
-                <Button
-                    android:id="@+id/point_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="取消"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -257,16 +251,10 @@
                     android:id="@+id/point_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="选择类别"
+                    android:hint="请选择类别"
                     android:maxLines="1"
                     android:layout_weight="1">
                 </TextView>
-
-                <Button
-                    android:id="@+id/point_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="保存"/>
 
             </LinearLayout>
 
@@ -274,31 +262,28 @@
 
     </LinearLayout>
 
-    <!--地物绘制-画点-底部布局-->
+    <!--地物绘制-画点-底部菜单布局-->
     <LinearLayout
-        android:id="@+id/bottom_ground_render_point"
-        android:layout_width="match_parent"
+        android:id="@+id/bottom_ground_render_point_menu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignBottom="@+id/map_view"
-        android:background="@mipmap/white_bg"
-        android:visibility="invisible">
+        android:layout_alignBottom="@id/map_view"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone">
 
-        <com.wx.wheelview.widget.WheelView
-            android:id="@+id/point_scroll_one"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/point_menu_cancel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:text="取消"/>
 
-        <com.wx.wheelview.widget.WheelView
-            android:id="@+id/point_scroll_two"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/point_menu_save"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:text="保存"/>
 
     </LinearLayout>
 
@@ -339,12 +324,6 @@
                     android:background="@null"
                     android:layout_weight="1"/>
 
-                <Button
-                    android:id="@+id/line_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="取消"/>
-
             </LinearLayout>
 
             <LinearLayout
@@ -361,16 +340,10 @@
                     android:id="@+id/line_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="选择类别"
+                    android:hint="请选择类别"
                     android:maxLines="1"
                     android:layout_weight="1">
                 </TextView>
-
-                <Button
-                    android:id="@+id/line_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="保存"/>
 
             </LinearLayout>
 
@@ -378,31 +351,28 @@
 
     </LinearLayout>
 
-    <!--地物绘制-画线-底部布局-->
+    <!--地物绘制-画线-底部菜单布局-->
     <LinearLayout
-        android:id="@+id/bottom_ground_render__line"
-        android:layout_width="match_parent"
+        android:id="@+id/bottom_ground_render_line_menu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="20dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignBottom="@+id/map_view"
-        android:background="@mipmap/white_bg"
-        android:visibility="invisible">
+        android:layout_alignBottom="@id/map_view"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone">
 
-        <com.wx.wheelview.widget.WheelView
-            android:id="@+id/line_scroll_one"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/line_menu_cancel"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:text="取消"/>
 
-        <com.wx.wheelview.widget.WheelView
-            android:id="@+id/line_scroll_two"
-            android:layout_width="0dp"
+        <Button
+            android:id="@+id/line_menu_save"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:text="保存"/>
 
     </LinearLayout>
 
@@ -443,42 +413,34 @@
                     android:background="@null"
                     android:layout_weight="1"/>
 
-                <Button
-                    android:id="@+id/plane_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="取消"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="面-类型："/>
-
-                <TextView
-                    android:id="@+id/plane_type"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:hint="选择类型"
-                    android:maxLines="1"
-                    android:layout_weight="1">
-                </TextView>
-
-                <Button
-                    android:id="@+id/plane_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="保存"/>
-
             </LinearLayout>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <!--地物绘制-画面-底部菜单布局-->
+    <LinearLayout
+        android:id="@+id/bottom_ground_render_plane_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/map_view"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/plane_menu_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"/>
+
+        <Button
+            android:id="@+id/plane_menu_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保存"/>
 
     </LinearLayout>
 
@@ -493,76 +455,28 @@
 
     </LinearLayout>
 
-    <!--测绘-量测与方位角-顶部菜单-->
+    <!--测绘-量测与方位角-底部菜单布局-->
     <LinearLayout
-        android:id="@+id/top_draw_distance_azimuth"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
+        android:id="@+id/bottom_draw_distance_azimuth_menu"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@mipmap/white_bg"
-        android:gravity="center_vertical"
-        android:layout_below="@id/top"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/map_view"
+        android:layout_centerHorizontal="true"
         android:visibility="gone">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/distance_azimuth_menu_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="距离："/>
-
-                <TextView
-                    android:id="@+id/distance"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_weight="1"/>
-
-                <Button
-                    android:id="@+id/distance_azimuth_cancel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="取消"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="方位角："/>
-
-                <TextView
-                    android:id="@+id/azimuth"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_weight="1">
-                </TextView>
-
-                <Button
-                    android:id="@+id/distance_azimuth_undo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="撤销"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <Button
+            android:id="@+id/distance_azimuth_menu_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="撤销"/>
 
     </LinearLayout>
 
@@ -688,7 +602,7 @@
 
     </RelativeLayout>
 
-    <!--地图操作(地图放大、缩小、定位)-->
+    <!--地图操作(图层切换、地图放大、缩小、定位)-->
     <LinearLayout
         android:id="@+id/operation"
         android:orientation="vertical"
@@ -730,6 +644,26 @@
             android:layout_height="35dp"
             android:background="@mipmap/location_bg"/>
 
+    </LinearLayout>
+
+    <!--地物绘制-画点-类型选择对话框-->
+    <LinearLayout
+        android:id="@+id/ground_render_point_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/ground_render_point_type"/>
+    </LinearLayout>
+
+    <!--地物绘制-画线-类型选择对话框-->
+    <LinearLayout
+        android:id="@+id/ground_render_line_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/ground_render_line_type"/>
     </LinearLayout>
 
     <!--用户登录对话框-->

@@ -1,12 +1,15 @@
 package com.gh.emap.manager;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.layout.BottomGroundRenderLineLayout;
-import com.gh.emap.layout.BottomGroundRenderPointLayout;
+import com.gh.emap.layout.BottomGroundRenderLineMenuLayout;
+import com.gh.emap.layout.BottomGroundRenderPlaneMenuLayout;
+import com.gh.emap.layout.GroundRenderLineTypeLayout;
+import com.gh.emap.layout.BottomGroundRenderPointMenuLayout;
+import com.gh.emap.layout.GroundRenderPointTypeLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
 import com.gh.emap.layout.TopDrawAreaGirthLayout;
-import com.gh.emap.layout.TopDrawDistanceAzimuthLayout;
+import com.gh.emap.layout.BottomDrawDistanceAzimuthMenuLayout;
 import com.gh.emap.layout.TopGroundRenderPlaneLayout;
 import com.gh.emap.layout.TopRenderLayout;
 import com.gh.emap.layout.TopNormalLayout;
@@ -27,11 +30,14 @@ public class LayoutManager {
     private OperationLayout mOperationLayout;
     private TopRenderLayout mTopRenderLayout;
     private TopGroundRenderPointLayout mTopGroundRenderPointLayout;
-    private BottomGroundRenderPointLayout mBottomGroundRenderPointLayout;
+    private BottomGroundRenderPointMenuLayout mBottomGroundRenderPointMenuLayout;
+    private GroundRenderPointTypeLayout mGroundRenderPointTypeLayout;
     private TopGroundRenderLineLayout mTopGroundRenderLineLayout;
-    private BottomGroundRenderLineLayout mBottomGroundRenderLineLayout;
+    private BottomGroundRenderLineMenuLayout mBottomGroundRenderLineMenuLayout;
+    private GroundRenderLineTypeLayout mGroundRenderLineTypeLayout;
     private TopGroundRenderPlaneLayout mTopGroundRenderPlaneLayout;
-    private TopDrawDistanceAzimuthLayout mTopDrawDistanceAzimuthLayout;
+    private BottomGroundRenderPlaneMenuLayout mBottomGroundRenderPlaneMenuLayout;
+    private BottomDrawDistanceAzimuthMenuLayout mBottomDrawDistanceAzimuthMenuLayout;
     private TopDrawAreaGirthLayout mTopDrawAreaGirthLayout;
     private UserLoginLayout mUserLoginLayout;
     private UserRegisterLayout mUserRegisterLayout;
@@ -57,20 +63,29 @@ public class LayoutManager {
         mTopGroundRenderPointLayout = new TopGroundRenderPointLayout(mMainActivity);
         mTopGroundRenderPointLayout.init();
 
-        mBottomGroundRenderPointLayout = new BottomGroundRenderPointLayout(mMainActivity);
-        mBottomGroundRenderPointLayout.init();
+        mBottomGroundRenderPointMenuLayout = new BottomGroundRenderPointMenuLayout(mMainActivity);
+        mBottomGroundRenderPointMenuLayout.init();
+
+        mGroundRenderPointTypeLayout = new GroundRenderPointTypeLayout(mMainActivity);
+        mGroundRenderPointTypeLayout.init();
 
         mTopGroundRenderLineLayout = new TopGroundRenderLineLayout(mMainActivity);
         mTopGroundRenderLineLayout.init();
 
-        mBottomGroundRenderLineLayout = new BottomGroundRenderLineLayout(mMainActivity);
-        mBottomGroundRenderLineLayout.init();
+        mBottomGroundRenderLineMenuLayout = new BottomGroundRenderLineMenuLayout(mMainActivity);
+        mBottomGroundRenderLineMenuLayout.init();
+
+        mGroundRenderLineTypeLayout = new GroundRenderLineTypeLayout(mMainActivity);
+        mGroundRenderLineTypeLayout.init();
 
         mTopGroundRenderPlaneLayout = new TopGroundRenderPlaneLayout(mMainActivity);
         mTopGroundRenderPlaneLayout.init();
 
-        mTopDrawDistanceAzimuthLayout = new TopDrawDistanceAzimuthLayout(mMainActivity);
-        mTopDrawDistanceAzimuthLayout.init();
+        mBottomGroundRenderPlaneMenuLayout = new BottomGroundRenderPlaneMenuLayout(mMainActivity);
+        mBottomGroundRenderPlaneMenuLayout.init();
+
+        mBottomDrawDistanceAzimuthMenuLayout = new BottomDrawDistanceAzimuthMenuLayout(mMainActivity);
+        mBottomDrawDistanceAzimuthMenuLayout.init();
 
         mTopDrawAreaGirthLayout = new TopDrawAreaGirthLayout(mMainActivity);
         mTopDrawAreaGirthLayout.init();
@@ -105,24 +120,36 @@ public class LayoutManager {
         return mTopGroundRenderPointLayout;
     }
 
-    public BottomGroundRenderPointLayout getBottomGroundRenderPointLayout() {
-        return mBottomGroundRenderPointLayout;
+    public BottomGroundRenderPointMenuLayout getBottomGroundRenderPointMenuLayout() {
+        return mBottomGroundRenderPointMenuLayout;
+    }
+
+    public GroundRenderPointTypeLayout getGroundRenderPointTypeLayout() {
+        return mGroundRenderPointTypeLayout;
     }
 
     public TopGroundRenderLineLayout getTopGroundRenderLineLayout() {
         return mTopGroundRenderLineLayout;
     }
 
-    public BottomGroundRenderLineLayout getBottomGroundRenderLineLayout() {
-        return mBottomGroundRenderLineLayout;
+    public BottomGroundRenderLineMenuLayout getBottomGroundRenderLineMenuLayout() {
+        return mBottomGroundRenderLineMenuLayout;
+    }
+
+    public GroundRenderLineTypeLayout getGroundRenderLineTypeLayout() {
+        return mGroundRenderLineTypeLayout;
     }
 
     public TopGroundRenderPlaneLayout getTopGroundRenderPlaneLayout() {
         return mTopGroundRenderPlaneLayout;
     }
 
-    public TopDrawDistanceAzimuthLayout getTopDrawDistanceAzimuthLayout() {
-        return mTopDrawDistanceAzimuthLayout;
+    public BottomGroundRenderPlaneMenuLayout getBottomGroundRenderPlaneMenuLayout() {
+        return mBottomGroundRenderPlaneMenuLayout;
+    }
+
+    public BottomDrawDistanceAzimuthMenuLayout getBottomDrawDistanceAzimuthMenuLayout() {
+        return mBottomDrawDistanceAzimuthMenuLayout;
     }
 
     public TopDrawAreaGirthLayout getTopDrawAreaGirthLayout() {

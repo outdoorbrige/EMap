@@ -1,7 +1,9 @@
 package com.gh.emap.layout;
 
+import android.app.AlertDialog;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
@@ -15,13 +17,16 @@ import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2016/11/10.
- * 地物绘制-画点 底部布局
+ * 地物绘制-画点 类型布局
  */
-public class BottomGroundRenderPointLayout {
+public class GroundRenderPointTypeLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
+    private AlertDialog mAlertDialog; // 弹出式对话框
     private WheelView mWheelViewOne; // 滚动选择器
     private WheelView mWheelViewTwo; // 滚动选择器
+    private Button mCancel;
+    private Button mOk;
     private GroundRenderPoint mGroundRenderPoint; // 地物绘制-画点数据
     private int mDefaultSelectedItemOne; // 滚动选择器数据默认选中项
     private int mDefaultSelectedItemTwo; // 滚动选择器数据默认选中项
@@ -30,14 +35,19 @@ public class BottomGroundRenderPointLayout {
     private int mCurrentSelectedItemOne; // 滚动选择器数据选中项
     private int mCurrentSelectedItemTwo; // 滚动选择器数据选中项
 
-    public BottomGroundRenderPointLayout(MainActivity mainActivity) {
+    public GroundRenderPointTypeLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.bottom_ground_render_point);
-        mWheelViewOne = (WheelView)mMainActivity.findViewById(R.id.point_scroll_one);
-        mWheelViewTwo = (WheelView)mMainActivity.findViewById(R.id.point_scroll_two);
+        View layout = mMainActivity.getLayoutInflater().inflate(R.layout.ground_render_point_type, null, false);
+
+        mLayout = layout.findViewById(R.id.ground_render_point_type);
+        mWheelViewOne = (WheelView)layout.findViewById(R.id.point_type_scroll_one);
+        mWheelViewTwo = (WheelView)layout.findViewById(R.id.point_type_scroll_two);
+        mCancel = (Button)layout.findViewById(R.id.point_type_cancel);
+        mOk = (Button)layout.findViewById(R.id.point_type_ok);
+
         mGroundRenderPoint = mMainActivity.getMainManager().getFileManager().getGroundRenderPointFile().getShapPoint();
         mDefaultSelectedItemOne = 0;
         mDefaultSelectedItemTwo = 0;
@@ -84,11 +94,46 @@ public class BottomGroundRenderPointLayout {
         mWheelViewOne.join(mWheelViewTwo);
         mWheelViewOne.joinDatas(hashMap);
 
-        mWheelViewOne.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointListener());
-        mWheelViewTwo.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointListener());
+        mWheelViewOne.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getGroundRenderPointTypeListener());
+        mWheelViewTwo.setOnWheelItemSelectedListener(mMainActivity.getMainManager().getListenerManager().getGroundRenderPointTypeListener());
+
+        mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getGroundRenderPointTypeListener());
+        mOk.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getGroundRenderPointTypeListener());
 
         // 初始化画点类型
         ((TextView)mMainActivity.findViewById(R.id.point_type)).setText((String)mWheelViewTwo.getSelectedItem());
+
+        mAlertDialog = new AlertDialog.Builder(mMainActivity).create();
+        mAlertDialog.setView(layout);
+        mAlertDialog.setCancelable(false); // 点击对话框外地方是否不消失
+    }
+
+    // 重设选项
+    public void reset(int oneIndex, int twoIndex) {
+        mWheelViewOne.setSelection(oneIndex);
+        mWheelViewTwo.setSelection(twoIndex);
+    }
+
+    // 显示对话框
+    public void show(int oneIndex, int twoIndex) {
+        mAlertDialog.show();
+
+        reset(oneIndex, twoIndex);
+    }
+
+    // 隐藏对话框
+    public void hide() {
+        mAlertDialog.hide();
+    }
+
+    // 销毁对话框
+    public void dimiss() {
+        mAlertDialog.dismiss();
+    }
+
+    // 获取对话框句柄
+    public AlertDialog getAlertDialog() {
+        return mAlertDialog;
     }
 
     // 获取第一个滚动选择器
@@ -99,43 +144,5 @@ public class BottomGroundRenderPointLayout {
     // 获取第二个滚动选择器
     public WheelView getWheelViewTwo() {
         return mWheelViewTwo;
-    }
-
-    // 显示布局
-    public void show() {
-        if(mLayout.getVisibility() == View.VISIBLE) {
-            return;
-        }
-
-        mLayout.setVisibility(View.VISIBLE);
-    }
-
-    // 隐藏布局
-    public void hide() {
-        // View.INVISIBLE   控制该控件面板layout不可见，但是他依旧占用空间;
-        //                  设置这个属性后，此位置按键不可见，但下一个按键不会占用它的位置
-
-        // View.GONE        控制该控件面板消失;
-        //                  设置这个属性后，相当于这里没有这个布局，下一个按键会向前移动，占用此控件的位置
-
-        if(mLayout.getVisibility() == View.GONE) {
-            return;
-        }
-
-        mLayout.setVisibility(View.GONE);
-    }
-
-    // 判断布局的隐藏性
-    public int getVisibility() {
-        // View.VISIBLE    可见
-        // View.INVISIBLE    不可见但是占用布局空间
-        // View.GONE    不可见也不占用布局空搜索间
-        return mLayout.getVisibility();
-    }
-
-    // 上次数据清理
-    public void clear() {
-        mWheelViewOne.setSelection(0);
-        mWheelViewTwo.setSelection(0);
     }
 }

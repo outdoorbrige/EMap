@@ -42,9 +42,9 @@ public class DrawListener implements AdapterView.OnItemClickListener {
 
     // 测距与方位角
     private void onItemClickedDistanceAzimuth(AdapterView<?> parent, View view, int position, long id) {
-        mMainActivity.getMainManager().getLayoutManager().getTopDrawDistanceAzimuthLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().show();
 
-        mMainActivity.getMainManager().getLayoutManager().getTopDrawDistanceAzimuthLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().show();
 
         // 添加覆盖物
         mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new MeasureLineOverlay(mMainActivity));

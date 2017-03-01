@@ -1,14 +1,11 @@
 package com.gh.emap.layout;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-
-import java.io.File;
 
 /**
  * Created by GuHeng on 2016/11/10.
@@ -19,8 +16,7 @@ public class TopGroundRenderPointLayout {
     private View mLayout; // 布局
     private TextView mPointType; // 画点的类型
     private EditText mPointName; // 画点的名称
-    private Button mPointCancel; // 取消
-    private Button mPointSave; // 保存
+    private String mOldPointType; // 上次保存的画点类型
 
     public TopGroundRenderPointLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -30,35 +26,24 @@ public class TopGroundRenderPointLayout {
         mLayout = mMainActivity.findViewById(R.id.top_ground_render_point);
         mPointType = (TextView)mMainActivity.findViewById(R.id.point_type);
         mPointName = (EditText)mMainActivity.findViewById(R.id.point_name);
-        mPointCancel = (Button)mMainActivity.findViewById(R.id.point_cancel);
-        mPointSave = (Button)mMainActivity.findViewById(R.id.point_save);
 
         mPointType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
         mPointName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
-        mPointCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
-        mPointSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
     }
 
-    // 获取地物绘制-画点工作目录
-    public String getGroundRenderPointPath() {
-        String path = null;
-
-        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().getGroundRenderPath();
-        if(fatherPath != null) {
-            path = fatherPath + "Points" + File.separator;
-
-            File dir = new File(path);
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
-        }
-
-        return path;
+    public void setOldPointType(String oldPointType) {
+        mOldPointType = oldPointType;
     }
 
-    // 获取地物绘制-画点文件后缀名
-    public String getGroundRenderPointFileSuffix() {
-        return ".point";
+    public String getOldPointType() {
+        return mOldPointType;
+    }
+
+    // 清理上次数据
+    private void clear() {
+        mPointType.setText("");
+        mPointName.setText("");
+        mOldPointType = "";
     }
 
     // 显示布局
@@ -88,11 +73,5 @@ public class TopGroundRenderPointLayout {
         // View.INVISIBLE    不可见但是占用布局空间
         // View.GONE    不可见也不占用布局空搜索间
         return mLayout.getVisibility();
-    }
-
-    // 清理上次数据
-    private void clear() {
-        mPointType.setText("");
-        mPointName.setText("");
     }
 }

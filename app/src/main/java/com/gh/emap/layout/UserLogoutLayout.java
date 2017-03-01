@@ -34,6 +34,17 @@ public class UserLogoutLayout {
 
     public void init() {
         View layout = mMainActivity.getLayoutInflater().inflate(R.layout.user_logout, null, false);
+
+        mLayout = layout.findViewById(R.id.user_logout);
+        mUserName = (TextView)layout.findViewById(R.id.logout_name);
+        mNickName = (TextView)layout.findViewById(R.id.logout_nickname);
+        mUserType = (TextView)layout.findViewById(R.id.logout_type);
+        mLogoutButton = (Button)layout.findViewById(R.id.logout_button);
+        mCancelButton = (Button)layout.findViewById(R.id.logout_cancel_button);
+
+        mLogoutButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLogoutListener());
+        mCancelButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLogoutListener());
+
         mAlertDialog = new AlertDialog.Builder(mMainActivity).create();
         mAlertDialog.setView(layout);
         mAlertDialog.setCancelable(false); // 点击对话框外地方是否不消失
@@ -42,25 +53,6 @@ public class UserLogoutLayout {
     // 显示对话框
     public void show() {
         mAlertDialog.show();
-
-        // AlertDialog自定义setView
-        // 必须show对话框，然后才能查找控件
-        initWidget();
-    }
-
-    // 初始化控件
-    private void initWidget() {
-        if(mLayout == null) { // 只初始化一次控件对象
-            mLayout = getAlertDialog().findViewById(R.id.user_logout);
-            mUserName = (TextView)getAlertDialog().findViewById(R.id.logout_name);
-            mNickName = (TextView)getAlertDialog().findViewById(R.id.logout_nickname);
-            mUserType = (TextView)getAlertDialog().findViewById(R.id.logout_type);
-            mLogoutButton = (Button)getAlertDialog().findViewById(R.id.logout_button);
-            mCancelButton = (Button)getAlertDialog().findViewById(R.id.logout_cancel_button);
-
-            mLogoutButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLogoutListener());
-            mCancelButton.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getUserLogoutListener());
-        }
 
         UserInfo userInfo = mMainActivity.getMainManager().getUserManager().getUserInfo();
         if(userInfo == null || !userInfo.isSuccess()) { // 用户离线

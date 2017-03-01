@@ -2,10 +2,8 @@ package com.gh.emap.overlay;
 
 import android.graphics.Point;
 import android.location.Location;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
@@ -181,15 +179,6 @@ public class MeasureLineOverlay extends Overlay {
         al2.add(strAzimuthLab);
 
         mAzimuths.push(al2);
-
-        // 设置标签到界面
-        mMainActivity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                ((TextView)mMainActivity.findViewById(R.id.distance)).setText(mDistances.lastElement().get(1));
-                ((TextView)mMainActivity.findViewById(R.id.azimuth)).setText(mAzimuths.lastElement().get(1));
-            }
-        });
 
         return true;
     }

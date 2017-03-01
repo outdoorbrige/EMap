@@ -67,6 +67,8 @@ public class GroundRenderPointFile {
                     }
                 }
 
+                mGroundRenderPoint.compareIndex();
+
                 bufferedReader.close();
                 inputStreamReader.close();
                 inputStream.close();

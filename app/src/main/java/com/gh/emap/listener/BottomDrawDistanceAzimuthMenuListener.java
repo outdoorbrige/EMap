@@ -12,21 +12,21 @@ import java.util.List;
  * Created by GuHeng on 2017/2/21.
  */
 
-public class TopDrawDistanceAzimuthListener implements View.OnClickListener {
+public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListener {
     private MainActivity mMainActivity;
 
     // 构造函数
-    public TopDrawDistanceAzimuthListener(MainActivity mainActivity) {
+    public BottomDrawDistanceAzimuthMenuListener(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.distance_azimuth_cancel: // 取消
+            case R.id.distance_azimuth_menu_cancel: // 取消
                 onClickedCancel(view);
                 break;
-            case R.id.distance_azimuth_undo: // 撤销
+            case R.id.distance_azimuth_menu_undo: // 撤销
                 onClickedUndo(view);
                 break;
             default:
@@ -36,9 +36,7 @@ public class TopDrawDistanceAzimuthListener implements View.OnClickListener {
 
     // 取消
     private void onClickedCancel(View view) {
-        mMainActivity.getMainManager().getLayoutManager().getTopDrawDistanceAzimuthLayout().hide();
-        mMainActivity.getMainManager().getLayoutManager().getMenuLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getOperationLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().hide();
 
         // 删除覆盖物
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();

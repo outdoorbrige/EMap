@@ -2,7 +2,6 @@ package com.gh.emap.layout;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
@@ -12,33 +11,29 @@ import com.gh.emap.R;
  * 测绘-测距与方位角
  */
 
-public class TopDrawDistanceAzimuthLayout {
+public class BottomDrawDistanceAzimuthMenuLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
-    private TextView mDistance; // 测距
-    private TextView mAzimuth; // 方位角
     private Button mCancel; // 取消
     private Button mUndo; // 撤销
 
-    public TopDrawDistanceAzimuthLayout(MainActivity mainActivity) {
+    public BottomDrawDistanceAzimuthMenuLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.top_draw_distance_azimuth);
-        mDistance = (TextView)mMainActivity.findViewById(R.id.distance);
-        mAzimuth = (TextView)mMainActivity.findViewById(R.id.azimuth);
-        mCancel = (Button)mMainActivity.findViewById(R.id.distance_azimuth_cancel);
-        mUndo = (Button)mMainActivity.findViewById(R.id.distance_azimuth_undo);
+        mLayout = mMainActivity.findViewById(R.id.bottom_draw_distance_azimuth_menu);
 
-        mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopDrawDistanceAzimuthListener());
-        mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopDrawDistanceAzimuthListener());
+        mCancel = (Button)mMainActivity.findViewById(R.id.distance_azimuth_menu_cancel);
+        mUndo = (Button)mMainActivity.findViewById(R.id.distance_azimuth_menu_undo);
+
+        mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawDistanceAzimuthMenuListener());
+        mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawDistanceAzimuthMenuListener());
     }
 
     // 显示布局
     public void show() {
         mLayout.setVisibility(View.VISIBLE);
-        clear();
     }
 
     // 隐藏布局
@@ -62,11 +57,5 @@ public class TopDrawDistanceAzimuthLayout {
         // View.INVISIBLE    不可见但是占用布局空间
         // View.GONE    不可见也不占用布局空搜索间
         return mLayout.getVisibility();
-    }
-
-    // 清理上次数据
-    private void clear() {
-        mDistance.setText("");
-        mAzimuth.setText("");
     }
 }

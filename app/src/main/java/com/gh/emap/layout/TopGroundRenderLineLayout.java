@@ -1,14 +1,11 @@
 package com.gh.emap.layout;
 
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-
-import java.io.File;
 
 /**
  * Created by GuHeng on 2017/1/9.
@@ -20,8 +17,7 @@ public class TopGroundRenderLineLayout {
     private View mLayout; // 布局
     private TextView mLineType; // 画线的类型
     private EditText mLineName; // 画线的名称
-    private Button mLineCancel; // 取消
-    private Button mLineSave; // 保存
+    private String mOldLineType; // 上次保存的画线类型
 
     public TopGroundRenderLineLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -31,35 +27,24 @@ public class TopGroundRenderLineLayout {
         mLayout = mMainActivity.findViewById(R.id.top_ground_render_line);
         mLineType = (TextView)mMainActivity.findViewById(R.id.line_type);
         mLineName = (EditText)mMainActivity.findViewById(R.id.line_name);
-        mLineCancel = (Button)mMainActivity.findViewById(R.id.line_cancel);
-        mLineSave = (Button)mMainActivity.findViewById(R.id.line_save);
 
         mLineType.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
         mLineName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
-        mLineCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
-        mLineSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
     }
 
-    // 获取地物绘制-画点工作目录
-    public String getGroundRenderLinePath() {
-        String path = null;
-
-        String fatherPath = mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().getGroundRenderPath();
-        if(fatherPath != null) {
-            path = fatherPath + "Lines" + File.separator;
-
-            File dir = new File(path);
-            if(!dir.exists()) {
-                dir.mkdirs();
-            }
-        }
-
-        return path;
+    public void setOldLineType(String oldLineType) {
+        mOldLineType = oldLineType;
     }
 
-    // 获取地物绘制-画点工作目录
-    public String getGroundRenderLineFileSuffix() {
-        return ".line";
+    public String getOldLineType() {
+        return mOldLineType;
+    }
+
+    // 清理上次数据
+    private void clear() {
+        mLineType.setText("");
+        mLineName.setText("");
+        mOldLineType = "";
     }
 
     // 显示布局
@@ -89,11 +74,5 @@ public class TopGroundRenderLineLayout {
         // View.INVISIBLE    不可见但是占用布局空间
         // View.GONE    不可见也不占用布局空搜索间
         return mLayout.getVisibility();
-    }
-
-    // 清理上次数据
-    private void clear() {
-        mLineType.setText("");
-        mLineName.setText("");
     }
 }

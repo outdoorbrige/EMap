@@ -2,8 +2,6 @@ package com.gh.emap;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.gh.emap.manager.LogManager;
 import com.gh.emap.manager.MainManager;
@@ -84,59 +82,59 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    // 分发触摸事件
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
-        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-            View view = findViewById(R.id.bottom_ground_render_point);
-            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderPointLayout布局
-                getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().hide();
-                getMainManager().getLayoutManager().getMenuLayout().show();
-                getMainManager().getLayoutManager().getOperationLayout().show();
-            }
-
-            view = findViewById(R.id.bottom_ground_render__line);
-            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderLineLayout布局
-                getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().hide();
-                getMainManager().getLayoutManager().getMenuLayout().show();
-                getMainManager().getLayoutManager().getOperationLayout().show();
-            }
-
-            return super.dispatchTouchEvent(motionEvent);
-        }
-
-        // 必不可少，否则所有的组件都不会有TouchEvent了
-        if (getWindow().superDispatchTouchEvent(motionEvent)) {
-            return true;
-        }
-
-        return onTouchEvent(motionEvent);
-    }
-
-    // 判断是否触摸了View
-    public  boolean isTouchedView(View view, MotionEvent motionEvent) {
-        if (view != null) {
-            int[] leftTop = { 0, 0 };
-
-            //获取View当前的location位置
-            view.getLocationInWindow(leftTop);
-
-            int left = leftTop[0];
-            int top = leftTop[1];
-            int bottom = top + view.getHeight();
-            int right = left + view.getWidth();
-
-            if ((left < motionEvent.getX() && motionEvent.getX() < right) &&
-                    (top < motionEvent.getY() && motionEvent.getY() < bottom)) {
-                // 点击的是View区域，保留点击View的事件
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        return false;
-    }
+//    // 分发触摸事件
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
+//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+//            View view = findViewById(R.id.ground_render_point_type);
+//            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderPointLayout布局
+//                getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().hide();
+//                getMainManager().getLayoutManager().getMenuLayout().show();
+//                getMainManager().getLayoutManager().getOperationLayout().show();
+//            }
+//
+//            view = findViewById(R.id.bottom_ground_render_line);
+//            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderLineLayout布局
+//                getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().hide();
+//                getMainManager().getLayoutManager().getMenuLayout().show();
+//                getMainManager().getLayoutManager().getOperationLayout().show();
+//            }
+//
+//            return super.dispatchTouchEvent(motionEvent);
+//        }
+//
+//        // 必不可少，否则所有的组件都不会有TouchEvent了
+//        if (getWindow().superDispatchTouchEvent(motionEvent)) {
+//            return true;
+//        }
+//
+//        return onTouchEvent(motionEvent);
+//    }
+//
+//    // 判断是否触摸了View
+//    public  boolean isTouchedView(View view, MotionEvent motionEvent) {
+//        if (view != null) {
+//            int[] leftTop = { 0, 0 };
+//
+//            //获取View当前的location位置
+//            view.getLocationInWindow(leftTop);
+//
+//            int left = leftTop[0];
+//            int top = leftTop[1];
+//            int bottom = top + view.getHeight();
+//            int right = left + view.getWidth();
+//
+//            if ((left < motionEvent.getX() && motionEvent.getX() < right) &&
+//                    (top < motionEvent.getY() && motionEvent.getY() < bottom)) {
+//                // 点击的是View区域，保留点击View的事件
+//                return true;
+//            } else {
+//                return false;
+//            }
+//        }
+//
+//        return false;
+//    }
 
     // 获取应用程序名称
     public String getApplationName() {

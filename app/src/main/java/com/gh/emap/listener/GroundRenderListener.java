@@ -59,14 +59,14 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
     // 画点
     private void onItemClickedPoint(AdapterView<?> parent, View view, int position, long id) {
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().show();
 
         // 防止重复加载文件数据
         if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointPath(),
-                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getGroundRenderPointFileSuffix(), files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointPath(),
+                    mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointFileSuffix(), files);
 
             // 解析点文件
             ArrayList<PointObject> pointObjects = RWPointFile.read(files);
@@ -99,14 +99,14 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
     // 画线
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().show();
-        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().show();
 
         // 防止重复加载文件数据
         if(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLinePath(),
-                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getGroundRenderLineFileSuffix(), files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLinePath(),
+                    mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLineFileSuffix(), files);
 
             // 解析线文件
             ArrayList<LineObject> lineObjects = RWLineFile.read(files);
@@ -139,14 +139,14 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
     // 画面
     private void onItemClickedCircle(AdapterView<?> parent, View view, int position, long id) {
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().show();
-//        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneLayout().clear();
+        mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().show();
 
         // 防止重复加载文件数据
         if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
-            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getGroundRenderPlanePath(),
-                    mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getGroundRenderPlaneFileSuffix(), files);
+            OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlanePath(),
+                    mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlaneFileSuffix(), files);
 
             // 解析面文件
             ArrayList<PlaneObject> planeObjects = RWPlaneFile.read(files);

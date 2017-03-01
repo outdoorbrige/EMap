@@ -56,6 +56,8 @@ public class MainManager {
     }
 
     public void unInit() {
+        mLayoutManager.getGroundRenderPointTypeLayout().dimiss();
+        mLayoutManager.getGroundRenderLineTypeLayout().dimiss();
         mLayoutManager.getUserLoginLayout().dimiss();
         mLayoutManager.getUserRegisterLayout().dimiss();
         mLayoutManager.getUserLogoutLayout().dimiss();

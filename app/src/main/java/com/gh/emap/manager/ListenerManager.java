@@ -1,14 +1,17 @@
 package com.gh.emap.manager;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.listener.BottomGroundRenderLineListener;
-import com.gh.emap.listener.BottomGroundRenderPointListener;
+import com.gh.emap.listener.BottomGroundRenderLineMenuListener;
+import com.gh.emap.listener.BottomGroundRenderPlaneMenuListener;
+import com.gh.emap.listener.GroundRenderLineTypeListener;
+import com.gh.emap.listener.BottomGroundRenderPointMenuListener;
+import com.gh.emap.listener.GroundRenderPointTypeListener;
 import com.gh.emap.listener.DrawListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.OperationListener;
 import com.gh.emap.listener.TopDrawAreaGirthListener;
-import com.gh.emap.listener.TopDrawDistanceAzimuthListener;
+import com.gh.emap.listener.BottomDrawDistanceAzimuthMenuListener;
 import com.gh.emap.listener.TopGroundRenderLineListener;
 import com.gh.emap.listener.TopGroundRenderPlaneListener;
 import com.gh.emap.listener.TopRenderListener;
@@ -36,11 +39,14 @@ public class ListenerManager {
     private GroundRenderListener mGroundRenderListener;
     private DrawListener mDrawListener;
     private TopGroundRenderPointListener mTopGroundRenderPointListener;
-    private BottomGroundRenderPointListener mBottomGroundRenderPointListener;
+    private BottomGroundRenderPointMenuListener mBottomGroundRenderPointMenuListener;
+    private GroundRenderPointTypeListener mGroundRenderPointTypeListener;
     private TopGroundRenderLineListener mTopGroundRenderLineListener;
-    private BottomGroundRenderLineListener mBottomGroundRenderLineListener;
+    private BottomGroundRenderLineMenuListener mBottomGroundRenderLineMenuListener;
+    private GroundRenderLineTypeListener mGroundRenderLineTypeListener;
     private TopGroundRenderPlaneListener mTopGroundRenderPlaneListener;
-    private TopDrawDistanceAzimuthListener mTopDrawDistanceAzimuthListener;
+    private BottomGroundRenderPlaneMenuListener mBottomGroundRenderPlaneMenuListener;
+    private BottomDrawDistanceAzimuthMenuListener mBottomDrawDistanceAzimuthMenuListener;
     private TopDrawAreaGirthListener mTopDrawAreaGirthListener;
 
     public ListenerManager(MainActivity mainActivity) {
@@ -59,11 +65,14 @@ public class ListenerManager {
         mGroundRenderListener = new GroundRenderListener(mMainActivity);
         mDrawListener = new DrawListener(mMainActivity);
         mTopGroundRenderPointListener = new TopGroundRenderPointListener(mMainActivity);
-        mBottomGroundRenderPointListener = new BottomGroundRenderPointListener(mMainActivity);
+        mBottomGroundRenderPointMenuListener = new BottomGroundRenderPointMenuListener(mMainActivity);
+        mGroundRenderPointTypeListener = new GroundRenderPointTypeListener(mMainActivity);
         mTopGroundRenderLineListener = new TopGroundRenderLineListener(mMainActivity);
-        mBottomGroundRenderLineListener = new BottomGroundRenderLineListener(mMainActivity);
+        mBottomGroundRenderLineMenuListener = new BottomGroundRenderLineMenuListener(mMainActivity);
+        mGroundRenderLineTypeListener = new GroundRenderLineTypeListener(mMainActivity);
         mTopGroundRenderPlaneListener = new TopGroundRenderPlaneListener(mMainActivity);
-        mTopDrawDistanceAzimuthListener = new TopDrawDistanceAzimuthListener(mMainActivity);
+        mBottomGroundRenderPlaneMenuListener = new BottomGroundRenderPlaneMenuListener(mMainActivity);
+        mBottomDrawDistanceAzimuthMenuListener = new BottomDrawDistanceAzimuthMenuListener(mMainActivity);
         mTopDrawAreaGirthListener = new TopDrawAreaGirthListener(mMainActivity);
     }
 
@@ -111,24 +120,36 @@ public class ListenerManager {
         return mTopGroundRenderPointListener;
     }
 
-    public BottomGroundRenderPointListener getBottomGroundRenderPointListener() {
-        return mBottomGroundRenderPointListener;
+    public BottomGroundRenderPointMenuListener getBottomGroundRenderPointMenuListener() {
+        return mBottomGroundRenderPointMenuListener;
+    }
+
+    public GroundRenderPointTypeListener getGroundRenderPointTypeListener() {
+        return mGroundRenderPointTypeListener;
     }
 
     public TopGroundRenderLineListener getTopGroundRenderLineListener() {
         return mTopGroundRenderLineListener;
     }
 
-    public BottomGroundRenderLineListener getBottomGroundRenderLineListener() {
-        return mBottomGroundRenderLineListener;
+    public BottomGroundRenderLineMenuListener getBottomGroundRenderLineMenuListener() {
+        return mBottomGroundRenderLineMenuListener;
+    }
+
+    public GroundRenderLineTypeListener getGroundRenderLineTypeListener() {
+        return mGroundRenderLineTypeListener;
     }
 
     public TopGroundRenderPlaneListener getTopGroundRenderPlaneListener() {
         return mTopGroundRenderPlaneListener;
     }
 
-    public TopDrawDistanceAzimuthListener getTopDrawDistanceAzimuthListener() {
-        return mTopDrawDistanceAzimuthListener;
+    public BottomGroundRenderPlaneMenuListener getBottomGroundRenderPlaneMenuListener() {
+        return mBottomGroundRenderPlaneMenuListener;
+    }
+
+    public BottomDrawDistanceAzimuthMenuListener getBottomDrawDistanceAzimuthMenuListener() {
+        return mBottomDrawDistanceAzimuthMenuListener;
     }
 
     public TopDrawAreaGirthListener getTopDrawAreaGirthListener() {
