@@ -4,7 +4,8 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.overlay.MeasureLineOverlay;
+import com.gh.emap.overlay.AreaGirthOverlay;
+import com.gh.emap.overlay.DistanceAzimuthOverlay;
 
 /**
  * Created by GuHeng on 2017/2/14.
@@ -44,16 +45,19 @@ public class DrawListener implements AdapterView.OnItemClickListener {
     private void onItemClickedDistanceAzimuth(AdapterView<?> parent, View view, int position, long id) {
         mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().show();
 
-        mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().show();
-
         // 添加覆盖物
-        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new MeasureLineOverlay(mMainActivity));
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new DistanceAzimuthOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 
     // 测面积与周长
     private void onItemClickedAreaGirth(AdapterView<?> parent, View view, int position, long id) {
-        mMainActivity.getMainManager().getLayoutManager().getTopDrawAreaGirthLayout().show();
+        mMainActivity.getMainManager().getLayoutManager().getBottomDrawAreaGirthMenuLayout().show();
+
+        // 添加覆盖物
+        mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new AreaGirthOverlay(mMainActivity));
+
+        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
     }
 }

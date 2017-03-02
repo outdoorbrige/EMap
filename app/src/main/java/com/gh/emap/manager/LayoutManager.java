@@ -8,7 +8,7 @@ import com.gh.emap.layout.BottomGroundRenderPointMenuLayout;
 import com.gh.emap.layout.GroundRenderPointTypeLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
-import com.gh.emap.layout.TopDrawAreaGirthLayout;
+import com.gh.emap.layout.BottomDrawAreaGirthMenuLayout;
 import com.gh.emap.layout.BottomDrawDistanceAzimuthMenuLayout;
 import com.gh.emap.layout.TopGroundRenderPlaneLayout;
 import com.gh.emap.layout.TopRenderLayout;
@@ -38,7 +38,7 @@ public class LayoutManager {
     private TopGroundRenderPlaneLayout mTopGroundRenderPlaneLayout;
     private BottomGroundRenderPlaneMenuLayout mBottomGroundRenderPlaneMenuLayout;
     private BottomDrawDistanceAzimuthMenuLayout mBottomDrawDistanceAzimuthMenuLayout;
-    private TopDrawAreaGirthLayout mTopDrawAreaGirthLayout;
+    private BottomDrawAreaGirthMenuLayout mBottomDrawAreaGirthMenuLayout;
     private UserLoginLayout mUserLoginLayout;
     private UserRegisterLayout mUserRegisterLayout;
     private UserLogoutLayout mUserLogoutLayout;
@@ -87,8 +87,8 @@ public class LayoutManager {
         mBottomDrawDistanceAzimuthMenuLayout = new BottomDrawDistanceAzimuthMenuLayout(mMainActivity);
         mBottomDrawDistanceAzimuthMenuLayout.init();
 
-        mTopDrawAreaGirthLayout = new TopDrawAreaGirthLayout(mMainActivity);
-        mTopDrawAreaGirthLayout.init();
+        mBottomDrawAreaGirthMenuLayout = new BottomDrawAreaGirthMenuLayout(mMainActivity);
+        mBottomDrawAreaGirthMenuLayout.init();
 
         mUserLoginLayout = new UserLoginLayout(mMainActivity);
         mUserLoginLayout.init();
@@ -152,8 +152,8 @@ public class LayoutManager {
         return mBottomDrawDistanceAzimuthMenuLayout;
     }
 
-    public TopDrawAreaGirthLayout getTopDrawAreaGirthLayout() {
-        return mTopDrawAreaGirthLayout;
+    public BottomDrawAreaGirthMenuLayout getBottomDrawAreaGirthMenuLayout() {
+        return mBottomDrawAreaGirthMenuLayout;
     }
 
     public UserLoginLayout getUserLoginLayout() {

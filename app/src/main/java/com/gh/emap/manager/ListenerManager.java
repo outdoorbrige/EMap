@@ -10,7 +10,7 @@ import com.gh.emap.listener.DrawListener;
 import com.gh.emap.listener.MenuListener;
 import com.gh.emap.listener.MyLocationListener;
 import com.gh.emap.listener.OperationListener;
-import com.gh.emap.listener.TopDrawAreaGirthListener;
+import com.gh.emap.listener.BottomDrawAreaGirthMenuListener;
 import com.gh.emap.listener.BottomDrawDistanceAzimuthMenuListener;
 import com.gh.emap.listener.TopGroundRenderLineListener;
 import com.gh.emap.listener.TopGroundRenderPlaneListener;
@@ -47,7 +47,7 @@ public class ListenerManager {
     private TopGroundRenderPlaneListener mTopGroundRenderPlaneListener;
     private BottomGroundRenderPlaneMenuListener mBottomGroundRenderPlaneMenuListener;
     private BottomDrawDistanceAzimuthMenuListener mBottomDrawDistanceAzimuthMenuListener;
-    private TopDrawAreaGirthListener mTopDrawAreaGirthListener;
+    private BottomDrawAreaGirthMenuListener mBottomDrawAreaGirthMenuListener;
 
     public ListenerManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -73,7 +73,7 @@ public class ListenerManager {
         mTopGroundRenderPlaneListener = new TopGroundRenderPlaneListener(mMainActivity);
         mBottomGroundRenderPlaneMenuListener = new BottomGroundRenderPlaneMenuListener(mMainActivity);
         mBottomDrawDistanceAzimuthMenuListener = new BottomDrawDistanceAzimuthMenuListener(mMainActivity);
-        mTopDrawAreaGirthListener = new TopDrawAreaGirthListener(mMainActivity);
+        mBottomDrawAreaGirthMenuListener = new BottomDrawAreaGirthMenuListener(mMainActivity);
     }
 
     public MyLocationListener getMyLocationListener() {
@@ -152,7 +152,7 @@ public class ListenerManager {
         return mBottomDrawDistanceAzimuthMenuListener;
     }
 
-    public TopDrawAreaGirthListener getTopDrawAreaGirthListener() {
-        return mTopDrawAreaGirthListener;
+    public BottomDrawAreaGirthMenuListener getBottomDrawAreaGirthMenuListener() {
+        return mBottomDrawAreaGirthMenuListener;
     }
 }

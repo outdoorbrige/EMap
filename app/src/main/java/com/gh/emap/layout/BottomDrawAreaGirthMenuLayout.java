@@ -2,7 +2,6 @@ package com.gh.emap.layout;
 
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
@@ -12,33 +11,28 @@ import com.gh.emap.R;
  * 测绘-测面积与周长
  */
 
-public class TopDrawAreaGirthLayout {
+public class BottomDrawAreaGirthMenuLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
-    private TextView mArea; // 面积
-    private TextView mGirth; // 周长
     private Button mCancel; // 取消
     private Button mUndo; // 撤销
 
-    public TopDrawAreaGirthLayout(MainActivity mainActivity) {
+    public BottomDrawAreaGirthMenuLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mLayout = mMainActivity.findViewById(R.id.top_draw_area_girth);
-        mArea = (TextView)mMainActivity.findViewById(R.id.area);
-        mGirth = (TextView)mMainActivity.findViewById(R.id.girth);
-        mCancel = (Button)mMainActivity.findViewById(R.id.area_girth_cancel);
-        mUndo = (Button)mMainActivity.findViewById(R.id.area_girth_undo);
+        mLayout = mMainActivity.findViewById(R.id.bottom_draw_area_girth_menu);
+        mCancel = (Button)mMainActivity.findViewById(R.id.area_girth_menu_cancel);
+        mUndo = (Button)mMainActivity.findViewById(R.id.area_girth_menu_undo);
 
-        mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopDrawAreaGirthListener());
-        mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopDrawAreaGirthListener());
+        mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawAreaGirthMenuListener());
+        mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawAreaGirthMenuListener());
     }
 
     // 显示布局
     public void show() {
         mLayout.setVisibility(View.VISIBLE);
-        clear();
     }
 
     // 隐藏布局
@@ -62,11 +56,5 @@ public class TopDrawAreaGirthLayout {
         // View.INVISIBLE    不可见但是占用布局空间
         // View.GONE    不可见也不占用布局空搜索间
         return mLayout.getVisibility();
-    }
-
-    // 清理上次数据
-    private void clear() {
-        mArea.setText("");
-        mGirth.setText("");
     }
 }
