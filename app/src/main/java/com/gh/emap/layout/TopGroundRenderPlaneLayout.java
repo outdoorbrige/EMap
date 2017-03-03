@@ -27,6 +27,14 @@ public class TopGroundRenderPlaneLayout {
         mPlaneName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPlaneListener());
     }
 
+    public void setPlaneName(String planeName) {
+        mPlaneName.setText(planeName);
+    }
+
+    public String getPlaneName() {
+        return mPlaneName.getText().toString();
+    }
+
     // 清理上次数据
     private void clear() {
         mPlaneName.setText("");

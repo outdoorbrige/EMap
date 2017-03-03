@@ -1,7 +1,6 @@
 package com.gh.emap.listener;
 
 import android.view.View;
-import android.widget.EditText;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
@@ -56,7 +55,7 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
     // 保存
     private void onClickedPlaneSave(View view) {
-        String planeName = ((EditText) mMainActivity.findViewById(R.id.plane_name)).getText().toString();
+        String planeName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getPlaneName();
         if (planeName.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请输入面-名称"));
             return;
@@ -70,8 +69,7 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
         PlaneOverlay currentPlaneOverlay = (PlaneOverlay)overlays.get(overlays.size() - 1);
-        ArrayList<GeoPoint> points = currentPlaneOverlay.getPoints();
-        overlays.remove(overlays.size() - 1);
+        ArrayList<GeoPoint> points = currentPlaneOverlay.getPlaneObject().getGeoPoints();
 
         if (points == null || points.size() < 3) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择面的位置"));
@@ -87,17 +85,16 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
         // 保存面信息到文件
 
         PlaneObject planeObject = new PlaneObject();
-//        planeObject.setType(planeType);
         planeObject.setName(planeName);
         planeObject.addGeoPoints(points);
 
         RWPlaneFile.write(path + File.separator + planeObject.getName() +
                 mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlaneFileSuffix(), planeObject);
 
-        mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().add(planeObject);
+        mMainActivity.getMainManager().getMyUserOverlaysManager().addPlaneObject(planeObject);
 
-        PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() - 1);
+        PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().get(
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().size() - 1);
 
         planeOverlay.setEditStatus(false);
 
@@ -106,20 +103,14 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
-        // 设置默认面的名称
-        EditText defaultPlaneName = (EditText) (mMainActivity.findViewById(R.id.plane_name));
-        defaultPlaneName.setText("面" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().setPlaneName(
+                "面" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().size() + 1));
     }
 
     // 检查面-名称是否存在
     boolean PlaneNameExist(String planeName) {
-        ArrayList<PlaneObject> items = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneObjects();
-        if (items == null) {
-            return false;
-        }
-
-        for (int i = 0; i < items.size(); i++) {
-            PlaneObject item = items.get(i);
+        for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().size(); i++) {
+            PlaneObject item = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().get(i).getPlaneObject();
             if (item == null) {
                 continue;
             }

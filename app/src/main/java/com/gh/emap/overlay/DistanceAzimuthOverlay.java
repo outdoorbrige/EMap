@@ -22,13 +22,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class DistanceAzimuthOverlay extends Overlay {
     private MainActivity mMainActivity;
-
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
-
-    // Stack<ArrayList<String>>中每个ArrayList<String>有两个元素(元素一：数据；元素二：标签)
-    private Stack<ArrayList<String>> mDistances = new Stack<>(); // 距离集合
-    private Stack<ArrayList<String>> mAzimuths = new Stack<>(); // 方位角集合
-
     private boolean mEditStatus; // 可编辑状态
 
     public DistanceAzimuthOverlay(MainActivity mainActivity) {
@@ -52,20 +46,76 @@ public class DistanceAzimuthOverlay extends Overlay {
         return mGeoPointArrayList.addAll(points);
     }
 
-    public double getDistance() {
-        if(mDistances.isEmpty()) {
-            return 0.0f;
+    // 获取距离集合带单位(四舍五入3位小数)
+    public ArrayList<String> getDistances() {
+        ArrayList<String> strDistanceList = new ArrayList<>();
+        if(mGeoPointArrayList.size() < 1) {
+
+        } else {
+            ArrayList<Double> dDistanceList = new ArrayList<>();
+
+            dDistanceList.add(Double.valueOf("0"));
+            strDistanceList.add("0");
+
+            for(int i = 1; i < mGeoPointArrayList.size(); i ++) {
+                GeoPoint p1 = mGeoPointArrayList.get(i - 1);
+                GeoPoint p2 = mGeoPointArrayList.get(i);
+
+                // 计算距离
+                float[] results = new float[1];
+                Location.distanceBetween(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2), results);
+
+                double dDistance = dDistanceList.get(dDistanceList.size() - 1) + results[0];
+
+                dDistanceList.add(Double.valueOf(dDistance));
+
+                // 生成距离标签
+
+                final int ONE_THOUSAND = 1000;
+                String strDistance = String.valueOf(dDistance);
+                String strDistanceLab = "";
+
+                if ((int) dDistance < ONE_THOUSAND) {
+                    BigDecimal distanceLab = new BigDecimal(strDistance);
+                    strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "米";
+                } else {
+                    BigDecimal distanceLab = new BigDecimal(String.valueOf(dDistance / ONE_THOUSAND));
+                    strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "公里";
+                }
+
+                strDistanceList.add(strDistanceLab);
+            }
         }
 
-        return  Double.valueOf(mDistances.lastElement().get(0)).doubleValue();
+        return strDistanceList;
     }
 
-    public double getAzimuth() {
-        if(mAzimuths.isEmpty()) {
-            return 0.0f;
+    // 获取方位角集合带单位(四舍五入3位小数)
+    public ArrayList<String> getAzimuths() {
+        ArrayList<String> strAzimuthList = new ArrayList<>();
+        if(mGeoPointArrayList.size() < 1) {
+
+        } else {
+            strAzimuthList.add("0");
+
+            for(int i = 1; i < mGeoPointArrayList.size(); i ++) {
+                GeoPoint p1 = mGeoPointArrayList.get(i - 1);
+                GeoPoint p2 = mGeoPointArrayList.get(i);
+
+                // 计算方位角
+                double dAzimuth = calculateAzimuth(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2));
+                String strAzimuth = String.valueOf(dAzimuth);
+                String strAzimuthLab = "";
+
+                // 生成方位角标签
+                BigDecimal azimuthLab = new BigDecimal(strAzimuth);
+                strAzimuthLab = azimuthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "°";
+
+                strAzimuthList.add(strAzimuthLab);
+            }
         }
 
-        return Double.valueOf(mAzimuths.lastElement().get(0)).doubleValue();
+        return strAzimuthList;
     }
 
     public void setEditStatus(boolean status) {
@@ -76,37 +126,13 @@ public class DistanceAzimuthOverlay extends Overlay {
         return mEditStatus;
     }
 
-    // 计算两点之间的距离
-    private double distanceBetween(ArrayList<GeoPoint> geoPointArrayList) {
-        double distance = 0.0f;
-
-        if(geoPointArrayList.size() > 1) {
-            GeoPoint p1 = mGeoPointArrayList.get(mGeoPointArrayList.size() - 2);
-            GeoPoint p2 = mGeoPointArrayList.get(mGeoPointArrayList.size() - 1);
-
-            // 计算距离
-            float[] results = new float[1];
-            Location.distanceBetween(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2), results);
-            distance = results[0];
-        }
-
-        return distance;
-    }
-
     // 计算方位角
-    private double calculateAzimuth(ArrayList<GeoPoint> geoPointArrayList) {
-        if(geoPointArrayList.size() < 2) {
-            return 0.0f;
-        }
-
-        GeoPoint p1 = mGeoPointArrayList.get(mGeoPointArrayList.size() - 2);
-        GeoPoint p2 = mGeoPointArrayList.get(mGeoPointArrayList.size() - 1);
-
+    private double calculateAzimuth(double lat_a, double lng_a, double lat_b, double lng_b) {
         double d = 0;
-        double lat_a = GeoPointEx.getdY(p1) * Math.PI / 180;
-        double lng_a = GeoPointEx.getdX(p1) * Math.PI / 180;
-        double lat_b = GeoPointEx.getdY(p2) * Math.PI / 180;
-        double lng_b = GeoPointEx.getdX(p2) * Math.PI / 180;
+        lat_a = lat_a * Math.PI / 180;
+        lng_a = lng_a * Math.PI / 180;
+        lat_b = lat_b * Math.PI / 180;
+        lng_b = lng_b * Math.PI / 180;
         d = Math.sin(lat_a) * Math.sin(lat_b) + Math.cos(lat_a) * Math.cos(lat_b) * Math.cos(lng_b - lng_a);
         d = Math.sqrt(1 - d * d);
         d = Math.cos(lat_b) * Math.sin(lng_b - lng_a) / d;
@@ -147,77 +173,12 @@ public class DistanceAzimuthOverlay extends Overlay {
         return degree;
     }
 
-    public void add(String strDistance, String strAzimuth) {
-        if(strDistance == null || strDistance.isEmpty()) {
-            ArrayList<String> al1 = new ArrayList<>();
-            al1.add("0");
-            al1.add("");
-            mDistances.push(al1);
-        } else {
-            // 生成距离标签
-            final int ONE_THOUSAND = 1000;
-
-            String strDistanceLab = "";
-
-            double distance = Double.valueOf(strDistance);
-
-            if((int)distance < ONE_THOUSAND) {
-                BigDecimal distanceLab = new BigDecimal(strDistance);
-                strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "米";
-            } else {
-                BigDecimal distanceLab = new BigDecimal(String.valueOf(distance / ONE_THOUSAND));
-                strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "公里";
-            }
-
-            ArrayList<String> al1 = new ArrayList<>();
-            al1.add(strDistance);
-            al1.add(strDistanceLab);
-
-            mDistances.push(al1);
-        }
-
-        if(strAzimuth == null || strAzimuth.isEmpty()) {
-            ArrayList<String> al2 = new ArrayList<>();
-            al2.add("0");
-            al2.add("");
-            mAzimuths.push(al2);
-        } else {
-            // 生成方位角标签
-            BigDecimal azimuthLab = new BigDecimal(strAzimuth);
-            String strAzimuthLab = azimuthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "°";
-
-            ArrayList<String> al2 = new ArrayList<>();
-            al2.add(strAzimuth);
-            al2.add(strAzimuthLab);
-
-            mAzimuths.push(al2);
-        }
-    }
-
     // 单击事件
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
-        if (!isEditStatus()) {
-            return true;
+        if (isEditStatus()) {
+            addPoint(geoPoint);
         }
-
-        addPoint(geoPoint);
-
-        String strDistance = "";
-        String strAzimuth = "";
-
-        if(mGeoPointArrayList.size() < 2) {
-            strDistance = "";
-            strAzimuth = "";
-        } else {
-            // 计算距离
-            strDistance = String.valueOf(getDistance() + distanceBetween(mGeoPointArrayList));
-
-            // 计算方位角
-            strAzimuth = String.valueOf(calculateAzimuth(mGeoPointArrayList));
-        }
-
-        add(strDistance, strAzimuth);
 
         return true;
     }
@@ -235,31 +196,27 @@ public class DistanceAzimuthOverlay extends Overlay {
 
         MapViewRender render = mapView.getMapViewRender();
 
-        // 画折线
+        // 折线
         render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), mGeoPointArrayList);
 
-        String strLab; // 标注内容
+        ArrayList<String> strDistanceArray = getDistances();
+        ArrayList<String> strAzimuthArray = getAzimuths();
 
         for (int i = 0; i < mGeoPointArrayList.size(); i++) {
             GeoPoint geoPoint = mGeoPointArrayList.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
-            // 画拐点
+            // 拐点
             render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
                     mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
 
-            if(i == 0) { // 起点
-                strLab = "起点";
-//            } else if (i == (mGeoPointArrayList.size() - 1)) { // 终点
-//                strLab = "终点";
-            } else{ // 拐点
-                strLab = mDistances.get(i).get(1) + "，" + mAzimuths.get(i).get(1);
+            if(i == 0) { // 起点标注
+                String strLab = "起点"+ mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+                render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
+            } else{ // 拐点标注
+                String strLab = strDistanceArray.get(i) + "，" + strAzimuthArray.get(i) + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+                render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
             }
-
-            strLab = strLab + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-
-            // 画标注
-            render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
         }
     }
 }

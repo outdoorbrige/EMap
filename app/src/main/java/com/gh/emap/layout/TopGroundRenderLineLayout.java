@@ -32,6 +32,22 @@ public class TopGroundRenderLineLayout {
         mLineName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderLineListener());
     }
 
+    public void setLineName(String lineName) {
+        mLineName.setText(lineName);
+    }
+
+    public String getLineName() {
+        return mLineName.getText().toString();
+    }
+
+    public void setLineType(String lineType) {
+        mLineType.setText(lineType);
+    }
+
+    public String getLineType() {
+        return mLineType.getText().toString();
+    }
+
     public void setOldLineType(String oldLineType) {
         mOldLineType = oldLineType;
     }

@@ -19,31 +19,19 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class PlaneOverlay extends Overlay {
     public MainActivity mMainActivity;
-
-    private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
-
-    private boolean mEditStatus; // 可编辑状态
+    private PlaneObject mPlaneObject = new PlaneObject();
+    private boolean mEditStatus = true; // 可编辑状态
 
     public PlaneOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
-
-        mEditStatus = true;
     }
 
-    public void setPoints(ArrayList<GeoPoint> points) {
-        mGeoPointArrayList = points;
+    public void setPlaneObject(PlaneObject planeObject) {
+        mPlaneObject = planeObject;
     }
 
-    public ArrayList<GeoPoint> getPoints() {
-        return mGeoPointArrayList;
-    }
-
-    public boolean addPoint(GeoPoint point) {
-        return mGeoPointArrayList.add(point);
-    }
-
-    public boolean addPoints(ArrayList<GeoPoint> points) {
-        return mGeoPointArrayList.addAll(points);
+    public PlaneObject getPlaneObject() {
+        return mPlaneObject;
     }
 
     public void setEditStatus(boolean status) {
@@ -58,7 +46,7 @@ public class PlaneOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if(isEditStatus()) {
-            addPoint(geoPoint);
+            mPlaneObject.addGeoPoint(geoPoint);
         }
 
         return true;
@@ -71,19 +59,24 @@ public class PlaneOverlay extends Overlay {
             return;
         }
 
-        if(mGeoPointArrayList == null || mGeoPointArrayList.size() == 0)
+        if(mPlaneObject == null)
         {
+            return;
+        }
+
+        ArrayList<GeoPoint> geoPoints = mPlaneObject.getGeoPoints();
+        if(geoPoints == null || geoPoints.isEmpty()) {
             return;
         }
 
         MapViewRender render = mapView.getMapViewRender();
 
         // 画面
-        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), mGeoPointArrayList);
+        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), geoPoints);
 
         // 画拐点
-        for(int i = 0; i < mGeoPointArrayList.size(); i ++) {
-            GeoPoint geoPoint = mGeoPointArrayList.get(i);
+        for(int i = 0; i < geoPoints.size(); i ++) {
+            GeoPoint geoPoint = geoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
             render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,

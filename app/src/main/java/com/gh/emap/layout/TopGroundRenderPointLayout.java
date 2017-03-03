@@ -31,6 +31,22 @@ public class TopGroundRenderPointLayout {
         mPointName.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getTopGroundRenderPointListener());
     }
 
+    public void setPointName(String pointName) {
+        mPointName.setText(pointName);
+    }
+
+    public String getPointName() {
+        return mPointName.getText().toString();
+    }
+
+    public void setPointType(String pointType) {
+        mPointType.setText(pointType);
+    }
+
+    public String getPointType() {
+        return mPointType.getText().toString();
+    }
+
     public void setOldPointType(String oldPointType) {
         mOldPointType = oldPointType;
     }

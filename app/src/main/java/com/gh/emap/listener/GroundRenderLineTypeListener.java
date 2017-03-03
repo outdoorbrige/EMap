@@ -1,7 +1,6 @@
 package com.gh.emap.listener;
 
 import android.view.View;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
@@ -47,7 +46,7 @@ public class GroundRenderLineTypeListener implements WheelView.OnWheelItemSelect
     private void onClickedCancelButton(View view) {
         mMainActivity.getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().hide();
 
-        ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineType(
                 mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getOldLineType());
 
         String oldLineType = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getOldLineType();
@@ -61,9 +60,9 @@ public class GroundRenderLineTypeListener implements WheelView.OnWheelItemSelect
     private void onClickedOkButton(View view) {
         mMainActivity.getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().hide();
 
-        String lineType = (String)mMainActivity.getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().getWheelViewTwo().getSelectionItem();
+        String lineType = mMainActivity.getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().getWheelViewTwoText();
 
-        ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(lineType);
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineType(lineType);
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setOldLineType(lineType);
     }
 }

@@ -22,13 +22,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class AreaGirthOverlay extends Overlay {
     private MainActivity mMainActivity;
-
     private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
-
-    // Stack<ArrayList<String>>中每个ArrayList<String>有两个元素(元素一：数据；元素二：标签)
-    private Stack<ArrayList<String>> mAreas = new Stack<>(); // 面积集合
-    private Stack<ArrayList<String>> mGirths = new Stack<>(); // 周长集合
-
     private boolean mEditStatus; // 可编辑状态
 
     public AreaGirthOverlay(MainActivity mainActivity) {
@@ -52,20 +46,56 @@ public class AreaGirthOverlay extends Overlay {
         return mGeoPointArrayList.addAll(points);
     }
 
-    public double getArea() {
-        if(mAreas.isEmpty()) {
-            return 0.0f;
+    // 获取面积带单位(四舍五入3位小数)
+    public String getArea() {
+        if(mGeoPointArrayList.size() < 3){
+            return null;
         }
 
-        return  Double.valueOf(mAreas.lastElement().get(0)).doubleValue();
+        // 生成面积标签
+
+        final int ONE_MILLION = 1000000;
+
+        // 计算面积
+        double dArea = calculateArea(mGeoPointArrayList);
+        String strArea = String.valueOf(dArea);
+        String strAreaLab = null;
+
+        if((int)dArea < ONE_MILLION) {
+            BigDecimal areaLab = new BigDecimal(strArea);
+            strAreaLab = areaLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "平方米";
+        } else {
+            BigDecimal areaLab = new BigDecimal(String.valueOf(dArea / ONE_MILLION));
+            strAreaLab = areaLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "平方公里";
+        }
+
+        return strAreaLab;
     }
 
-    public double getGirth() {
-        if(mGirths.isEmpty()) {
-            return 0.0f;
+    // 获取周长带单位(四舍五入3位小数)
+    public String getGirth() {
+        if(mGeoPointArrayList.size() < 2){
+            return null;
         }
 
-        return Double.valueOf(mGirths.lastElement().get(0)).doubleValue();
+        // 生成周长标签
+
+        final int ONE_THOUSAND = 1000;
+
+        // 计算周长
+        double dGirth = calculateGirth(mGeoPointArrayList);
+        String strGirth = String.valueOf(dGirth);
+        String strGirthLab = "";
+
+        if((int)dGirth < ONE_THOUSAND) {
+            BigDecimal girthLab = new BigDecimal(strGirth);
+            strGirthLab = girthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "米";
+        } else {
+            BigDecimal girthLab = new BigDecimal(String.valueOf(dGirth / ONE_THOUSAND));
+            strGirthLab = girthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "公里";
+        }
+
+        return strGirthLab;
     }
 
     public void setEditStatus(boolean status) {
@@ -280,91 +310,12 @@ public class AreaGirthOverlay extends Overlay {
         return GeoPointEx.Double2GeoPoint(Lng * 180 / Math.PI, Lat * 180 / Math.PI);
     }
 
-    public void add(String strArea, String strGirth) {
-        if(strArea == null || strArea.isEmpty()) {
-            ArrayList<String> al1 = new ArrayList<>();
-            al1.add("0");
-            al1.add("");
-            mAreas.push(al1);
-        } else {
-            // 生成面积标签
-            final int ONE_MILLION = 1000000;
-
-            String strAreaLab = "";
-
-            double area = Double.valueOf(strArea);
-
-            if((int)area < ONE_MILLION) {
-                BigDecimal areaLab = new BigDecimal(strArea);
-                strAreaLab = areaLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "平方米";
-            } else {
-                BigDecimal areaLab = new BigDecimal(String.valueOf(area / ONE_MILLION));
-                strAreaLab = areaLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "平方公里";
-            }
-
-            ArrayList<String> al1 = new ArrayList<>();
-            al1.add(strArea);
-            al1.add(strAreaLab);
-            mAreas.push(al1);
-        }
-
-        if(strGirth == null || strGirth.isEmpty()) {
-            ArrayList<String> al2 = new ArrayList<>();
-            al2.add("0");
-            al2.add("");
-            mGirths.push(al2);
-        } else {
-            // 生成周长标签
-            final int ONE_THOUSAND = 1000;
-
-            String strGirthLab = "";
-
-            double girth = Double.valueOf(strGirth);
-
-            if((int)girth < ONE_THOUSAND) {
-                BigDecimal girthLab = new BigDecimal(strGirth);
-                strGirthLab = girthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "米";
-            } else {
-                BigDecimal girthLab = new BigDecimal(String.valueOf(girth / ONE_THOUSAND));
-                strGirthLab = girthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "公里";
-            }
-
-            ArrayList<String> al2 = new ArrayList<>();
-            al2.add(strGirth);
-            al2.add(strGirthLab);
-            mGirths.push(al2);
-        }
-    }
-
     // 单击事件
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
-        if (!isEditStatus()) {
-            return true;
+        if (isEditStatus()) {
+            addPoint(geoPoint);
         }
-
-        addPoint(geoPoint);
-
-        String strArea = "";
-        String strGirth = "";
-
-        if(mGeoPointArrayList.size() < 2) {
-            strArea = "";
-            strGirth = "";
-        } else if(mGeoPointArrayList.size() == 2) {
-            strArea = "";
-
-            // 计算周长
-            strGirth = String.valueOf(calculateGirth(mGeoPointArrayList));
-        } else {
-            // 计算面积
-            strArea = String.valueOf(calculateArea(mGeoPointArrayList));
-
-            // 计算周长
-            strGirth = String.valueOf(calculateGirth(mGeoPointArrayList));
-        }
-
-        add(strArea, strGirth);
 
         return true;
     }
@@ -382,38 +333,33 @@ public class AreaGirthOverlay extends Overlay {
 
         MapViewRender render = mapView.getMapViewRender();
 
-        // 画面
+        // 多边形
         render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), mGeoPointArrayList);
-
-        String strLab; // 标注内容
 
         for (int i = 0; i < mGeoPointArrayList.size(); i++) {
             GeoPoint geoPoint = mGeoPointArrayList.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
-            // 画拐点
+            // 拐点
             render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
                     mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
 
-            if(i == 0) { // 起点
-                strLab = "起点";
-                strLab = strLab + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+            if(i == 0) { // 起点标注
+                String strLab = "起点" + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
                 render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
-            } else if (i == (mGeoPointArrayList.size() - 1)) { // 终点
-                strLab = "终点";
-                strLab = strLab + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+            } else if (i == (mGeoPointArrayList.size() - 1)) { // 终点标注
+                String strLab = "终点" + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
                 render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
-            } else{ // 拐点
-//                strLab = mAreas.get(i).get(1) + "，" + mGirths.get(i).get(1);
             }
         }
 
-        // 获取多边形中心点
-        GeoPoint geoPointCenter = calculateCenter(mGeoPointArrayList);
+        // 面积与周长标注
+        if(getArea() != null && getGirth() != null) {
+            // 获取多边形中心点
+            GeoPoint geoPointCenter = calculateCenter(mGeoPointArrayList);
 
-        // 画面积和周长
-        strLab = mAreas.get(mAreas.size() - 1).get(1) + "，" + mGirths.get(mGirths.size() - 1).get(1);
-        strLab = strLab + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-        render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPointCenter);
+            String strLab = getArea() + "，" + getGirth() + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+            render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPointCenter);
+        }
     }
 }

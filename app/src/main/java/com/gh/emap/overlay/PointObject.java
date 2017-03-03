@@ -1,5 +1,6 @@
 package com.gh.emap.overlay;
 
+import com.gh.emap.MainActivity;
 import com.tianditu.android.maps.GeoPoint;
 
 import java.io.Serializable;
@@ -10,45 +11,11 @@ import java.io.Serializable;
  */
 
 public class PointObject implements Serializable {
-    String mTitle;
-    String mSnippet;
-
-    private int mIndex; // 点-索引
     private String mType; // 点-类型
     private String mName; // 点-名称
-    private String mStrPoint; // 点 数据格式：“纬度*10E6,经度*10E6”
+    private String mStrPoint; // 点 数据格式：“mLon,mLat”
 
     public PointObject() {
-        mTitle = "";
-        mSnippet = "";
-        mIndex = -1;
-        mType = "";
-        mName = "";
-        mStrPoint = "";
-    }
-
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getSnippet() {
-        return mSnippet;
-    }
-
-    public void setSnippet(String snippet) {
-        mSnippet = snippet;
-    }
-
-    public int getIndex() {
-        return mIndex;
-    }
-
-    public void setIndex(int index) {
-        mIndex = index;
     }
 
     public String getType() {
@@ -76,30 +43,18 @@ public class PointObject implements Serializable {
     }
 
     public GeoPoint getGeoPoint() {
-        return StrPointToGeoPoint(mStrPoint);
-    }
-
-    public void setGeoPoint(GeoPoint geoPoint) {
-        mStrPoint = GeoPointToStrPoint(geoPoint);
-    }
-
-    public static String GeoPointToStrPoint(GeoPoint geo) {
-        if(geo == null) {
-            return "";
-        }
-
-        return String.valueOf(geo.getLatitudeE6()) + "," + String.valueOf(geo.getLongitudeE6());
-    }
-
-    public static GeoPoint StrPointToGeoPoint(String str) {
-        if(str == null || str.isEmpty()) {
+        if(mStrPoint == null || mStrPoint.isEmpty()) {
             return null;
         }
 
-        String[] latitudeAndLongitudeArray = str.split(",");
-        int latitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
-        int longitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
+        String[] latitudeAndLongitudeArray = mStrPoint.split(",");
+        int longitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
+        int latitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
 
         return new GeoPoint(latitude, longitude);
+    }
+
+    public void setGeoPoint(GeoPoint geoPoint) {
+        mStrPoint = geoPoint.toString();
     }
 }

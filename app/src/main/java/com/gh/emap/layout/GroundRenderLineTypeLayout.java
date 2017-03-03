@@ -137,13 +137,13 @@ public class GroundRenderLineTypeLayout {
         return mAlertDialog;
     }
 
-    // 获取第一个滚动选择器
-    public WheelView getWheelViewOne() {
-        return mWheelViewOne;
+    // 获取第一个滚动选择器的内容
+    public String getOneWheelViewText() {
+        return mWheelViewOne.getSelectionItem().toString();
     }
 
-    // 获取第二个滚动选择器
-    public WheelView getWheelViewTwo() {
-        return mWheelViewTwo;
+    // 获取第二个滚动选择器的内容
+    public String getWheelViewTwoText() {
+        return mWheelViewTwo.getSelectionItem().toString();
     }
 }

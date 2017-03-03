@@ -2,10 +2,8 @@ package com.gh.emap.listener;
 
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.R;
 import com.gh.emap.file.RWLineFile;
 import com.gh.emap.file.RWPlaneFile;
 import com.gh.emap.file.RWPointFile;
@@ -62,7 +60,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().show();
 
         // 防止重复加载文件数据
-        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() == 0) {
+        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
             OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointPath(),
@@ -71,11 +69,10 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             // 解析点文件
             ArrayList<PointObject> pointObjects = RWPointFile.read(files);
             if (pointObjects != null) {
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().clear();
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().addAll(pointObjects);
+                mMainActivity.getMainManager().getMyUserOverlaysManager().addPointObjects(pointObjects);
 
-                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size(); i ++) {
-                    PointOverlay pointOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getPointOverlay(i);
+                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().size(); i ++) {
+                    PointOverlay pointOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().get(i);
                     pointOverlay.setEditStatus(false);
 
                     // 添加已保存的覆盖物
@@ -86,14 +83,15 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             }
         }
 
-        // 设置默认点的名称
-        EditText defaultPointName = (EditText)(mMainActivity.findViewById(R.id.point_name));
-        defaultPointName.setText("点" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
-
         // 添加覆盖物
         mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new PointOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointName(
+                "点" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointType("");
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setOldPointType("");
     }
 
     // 画线
@@ -102,7 +100,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().show();
 
         // 防止重复加载文件数据
-        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() == 0) {
+        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
             OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLinePath(),
@@ -111,11 +109,10 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             // 解析线文件
             ArrayList<LineObject> lineObjects = RWLineFile.read(files);
             if (lineObjects != null) {
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().clear();
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().addAll(lineObjects);
+                mMainActivity.getMainManager().getMyUserOverlaysManager().addLineObjects(lineObjects);
 
-                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size(); i ++) {
-                    LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(i);
+                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().size(); i ++) {
+                    LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().get(i);
                     lineOverlay.setEditStatus(false);
 
                     // 添加已保存的覆盖物
@@ -126,14 +123,15 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             }
         }
 
-        // 设置默认线的名称
-        EditText defaultLineName = (EditText)(mMainActivity.findViewById(R.id.line_name));
-        defaultLineName.setText("线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
-
         // 添加覆盖物
         mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new LineOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineName(
+                "线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineType("");
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setOldLineType("");
     }
 
     // 画面
@@ -142,7 +140,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().show();
 
         // 防止重复加载文件数据
-        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() == 0) {
+        if(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().size() == 0) {
             // 加载文件数据
             ArrayList<File> files = new ArrayList<>();
             OperateFolder.TraverseFindFlies(mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlanePath(),
@@ -151,11 +149,10 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             // 解析面文件
             ArrayList<PlaneObject> planeObjects = RWPlaneFile.read(files);
             if (planeObjects != null) {
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().clear();
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().addAll(planeObjects);
+                mMainActivity.getMainManager().getMyUserOverlaysManager().addPlaneObjects(planeObjects);
 
-                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size(); i ++) {
-                    PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().getPlaneOverlay(i);
+                for (int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().size(); i ++) {
+                    PlaneOverlay planeOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().get(i);
                     planeOverlay.setEditStatus(false);
 
                     // 添加已保存的覆盖物
@@ -166,13 +163,12 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
             }
         }
 
-        // 设置默认面的名称
-        EditText defaultPlaneName = (EditText)(mMainActivity.findViewById(R.id.plane_name));
-        defaultPlaneName.setText("面" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlayItems().size() + 1));
-
         // 添加覆盖物
         mMainActivity.getMainManager().getMapManager().getMapView().addOverlay(new PlaneOverlay(mMainActivity));
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().setPlaneName(
+                "面" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPlaneOverlays().size() + 1));
     }
 }

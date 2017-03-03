@@ -1,15 +1,15 @@
 package com.gh.emap.manager;
 
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
-
 import com.gh.emap.MainActivity;
-import com.gh.emap.R;
 
-import com.gh.emap.overlay.LineOverlayItems;
-import com.gh.emap.overlay.PlaneOverlayItems;
+import com.gh.emap.overlay.LineObject;
+import com.gh.emap.overlay.LineOverlay;
+import com.gh.emap.overlay.PlaneObject;
+import com.gh.emap.overlay.PlaneOverlay;
+import com.gh.emap.overlay.PointObject;
 import com.gh.emap.overlay.PointOverlay;
-import com.gh.emap.overlay.PointOverlayItems;
+
+import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2016/12/15.
@@ -18,34 +18,80 @@ import com.gh.emap.overlay.PointOverlayItems;
 
 public class MyUserOverlaysManager {
     private MainActivity mMainActivity;
-    private PointOverlayItems mPointOverlayItems;
-    private LineOverlayItems mLineOverlayItems;
-    private PlaneOverlayItems mPlaneOverlayItems;
+    private ArrayList<PointOverlay> mPointOverlays = new ArrayList<>();
+    private ArrayList<LineOverlay> mLineOverlays = new ArrayList<>();
+    private ArrayList<PlaneOverlay> mPlaneOverlays = new ArrayList<>();
 
     public MyUserOverlaysManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
     public void init() {
-        mPointOverlayItems = new PointOverlayItems(mMainActivity);
-        mPointOverlayItems.init();
-
-        mLineOverlayItems = new LineOverlayItems(mMainActivity);
-        mLineOverlayItems.init();
-
-        mPlaneOverlayItems = new PlaneOverlayItems(mMainActivity);
-        mPlaneOverlayItems.init();
     }
 
-    public PointOverlayItems getPointOverlayItems() {
-        return mPointOverlayItems;
+    public ArrayList<PointOverlay> getPointOverlays() {
+        return mPointOverlays;
     }
 
-    public LineOverlayItems getLineOverlayItems() {
-        return mLineOverlayItems;
+    public boolean addPointObject(PointObject pointObject) {
+        PointOverlay pointOverlay = new PointOverlay(mMainActivity);
+        pointOverlay.setPointObject(pointObject);
+
+        return mPointOverlays.add(pointOverlay);
     }
 
-    public PlaneOverlayItems getPlaneOverlayItems() {
-        return mPlaneOverlayItems;
+    public boolean addPointObjects(ArrayList<PointObject> pointObjects) {
+        boolean bAdd = true;
+        if(pointObjects != null) {
+            for(int i = 0; i < pointObjects.size(); i ++) {
+                bAdd = bAdd && addPointObject(pointObjects.get(i));
+            }
+        }
+
+        return bAdd;
+    }
+
+    public ArrayList<LineOverlay> getLineOverlays() {
+        return mLineOverlays;
+    }
+
+    public boolean addLineObject(LineObject lineObject) {
+        LineOverlay lineOverlay = new LineOverlay(mMainActivity);
+        lineOverlay.setLineObject(lineObject);
+
+        return mLineOverlays.add(lineOverlay);
+    }
+
+    public boolean addLineObjects(ArrayList<LineObject> lineObjects) {
+        boolean bAdd = true;
+        if(lineObjects != null) {
+            for(int i = 0; i < lineObjects.size(); i ++) {
+                bAdd = bAdd && addLineObject(lineObjects.get(i));
+            }
+        }
+
+        return bAdd;
+    }
+
+    public ArrayList<PlaneOverlay> getPlaneOverlays() {
+        return mPlaneOverlays;
+    }
+
+    public boolean addPlaneObject(PlaneObject planeObject) {
+        PlaneOverlay planeOverlay = new PlaneOverlay(mMainActivity);
+        planeOverlay.setPlaneObject(planeObject);
+
+        return mPlaneOverlays.add(planeOverlay);
+    }
+
+    public boolean addPlaneObjects(ArrayList<PlaneObject> planeObjects) {
+        boolean bAdd = true;
+        if(planeObjects != null) {
+            for(int i = 0; i < planeObjects.size(); i ++) {
+                bAdd = bAdd && addPlaneObject(planeObjects.get(i));
+            }
+        }
+
+        return bAdd;
     }
 }

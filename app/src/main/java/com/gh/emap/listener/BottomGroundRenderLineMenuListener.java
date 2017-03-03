@@ -1,8 +1,6 @@
 package com.gh.emap.listener;
 
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
@@ -48,7 +46,7 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().hide();
 
-        ((TextView)mMainActivity.findViewById(R.id.line_type)).setText(
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineType(
                 mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getOldLineType());
 
         // 删除覆盖物
@@ -60,7 +58,7 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
     // 保存
     private void onClickedLineSave(View view) {
-        String lineName = ((EditText)mMainActivity.findViewById(R.id.line_name)).getText().toString();
+        String lineName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getLineName();
         if(lineName.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请输入线-名称"));
             return;
@@ -72,7 +70,7 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
             return;
         }
 
-        String lineType = ((TextView)mMainActivity.findViewById(R.id.line_type)).getText().toString();
+        String lineType = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getLineType();
         if(lineType.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择线-类别"));
             return;
@@ -80,8 +78,7 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
         LineOverlay currentLineOverlay = (LineOverlay)overlays.get(overlays.size() - 1);
-        ArrayList<GeoPoint> points = currentLineOverlay.getPoints();
-        overlays.remove(overlays.size() - 1);
+        ArrayList<GeoPoint> points = currentLineOverlay.getLineObject().getGeoPoints();
 
         if(points == null || points.size() < 2) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择线的位置"));
@@ -97,17 +94,17 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
         // 保存线信息到文件
 
         LineObject lineObject = new LineObject();
-        lineObject.setType(lineType);
         lineObject.setName(lineName);
+        lineObject.setType(lineType);
         lineObject.addGeoPoints(points);
 
         RWLineFile.write(path + File.separator + lineObject.getName() +
                 mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLineFileSuffix(), lineObject);
 
-        mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().add(lineObject);
+        mMainActivity.getMainManager().getMyUserOverlaysManager().addLineObject(lineObject);
 
-        LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineOverlay(
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() - 1);
+        LineOverlay lineOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().get(
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().size() - 1);
 
         lineOverlay.setEditStatus(false);
 
@@ -116,20 +113,16 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
-        // 设置默认线的名称
-        EditText defaultLineName = (EditText)(mMainActivity.findViewById(R.id.line_name));
-        defaultLineName.setText("线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineName(
+                "线" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineType("");
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setOldLineType("");
     }
 
     // 检查线-名称是否存在
     boolean LineNameExist(String lineName) {
-        ArrayList<LineObject> items = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlayItems().getLineObjects();
-        if(items == null) {
-            return false;
-        }
-
-        for(int i = 0; i < items.size(); i ++) {
-            LineObject item = items.get(i);
+        for(int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().size(); i ++) {
+            LineObject item = mMainActivity.getMainManager().getMyUserOverlaysManager().getLineOverlays().get(i).getLineObject();
             if(item == null) {
                 continue;
             }

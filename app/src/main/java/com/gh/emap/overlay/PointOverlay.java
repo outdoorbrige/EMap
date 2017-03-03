@@ -16,24 +16,19 @@ import javax.microedition.khronos.opengles.GL10;
  */
 public class PointOverlay extends Overlay {
     private MainActivity mMainActivity;
-    private GeoPoint mGeoPoint;
-
-    private boolean mEditStatus; // 可编辑状态
+    private PointObject mPointObject = new PointObject();
+    private boolean mEditStatus = true; // 可编辑状态
 
     public PointOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
-
-        mGeoPoint = null;
-
-        mEditStatus = true;
     }
 
-    public void setGeoPoint(GeoPoint geoPoint) {
-        mGeoPoint = geoPoint;
+    public void setPointObject(PointObject pointObject) {
+        mPointObject = pointObject;
     }
 
-    public GeoPoint getGeoPoint() {
-        return mGeoPoint;
+    public PointObject getPointObject() {
+        return mPointObject;
     }
 
     public void setEditStatus(boolean status) {
@@ -48,7 +43,7 @@ public class PointOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if(isEditStatus()) {
-            setGeoPoint(geoPoint);
+            mPointObject.setGeoPoint(geoPoint);
         }
 
         return true;
@@ -61,11 +56,12 @@ public class PointOverlay extends Overlay {
             return;
         }
 
-        if(mGeoPoint == null) {
+        GeoPoint geoPoint = mPointObject.getGeoPoint();
+        if(geoPoint == null) {
             return;
         }
 
-        Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(getGeoPoint(), null);
+        Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
         MapViewRender render = mapView.getMapViewRender();
 

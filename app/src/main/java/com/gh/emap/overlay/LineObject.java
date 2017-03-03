@@ -11,52 +11,11 @@ import java.util.ArrayList;
  */
 
 public class LineObject implements Serializable {
-    String mTitle;
-    String mSnippet;
-
-    private int mIndex; // 线-索引
-    private String mType; // 线-类型
     private String mName; // 线-名称
-    ArrayList<String> mStrPoints = new ArrayList<>(); // 点的集合 数据格式：“纬度*10E6,经度*10E6”
+    private String mType; // 线-类型
+    ArrayList<String> mStrPoints = new ArrayList<>(); // 点的集合 数据格式：“mLon,mLat”
 
     public LineObject() {
-        mTitle = "";
-        mSnippet = "";
-        mIndex = -1;
-        mType = "";
-        mName = "";
-    }
-
-    public String getTitle() {
-        return mTitle;
-    }
-
-    public void setTitle(String title) {
-        mTitle = title;
-    }
-
-    public String getSnippet() {
-        return mSnippet;
-    }
-
-    public void setSnippet(String snippet) {
-        mSnippet = snippet;
-    }
-
-    public int getIndex() {
-        return mIndex;
-    }
-
-    public void setIndex(int index) {
-        mIndex = index;
-    }
-
-    public String getType() {
-        return mType;
-    }
-
-    public void setType(String type) {
-        mType = type;
     }
 
     public String getName() {
@@ -67,62 +26,74 @@ public class LineObject implements Serializable {
         mName = name;
     }
 
-    public void setStrPoints(ArrayList<String> listPoints) {
-        mStrPoints = listPoints;
+    public String getType() {
+        return mType;
     }
 
-    public void setGeoPoints(ArrayList<GeoPoint> listPoints) {
-        if(listPoints == null) {
-            return;
-        }
+    public void setType(String type) {
+        mType = type;
+    }
 
-        mStrPoints.clear();
-        addGeoPoints(listPoints);
+    public void setStrPoints(ArrayList<String> strPoints) {
+        mStrPoints = strPoints;
     }
 
     public ArrayList<String> getStrPoints() {
         return mStrPoints;
     }
 
+    public boolean addStrPoint(String strPoint) {
+        return mStrPoints.add(strPoint);
+    }
+
+    public boolean addStrPoints(ArrayList<String> strPoints) {
+        return mStrPoints.addAll(strPoints);
+    }
+
     public boolean addGeoPoint(GeoPoint geoPoint) {
-        return mStrPoints.add(GeoPointToStrPoint(geoPoint));
-    }
-
-    public void addGeoPoints(ArrayList<GeoPoint> geoPointList) {
-        if(geoPointList == null) {
-            return;
+        if(geoPoint == null) {
+            return false;
         }
 
-        for (int i = 0; i < geoPointList.size(); i ++) {
-            addGeoPoint(geoPointList.get(i));
-        }
+        return mStrPoints.add(geoPoint.toString());
     }
 
-    public static String GeoPointToStrPoint(GeoPoint geo) {
-        if(geo == null) {
-            return "";
+    public boolean addGeoPoints(ArrayList<GeoPoint> geoPoints) {
+        if(geoPoints == null) {
+            return false;
         }
 
-        return String.valueOf(geo.getLatitudeE6()) + "," + String.valueOf(geo.getLongitudeE6());
+        boolean bAdd = true;
+
+        for(int i = 0; i < geoPoints.size(); i ++) {
+            bAdd = bAdd && addGeoPoint(geoPoints.get(i));
+        }
+
+        return bAdd;
     }
 
-    public static GeoPoint StrPointToGeoPoint(String str) {
-        if(str == null || str.isEmpty()) {
+    public GeoPoint getGeoPoint(int index) {
+        if(index < 0 || index > (mStrPoints.size() - 1)) {
             return null;
         }
 
-        String[] latitudeAndLongitudeArray = str.split(",");
-        int latitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
-        int longitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
+        String strPoint = mStrPoints.get(index);
+        String[] latitudeAndLongitudeArray = strPoint.split(",");
+        int longitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
+        int latitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
 
         return new GeoPoint(latitude, longitude);
     }
 
     public ArrayList<GeoPoint> getGeoPoints() {
         ArrayList<GeoPoint> geoPoints = new ArrayList<>();
+        for(int i = 0; i < mStrPoints.size(); i ++) {
+            String strPoint = mStrPoints.get(i);
+            String[] latitudeAndLongitudeArray = strPoint.split(",");
+            int longitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
+            int latitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
 
-        for (int i = 0; i < mStrPoints.size(); i ++) {
-            geoPoints.add(StrPointToGeoPoint(mStrPoints.get(i)));
+            geoPoints.add(new GeoPoint(latitude, longitude));
         }
 
         return geoPoints;

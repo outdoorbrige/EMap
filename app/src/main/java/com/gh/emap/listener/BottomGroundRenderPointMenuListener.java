@@ -1,8 +1,6 @@
 package com.gh.emap.listener;
 
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
@@ -14,7 +12,6 @@ import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +45,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().hide();
 
-        ((TextView)mMainActivity.findViewById(R.id.point_type)).setText(
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointType(
                 mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getOldPointType());
 
         // 删除覆盖物
@@ -60,7 +57,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
 
     // 保存
     private void onClickedPointSave(View view) {
-        String pointName = ((EditText)mMainActivity.findViewById(R.id.point_name)).getText().toString();
+        String pointName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getPointName();
         if(pointName.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请输入名称"));
             return;
@@ -72,7 +69,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
             return;
         }
 
-        String pointType = ((TextView)mMainActivity.findViewById(R.id.point_type)).getText().toString();
+        String pointType = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getPointType();
         if(pointType.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择类别"));
             return;
@@ -80,8 +77,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
 
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
         PointOverlay currentPointOverlay = (PointOverlay)overlays.get(overlays.size() - 1);
-        GeoPoint point = currentPointOverlay.getGeoPoint();
-        overlays.remove(overlays.size() - 1);
+        GeoPoint point = currentPointOverlay.getPointObject().getGeoPoint();
 
         if(point == null) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请选择点的位置"));
@@ -104,10 +100,10 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
         RWPointFile.write(path + File.separator + pointObject.getName() +
                 mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointFileSuffix(), pointObject);
 
-        mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().add(pointObject);
+        mMainActivity.getMainManager().getMyUserOverlaysManager().addPointObject(pointObject);
 
-        PointOverlay pointOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getPointOverlay(
-                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() - 1);
+        PointOverlay pointOverlay = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().get(
+                mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().size() - 1);
 
         pointOverlay.setEditStatus(false);
 
@@ -116,20 +112,16 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
 
         mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
 
-        // 设置默认点的名称
-        EditText defaultPointName = (EditText)(mMainActivity.findViewById(R.id.point_name));
-        defaultPointName.setText("点" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointName(
+                "点" + String.valueOf(mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().size() + 1));
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointType("");
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setOldPointType("");
     }
 
     // 检查点-名称是否存在
     boolean PointNameExist(String pointName) {
-        ArrayList<PointObject> items = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlayItems().getPointObjects();
-        if(items == null) {
-            return false;
-        }
-
-        for(int i = 0; i < items.size(); i ++) {
-            PointObject item = items.get(i);
+        for(int i = 0; i < mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().size(); i ++) {
+            PointObject item = mMainActivity.getMainManager().getMyUserOverlaysManager().getPointOverlays().get(i).getPointObject();
             if(item == null) {
                 continue;
             }

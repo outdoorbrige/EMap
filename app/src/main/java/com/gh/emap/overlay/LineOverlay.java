@@ -19,31 +19,19 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class LineOverlay extends Overlay {
     private MainActivity mMainActivity;
-
-    private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
-
-    private boolean mEditStatus; // 可编辑状态
+    private LineObject mLineObject = new LineObject();
+    private boolean mEditStatus = true; // 可编辑状态
 
     public LineOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
-
-        mEditStatus = true;
     }
 
-    public void setPoints(ArrayList<GeoPoint> points) {
-        mGeoPointArrayList = points;
+    public void setLineObject(LineObject lineObject) {
+        mLineObject = lineObject;
     }
 
-    public ArrayList<GeoPoint> getPoints() {
-        return mGeoPointArrayList;
-    }
-
-    public boolean addPoint(GeoPoint point) {
-        return mGeoPointArrayList.add(point);
-    }
-
-    public boolean addPoints(ArrayList<GeoPoint> points) {
-        return mGeoPointArrayList.addAll(points);
+    public LineObject getLineObject() {
+        return mLineObject;
     }
 
     public void setEditStatus(boolean status) {
@@ -58,7 +46,7 @@ public class LineOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if(isEditStatus()) {
-            addPoint(geoPoint);
+            mLineObject.addGeoPoint(geoPoint);
         }
 
         return true;
@@ -71,18 +59,23 @@ public class LineOverlay extends Overlay {
             return;
         }
 
-        if (mGeoPointArrayList == null || mGeoPointArrayList.size() == 0) {
+        if (mLineObject == null) {
+            return;
+        }
+
+        ArrayList<GeoPoint> geoPoints = mLineObject.getGeoPoints();
+        if(geoPoints == null || geoPoints.isEmpty()) {
             return;
         }
 
         MapViewRender render = mapView.getMapViewRender();
 
         // 画折线
-        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), mGeoPointArrayList);
+        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), geoPoints);
 
         // 画拐点
-        for (int i = 0; i < mGeoPointArrayList.size(); i++) {
-            GeoPoint geoPoint = mGeoPointArrayList.get(i);
+        for (int i = 0; i < geoPoints.size(); i++) {
+            GeoPoint geoPoint = geoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
             render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,

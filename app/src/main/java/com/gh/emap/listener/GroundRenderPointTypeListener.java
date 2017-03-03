@@ -46,7 +46,7 @@ public class GroundRenderPointTypeListener implements WheelView.OnWheelItemSelec
     private void onClickedCancelButton(View view) {
         mMainActivity.getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().hide();
 
-        ((TextView)mMainActivity.findViewById(R.id.point_type)).setText(
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointType(
                 mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getOldPointType());
 
         String oldPointType = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getOldPointType();
@@ -60,9 +60,9 @@ public class GroundRenderPointTypeListener implements WheelView.OnWheelItemSelec
     private void onClickedOkButton(View view) {
         mMainActivity.getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().hide();
 
-        String pointType = (String)mMainActivity.getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().getWheelViewTwo().getSelectionItem();
+        String pointType = mMainActivity.getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().getWheelViewTwoText();
 
-        ((TextView)mMainActivity.findViewById(R.id.point_type)).setText(pointType);
+        mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointType(pointType);
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setOldPointType(pointType);
     }
 }
