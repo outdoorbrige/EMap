@@ -25,6 +25,10 @@ public class UserManager {
 
     }
 
+    public void unInit() {
+
+    }
+
     // 设置用户信息
     public void setUserInfo(UserInfo userInfo) {
         mUserInfo = userInfo;

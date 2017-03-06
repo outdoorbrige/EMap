@@ -8,7 +8,10 @@ import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MyLocationOverlay;
+import com.tianditu.android.maps.Overlay;
 import com.tianditu.maps.GeoPointEx;
+
+import java.util.List;
 
 /**
  * Created by GuHeng on 2016/11/9.
@@ -68,6 +71,10 @@ public class MapManager {
 
 //        mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
 //                String.format("地图缓存路径" + mMapView.getCachePath() + " " + "离线地图路径:" + mTOfflineMapManager.getMapPath()));
+    }
+
+    public void unInit() {
+
     }
 
 //    private String getCachePath() {
@@ -136,15 +143,15 @@ public class MapManager {
 
     // 显示纬度、经度、高程信息
     public void showPositionInfo(GeoPoint geoPoint) {
+        final String degreeUnit = "°";
 
         String latitude = "";
         String longitude = "";
         String elevation = "";
 
         if(mGeoPoint != null) {
-            String[] strings = toSexagesimalString(mGeoPoint.getLatitudeE6(), mGeoPoint.getLongitudeE6());
-            latitude = strings[0];
-            longitude = strings[1];
+            latitude = String.valueOf(GeoPointEx.getdY(geoPoint)) + degreeUnit;
+            longitude = String.valueOf(GeoPointEx.getdX(geoPoint)) + degreeUnit;
         }
 
         ((TextView)mMainActivity.findViewById(R.id.latitude)).setText(latitude);
@@ -197,62 +204,14 @@ public class MapManager {
         return zoomOut;
     }
 
-    /*
-    1.怎么把经纬度十进制单位转换成标准的度分秒单位计算公式是，
-    十进制的经度，纬度数的整数部分就是度数(°)，小数部分乘以60得到的数取整数部分就是分数(′)，再用该数的小数部分乘以60就是秒数(″)。
-    如一个经度的十进制为:117.121806，那么:
-    第一步：度数(°)117°，
-    第二步：分数(′)7′(0.121806×60=7.308360189199448,取整数部分为7),
-    第三步:秒数(″)18.501611351966858″(0.30836018919944763×60=18.501611351966858)，即度分秒为117°7′18.501611351966858″。
-
-    2.怎么把经纬度度分秒单位转换成十进制单位
-    将度分秒转换为十进制则刚好相反，将秒数(″)除以60，得到的数就是分数(′)的小数部分，将该小数加上分数(′)整数部
-    分就是整个分数(′)，再将该分数(′)除以60，得到的小数就是度数(°)的小数部分，在加上度数的整数部分就是经纬度的十进制形式。
-    例如，将一个纬度为37°25′19.222″的六十进制转换为十进制的步骤为：
-    第一步(对应上面的第三步):19.222/60=0.3203666666666667,0.3203666666666667为分数(′)的小数部分，
-    第二步(对应上面的第二步):25+0.3203666666666667=25.3203666666666667，25.3203666666666667分数(′)
-    第三步(对应上面的第一步):25.3203666666666667/60=0.4220061111111111，0.4220061111111111为度数(°)的小数部分
-    37°25′19.222″转换的最终结果为37+0.4220061111111111=37.4220061111111111
-     */
-
-    // 把经纬度十进制单位转换成标准的度分秒单位
-    public static String[] toSexagesimalString(int latitude, int longitude) {
-        String prefix1 = "";
-        String prefix2 = "";
-        String[] strings = new String[2];
-
-        if(latitude > 0) { // 北纬
-            prefix1 = "北纬N";
-        } else { // 南纬
-            prefix1 = "南纬S";
+    // 获取最后一个覆盖物
+    public Overlay getLastOverlay() {
+        List<Overlay> overlays = mMapView.getOverlays();
+        if(overlays == null || overlays.isEmpty()) {
+            return null;
         }
-        strings[0] = prefix1 + toSexagesimalString(latitude);
 
-        if(longitude > 0) { // 东经
-            prefix2 = "东经E";
-        } else { // 西经
-            prefix2 = "西经W";
-        }
-        strings[1] = prefix2 + toSexagesimalString(longitude);
-
-        return strings;
-    }
-
-    // 把经纬度十进制单位转换成标准的度分秒单位
-    public static String toSexagesimalString(int degree) {
-        final int SIXTY = 60;
-
-        degree = Math.abs(degree);
-
-        double hDegree = GeoPointEx.getdX(new GeoPoint(0, degree));
-        int h = (int)hDegree; // 度数
-
-        double mDegree = (hDegree - h) * SIXTY;
-        int m = (int)mDegree; // 分数
-
-        double sDegree = (mDegree - m) * SIXTY;
-        int s = (int)sDegree; // 秒数
-
-        return String.format("%d°%d′%d″", h, m, s);
+        Overlay overlay = overlays.get(overlays.size() - 1);
+        return overlay;
     }
 }

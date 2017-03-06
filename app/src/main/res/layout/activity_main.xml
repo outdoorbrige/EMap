@@ -503,6 +503,18 @@
             android:layout_height="wrap_content"
             android:text="撤销"/>
 
+        <Button
+            android:id="@+id/area_girth_menu_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重绘"/>
+
+        <Button
+            android:id="@+id/area_girth_menu_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"/>
+
     </LinearLayout>
 
     <!--菜单(绘制、设置、下载)-->
@@ -616,6 +628,16 @@
         android:visibility="gone">
 
         <include layout="@layout/ground_render_line_type"/>
+    </LinearLayout>
+
+    <!--测绘-测面积与周长 添加自定义点对话框-->
+    <LinearLayout
+        android:id="@+id/draw_area_girth_add_geopoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/draw_area_girth_add_geopoint"/>
     </LinearLayout>
 
     <!--用户登录对话框-->

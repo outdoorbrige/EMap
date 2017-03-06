@@ -3,6 +3,7 @@ package com.gh.emap.manager;
 import com.gh.emap.MainActivity;
 import com.gh.emap.layout.BottomGroundRenderLineMenuLayout;
 import com.gh.emap.layout.BottomGroundRenderPlaneMenuLayout;
+import com.gh.emap.layout.DrawAreaGirthAddGeoPointLayout;
 import com.gh.emap.layout.GroundRenderLineTypeLayout;
 import com.gh.emap.layout.BottomGroundRenderPointMenuLayout;
 import com.gh.emap.layout.GroundRenderPointTypeLayout;
@@ -39,6 +40,7 @@ public class LayoutManager {
     private BottomGroundRenderPlaneMenuLayout mBottomGroundRenderPlaneMenuLayout;
     private BottomDrawDistanceAzimuthMenuLayout mBottomDrawDistanceAzimuthMenuLayout;
     private BottomDrawAreaGirthMenuLayout mBottomDrawAreaGirthMenuLayout;
+    private DrawAreaGirthAddGeoPointLayout mDrawAreaGirthAddGeoPointLayout;
     private UserLoginLayout mUserLoginLayout;
     private UserRegisterLayout mUserRegisterLayout;
     private UserLogoutLayout mUserLogoutLayout;
@@ -90,6 +92,9 @@ public class LayoutManager {
         mBottomDrawAreaGirthMenuLayout = new BottomDrawAreaGirthMenuLayout(mMainActivity);
         mBottomDrawAreaGirthMenuLayout.init();
 
+        mDrawAreaGirthAddGeoPointLayout = new DrawAreaGirthAddGeoPointLayout(mMainActivity);
+        mDrawAreaGirthAddGeoPointLayout.init();
+
         mUserLoginLayout = new UserLoginLayout(mMainActivity);
         mUserLoginLayout.init();
 
@@ -98,6 +103,15 @@ public class LayoutManager {
 
         mUserLogoutLayout = new UserLogoutLayout(mMainActivity);
         mUserLogoutLayout.init();
+    }
+
+    public void unInit() {
+        mGroundRenderPointTypeLayout.dimiss();
+        mGroundRenderLineTypeLayout.dimiss();
+        mDrawAreaGirthAddGeoPointLayout.dimiss();
+        mUserLoginLayout.dimiss();
+        mUserRegisterLayout.dimiss();
+        mUserLogoutLayout.dimiss();
     }
 
     public TopNormalLayout getTopNormalLayout() {
@@ -154,6 +168,10 @@ public class LayoutManager {
 
     public BottomDrawAreaGirthMenuLayout getBottomDrawAreaGirthMenuLayout() {
         return mBottomDrawAreaGirthMenuLayout;
+    }
+
+    public DrawAreaGirthAddGeoPointLayout getDrawAreaGirthAddGeoPointLayout() {
+        return mDrawAreaGirthAddGeoPointLayout;
     }
 
     public UserLoginLayout getUserLoginLayout() {

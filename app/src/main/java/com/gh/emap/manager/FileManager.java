@@ -37,6 +37,10 @@ public class FileManager {
         mGroundRenderLineFile.init();
     }
 
+    public void unInit() {
+
+    }
+
     public EMapFile getEMapFile() {
         return mEMapFile;
     }

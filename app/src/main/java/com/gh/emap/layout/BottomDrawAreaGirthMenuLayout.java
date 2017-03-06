@@ -16,6 +16,8 @@ public class BottomDrawAreaGirthMenuLayout {
     private View mLayout; // 布局
     private Button mCancel; // 取消
     private Button mUndo; // 撤销
+    private Button mRedo; // 重绘
+    private Button mAdd; // 添加
 
     public BottomDrawAreaGirthMenuLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -25,9 +27,13 @@ public class BottomDrawAreaGirthMenuLayout {
         mLayout = mMainActivity.findViewById(R.id.bottom_draw_area_girth_menu);
         mCancel = (Button)mMainActivity.findViewById(R.id.area_girth_menu_cancel);
         mUndo = (Button)mMainActivity.findViewById(R.id.area_girth_menu_undo);
+        mRedo = (Button)mMainActivity.findViewById(R.id.area_girth_menu_redo);
+        mAdd = (Button)mMainActivity.findViewById(R.id.area_girth_menu_add);
 
         mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawAreaGirthMenuListener());
         mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawAreaGirthMenuListener());
+        mRedo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawAreaGirthMenuListener());
+        mAdd.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawAreaGirthMenuListener());
     }
 
     // 显示布局

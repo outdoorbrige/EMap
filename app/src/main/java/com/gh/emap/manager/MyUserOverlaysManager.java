@@ -29,6 +29,10 @@ public class MyUserOverlaysManager {
     public void init() {
     }
 
+    public void unInit() {
+
+    }
+
     public ArrayList<PointOverlay> getPointOverlays() {
         return mPointOverlays;
     }

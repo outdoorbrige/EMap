@@ -54,6 +54,10 @@ public class RenderOptionManager {
         mFontOption.setOffset(mFontOffsetX, mFontOffsetY);
     }
 
+    public void unInit() {
+
+    }
+
     public CircleOption getCircleOption() {
         return mCircleOption;
     }

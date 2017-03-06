@@ -35,6 +35,10 @@ public class WebServiceManager {
         mUserLogoutWebService.init();
     }
 
+    public void unInit() {
+
+    }
+
     // 注册服务
     public void userRegisterWebService(Handler handler, UserInfo userInfo) {
         mUserRegisterWebService.prepare(handler, userInfo);

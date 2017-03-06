@@ -40,6 +40,17 @@ public class LogManager {
         mLock = new ReentrantLock();
     }
 
+    public void unInit() {
+        try {
+            mWriter.flush();
+            mWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+    }
+
     // 显示消息
     public void show(String message) {
         Toast.makeText(mMainActivity, message, Toast.LENGTH_SHORT).show();
@@ -88,18 +99,6 @@ public class LogManager {
         String message = mMainActivity.getCurrentDate() + " " + getLevel(logLevel) + " " + stackTrace + " " + msg + "\n";
 
         return message;
-    }
-
-    // 关闭日志
-    public void close() {
-        try {
-            mWriter.flush();
-            mWriter.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-
-        }
     }
 
     protected String getFileName() {

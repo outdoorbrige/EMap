@@ -64,15 +64,7 @@ public class MyLocationManager {
         mLocationManager.requestLocationUpdates(mProvider, 1000, 1, mMainActivity.getMainManager().getListenerManager().getMyLocationListener());
     }
 
-    public void setGeoPoint(GeoPoint geoPoint) {
-        mGeoPoint = geoPoint;
-    }
-
-    public GeoPoint getGeoPoint() {
-        return mGeoPoint;
-    }
-
-    public void removeUpdates() {
+    public void unInit() {
         if (ActivityCompat.checkSelfPermission(mMainActivity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(mMainActivity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -81,5 +73,13 @@ public class MyLocationManager {
         if (mLocationManager != null) {
             mLocationManager.removeUpdates(mMainActivity.getMainManager().getListenerManager().getMyLocationListener());
         }
+    }
+
+    public void setGeoPoint(GeoPoint geoPoint) {
+        mGeoPoint = geoPoint;
+    }
+
+    public GeoPoint getGeoPoint() {
+        return mGeoPoint;
     }
 }

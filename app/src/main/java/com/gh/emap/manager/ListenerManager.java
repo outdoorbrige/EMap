@@ -3,6 +3,7 @@ package com.gh.emap.manager;
 import com.gh.emap.MainActivity;
 import com.gh.emap.listener.BottomGroundRenderLineMenuListener;
 import com.gh.emap.listener.BottomGroundRenderPlaneMenuListener;
+import com.gh.emap.listener.DrawAreaGirthAddGeoPointListener;
 import com.gh.emap.listener.GroundRenderLineTypeListener;
 import com.gh.emap.listener.BottomGroundRenderPointMenuListener;
 import com.gh.emap.listener.GroundRenderPointTypeListener;
@@ -48,6 +49,7 @@ public class ListenerManager {
     private BottomGroundRenderPlaneMenuListener mBottomGroundRenderPlaneMenuListener;
     private BottomDrawDistanceAzimuthMenuListener mBottomDrawDistanceAzimuthMenuListener;
     private BottomDrawAreaGirthMenuListener mBottomDrawAreaGirthMenuListener;
+    private DrawAreaGirthAddGeoPointListener mDrawAreaGirthAddGeoPointListener;
 
     public ListenerManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -74,6 +76,11 @@ public class ListenerManager {
         mBottomGroundRenderPlaneMenuListener = new BottomGroundRenderPlaneMenuListener(mMainActivity);
         mBottomDrawDistanceAzimuthMenuListener = new BottomDrawDistanceAzimuthMenuListener(mMainActivity);
         mBottomDrawAreaGirthMenuListener = new BottomDrawAreaGirthMenuListener(mMainActivity);
+        mDrawAreaGirthAddGeoPointListener = new DrawAreaGirthAddGeoPointListener(mMainActivity);
+    }
+
+    public void unInit() {
+
     }
 
     public MyLocationListener getMyLocationListener() {
@@ -154,5 +161,9 @@ public class ListenerManager {
 
     public BottomDrawAreaGirthMenuListener getBottomDrawAreaGirthMenuListener() {
         return mBottomDrawAreaGirthMenuListener;
+    }
+
+    public DrawAreaGirthAddGeoPointListener getDrawAreaGirthAddGeoPointListener() {
+        return mDrawAreaGirthAddGeoPointListener;
     }
 }
