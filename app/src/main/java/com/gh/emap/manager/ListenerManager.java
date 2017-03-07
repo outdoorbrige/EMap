@@ -4,8 +4,10 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.listener.BottomGroundRenderLineMenuListener;
 import com.gh.emap.listener.BottomGroundRenderPlaneMenuListener;
 import com.gh.emap.listener.DrawAreaGirthAddGeoPointListener;
+import com.gh.emap.listener.DrawDistanceAzimuthAddGeoPointListener;
 import com.gh.emap.listener.GroundRenderLineTypeListener;
 import com.gh.emap.listener.BottomGroundRenderPointMenuListener;
+import com.gh.emap.listener.GroundRenderPlaneAddGeoPointListener;
 import com.gh.emap.listener.GroundRenderPointTypeListener;
 import com.gh.emap.listener.DrawListener;
 import com.gh.emap.listener.MenuListener;
@@ -47,7 +49,9 @@ public class ListenerManager {
     private GroundRenderLineTypeListener mGroundRenderLineTypeListener;
     private TopGroundRenderPlaneListener mTopGroundRenderPlaneListener;
     private BottomGroundRenderPlaneMenuListener mBottomGroundRenderPlaneMenuListener;
+    private GroundRenderPlaneAddGeoPointListener mGroundRenderPlaneAddGeoPointListener;
     private BottomDrawDistanceAzimuthMenuListener mBottomDrawDistanceAzimuthMenuListener;
+    private DrawDistanceAzimuthAddGeoPointListener mDrawDistanceAzimuthAddGeoPointListener;
     private BottomDrawAreaGirthMenuListener mBottomDrawAreaGirthMenuListener;
     private DrawAreaGirthAddGeoPointListener mDrawAreaGirthAddGeoPointListener;
 
@@ -74,7 +78,9 @@ public class ListenerManager {
         mGroundRenderLineTypeListener = new GroundRenderLineTypeListener(mMainActivity);
         mTopGroundRenderPlaneListener = new TopGroundRenderPlaneListener(mMainActivity);
         mBottomGroundRenderPlaneMenuListener = new BottomGroundRenderPlaneMenuListener(mMainActivity);
+        mGroundRenderPlaneAddGeoPointListener = new GroundRenderPlaneAddGeoPointListener(mMainActivity);
         mBottomDrawDistanceAzimuthMenuListener = new BottomDrawDistanceAzimuthMenuListener(mMainActivity);
+        mDrawDistanceAzimuthAddGeoPointListener = new DrawDistanceAzimuthAddGeoPointListener(mMainActivity);
         mBottomDrawAreaGirthMenuListener = new BottomDrawAreaGirthMenuListener(mMainActivity);
         mDrawAreaGirthAddGeoPointListener = new DrawAreaGirthAddGeoPointListener(mMainActivity);
     }
@@ -155,8 +161,16 @@ public class ListenerManager {
         return mBottomGroundRenderPlaneMenuListener;
     }
 
+    public GroundRenderPlaneAddGeoPointListener getGroundRenderPlaneAddGeoPointListener() {
+        return mGroundRenderPlaneAddGeoPointListener;
+    }
+
     public BottomDrawDistanceAzimuthMenuListener getBottomDrawDistanceAzimuthMenuListener() {
         return mBottomDrawDistanceAzimuthMenuListener;
+    }
+
+    public DrawDistanceAzimuthAddGeoPointListener getDrawDistanceAzimuthAddGeoPointListener() {
+        return mDrawDistanceAzimuthAddGeoPointListener;
     }
 
     public BottomDrawAreaGirthMenuListener getBottomDrawAreaGirthMenuListener() {

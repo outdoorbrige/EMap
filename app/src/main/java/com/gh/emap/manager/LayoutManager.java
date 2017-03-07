@@ -4,8 +4,10 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.layout.BottomGroundRenderLineMenuLayout;
 import com.gh.emap.layout.BottomGroundRenderPlaneMenuLayout;
 import com.gh.emap.layout.DrawAreaGirthAddGeoPointLayout;
+import com.gh.emap.layout.DrawDistanceAzimuthAddGeoPointLayout;
 import com.gh.emap.layout.GroundRenderLineTypeLayout;
 import com.gh.emap.layout.BottomGroundRenderPointMenuLayout;
+import com.gh.emap.layout.GroundRenderPlaneAddGeoPointLayout;
 import com.gh.emap.layout.GroundRenderPointTypeLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
@@ -38,7 +40,9 @@ public class LayoutManager {
     private GroundRenderLineTypeLayout mGroundRenderLineTypeLayout;
     private TopGroundRenderPlaneLayout mTopGroundRenderPlaneLayout;
     private BottomGroundRenderPlaneMenuLayout mBottomGroundRenderPlaneMenuLayout;
+    private GroundRenderPlaneAddGeoPointLayout mGroundRenderPlaneAddGeoPointLayout;
     private BottomDrawDistanceAzimuthMenuLayout mBottomDrawDistanceAzimuthMenuLayout;
+    private DrawDistanceAzimuthAddGeoPointLayout mDrawDistanceAzimuthAddGeoPointLayout;
     private BottomDrawAreaGirthMenuLayout mBottomDrawAreaGirthMenuLayout;
     private DrawAreaGirthAddGeoPointLayout mDrawAreaGirthAddGeoPointLayout;
     private UserLoginLayout mUserLoginLayout;
@@ -86,8 +90,14 @@ public class LayoutManager {
         mBottomGroundRenderPlaneMenuLayout = new BottomGroundRenderPlaneMenuLayout(mMainActivity);
         mBottomGroundRenderPlaneMenuLayout.init();
 
+        mGroundRenderPlaneAddGeoPointLayout = new GroundRenderPlaneAddGeoPointLayout(mMainActivity);
+        mGroundRenderPlaneAddGeoPointLayout.init();
+
         mBottomDrawDistanceAzimuthMenuLayout = new BottomDrawDistanceAzimuthMenuLayout(mMainActivity);
         mBottomDrawDistanceAzimuthMenuLayout.init();
+
+        mDrawDistanceAzimuthAddGeoPointLayout = new DrawDistanceAzimuthAddGeoPointLayout(mMainActivity);
+        mDrawDistanceAzimuthAddGeoPointLayout.init();
 
         mBottomDrawAreaGirthMenuLayout = new BottomDrawAreaGirthMenuLayout(mMainActivity);
         mBottomDrawAreaGirthMenuLayout.init();
@@ -108,6 +118,8 @@ public class LayoutManager {
     public void unInit() {
         mGroundRenderPointTypeLayout.dimiss();
         mGroundRenderLineTypeLayout.dimiss();
+        mGroundRenderPlaneAddGeoPointLayout.dimiss();
+        mDrawDistanceAzimuthAddGeoPointLayout.dimiss();
         mDrawAreaGirthAddGeoPointLayout.dimiss();
         mUserLoginLayout.dimiss();
         mUserRegisterLayout.dimiss();
@@ -164,6 +176,14 @@ public class LayoutManager {
 
     public BottomDrawDistanceAzimuthMenuLayout getBottomDrawDistanceAzimuthMenuLayout() {
         return mBottomDrawDistanceAzimuthMenuLayout;
+    }
+
+    public GroundRenderPlaneAddGeoPointLayout getGroundRenderPlaneAddGeoPointLayout() {
+        return mGroundRenderPlaneAddGeoPointLayout;
+    }
+
+    public DrawDistanceAzimuthAddGeoPointLayout getDrawDistanceAzimuthAddGeoPointLayout() {
+        return mDrawDistanceAzimuthAddGeoPointLayout;
     }
 
     public BottomDrawAreaGirthMenuLayout getBottomDrawAreaGirthMenuLayout() {

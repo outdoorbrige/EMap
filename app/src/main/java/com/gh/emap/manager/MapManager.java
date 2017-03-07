@@ -143,7 +143,7 @@ public class MapManager {
 
     // 显示纬度、经度、高程信息
     public void showPositionInfo(GeoPoint geoPoint) {
-        final String degreeUnit = "°";
+        final String degreeUnit = "";
 
         String latitude = "";
         String longitude = "";

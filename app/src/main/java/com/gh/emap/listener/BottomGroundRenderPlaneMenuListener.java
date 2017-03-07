@@ -31,10 +31,18 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.plane_menu_cancel: // 取消
-                onClickedPlaneCancel(view);
+                onClickedCancel(view);
                 break;
+            case R.id.plane_menu_undo: // 撤销
+                onClickedUndo(view);
+                break;
+            case R.id.plane_menu_redo: // 重绘
+                onClickedRedo(view);
+                break;
+            case R.id.plane_menu_add: // 添加
+                onClickedAdd(view);
             case R.id.plane_menu_save: // 保存
-                onClickedPlaneSave(view);
+                onClickedSave(view);
                 break;
             default:
                 break;
@@ -42,19 +50,68 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
     }
 
     // 取消
-    private void onClickedPlaneCancel(View view) {
+    private void onClickedCancel(View view) {
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().hide();
 
-        // 删除覆盖物
-        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
-        overlays.remove(overlays.size() - 1);
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
 
-        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        if(overlay instanceof PlaneOverlay) {
+            mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(overlay);
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 撤销
+    private void onClickedUndo(View view) {
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
+
+        if(overlay instanceof PlaneOverlay) {
+            PlaneOverlay planeOverlay = (PlaneOverlay)overlay;
+            ArrayList<String> strPoints = planeOverlay.getPlaneObject().getStrPoints();
+            if(strPoints == null || strPoints.isEmpty()) {
+                return;
+            }
+
+            strPoints.remove(strPoints.size() - 1);
+
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 重绘
+    private void onClickedRedo(View view) {
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
+
+        if(overlay instanceof PlaneOverlay) {
+            PlaneOverlay planeOverlay = (PlaneOverlay)overlay;
+            ArrayList<String> strPoints = planeOverlay.getPlaneObject().getStrPoints();
+            if(strPoints == null || strPoints.isEmpty()) {
+                return;
+            }
+
+            strPoints.clear();
+
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 添加
+    private void onClickedAdd(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getGroundRenderPlaneAddGeoPointLayout().show();
     }
 
     // 保存
-    private void onClickedPlaneSave(View view) {
+    private void onClickedSave(View view) {
         String planeName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getPlaneName();
         if (planeName.isEmpty()) {
             mMainActivity.getMainManager().getLogManager().show(String.format("请输入面-名称"));

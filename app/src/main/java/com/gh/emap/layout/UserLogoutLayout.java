@@ -23,11 +23,6 @@ public class UserLogoutLayout {
     private Button mLogoutButton; // 注销按钮
     private Button mCancelButton; // 取消按钮
 
-
-    private final String mUserNamePrefix = "用户名称:";
-    private final String mUserNickPrefix = "用户昵称:";
-    private final String mUserTypePrefix = "用户类型:";
-
     public UserLogoutLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
@@ -58,9 +53,9 @@ public class UserLogoutLayout {
         if(userInfo == null || !userInfo.isSuccess()) { // 用户离线
             hide();
         } else { // 用户在线
-            mUserName.setText(mUserNamePrefix + userInfo.getUserName());
-            mNickName.setText(mUserNickPrefix + userInfo.getNickName());
-            mUserType.setText(mUserTypePrefix + userInfo.getUserType());
+            mUserName.setText(userInfo.getUserName());
+            mNickName.setText(userInfo.getNickName());
+            mUserType.setText(userInfo.getUserType());
         }
     }
 

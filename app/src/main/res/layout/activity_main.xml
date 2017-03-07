@@ -422,6 +422,7 @@
     <!--地物绘制-画面-底部菜单布局-->
     <LinearLayout
         android:id="@+id/bottom_ground_render_plane_menu"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -435,6 +436,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取消"/>
+
+        <Button
+            android:id="@+id/plane_menu_undo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="撤销"/>
+
+        <Button
+            android:id="@+id/plane_menu_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重绘"/>
+
+        <Button
+            android:id="@+id/plane_menu_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"/>
 
         <Button
             android:id="@+id/plane_menu_save"
@@ -477,6 +496,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="撤销"/>
+
+        <Button
+            android:id="@+id/distance_azimuth_menu_redo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="重绘"/>
+
+        <Button
+            android:id="@+id/distance_azimuth_menu_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"/>
 
     </LinearLayout>
 
@@ -628,6 +659,26 @@
         android:visibility="gone">
 
         <include layout="@layout/ground_render_line_type"/>
+    </LinearLayout>
+
+    <!--地物绘制-画面 添加自定义点对话框-->
+    <LinearLayout
+        android:id="@+id/ground_render_plane_add_geopoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/ground_render_plane_add_geopoint"/>
+    </LinearLayout>
+
+    <!--测绘-测距与方位角 添加自定义点对话框-->
+    <LinearLayout
+        android:id="@+id/draw_distance_azimuth_add_geopoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/draw_distance_azimuth_add_geopoint"/>
     </LinearLayout>
 
     <!--测绘-测面积与周长 添加自定义点对话框-->

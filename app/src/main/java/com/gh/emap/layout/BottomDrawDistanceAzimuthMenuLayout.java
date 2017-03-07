@@ -16,6 +16,8 @@ public class BottomDrawDistanceAzimuthMenuLayout {
     private View mLayout; // 布局
     private Button mCancel; // 取消
     private Button mUndo; // 撤销
+    private Button mRedo; // 重绘
+    private Button mAdd; // 添加
 
     public BottomDrawDistanceAzimuthMenuLayout(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -26,9 +28,13 @@ public class BottomDrawDistanceAzimuthMenuLayout {
 
         mCancel = (Button)mMainActivity.findViewById(R.id.distance_azimuth_menu_cancel);
         mUndo = (Button)mMainActivity.findViewById(R.id.distance_azimuth_menu_undo);
+        mRedo = (Button)mMainActivity.findViewById(R.id.distance_azimuth_menu_redo);
+        mAdd = (Button)mMainActivity.findViewById(R.id.distance_azimuth_menu_add);
 
         mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawDistanceAzimuthMenuListener());
         mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawDistanceAzimuthMenuListener());
+        mRedo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawDistanceAzimuthMenuListener());
+        mAdd.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomDrawDistanceAzimuthMenuListener());
     }
 
     // 显示布局

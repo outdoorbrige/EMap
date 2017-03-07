@@ -5,8 +5,8 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
     android:paddingBottom="10dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:layout_gravity="center">
 
     <TableLayout
@@ -20,10 +20,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户名："/>
+                android:text="纬度："/>
 
-            <TextView
-                android:id="@+id/logout_name"
+            <EditText
+                android:id="@+id/draw_distance_azimuth_add_geopoint_latitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"/>
@@ -35,25 +35,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="用户昵称："/>
+                android:text="经度："/>
 
             <EditText
-                android:id="@+id/logout_nickname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"/>
-
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="用户类型："/>
-
-            <EditText
-                android:id="@+id/logout_type"
+                android:id="@+id/draw_distance_azimuth_add_geopoint_longitude"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"/>
@@ -71,7 +56,7 @@
         <TableRow>
 
             <Button
-                android:id="@+id/logout_cancel_button"
+                android:id="@+id/draw_distance_azimuth_add_geopoint_cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="取消"/>
@@ -79,10 +64,10 @@
             <TextView />
 
             <Button
-                android:id="@+id/logout_button"
+                android:id="@+id/draw_distance_azimuth_add_geopoint_ok"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="注销"/>
+                android:text="确定"/>
 
         </TableRow>
 

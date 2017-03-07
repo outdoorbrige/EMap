@@ -4,8 +4,11 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
+import com.gh.emap.overlay.DistanceAzimuthOverlay;
+import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +32,11 @@ public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListen
             case R.id.distance_azimuth_menu_undo: // 撤销
                 onClickedUndo(view);
                 break;
+            case R.id.distance_azimuth_menu_redo: // 重绘
+                onClickedRedo(view);
+                break;
+            case R.id.distance_azimuth_menu_add: // 添加
+                onClickedAdd(view);
             default:
                 break;
         }
@@ -38,15 +46,59 @@ public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListen
     private void onClickedCancel(View view) {
         mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().hide();
 
-        // 删除覆盖物
-        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
-        overlays.remove(overlays.size() - 1);
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
 
-        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        if(overlay instanceof DistanceAzimuthOverlay) {
+            mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(overlay);
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
     }
 
     // 撤销
     private void onClickedUndo(View view) {
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
 
+        if(overlay instanceof DistanceAzimuthOverlay) {
+            DistanceAzimuthOverlay distanceAzimuthOverlay = (DistanceAzimuthOverlay)overlay;
+            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getPoints();
+            if(geoPoints == null || geoPoints.isEmpty()) {
+                return;
+            }
+
+            geoPoints.remove(geoPoints.size() - 1);
+
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 重绘
+    private void onClickedRedo(View view) {
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
+
+        if(overlay instanceof DistanceAzimuthOverlay) {
+            DistanceAzimuthOverlay distanceAzimuthOverlay = (DistanceAzimuthOverlay)overlay;
+            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getPoints();
+            if(geoPoints == null || geoPoints.isEmpty()) {
+                return;
+            }
+
+            geoPoints.clear();
+
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 添加
+    private void onClickedAdd(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getDrawDistanceAzimuthAddGeoPointLayout().show();
     }
 }

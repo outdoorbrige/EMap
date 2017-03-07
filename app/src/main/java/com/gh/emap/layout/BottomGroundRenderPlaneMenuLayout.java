@@ -16,6 +16,9 @@ public class BottomGroundRenderPlaneMenuLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
     private Button mCancel; // 取消
+    private Button mUndo; // 撤销
+    private Button mRedo; // 重绘
+    private Button mAdd; // 添加
     private Button mSave; // 保存
 
     public BottomGroundRenderPlaneMenuLayout(MainActivity mainActivity) {
@@ -26,9 +29,15 @@ public class BottomGroundRenderPlaneMenuLayout {
         mLayout = mMainActivity.findViewById(R.id.bottom_ground_render_plane_menu);
 
         mCancel = (Button) mMainActivity.findViewById(R.id.plane_menu_cancel);
+        mUndo = (Button) mMainActivity.findViewById(R.id.plane_menu_undo);
+        mRedo = (Button) mMainActivity.findViewById(R.id.plane_menu_redo);
+        mAdd = (Button) mMainActivity.findViewById(R.id.plane_menu_add);
         mSave = (Button) mMainActivity.findViewById(R.id.plane_menu_save);
 
         mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPlaneMenuListener());
+        mUndo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPlaneMenuListener());
+        mRedo.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPlaneMenuListener());
+        mAdd.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPlaneMenuListener());
         mSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPlaneMenuListener());
     }
 
