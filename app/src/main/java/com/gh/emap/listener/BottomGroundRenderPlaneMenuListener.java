@@ -41,6 +41,7 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
                 break;
             case R.id.plane_menu_add: // 添加
                 onClickedAdd(view);
+                break;
             case R.id.plane_menu_save: // 保存
                 onClickedSave(view);
                 break;
@@ -51,6 +52,7 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
     // 取消
     private void onClickedCancel(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().hide();
 

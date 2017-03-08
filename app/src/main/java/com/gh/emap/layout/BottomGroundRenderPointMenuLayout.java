@@ -16,6 +16,7 @@ public class BottomGroundRenderPointMenuLayout {
     private MainActivity mMainActivity;
     private View mLayout; // 布局
     private Button mCancel; // 取消
+    private Button mAdd; // 添加
     private Button mSave; // 保存
 
     public BottomGroundRenderPointMenuLayout(MainActivity mainActivity) {
@@ -26,9 +27,11 @@ public class BottomGroundRenderPointMenuLayout {
         mLayout = mMainActivity.findViewById(R.id.bottom_ground_render_point_menu);
 
         mCancel = (Button)mMainActivity.findViewById(R.id.point_menu_cancel);
+        mAdd = (Button)mMainActivity.findViewById(R.id.point_menu_add);
         mSave = (Button)mMainActivity.findViewById(R.id.point_menu_save);
 
         mCancel.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointMenuListener());
+        mAdd.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointMenuListener());
         mSave.setOnClickListener(mMainActivity.getMainManager().getListenerManager().getBottomGroundRenderPointMenuListener());
     }
 

@@ -56,6 +56,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
 
     // 画点
     private void onItemClickedPoint(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().show();
 
@@ -96,6 +97,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
 
     // 画线
     private void onItemClickedLine(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().show();
 
@@ -136,6 +138,7 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
 
     // 画面
     private void onItemClickedCircle(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().show();
 

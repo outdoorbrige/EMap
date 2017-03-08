@@ -23,87 +23,38 @@
         android:layout_marginTop="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@mipmap/white_bg"
+        android:background="@color/colorWhite"
         android:layout_alignParentTop="@id/map_view">
 
+        <!--用户登录、搜索内容、搜索按钮-->
         <LinearLayout
             android:id="@+id/top_normal"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="wrap_content">
 
-            android:gravity="center_vertical">
+            <!--用户登录-->
+            <Button
+                android:id="@+id/user_login_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@mipmap/offline_bg"/>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+            <!--搜索内容-->
+            <EditText
+                android:id="@+id/search_context"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:hint="搜索"/>
 
-                <!--用户登录-->
-                <Button
-                    android:id="@+id/user_login_button"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:background="@mipmap/offline_bg"/>
-
-                <!--分割条-->
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/vertical_divider"/>
-
-                <!--搜索内容-->
-                <EditText
-                    android:id="@+id/search_context"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:cursorVisible="true"
-                    android:maxLines="1"
-                    android:hint="搜索"
-                    android:background="@null"/>
-
-                <!--分割条-->
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@mipmap/vertical_divider"/>
-
-                <!--搜索按钮-->
-                <Button
-                    android:id="@+id/search_button"
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:background="@mipmap/search_button_bg"/>
-            </LinearLayout>
-
-            <!--经度、纬度、高程-->
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/latitude"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_weight="2"/>
-
-                <TextView
-                    android:id="@+id/longitude"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_weight="2"/>
-
-                <TextView
-                    android:id="@+id/elevation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+            <!--搜索按钮-->
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@mipmap/search_button_bg"/>
 
         </LinearLayout>
 
@@ -124,12 +75,6 @@
                 android:text="地物绘制"
                 android:gravity="center"/>
 
-            <!--分割条-->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/vertical_divider"/>
-
             <!--线路绘制-->
             <TextView
                 android:id="@+id/menu_line_render"
@@ -140,11 +85,6 @@
                 android:text="线路绘制"
                 android:gravity="center"/>
 
-            <!--分割条-->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/vertical_divider"/>
 
             <!--测绘-->
             <TextView
@@ -155,12 +95,6 @@
                 android:drawableTop="@mipmap/menu_draw_bg"
                 android:text="测绘"
                 android:gravity="center"/>
-
-            <!--分割条-->
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@mipmap/vertical_divider"/>
 
             <!--退出绘制-->
             <TextView
@@ -173,6 +107,42 @@
                 android:gravity="center"/>
 
         </LinearLayout>
+
+    </LinearLayout>
+
+    <!--位置信息：纬度、经度、高程-->
+    <LinearLayout
+        android:id="@+id/bottom_location_info"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="4dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@id/map_view"
+        android:background="@color/colorWhite">
+
+        <TextView
+            android:id="@+id/bottom_location_info_latitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/bottom_location_info_longitude"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_weight="2"/>
+
+        <TextView
+            android:id="@+id/bottom_location_info_elevation"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:layout_weight="1"/>
 
     </LinearLayout>
 
@@ -206,7 +176,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@mipmap/white_bg"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_below="@id/top"
         android:visibility="gone">
@@ -230,9 +200,7 @@
                     android:id="@+id/point_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:cursorVisible="true"
                     android:maxLines="1"
-                    android:background="@null"
                     android:layout_weight="1"/>
 
             </LinearLayout>
@@ -247,14 +215,16 @@
                     android:layout_height="wrap_content"
                     android:text="点-类别："/>
 
-                <TextView
+                <EditText
                     android:id="@+id/point_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="请选择类别"
                     android:maxLines="1"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:layout_weight="1">
-                </TextView>
+                </EditText>
 
             </LinearLayout>
 
@@ -267,7 +237,7 @@
         android:id="@+id/bottom_ground_render_point_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view"
         android:layout_centerHorizontal="true"
@@ -275,15 +245,24 @@
 
         <Button
             android:id="@+id/point_menu_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="取消"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
+
+        <Button
+            android:id="@+id/point_menu_add"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="添加"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/point_menu_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="保存"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="保存"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
     </LinearLayout>
 
@@ -295,7 +274,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@mipmap/white_bg"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_below="@id/top"
         android:visibility="gone">
@@ -319,9 +298,7 @@
                     android:id="@+id/line_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:cursorVisible="true"
                     android:maxLines="1"
-                    android:background="@null"
                     android:layout_weight="1"/>
 
             </LinearLayout>
@@ -336,14 +313,16 @@
                     android:layout_height="wrap_content"
                     android:text="线-类别："/>
 
-                <TextView
+                <EditText
                     android:id="@+id/line_type"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:hint="请选择类别"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:maxLines="1"
                     android:layout_weight="1">
-                </TextView>
+                </EditText>
 
             </LinearLayout>
 
@@ -356,7 +335,7 @@
         android:id="@+id/bottom_ground_render_line_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view"
         android:layout_centerHorizontal="true"
@@ -364,15 +343,38 @@
 
         <Button
             android:id="@+id/line_menu_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="取消"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
+
+        <Button
+            android:id="@+id/line_menu_undo"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="撤销"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
+
+        <Button
+            android:id="@+id/line_menu_redo"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="重绘"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
+
+        <Button
+            android:id="@+id/line_menu_add"
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="添加"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/line_menu_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="保存"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="保存"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
     </LinearLayout>
 
@@ -384,7 +386,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:background="@mipmap/white_bg"
+        android:background="@color/colorWhite"
         android:gravity="center_vertical"
         android:layout_below="@id/top"
         android:visibility="gone">
@@ -408,9 +410,7 @@
                     android:id="@+id/plane_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:cursorVisible="true"
                     android:maxLines="1"
-                    android:background="@null"
                     android:layout_weight="1"/>
 
             </LinearLayout>
@@ -425,7 +425,7 @@
         android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view"
         android:layout_centerHorizontal="true"
@@ -433,33 +433,38 @@
 
         <Button
             android:id="@+id/plane_menu_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="取消"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/plane_menu_undo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="撤销"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="撤销"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/plane_menu_redo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重绘"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="重绘"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/plane_menu_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="添加"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/plane_menu_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="保存"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="保存"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
     </LinearLayout>
 
@@ -479,7 +484,7 @@
         android:id="@+id/bottom_draw_distance_azimuth_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view"
         android:layout_centerHorizontal="true"
@@ -487,27 +492,31 @@
 
         <Button
             android:id="@+id/distance_azimuth_menu_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="取消"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/distance_azimuth_menu_undo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="撤销"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="撤销"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/distance_azimuth_menu_redo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重绘"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="重绘"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/distance_azimuth_menu_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="添加"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
     </LinearLayout>
 
@@ -516,7 +525,7 @@
         android:id="@+id/bottom_draw_area_girth_menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="28dp"
         android:layout_alignParentBottom="true"
         android:layout_alignBottom="@id/map_view"
         android:layout_centerHorizontal="true"
@@ -524,27 +533,31 @@
 
         <Button
             android:id="@+id/area_girth_menu_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="取消"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/area_girth_menu_undo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="撤销"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="撤销"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/area_girth_menu_redo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="重绘"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="重绘"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
         <Button
             android:id="@+id/area_girth_menu_add"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="添加"/>
+            android:layout_width="45dp"
+            android:layout_height="35dp"
+            android:text="添加"
+            android:background="@mipmap/menu_edit_opetator_bg"/>
 
     </LinearLayout>
 
@@ -564,36 +577,40 @@
             android:id="@+id/menu_render"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:text="绘制"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:background="@mipmap/menu_render_bg"/>
+            android:background="@mipmap/menu_bg"/>
 
         <!--设置-->
         <Button
             android:id="@+id/menu_setting"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:text="设置"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:background="@mipmap/menu_setting_bg"/>
+            android:background="@mipmap/menu_bg"/>
 
         <!--下载-->
         <Button
             android:id="@+id/menu_download"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:text="下载"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:background="@mipmap/menu_download_bg"/>
+            android:background="@mipmap/menu_bg"/>
 
         <!--菜单-->
         <Button
             android:id="@+id/menu_main"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:text="菜单"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:background="@mipmap/meun_main_bg"/>
+            android:background="@mipmap/menu_bg"/>
 
     </RelativeLayout>
 
@@ -659,6 +676,26 @@
         android:visibility="gone">
 
         <include layout="@layout/ground_render_line_type"/>
+    </LinearLayout>
+
+    <!--地物绘制-画点 添加自定义点对话框-->
+    <LinearLayout
+        android:id="@+id/ground_render_point_add_geopoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/ground_render_point_add_geopoint"/>
+    </LinearLayout>
+
+    <!--地物绘制-画线 添加自定义点对话框-->
+    <LinearLayout
+        android:id="@+id/ground_render_line_add_geopoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <include layout="@layout/ground_render_line_add_geopoint"/>
     </LinearLayout>
 
     <!--地物绘制-画面 添加自定义点对话框-->

@@ -37,6 +37,7 @@ public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListen
                 break;
             case R.id.distance_azimuth_menu_add: // 添加
                 onClickedAdd(view);
+                break;
             default:
                 break;
         }
@@ -44,6 +45,7 @@ public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListen
 
     // 取消
     private void onClickedCancel(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().hide();
 
         Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();

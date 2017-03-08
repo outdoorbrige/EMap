@@ -3,11 +3,14 @@ package com.gh.emap.manager;
 import com.gh.emap.MainActivity;
 import com.gh.emap.layout.BottomGroundRenderLineMenuLayout;
 import com.gh.emap.layout.BottomGroundRenderPlaneMenuLayout;
+import com.gh.emap.layout.BottomLocationInfoLayout;
 import com.gh.emap.layout.DrawAreaGirthAddGeoPointLayout;
 import com.gh.emap.layout.DrawDistanceAzimuthAddGeoPointLayout;
+import com.gh.emap.layout.GroundRenderLineAddGeoPointLayout;
 import com.gh.emap.layout.GroundRenderLineTypeLayout;
 import com.gh.emap.layout.BottomGroundRenderPointMenuLayout;
 import com.gh.emap.layout.GroundRenderPlaneAddGeoPointLayout;
+import com.gh.emap.layout.GroundRenderPointAddGeoPointLayout;
 import com.gh.emap.layout.GroundRenderPointTypeLayout;
 import com.gh.emap.layout.MenuLayout;
 import com.gh.emap.layout.OperationLayout;
@@ -28,6 +31,7 @@ import com.gh.emap.layout.UserRegisterLayout;
  */
 public class LayoutManager {
     private MainActivity mMainActivity;
+    private BottomLocationInfoLayout mBottomLocationInfoLayout;
     private TopNormalLayout mTopNormalLayout;
     private MenuLayout mMenuLayout;
     private OperationLayout mOperationLayout;
@@ -35,9 +39,11 @@ public class LayoutManager {
     private TopGroundRenderPointLayout mTopGroundRenderPointLayout;
     private BottomGroundRenderPointMenuLayout mBottomGroundRenderPointMenuLayout;
     private GroundRenderPointTypeLayout mGroundRenderPointTypeLayout;
+    private GroundRenderPointAddGeoPointLayout mGroundRenderPointAddGeoPointLayout;
     private TopGroundRenderLineLayout mTopGroundRenderLineLayout;
     private BottomGroundRenderLineMenuLayout mBottomGroundRenderLineMenuLayout;
     private GroundRenderLineTypeLayout mGroundRenderLineTypeLayout;
+    private GroundRenderLineAddGeoPointLayout mGroundRenderLineAddGeoPointLayout;
     private TopGroundRenderPlaneLayout mTopGroundRenderPlaneLayout;
     private BottomGroundRenderPlaneMenuLayout mBottomGroundRenderPlaneMenuLayout;
     private GroundRenderPlaneAddGeoPointLayout mGroundRenderPlaneAddGeoPointLayout;
@@ -54,6 +60,9 @@ public class LayoutManager {
     }
 
     public void init() {
+        mBottomLocationInfoLayout = new BottomLocationInfoLayout(mMainActivity);
+        mBottomLocationInfoLayout.init();
+
         mTopNormalLayout = new TopNormalLayout(mMainActivity);
         mTopNormalLayout.init();
 
@@ -75,6 +84,9 @@ public class LayoutManager {
         mGroundRenderPointTypeLayout = new GroundRenderPointTypeLayout(mMainActivity);
         mGroundRenderPointTypeLayout.init();
 
+        mGroundRenderPointAddGeoPointLayout = new GroundRenderPointAddGeoPointLayout(mMainActivity);
+        mGroundRenderPointAddGeoPointLayout.init();
+
         mTopGroundRenderLineLayout = new TopGroundRenderLineLayout(mMainActivity);
         mTopGroundRenderLineLayout.init();
 
@@ -83,6 +95,9 @@ public class LayoutManager {
 
         mGroundRenderLineTypeLayout = new GroundRenderLineTypeLayout(mMainActivity);
         mGroundRenderLineTypeLayout.init();
+
+        mGroundRenderLineAddGeoPointLayout = new GroundRenderLineAddGeoPointLayout(mMainActivity);
+        mGroundRenderLineAddGeoPointLayout.init();
 
         mTopGroundRenderPlaneLayout = new TopGroundRenderPlaneLayout(mMainActivity);
         mTopGroundRenderPlaneLayout.init();
@@ -118,12 +133,18 @@ public class LayoutManager {
     public void unInit() {
         mGroundRenderPointTypeLayout.dimiss();
         mGroundRenderLineTypeLayout.dimiss();
+        mGroundRenderPointAddGeoPointLayout.dimiss();
+        mGroundRenderLineAddGeoPointLayout.dimiss();
         mGroundRenderPlaneAddGeoPointLayout.dimiss();
         mDrawDistanceAzimuthAddGeoPointLayout.dimiss();
         mDrawAreaGirthAddGeoPointLayout.dimiss();
         mUserLoginLayout.dimiss();
         mUserRegisterLayout.dimiss();
         mUserLogoutLayout.dimiss();
+    }
+
+    public BottomLocationInfoLayout getBottomLocationInfoLayout() {
+        return mBottomLocationInfoLayout;
     }
 
     public TopNormalLayout getTopNormalLayout() {
@@ -154,6 +175,10 @@ public class LayoutManager {
         return mGroundRenderPointTypeLayout;
     }
 
+    public GroundRenderPointAddGeoPointLayout getGroundRenderPointAddGeoPointLayout() {
+        return mGroundRenderPointAddGeoPointLayout;
+    }
+
     public TopGroundRenderLineLayout getTopGroundRenderLineLayout() {
         return mTopGroundRenderLineLayout;
     }
@@ -164,6 +189,10 @@ public class LayoutManager {
 
     public GroundRenderLineTypeLayout getGroundRenderLineTypeLayout() {
         return mGroundRenderLineTypeLayout;
+    }
+
+    public GroundRenderLineAddGeoPointLayout getGroundRenderLineAddGeoPointLayout() {
+        return mGroundRenderLineAddGeoPointLayout;
     }
 
     public TopGroundRenderPlaneLayout getTopGroundRenderPlaneLayout() {

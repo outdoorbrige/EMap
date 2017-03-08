@@ -33,6 +33,15 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
             case R.id.line_menu_cancel: // 取消
                 onClickedLineCancel(view);
                 break;
+            case R.id.line_menu_undo: // 撤销
+                onClickedUndo(view);
+                break;
+            case R.id.line_menu_redo: // 重绘
+                onClickedRedo(view);
+                break;
+            case R.id.line_menu_add: // 添加
+                onClickedAdd(view);
+                break;
             case R.id.line_menu_save: // 保存
                 onClickedLineSave(view);
                 break;
@@ -43,17 +52,67 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
     // 取消
     private void onClickedLineCancel(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().hide();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().setLineType(
                 mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getOldLineType());
 
-        // 删除覆盖物
-        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
-        overlays.remove(overlays.size() - 1);
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
 
-        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        if(overlay instanceof LineOverlay) {
+            mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(overlay);
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 撤销
+    private void onClickedUndo(View view) {
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
+
+        if(overlay instanceof LineOverlay) {
+            LineOverlay lineOverlay = (LineOverlay)overlay;
+            ArrayList<String> strPoints = lineOverlay.getLineObject().getStrPoints();
+            if(strPoints == null || strPoints.isEmpty()) {
+                return;
+            }
+
+            strPoints.remove(strPoints.size() - 1);
+
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 重绘
+    private void onClickedRedo(View view) {
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
+
+        if(overlay instanceof LineOverlay) {
+            LineOverlay lineOverlay = (LineOverlay)overlay;
+            ArrayList<String> strPoints = lineOverlay.getLineObject().getStrPoints();
+            if(strPoints == null || strPoints.isEmpty()) {
+                return;
+            }
+
+            strPoints.clear();
+
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 添加
+    private void onClickedAdd(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getGroundRenderLineAddGeoPointLayout().show();
     }
 
     // 保存

@@ -32,6 +32,9 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
             case R.id.point_menu_cancel: // 取消
                 onClickedPointCancel(view);
                 break;
+            case R.id.point_menu_add: // 添加
+                onClickedAdd(view);
+                break;
             case R.id.point_menu_save: // 保存
                 onClickedPointSave(view);
                 break;
@@ -42,17 +45,27 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
 
     // 取消
     private void onClickedPointCancel(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().hide();
 
         mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().setPointType(
                 mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getOldPointType());
 
-        // 删除覆盖物
-        List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
-        overlays.remove(overlays.size() - 1);
+        Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();
+        if(overlay == null) {
+            return;
+        }
 
-        mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        if(overlay instanceof PointOverlay) {
+            mMainActivity.getMainManager().getMapManager().getMapView().removeOverlay(overlay);
+            mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
+        }
+    }
+
+    // 添加
+    private void onClickedAdd(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getGroundRenderPointAddGeoPointLayout().show();
     }
 
     // 保存
@@ -93,8 +106,8 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
         // 保存点信息到文件
 
         PointObject pointObject = new PointObject();
-        pointObject.setType(pointType);
         pointObject.setName(pointName);
+        pointObject.setType(pointType);
         pointObject.setGeoPoint(point);
 
         RWPointFile.write(path + File.separator + pointObject.getName() +

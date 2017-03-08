@@ -37,6 +37,7 @@ public class BottomDrawAreaGirthMenuListener implements View.OnClickListener {
                 break;
             case R.id.area_girth_menu_add: // 添加
                 onClickedAdd(view);
+                break;
             default:
                 break;
         }
@@ -44,6 +45,7 @@ public class BottomDrawAreaGirthMenuListener implements View.OnClickListener {
 
     // 取消
     private void onClickedCancel(View view) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().show();
         mMainActivity.getMainManager().getLayoutManager().getBottomDrawAreaGirthMenuLayout().hide();
 
         Overlay overlay = mMainActivity.getMainManager().getMapManager().getLastOverlay();

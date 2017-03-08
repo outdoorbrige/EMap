@@ -143,20 +143,24 @@ public class MapManager {
 
     // 显示纬度、经度、高程信息
     public void showPositionInfo(GeoPoint geoPoint) {
-        final String degreeUnit = "";
+        if(mGeoPoint == null && geoPoint == null) {
+            return;
+        }
 
         String latitude = "";
         String longitude = "";
         String elevation = "";
 
-        if(mGeoPoint != null) {
-            latitude = String.valueOf(GeoPointEx.getdY(geoPoint)) + degreeUnit;
-            longitude = String.valueOf(GeoPointEx.getdX(geoPoint)) + degreeUnit;
+        if(mGeoPoint == null) {
+            mGeoPoint = geoPoint;
         }
 
-        ((TextView)mMainActivity.findViewById(R.id.latitude)).setText(latitude);
-        ((TextView)mMainActivity.findViewById(R.id.longitude)).setText(longitude);
-        ((TextView)mMainActivity.findViewById(R.id.elevation)).setText(elevation);
+        latitude = String.valueOf(GeoPointEx.getdY(mGeoPoint));
+        longitude = String.valueOf(GeoPointEx.getdX(mGeoPoint));
+
+        mMainActivity.getMainManager().getLayoutManager().getBottomLocationInfoLayout().setLatitude(latitude);
+        mMainActivity.getMainManager().getLayoutManager().getBottomLocationInfoLayout().setLongitude(longitude);
+        mMainActivity.getMainManager().getLayoutManager().getBottomLocationInfoLayout().setElevation(elevation);
     }
 
     // 设置中心点

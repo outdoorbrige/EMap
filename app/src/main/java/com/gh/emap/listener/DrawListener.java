@@ -43,6 +43,7 @@ public class DrawListener implements AdapterView.OnItemClickListener {
 
     // 测距与方位角
     private void onItemClickedDistanceAzimuth(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomDrawDistanceAzimuthMenuLayout().show();
 
         // 添加覆盖物
@@ -53,6 +54,7 @@ public class DrawListener implements AdapterView.OnItemClickListener {
 
     // 测面积与周长
     private void onItemClickedAreaGirth(AdapterView<?> parent, View view, int position, long id) {
+        mMainActivity.getMainManager().getLayoutManager().getTopRenderLayout().hide();
         mMainActivity.getMainManager().getLayoutManager().getBottomDrawAreaGirthMenuLayout().show();
 
         // 添加覆盖物

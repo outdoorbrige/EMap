@@ -5,9 +5,11 @@ import com.gh.emap.listener.BottomGroundRenderLineMenuListener;
 import com.gh.emap.listener.BottomGroundRenderPlaneMenuListener;
 import com.gh.emap.listener.DrawAreaGirthAddGeoPointListener;
 import com.gh.emap.listener.DrawDistanceAzimuthAddGeoPointListener;
+import com.gh.emap.listener.GroundRenderLineAddGeoPointListener;
 import com.gh.emap.listener.GroundRenderLineTypeListener;
 import com.gh.emap.listener.BottomGroundRenderPointMenuListener;
 import com.gh.emap.listener.GroundRenderPlaneAddGeoPointListener;
+import com.gh.emap.listener.GroundRenderPointAddGeoPointListener;
 import com.gh.emap.listener.GroundRenderPointTypeListener;
 import com.gh.emap.listener.DrawListener;
 import com.gh.emap.listener.MenuListener;
@@ -44,9 +46,11 @@ public class ListenerManager {
     private TopGroundRenderPointListener mTopGroundRenderPointListener;
     private BottomGroundRenderPointMenuListener mBottomGroundRenderPointMenuListener;
     private GroundRenderPointTypeListener mGroundRenderPointTypeListener;
+    private GroundRenderPointAddGeoPointListener mGroundRenderPointAddGeoPointListener;
     private TopGroundRenderLineListener mTopGroundRenderLineListener;
     private BottomGroundRenderLineMenuListener mBottomGroundRenderLineMenuListener;
     private GroundRenderLineTypeListener mGroundRenderLineTypeListener;
+    private GroundRenderLineAddGeoPointListener mGroundRenderLineAddGeoPointListener;
     private TopGroundRenderPlaneListener mTopGroundRenderPlaneListener;
     private BottomGroundRenderPlaneMenuListener mBottomGroundRenderPlaneMenuListener;
     private GroundRenderPlaneAddGeoPointListener mGroundRenderPlaneAddGeoPointListener;
@@ -73,9 +77,11 @@ public class ListenerManager {
         mTopGroundRenderPointListener = new TopGroundRenderPointListener(mMainActivity);
         mBottomGroundRenderPointMenuListener = new BottomGroundRenderPointMenuListener(mMainActivity);
         mGroundRenderPointTypeListener = new GroundRenderPointTypeListener(mMainActivity);
+        mGroundRenderPointAddGeoPointListener = new GroundRenderPointAddGeoPointListener(mMainActivity);
         mTopGroundRenderLineListener = new TopGroundRenderLineListener(mMainActivity);
         mBottomGroundRenderLineMenuListener = new BottomGroundRenderLineMenuListener(mMainActivity);
         mGroundRenderLineTypeListener = new GroundRenderLineTypeListener(mMainActivity);
+        mGroundRenderLineAddGeoPointListener = new GroundRenderLineAddGeoPointListener(mMainActivity);
         mTopGroundRenderPlaneListener = new TopGroundRenderPlaneListener(mMainActivity);
         mBottomGroundRenderPlaneMenuListener = new BottomGroundRenderPlaneMenuListener(mMainActivity);
         mGroundRenderPlaneAddGeoPointListener = new GroundRenderPlaneAddGeoPointListener(mMainActivity);
@@ -141,6 +147,10 @@ public class ListenerManager {
         return mGroundRenderPointTypeListener;
     }
 
+    public GroundRenderPointAddGeoPointListener getGroundRenderPointAddGeoPointListener() {
+        return mGroundRenderPointAddGeoPointListener;
+    }
+
     public TopGroundRenderLineListener getTopGroundRenderLineListener() {
         return mTopGroundRenderLineListener;
     }
@@ -151,6 +161,10 @@ public class ListenerManager {
 
     public GroundRenderLineTypeListener getGroundRenderLineTypeListener() {
         return mGroundRenderLineTypeListener;
+    }
+
+    public GroundRenderLineAddGeoPointListener getGroundRenderLineAddGeoPointListener() {
+        return mGroundRenderLineAddGeoPointListener;
     }
 
     public TopGroundRenderPlaneListener getTopGroundRenderPlaneListener() {
