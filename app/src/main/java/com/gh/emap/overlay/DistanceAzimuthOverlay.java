@@ -12,7 +12,6 @@ import com.tianditu.maps.GeoPointEx;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -22,7 +21,9 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class DistanceAzimuthOverlay extends Overlay {
     private MainActivity mMainActivity;
-    private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
+    private ArrayList<GeoPoint> mGeoPoints = new ArrayList<>();
+    ArrayList<Double> mDoubleDistances = new ArrayList<>();
+    ArrayList<Double> mDoubleAzimuths = new ArrayList<>();
     private boolean mEditStatus; // 可编辑状态
 
     public DistanceAzimuthOverlay(MainActivity mainActivity) {
@@ -30,92 +31,104 @@ public class DistanceAzimuthOverlay extends Overlay {
         mEditStatus = true;
     }
 
-    public void setPoints(ArrayList<GeoPoint> points) {
-        mGeoPointArrayList = points;
-    }
+    public boolean setGeoPoints(ArrayList<GeoPoint> geoPoints) {
+        boolean bReturn = true;
 
-    public ArrayList<GeoPoint> getPoints() {
-        return mGeoPointArrayList;
-    }
+        clearGeoPoints();
 
-    public boolean addPoint(GeoPoint point) {
-        return mGeoPointArrayList.add(point);
-    }
-
-    public boolean addPoints(ArrayList<GeoPoint> points) {
-        return mGeoPointArrayList.addAll(points);
-    }
-
-    // 获取距离集合带单位(四舍五入3位小数)
-    public ArrayList<String> getDistances() {
-        ArrayList<String> strDistanceList = new ArrayList<>();
-        if(mGeoPointArrayList.size() < 1) {
-
-        } else {
-            ArrayList<Double> dDistanceList = new ArrayList<>();
-
-            dDistanceList.add(Double.valueOf("0"));
-            strDistanceList.add("0");
-
-            for(int i = 1; i < mGeoPointArrayList.size(); i ++) {
-                GeoPoint p1 = mGeoPointArrayList.get(i - 1);
-                GeoPoint p2 = mGeoPointArrayList.get(i);
-
-                // 计算距离
-                float[] results = new float[1];
-                Location.distanceBetween(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2), results);
-
-                double dDistance = dDistanceList.get(dDistanceList.size() - 1) + results[0];
-
-                dDistanceList.add(Double.valueOf(dDistance));
-
-                // 生成距离标签
-
-                final int ONE_THOUSAND = 1000;
-                String strDistance = String.valueOf(dDistance);
-                String strDistanceLab = "";
-
-                if ((int) dDistance < ONE_THOUSAND) {
-                    BigDecimal distanceLab = new BigDecimal(strDistance);
-                    strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "米";
-                } else {
-                    BigDecimal distanceLab = new BigDecimal(String.valueOf(dDistance / ONE_THOUSAND));
-                    strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "公里";
-                }
-
-                strDistanceList.add(strDistanceLab);
-            }
+        for(int i = 0; i < geoPoints.size(); i ++) {
+            bReturn = bReturn & addGeoPoint(geoPoints.get(i));
         }
 
-        return strDistanceList;
+        return bReturn;
     }
 
-    // 获取方位角集合带单位(四舍五入3位小数)
-    public ArrayList<String> getAzimuths() {
-        ArrayList<String> strAzimuthList = new ArrayList<>();
-        if(mGeoPointArrayList.size() < 1) {
+    public ArrayList<GeoPoint> getGeoPoints() {
+        return mGeoPoints;
+    }
 
+    public boolean addGeoPoint(GeoPoint geoPoint) {
+        boolean bReturn = mGeoPoints.add(geoPoint);
+
+        if(mGeoPoints.size() < 1) {
+            bReturn = bReturn & true;
+        } else if(mGeoPoints.size() == 1) {
+            bReturn = bReturn & mDoubleDistances.add(0.0);
+            bReturn = bReturn & mDoubleAzimuths.add(0.0);
         } else {
-            strAzimuthList.add("0");
+            GeoPoint p1 = mGeoPoints.get(mGeoPoints.size() - 2);
+            GeoPoint p2 = mGeoPoints.get(mGeoPoints.size() - 1);
 
-            for(int i = 1; i < mGeoPointArrayList.size(); i ++) {
-                GeoPoint p1 = mGeoPointArrayList.get(i - 1);
-                GeoPoint p2 = mGeoPointArrayList.get(i);
+            // 计算距离
+            float[] results = new float[1];
+            Location.distanceBetween(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2), results);
+            double dDistance = mDoubleDistances.get(mDoubleDistances.size() - 1) + results[0];
+            bReturn = bReturn & mDoubleDistances.add(dDistance);
 
-                // 计算方位角
-                double dAzimuth = calculateAzimuth(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2));
-                String strAzimuth = String.valueOf(dAzimuth);
-                String strAzimuthLab = "";
-
-                // 生成方位角标签
-                BigDecimal azimuthLab = new BigDecimal(strAzimuth);
-                strAzimuthLab = azimuthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "°";
-
-                strAzimuthList.add(strAzimuthLab);
-            }
+            // 计算方位角
+            double dAzimuth = calculateAzimuth(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2));
+            bReturn = bReturn & mDoubleAzimuths.add(dAzimuth);
         }
 
-        return strAzimuthList;
+        return bReturn;
+    }
+
+    public boolean addGeoPoints(ArrayList<GeoPoint> geoPoints) {
+        boolean bReturn = true;
+
+        for(int i = 0; i < geoPoints.size(); i ++) {
+            bReturn = bReturn & addGeoPoint(geoPoints.get(i));
+        }
+
+        return bReturn;
+    }
+
+    public boolean removeLastGeoPoint() {
+        int size = mGeoPoints.size();
+        if(size == 0) {
+            return false;
+        }
+
+        int index = size - 1;
+
+        return mGeoPoints.remove(mGeoPoints.get(index)) &
+                mDoubleDistances.remove(mDoubleDistances.get(index)) &
+                mDoubleAzimuths.remove(mDoubleAzimuths.get(index));
+    }
+
+    public void clearGeoPoints() {
+        mGeoPoints.clear();
+        mDoubleDistances.clear();
+        mDoubleAzimuths.clear();
+    }
+
+    // 生成距离标签带单位(四舍五入3位小数)
+    String getDistanceLabel(double dDistance) {
+        final int ONE_THOUSAND = 1000;
+        String strDistance = String.valueOf(dDistance);
+        String strDistanceLab = "";
+
+        if ((int) dDistance < ONE_THOUSAND) {
+            BigDecimal distanceLab = new BigDecimal(strDistance);
+            strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "米";
+        } else {
+            BigDecimal distanceLab = new BigDecimal(String.valueOf(dDistance / ONE_THOUSAND));
+            strDistanceLab = distanceLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "公里";
+        }
+
+        return strDistanceLab;
+    }
+
+    // 生成方位角标签带单位(四舍五入3位小数)
+    String getAzimuthLabel(double dAzimuth) {
+        String strAzimuth = String.valueOf(dAzimuth);
+        String strAzimuthLab = "";
+
+        // 生成方位角标签
+        BigDecimal azimuthLab = new BigDecimal(strAzimuth);
+        strAzimuthLab = azimuthLab.setScale(3, BigDecimal.ROUND_HALF_UP).toString() + "°";
+
+        return strAzimuthLab;
     }
 
     public void setEditStatus(boolean status) {
@@ -177,7 +190,7 @@ public class DistanceAzimuthOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if (isEditStatus()) {
-            addPoint(geoPoint);
+            addGeoPoint(geoPoint);
         }
 
         return true;
@@ -190,20 +203,28 @@ public class DistanceAzimuthOverlay extends Overlay {
             return;
         }
 
-        if (mGeoPointArrayList == null || mGeoPointArrayList.size() == 0) {
+        if (mGeoPoints == null || mGeoPoints.size() == 0) {
             return;
         }
+
+
+        if(mDoubleDistances.size() != mGeoPoints.size()) {
+            return;
+        }
+
+        double dDistance = mDoubleDistances.get(mDoubleDistances.size() - 1);
+        double mAzimuth = mDoubleAzimuths.get(mDoubleAzimuths.size() - 1);
+
+        String strDistance = getDistanceLabel(dDistance);
+        String strAzimuth = getAzimuthLabel(mAzimuth);
 
         MapViewRender render = mapView.getMapViewRender();
 
         // 折线
-        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), mGeoPointArrayList);
+        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), mGeoPoints);
 
-        ArrayList<String> strDistanceArray = getDistances();
-        ArrayList<String> strAzimuthArray = getAzimuths();
-
-        for (int i = 0; i < mGeoPointArrayList.size(); i++) {
-            GeoPoint geoPoint = mGeoPointArrayList.get(i);
+        for (int i = 0; i < mGeoPoints.size(); i++) {
+            GeoPoint geoPoint = mGeoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
             // 拐点
@@ -214,7 +235,7 @@ public class DistanceAzimuthOverlay extends Overlay {
                 String strLab = "起点"+ mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
                 render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
             } else{ // 拐点标注
-                String strLab = strDistanceArray.get(i) + "，" + strAzimuthArray.get(i) + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+                String strLab = strDistance + "，" + strAzimuth + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
                 render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
             }
         }

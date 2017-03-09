@@ -12,7 +12,6 @@ import com.tianditu.maps.GeoPointEx;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -22,7 +21,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class AreaGirthOverlay extends Overlay {
     private MainActivity mMainActivity;
-    private ArrayList<GeoPoint> mGeoPointArrayList = new ArrayList<>();
+    private ArrayList<GeoPoint> mGeoPoints = new ArrayList<>();
     private boolean mEditStatus; // 可编辑状态
 
     public AreaGirthOverlay(MainActivity mainActivity) {
@@ -30,25 +29,25 @@ public class AreaGirthOverlay extends Overlay {
         mEditStatus = true;
     }
 
-    public void setPoints(ArrayList<GeoPoint> points) {
-        mGeoPointArrayList = points;
+    public void setGeoPoints(ArrayList<GeoPoint> geoPoints) {
+        mGeoPoints = geoPoints;
     }
 
-    public ArrayList<GeoPoint> getPoints() {
-        return mGeoPointArrayList;
+    public ArrayList<GeoPoint> getGeoPoints() {
+        return mGeoPoints;
     }
 
-    public boolean addPoint(GeoPoint point) {
-        return mGeoPointArrayList.add(point);
+    public boolean addGeoPoint(GeoPoint geoPoint) {
+        return mGeoPoints.add(geoPoint);
     }
 
-    public boolean addPoints(ArrayList<GeoPoint> points) {
-        return mGeoPointArrayList.addAll(points);
+    public boolean addGeoPoints(ArrayList<GeoPoint> geoPoints) {
+        return mGeoPoints.addAll(geoPoints);
     }
 
     // 获取面积带单位(四舍五入3位小数)
-    public String getArea() {
-        if(mGeoPointArrayList.size() < 3){
+    public String getArea(ArrayList<GeoPoint> geoPoints) {
+        if(geoPoints.size() < 3){
             return null;
         }
 
@@ -57,7 +56,7 @@ public class AreaGirthOverlay extends Overlay {
         final int ONE_MILLION = 1000000;
 
         // 计算面积
-        double dArea = calculateArea(mGeoPointArrayList);
+        double dArea = calculateArea(geoPoints);
         String strArea = String.valueOf(dArea);
         String strAreaLab = null;
 
@@ -73,8 +72,8 @@ public class AreaGirthOverlay extends Overlay {
     }
 
     // 获取周长带单位(四舍五入3位小数)
-    public String getGirth() {
-        if(mGeoPointArrayList.size() < 2){
+    public String getGirth(ArrayList<GeoPoint> geoPoints) {
+        if(geoPoints.size() < 2){
             return null;
         }
 
@@ -83,7 +82,7 @@ public class AreaGirthOverlay extends Overlay {
         final int ONE_THOUSAND = 1000;
 
         // 计算周长
-        double dGirth = calculateGirth(mGeoPointArrayList);
+        double dGirth = calculateGirth(geoPoints);
         String strGirth = String.valueOf(dGirth);
         String strGirthLab = "";
 
@@ -107,8 +106,8 @@ public class AreaGirthOverlay extends Overlay {
     }
 
     // 计算多边形面积
-    private double calculateArea(ArrayList<GeoPoint> geoPointArrayList) {
-        int Count = geoPointArrayList.size();
+    private double calculateArea(ArrayList<GeoPoint> geoPoints) {
+        int Count = geoPoints.size();
         if (Count < 3) {
             return 0.0f;
         }
@@ -163,26 +162,26 @@ public class AreaGirthOverlay extends Overlay {
 
         for (int i = 0; i < Count; i++) {
             if (i == 0) {
-                LowX =(double) GeoPointEx.getdY(mGeoPointArrayList.get(Count - 1)) * Math.PI / 180;
-                LowY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(Count - 1)) * Math.PI / 180;
-                MiddleX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(0)) * Math.PI / 180;
-                MiddleY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(0)) * Math.PI / 180;
-                HighX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(1)) * Math.PI / 180;
-                HighY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(1)) * Math.PI / 180;
+                LowX =(double) GeoPointEx.getdY(geoPoints.get(Count - 1)) * Math.PI / 180;
+                LowY = (double)GeoPointEx.getdX(geoPoints.get(Count - 1)) * Math.PI / 180;
+                MiddleX = (double)GeoPointEx.getdY(geoPoints.get(0)) * Math.PI / 180;
+                MiddleY = (double)GeoPointEx.getdX(geoPoints.get(0)) * Math.PI / 180;
+                HighX = (double)GeoPointEx.getdY(geoPoints.get(1)) * Math.PI / 180;
+                HighY = (double)GeoPointEx.getdX(geoPoints.get(1)) * Math.PI / 180;
             } else if (i == Count - 1) {
-                LowX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(Count - 2)) * Math.PI / 180;
-                LowY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(Count - 2)) * Math.PI / 180;
-                MiddleX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(Count - 1)) * Math.PI / 180;
-                MiddleY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(Count - 1)) * Math.PI / 180;
-                HighX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(0)) * Math.PI / 180;
-                HighY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(0)) * Math.PI / 180;
+                LowX = (double)GeoPointEx.getdY(geoPoints.get(Count - 2)) * Math.PI / 180;
+                LowY = (double)GeoPointEx.getdX(geoPoints.get(Count - 2)) * Math.PI / 180;
+                MiddleX = (double)GeoPointEx.getdY(geoPoints.get(Count - 1)) * Math.PI / 180;
+                MiddleY = (double)GeoPointEx.getdX(geoPoints.get(Count - 1)) * Math.PI / 180;
+                HighX = (double)GeoPointEx.getdY(geoPoints.get(0)) * Math.PI / 180;
+                HighY = (double)GeoPointEx.getdX(geoPoints.get(0)) * Math.PI / 180;
             } else {
-                LowX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(i - 1)) * Math.PI / 180;
-                LowY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(i - 1)) * Math.PI / 180;
-                MiddleX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(i)) * Math.PI / 180;
-                MiddleY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(i)) * Math.PI / 180;
-                HighX = (double)GeoPointEx.getdY(mGeoPointArrayList.get(i + 1)) * Math.PI / 180;
-                HighY = (double)GeoPointEx.getdX(mGeoPointArrayList.get(i + 1)) * Math.PI / 180;
+                LowX = (double)GeoPointEx.getdY(geoPoints.get(i - 1)) * Math.PI / 180;
+                LowY = (double)GeoPointEx.getdX(geoPoints.get(i - 1)) * Math.PI / 180;
+                MiddleX = (double)GeoPointEx.getdY(geoPoints.get(i)) * Math.PI / 180;
+                MiddleY = (double)GeoPointEx.getdX(geoPoints.get(i)) * Math.PI / 180;
+                HighX = (double)GeoPointEx.getdY(geoPoints.get(i + 1)) * Math.PI / 180;
+                HighY = (double)GeoPointEx.getdX(geoPoints.get(i + 1)) * Math.PI / 180;
             }
 
             AM = Math.cos(MiddleY) * Math.cos(MiddleX);
@@ -246,16 +245,16 @@ public class AreaGirthOverlay extends Overlay {
     }
 
     // 计算多边形周长
-    private double calculateGirth(ArrayList<GeoPoint> geoPointArrayList) {
-        if(geoPointArrayList.size() < 2) {
+    private double calculateGirth(ArrayList<GeoPoint> geoPoints) {
+        if(geoPoints.size() < 2) {
             return 0.0f;
         }
 
         double girth = 0.0f;
 
-        for(int i = 1; i < geoPointArrayList.size(); i ++) {
-            GeoPoint p1 = geoPointArrayList.get(i - 1);
-            GeoPoint p2 = geoPointArrayList.get(i);
+        for(int i = 1; i < geoPoints.size(); i ++) {
+            GeoPoint p1 = geoPoints.get(i - 1);
+            GeoPoint p2 = geoPoints.get(i);
 
             float[] results = new float[1];
             Location.distanceBetween(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2), results);
@@ -263,9 +262,9 @@ public class AreaGirthOverlay extends Overlay {
             girth = girth + results[0];
         }
 
-        if(geoPointArrayList.size() > 2) { // 再加上起点到终端的距离
-            GeoPoint p1 = geoPointArrayList.get(0);
-            GeoPoint p2 = geoPointArrayList.get(geoPointArrayList.size() - 1);
+        if(geoPoints.size() > 2) { // 再加上起点到终端的距离
+            GeoPoint p1 = geoPoints.get(0);
+            GeoPoint p2 = geoPoints.get(geoPoints.size() - 1);
 
             float[] results = new float[1];
             Location.distanceBetween(GeoPointEx.getdY(p1), GeoPointEx.getdX(p1), GeoPointEx.getdY(p2), GeoPointEx.getdX(p2), results);
@@ -277,15 +276,15 @@ public class AreaGirthOverlay extends Overlay {
     }
 
     // 计算多边形的中心点
-    private GeoPoint calculateCenter(ArrayList<GeoPoint> geoPointArrayList) {
-        int total = geoPointArrayList.size();
+    private GeoPoint calculateCenter(ArrayList<GeoPoint> geoPoints) {
+        int total = geoPoints.size();
 
         double X = 0.0;
         double Y = 0.0;
         double Z = 0.0;
 
         for(int index = 0; index < total; index ++) {
-            GeoPoint geoPoint = geoPointArrayList.get(index);
+            GeoPoint geoPoint = geoPoints.get(index);
 
             double lat = GeoPointEx.getdY(geoPoint) * Math.PI / 180;
             double lng = GeoPointEx.getdX(geoPoint) * Math.PI / 180;
@@ -314,7 +313,7 @@ public class AreaGirthOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if (isEditStatus()) {
-            addPoint(geoPoint);
+            addGeoPoint(geoPoint);
         }
 
         return true;
@@ -327,17 +326,17 @@ public class AreaGirthOverlay extends Overlay {
             return;
         }
 
-        if (mGeoPointArrayList == null || mGeoPointArrayList.size() == 0) {
+        if (mGeoPoints == null || mGeoPoints.size() == 0) {
             return;
         }
 
         MapViewRender render = mapView.getMapViewRender();
 
         // 多边形
-        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), mGeoPointArrayList);
+        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), mGeoPoints);
 
-        for (int i = 0; i < mGeoPointArrayList.size(); i++) {
-            GeoPoint geoPoint = mGeoPointArrayList.get(i);
+        for (int i = 0; i < mGeoPoints.size(); i++) {
+            GeoPoint geoPoint = mGeoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
             // 拐点
@@ -347,18 +346,20 @@ public class AreaGirthOverlay extends Overlay {
             if(i == 0) { // 起点标注
                 String strLab = "起点" + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
                 render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
-            } else if (i == (mGeoPointArrayList.size() - 1)) { // 终点标注
+            } else if (i == (mGeoPoints.size() - 1)) { // 终点标注
                 String strLab = "终点" + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
                 render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
             }
         }
 
         // 面积与周长标注
-        if(getArea() != null && getGirth() != null) {
+        String strArea = getArea(mGeoPoints);
+        String strGirth = getGirth(mGeoPoints);
+        if(strArea != null && strGirth != null) {
             // 获取多边形中心点
-            GeoPoint geoPointCenter = calculateCenter(mGeoPointArrayList);
+            GeoPoint geoPointCenter = calculateCenter(mGeoPoints);
 
-            String strLab = getArea() + "，" + getGirth() + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
+            String strLab = strArea + "，" + strGirth + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
             render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPointCenter);
         }
     }

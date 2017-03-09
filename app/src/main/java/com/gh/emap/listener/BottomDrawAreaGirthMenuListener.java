@@ -9,7 +9,6 @@ import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by GuHeng on 2017/2/21.
@@ -68,7 +67,7 @@ public class BottomDrawAreaGirthMenuListener implements View.OnClickListener {
 
         if(overlay instanceof AreaGirthOverlay) {
             AreaGirthOverlay areaGirthOverlay = (AreaGirthOverlay)overlay;
-            ArrayList<GeoPoint> geoPoints = areaGirthOverlay.getPoints();
+            ArrayList<GeoPoint> geoPoints = areaGirthOverlay.getGeoPoints();
             if(geoPoints == null || geoPoints.isEmpty()) {
                 return;
             }
@@ -88,7 +87,7 @@ public class BottomDrawAreaGirthMenuListener implements View.OnClickListener {
 
         if(overlay instanceof AreaGirthOverlay) {
             AreaGirthOverlay areaGirthOverlay = (AreaGirthOverlay)overlay;
-            ArrayList<GeoPoint> geoPoints = areaGirthOverlay.getPoints();
+            ArrayList<GeoPoint> geoPoints = areaGirthOverlay.getGeoPoints();
             if(geoPoints == null || geoPoints.isEmpty()) {
                 return;
             }

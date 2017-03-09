@@ -80,7 +80,7 @@ public class DrawDistanceAzimuthAddGeoPointListener implements View.OnClickListe
 
         if(overlay instanceof DistanceAzimuthOverlay) {
             DistanceAzimuthOverlay distanceAzimuthOverlay = (DistanceAzimuthOverlay)overlay;
-            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getPoints();
+            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getGeoPoints();
             if(geoPoints == null) {
                 return;
             }
@@ -95,7 +95,7 @@ public class DrawDistanceAzimuthAddGeoPointListener implements View.OnClickListe
             dLongitude = dLongitude.multiply(new BigDecimal(ONE_HUNDRED_THOUSAND));
             BigInteger nLongitude = dLongitude.setScale(0, BigDecimal.ROUND_HALF_UP).toBigInteger();
 
-            distanceAzimuthOverlay.addPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
+            distanceAzimuthOverlay.addGeoPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }

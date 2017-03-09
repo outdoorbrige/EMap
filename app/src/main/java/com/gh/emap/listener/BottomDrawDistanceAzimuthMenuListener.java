@@ -9,7 +9,6 @@ import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by GuHeng on 2017/2/21.
@@ -68,12 +67,12 @@ public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListen
 
         if(overlay instanceof DistanceAzimuthOverlay) {
             DistanceAzimuthOverlay distanceAzimuthOverlay = (DistanceAzimuthOverlay)overlay;
-            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getPoints();
+            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getGeoPoints();
             if(geoPoints == null || geoPoints.isEmpty()) {
                 return;
             }
 
-            geoPoints.remove(geoPoints.size() - 1);
+            distanceAzimuthOverlay.removeLastGeoPoint();
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
@@ -88,12 +87,12 @@ public class BottomDrawDistanceAzimuthMenuListener implements View.OnClickListen
 
         if(overlay instanceof DistanceAzimuthOverlay) {
             DistanceAzimuthOverlay distanceAzimuthOverlay = (DistanceAzimuthOverlay)overlay;
-            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getPoints();
+            ArrayList<GeoPoint> geoPoints = distanceAzimuthOverlay.getGeoPoints();
             if(geoPoints == null || geoPoints.isEmpty()) {
                 return;
             }
 
-            geoPoints.clear();
+            distanceAzimuthOverlay.clearGeoPoints();
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }

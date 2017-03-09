@@ -80,7 +80,7 @@ public class DrawAreaGirthAddGeoPointListener implements View.OnClickListener {
 
         if(overlay instanceof AreaGirthOverlay) {
             AreaGirthOverlay areaGirthOverlay = (AreaGirthOverlay)overlay;
-            ArrayList<GeoPoint> geoPoints = areaGirthOverlay.getPoints();
+            ArrayList<GeoPoint> geoPoints = areaGirthOverlay.getGeoPoints();
             if(geoPoints == null) {
                 return;
             }
@@ -95,7 +95,7 @@ public class DrawAreaGirthAddGeoPointListener implements View.OnClickListener {
             dLongitude = dLongitude.multiply(new BigDecimal(ONE_HUNDRED_THOUSAND));
             BigInteger nLongitude = dLongitude.setScale(0, BigDecimal.ROUND_HALF_UP).toBigInteger();
 
-            areaGirthOverlay.addPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
+            areaGirthOverlay.addGeoPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
