@@ -51,24 +51,24 @@ public class GroundRenderPlaneAddGeoPointListener implements View.OnClickListene
 
         String strLatitude = mMainActivity.getMainManager().getLayoutManager().getGroundRenderPlaneAddGeoPointLayout().getLatitude();
         if(strLatitude == null || strLatitude.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请输入纬度"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请输入纬度"));
             return;
         } else {
             Pattern pattern = Pattern.compile(REGEX);
             if(!pattern.matcher(strLatitude).matches()) {
-                mMainActivity.getMainManager().getLogManager().show(String.format("输入纬度格式错误"));
+                mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("输入纬度格式错误"));
                 return;
             }
         }
 
         String strLongitude = mMainActivity.getMainManager().getLayoutManager().getGroundRenderPlaneAddGeoPointLayout().getLongitude();
         if(strLongitude == null || strLongitude.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请输入经度"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请输入经度"));
             return;
         } else {
             Pattern pattern = Pattern.compile(REGEX);
             if(!pattern.matcher(strLongitude).matches()) {
-                mMainActivity.getMainManager().getLogManager().show(String.format("输入经度格式错误"));
+                mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("输入经度格式错误"));
                 return;
             }
         }

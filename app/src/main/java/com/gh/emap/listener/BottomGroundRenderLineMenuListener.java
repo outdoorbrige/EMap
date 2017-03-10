@@ -119,19 +119,19 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
     private void onClickedLineSave(View view) {
         String lineName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getLineName();
         if(lineName.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请输入线-名称"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请输入线-名称"));
             return;
         }
 
         // 检查线名是否存在
         if(LineNameExist(lineName)) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("线-名称已存在"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("线-名称已存在"));
             return;
         }
 
         String lineType = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderLineLayout().getLineType();
         if(lineType.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请选择线-类别"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择线-类别"));
             return;
         }
 
@@ -140,7 +140,7 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
         ArrayList<GeoPoint> points = currentLineOverlay.getLineObject().getGeoPoints();
 
         if(points == null || points.size() < 2) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请选择线的位置"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择线的位置"));
             return;
         }
 

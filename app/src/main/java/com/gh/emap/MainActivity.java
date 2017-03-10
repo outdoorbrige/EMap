@@ -89,15 +89,15 @@ public class MainActivity extends AppCompatActivity {
 //            View view = findViewById(R.id.ground_render_point_type);
 //            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderPointLayout布局
 //                getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().hide();
-//                getMainManager().getLayoutManager().getMenuLayout().show();
-//                getMainManager().getLayoutManager().getOperationLayout().show();
+//                getMainManager().getLayoutManager().getMenuLayout().toastShowShort();
+//                getMainManager().getLayoutManager().getOperationLayout().toastShowShort();
 //            }
 //
 //            view = findViewById(R.id.bottom_ground_render_line);
 //            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderLineLayout布局
 //                getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().hide();
-//                getMainManager().getLayoutManager().getMenuLayout().show();
-//                getMainManager().getLayoutManager().getOperationLayout().show();
+//                getMainManager().getLayoutManager().getMenuLayout().toastShowShort();
+//                getMainManager().getLayoutManager().getOperationLayout().toastShowShort();
 //            }
 //
 //            return super.dispatchTouchEvent(motionEvent);
@@ -141,8 +141,16 @@ public class MainActivity extends AppCompatActivity {
         return "EMap";
     }
 
-    // 获取当前日期字符串
-    public String getCurrentDate() {
+    // 获取当前日期(年月日时分秒)字符串(不带分隔符)
+    public String getCurrentDateF1() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        Date date = new Date(System.currentTimeMillis());
+
+        return simpleDateFormat.format(date);
+    }
+
+    // 获取当前日期(年月日时分秒)字符串(带分隔符)
+    public String getCurrentDateF2() {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
 

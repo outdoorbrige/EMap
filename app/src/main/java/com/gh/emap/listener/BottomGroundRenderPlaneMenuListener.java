@@ -116,13 +116,13 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
     private void onClickedSave(View view) {
         String planeName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPlaneLayout().getPlaneName();
         if (planeName.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请输入面-名称"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请输入面-名称"));
             return;
         }
 
         // 检查面名是否存在
         if (PlaneNameExist(planeName)) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("面-名称已存在"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("面-名称已存在"));
             return;
         }
 
@@ -131,7 +131,7 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
         ArrayList<GeoPoint> points = currentPlaneOverlay.getPlaneObject().getGeoPoints();
 
         if (points == null || points.size() < 3) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请选择面的位置"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择面的位置"));
             return;
         }
 

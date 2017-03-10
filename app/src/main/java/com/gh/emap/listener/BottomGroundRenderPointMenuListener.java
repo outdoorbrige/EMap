@@ -72,19 +72,19 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
     private void onClickedPointSave(View view) {
         String pointName = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getPointName();
         if(pointName.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请输入名称"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请输入名称"));
             return;
         }
 
         // 检查点名是否存在
         if(PointNameExist(pointName)) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("点-名称已存在"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("点-名称已存在"));
             return;
         }
 
         String pointType = mMainActivity.getMainManager().getLayoutManager().getTopGroundRenderPointLayout().getPointType();
         if(pointType.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请选择类别"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择类别"));
             return;
         }
 
@@ -93,7 +93,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
         GeoPoint point = currentPointOverlay.getPointObject().getGeoPoint();
 
         if(point == null) {
-            mMainActivity.getMainManager().getLogManager().show(String.format("请选择点的位置"));
+            mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择点的位置"));
             return;
         }
 

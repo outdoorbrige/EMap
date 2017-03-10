@@ -51,17 +51,17 @@ public class UserRegisterListener implements View.OnClickListener {
         String eMail = ((EditText)mMainActivity.getMainManager().getLayoutManager().getUserRegisterLayout().getAlertDialog().findViewById(R.id.email)).getText().toString();
 
         if(userName.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show("用户名不能为空!");
+            mMainActivity.getMainManager().getLogManager().toastShowShort("用户名不能为空!");
             return;
         }
 
         if(password.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show("密码不能为空!");
+            mMainActivity.getMainManager().getLogManager().toastShowShort("密码不能为空!");
             return;
         }
 
         if(!password.equals(mConfirmPassword)) {
-            mMainActivity.getMainManager().getLogManager().show("两次输入的密码不一致，请重新输入!");
+            mMainActivity.getMainManager().getLogManager().toastShowShort("两次输入的密码不一致，请重新输入!");
             return;
         }
 
@@ -72,7 +72,7 @@ public class UserRegisterListener implements View.OnClickListener {
         mUserInfo.setTelNumber(telNumber);
         mUserInfo.setEMail(eMail);
         mUserInfo.setUserType(UserManager.UserType.mNormalType);
-        mUserInfo.setCreateDate(mMainActivity.getCurrentDate());
+        mUserInfo.setCreateDate(mMainActivity.getCurrentDateF2());
         mUserInfo.setOnline(0);
 
         if(nickName.isEmpty()) {
@@ -89,11 +89,11 @@ public class UserRegisterListener implements View.OnClickListener {
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if(mReturnUserInfo.isSuccess()) {
-                        mMainActivity.getMainManager().getLogManager().show("注册成功！");
+                        mMainActivity.getMainManager().getLogManager().toastShowShort("注册成功！");
                         onClickedCancel(); // 关闭注册窗口
                     } else {
                         // 注册失败
-                        mMainActivity.getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
+                        mMainActivity.getMainManager().getLogManager().toastShowShort(mReturnUserInfo.getErrorString());
                         mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                                 mReturnUserInfo.getErrorString());
                     }

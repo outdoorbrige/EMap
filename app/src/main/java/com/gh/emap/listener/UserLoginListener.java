@@ -58,19 +58,19 @@ public class UserLoginListener implements View.OnClickListener {
         boolean isAutoLogin = ((CheckBox)(mMainActivity.getMainManager().getLayoutManager().getUserLoginLayout().getAlertDialog().findViewById(R.id.auto_login))).isChecked();
 
         if (userName.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show("错误:用户名不能为空!");
+            mMainActivity.getMainManager().getLogManager().toastShowShort("错误:用户名不能为空!");
             return;
         }
 
         if (password.isEmpty()) {
-            mMainActivity.getMainManager().getLogManager().show("错误:密码不能为空!");
+            mMainActivity.getMainManager().getLogManager().toastShowShort("错误:密码不能为空!");
             return;
         }
 
         mUserInfo = new UserInfo();
         mUserInfo.setUserName(userName);
         mUserInfo.setPassword(MD5.getMD5(password));
-        mUserInfo.setLoginDate(mMainActivity.getCurrentDate());
+        mUserInfo.setLoginDate(mMainActivity.getCurrentDateF2());
         mUserInfo.setOnline(1);
 
         mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,
@@ -83,7 +83,7 @@ public class UserLoginListener implements View.OnClickListener {
                     mReturnUserInfo = (UserInfo) message.obj;
 
                     if (mReturnUserInfo.isSuccess()) {
-                        mMainActivity.getMainManager().getLogManager().show(String.format("登录成功！"));
+                        mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("登录成功！"));
                         onClickedCancel(); // 关闭登录窗口
 
                         mMainActivity.getMainManager().getUserManager().setUserInfo(mReturnUserInfo);
@@ -98,7 +98,7 @@ public class UserLoginListener implements View.OnClickListener {
                         }
                     } else {
                         // 登录失败
-                        mMainActivity.getMainManager().getLogManager().show(mReturnUserInfo.getErrorString());
+                        mMainActivity.getMainManager().getLogManager().toastShowShort(mReturnUserInfo.getErrorString());
                         mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
                                 mReturnUserInfo.getErrorString());
                     }
