@@ -3,15 +3,31 @@
     package="com.gh.emap">
 
     <!-- 请求权限 -->
+
+    <!-- 允许程序获取当前WiFi接入的状态以及WLAN热点的信息 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!-- 允许程序获取网络信息状态，如当前的网络连接是否有效 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <!-- 访问精良位置(如GPS)  -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <!-- 允许一个程序访问CellID或 WiFi热点来获取粗略的位置 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"></uses-permission>
+    <!-- 允许程序打开网络套接字 -->
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <!-- 允许程序从非系统拨号器里拨打电话 -->
     <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <!-- 允许程序访问电话状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <!-- 程序可以读取设备外部存储空间(内置SDcard和外置SDCard)的文件，如果您的App已经添加了”WRITE_EXTERNAL_STORAGE”权限，则就没必要添加读的权限了，写权限已经包含了读权限了 -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 允许程序写入外部存储,如SD卡上写文件 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <!-- 添加快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <!-- 移除快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <!-- 查询快捷方式 -->
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
 
     <!-- 得到屏幕正常的物理尺寸 -->
     <supports-screens
@@ -30,7 +46,7 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
