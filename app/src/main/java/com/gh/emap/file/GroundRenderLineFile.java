@@ -3,7 +3,7 @@ package com.gh.emap.file;
 import android.os.Environment;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.manager.LogManager;
+import com.gh.emap.managerA.LogManager;
 import com.gh.emap.model.GroundRenderLine;
 
 import java.io.BufferedInputStream;

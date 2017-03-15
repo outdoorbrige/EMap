@@ -4,8 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.manager.LogManager;
-import com.gh.emap.manager.WebServiceManager;
+import com.gh.emap.managerA.LogManager;
+import com.gh.emap.managerA.WebServiceManager;
 import com.gh.emap.model.EMap;
 import com.gh.emap.model.UserInfo;
 

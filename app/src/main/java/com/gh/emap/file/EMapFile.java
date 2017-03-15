@@ -4,7 +4,7 @@ import android.os.Environment;
 import android.util.Xml;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.manager.LogManager;
+import com.gh.emap.managerA.LogManager;
 import com.gh.emap.model.EMap;
 
 import org.xmlpull.v1.XmlPullParser;

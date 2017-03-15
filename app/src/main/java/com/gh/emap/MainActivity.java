@@ -6,22 +6,26 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.gh.emap.manager.LogManager;
-import com.gh.emap.manager.MainManager;
+import com.gh.emap.managerA.LogManager;
+import com.gh.emap.managerA.MainManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private MainManager mMainManager;
+    private MyApplication mMyApplication;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_activity);
 
         mMainManager = new MainManager(this);
         mMainManager.init();
+
+        mMyApplication = (MyApplication)getApplication();
+        mMyApplication.setMainActivity(this);
 
         mMainManager.getLogManager().log(LogManager.LogLevel.mInfo,
                 String.format("屏幕 宽:%d, 高:%d; 密度 density:%f, densityDpi:%d; 精确密度 xdpi:%f, ydpi:%f; 物理 宽:%d, 高%d;",
@@ -87,59 +91,11 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-//    // 分发触摸事件
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent motionEvent) {
-//        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-//            View view = findViewById(R.id.ground_render_point_type);
-//            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderPointLayout布局
-//                getMainManager().getLayoutManager().getGroundRenderPointTypeLayout().hide();
-//                getMainManager().getLayoutManager().getMenuLayout().show();
-//                getMainManager().getLayoutManager().getOperationLayout().show();
-//            }
-//
-//            view = findViewById(R.id.bottom_ground_render_line);
-//            if(!isTouchedView(view, motionEvent)) { // 隐藏BottomGroundRenderLineLayout布局
-//                getMainManager().getLayoutManager().getGroundRenderLineTypeLayout().hide();
-//                getMainManager().getLayoutManager().getMenuLayout().show();
-//                getMainManager().getLayoutManager().getOperationLayout().show();
-//            }
-//
-//            return super.dispatchTouchEvent(motionEvent);
-//        }
-//
-//        // 必不可少，否则所有的组件都不会有TouchEvent了
-//        if (getWindow().superDispatchTouchEvent(motionEvent)) {
-//            return true;
-//        }
-//
-//        return onTouchEvent(motionEvent);
-//    }
-//
-//    // 判断是否触摸了View
-//    public  boolean isTouchedView(View view, MotionEvent motionEvent) {
-//        if (view != null) {
-//            int[] leftTop = { 0, 0 };
-//
-//            //获取View当前的location位置
-//            view.getLocationInWindow(leftTop);
-//
-//            int left = leftTop[0];
-//            int top = leftTop[1];
-//            int bottom = top + view.getHeight();
-//            int right = left + view.getWidth();
-//
-//            if ((left < motionEvent.getX() && motionEvent.getX() < right) &&
-//                    (top < motionEvent.getY() && motionEvent.getY() < bottom)) {
-//                // 点击的是View区域，保留点击View的事件
-//                return true;
-//            } else {
-//                return false;
-//            }
-//        }
-//
-//        return false;
-//    }
+    // 启动离线地图下载Activity
+    public void startOfflineMapDownloadActivity() {
+        Intent intent = new Intent(MainActivity.this, OfflineMapDownloadActivity.class);
+        startActivity(intent);
+    }
 
     // 获取应用程序名称
     public String getApplationName() {

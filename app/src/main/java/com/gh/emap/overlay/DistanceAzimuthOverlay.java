@@ -212,12 +212,6 @@ public class DistanceAzimuthOverlay extends Overlay {
             return;
         }
 
-        double dDistance = mDoubleDistances.get(mDoubleDistances.size() - 1);
-        double mAzimuth = mDoubleAzimuths.get(mDoubleAzimuths.size() - 1);
-
-        String strDistance = getDistanceLabel(dDistance);
-        String strAzimuth = getAzimuthLabel(mAzimuth);
-
         MapViewRender render = mapView.getMapViewRender();
 
         // 折线
@@ -226,6 +220,12 @@ public class DistanceAzimuthOverlay extends Overlay {
         for (int i = 0; i < mGeoPoints.size(); i++) {
             GeoPoint geoPoint = mGeoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
+
+            double dDistance = mDoubleDistances.get(i);
+            double mAzimuth = mDoubleAzimuths.get(i);
+
+            String strDistance = getDistanceLabel(dDistance);
+            String strAzimuth = getAzimuthLabel(mAzimuth);
 
             // 拐点
             render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
