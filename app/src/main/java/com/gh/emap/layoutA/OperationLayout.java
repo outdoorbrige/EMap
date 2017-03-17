@@ -12,6 +12,9 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.view.MyListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by GuHeng on 2016/11/9.
  * 地图操作布局
@@ -24,7 +27,7 @@ public class OperationLayout {
     private Button mZoomOutButton; // 缩小按钮
     private Button mLocationButton; // 定位按钮
 
-    private String[] mListItems = {"影像图", "矢量图", "地形图"};
+    private List<String> mListItems;
     private PopupWindow mPopupWindow; // 弹出式菜单
     private View mPopupLayout; // 弹出菜单布局
     private MyListView mMyListView;
@@ -54,6 +57,10 @@ public class OperationLayout {
         if (mPopupWindow == null) {
             mPopupLayout = LayoutInflater.from(mMainActivity).inflate(R.layout.layer_popup_menu, null);;
             mMyListView = (MyListView) mPopupLayout.findViewById(R.id.layer_view);
+            mListItems = new ArrayList<>();
+            mListItems.add("影像图");
+            mListItems.add("矢量图");
+            mListItems.add("地形图");
             mArrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mListItems);
             mMyListView.setAdapter(mArrayAdapter);
             mMyListView.setItemsCanFocus(false);

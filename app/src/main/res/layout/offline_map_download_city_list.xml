@@ -7,38 +7,39 @@
 
     <!-- 当前城市 -->
     <TextView
-        android:id="@+id/offline_map_download_tab_one_current_city_view"
+        android:id="@+id/city_list_current_city_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="当前城市"
         android:background="@color/colorLightGrey"/>
 
-    <ExpandableListView
-        android:id="@+id/offline_map_download_tab_one_current_city_list"
+    <ListView
+        android:id="@+id/city_list_current_city_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <!-- 热门城市 -->
     <TextView
-        android:id="@+id/offline_map_download_tab_one_hot_city_view"
+        android:id="@+id/city_list_hot_city_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorLightGrey"/>
 
-    <ExpandableListView
-        android:id="@+id/offline_map_download_tab_one_hot_city_list"
+    <ListView
+        android:id="@+id/city_list_hot_city_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
     <!-- 其他城市 -->
     <TextView
-        android:id="@+id/offline_map_download_tab_one_other_city_view"
+        android:id="@+id/city_list_other_city_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorLightGrey"/>
 
     <ExpandableListView
-        android:id="@+id/offline_map_download_tab_one_other_city_list"
+        android:id="@+id/city_list_other_city_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

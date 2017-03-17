@@ -12,6 +12,7 @@ import com.gh.emap.listenerA.GroundRenderPlaneAddGeoPointListener;
 import com.gh.emap.listenerA.GroundRenderPointAddGeoPointListener;
 import com.gh.emap.listenerA.GroundRenderPointTypeListener;
 import com.gh.emap.listenerA.DrawListener;
+import com.gh.emap.listenerA.MapListener;
 import com.gh.emap.listenerA.MenuListener;
 import com.gh.emap.listenerA.MyLocationListener;
 import com.gh.emap.listenerA.OperationListener;
@@ -34,6 +35,7 @@ import com.gh.emap.listenerA.UserRegisterListener;
 public class ListenerManager {
     private MainActivity mMainActivity;
     private MyLocationListener mMyLocationListener;
+    private MapListener mMapListener;
     private TopNormalListener mTopNormalListener;
     private MenuListener mMenuListener;
     private OperationListener mOperationListener;
@@ -65,6 +67,7 @@ public class ListenerManager {
 
     public void init() {
         mMyLocationListener = new MyLocationListener(mMainActivity);
+        mMapListener = new MapListener(mMainActivity);
         mTopNormalListener = new TopNormalListener(mMainActivity);
         mMenuListener = new MenuListener(mMainActivity);
         mOperationListener = new OperationListener(mMainActivity);
@@ -97,6 +100,10 @@ public class ListenerManager {
 
     public MyLocationListener getMyLocationListener() {
         return mMyLocationListener;
+    }
+
+    public MapListener getMapListener() {
+        return mMapListener;
     }
 
     public TopNormalListener getTopNormalListener() {

@@ -8,7 +8,6 @@ import com.gh.emap.OfflineMapDownloadActivity;
 
 public class MainManager {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
-    private TabHostManager mTabHostManager;
     private ListenerManager mListenerManager;
     private LayoutManager mLayoutManager;
 
@@ -17,9 +16,6 @@ public class MainManager {
     }
 
     public void init() {
-        mTabHostManager = new TabHostManager(mOfflineMapDownloadActivity);
-        mTabHostManager.init();
-
         mListenerManager = new ListenerManager(mOfflineMapDownloadActivity);
         mListenerManager.init();
 
@@ -28,13 +24,8 @@ public class MainManager {
     }
 
     public void unInit() {
-        mTabHostManager.unInit();
         mListenerManager.unInit();
         mLayoutManager.unInit();
-    }
-
-    public TabHostManager getTabHostManager() {
-        return mTabHostManager;
     }
 
     public ListenerManager getListenerManager() {

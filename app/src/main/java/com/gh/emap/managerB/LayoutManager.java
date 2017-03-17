@@ -1,7 +1,9 @@
 package com.gh.emap.managerB;
 
 import com.gh.emap.OfflineMapDownloadActivity;
-import com.gh.emap.layoutB.OfflineMapDownloadTabOneLayout;
+import com.gh.emap.layoutB.CityListLayout;
+import com.gh.emap.layoutB.DownloadManagerLayout;
+import com.gh.emap.layoutB.HeaderLayout;
 
 /**
  * Created by GuHeng on 2017/3/15.
@@ -9,22 +11,38 @@ import com.gh.emap.layoutB.OfflineMapDownloadTabOneLayout;
 
 public class LayoutManager {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
-    private OfflineMapDownloadTabOneLayout mOfflineMapDownloadTabOneLayout;
+    private HeaderLayout mHeaderLayout;
+    private CityListLayout mCityListLayout;
+    private DownloadManagerLayout mDownloadManagerLayout;
 
     public LayoutManager(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;
     }
 
     public void init() {
-        mOfflineMapDownloadTabOneLayout = new OfflineMapDownloadTabOneLayout(mOfflineMapDownloadActivity);
-        mOfflineMapDownloadTabOneLayout.init();
+        mHeaderLayout = new HeaderLayout(mOfflineMapDownloadActivity);
+        mHeaderLayout.init();
+
+        mCityListLayout = new CityListLayout(mOfflineMapDownloadActivity);
+        mCityListLayout.init();
+
+        mDownloadManagerLayout = new DownloadManagerLayout(mOfflineMapDownloadActivity);
+        mDownloadManagerLayout.init();
     }
 
     public void unInit() {
 
     }
 
-    public OfflineMapDownloadTabOneLayout getOfflineMapDownloadTabOneLayout() {
-        return mOfflineMapDownloadTabOneLayout;
+    public HeaderLayout getHeaderLayout() {
+        return mHeaderLayout;
+    }
+
+    public CityListLayout getCityListLayout() {
+        return mCityListLayout;
+    }
+
+    public DownloadManagerLayout getDownloadManagerLayout() {
+        return mDownloadManagerLayout;
     }
 }

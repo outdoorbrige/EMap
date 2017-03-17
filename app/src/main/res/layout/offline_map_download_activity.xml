@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@android:id/tabhost"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="0dp"
@@ -11,45 +11,64 @@
     android:paddingTop="0dp"
     tools:context="com.gh.emap.OfflineMapDownloadActivity">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/offline_map_download_header"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
+        <!-- 返回 -->
+        <Button
+            android:id="@+id/offline_map_download_back_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:text="返回"
+            android:layout_centerVertical="true"
+            android:background="@mipmap/menu_bg"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            android:layout_centerInParent="true">
 
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            <!-- 城市列表 -->
+            <Button
+                android:id="@+id/offline_map_download_city_list_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="城市列表"/>
 
-            <!-- 城市列表布局 -->
-            <LinearLayout
-                android:id="@+id/offline_map_download_tab_one_city_list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <!-- 下载管理 -->
+            <Button
+                android:id="@+id/offline_map_download_download_manager_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="下载管理"/>
 
-                <include layout="@layout/offline_map_download_tab_one_city_list"/>
+        </LinearLayout>
 
-            </LinearLayout>
+    </RelativeLayout>
 
-            <!-- 下载管理布局 -->
-            <LinearLayout
-                android:id="@+id/offline_map_download_tab_two_download_manager"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    <!-- 城市列表布局 -->
+    <LinearLayout
+        android:id="@+id/offline_map_download_city_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
 
-                <include layout="@layout/offline_map_download_tab_two_download_manager"/>
-
-            </LinearLayout>
-
-        </FrameLayout>
+        <include layout="@layout/offline_map_download_city_list"/>
 
     </LinearLayout>
 
-</TabHost>
+    <!-- 下载管理布局 -->
+    <LinearLayout
+        android:id="@+id/offline_map_download_download_manager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <include layout="@layout/offline_map_download_download_manager"/>
+
+    </LinearLayout>
+
+</LinearLayout>

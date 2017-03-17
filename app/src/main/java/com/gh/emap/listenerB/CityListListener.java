@@ -6,10 +6,10 @@ import com.gh.emap.OfflineMapDownloadActivity;
  * Created by GuHeng on 2017/3/15.
  */
 
-public class OfflineMapDownloadTabOneListener {
+public class CityListListener {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
 
-    public OfflineMapDownloadTabOneListener(OfflineMapDownloadActivity offlineMapDownloadActivity) {
+    public CityListListener(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;
     }
 }

@@ -1,6 +1,6 @@
 package com.gh.emap;
 
-import android.app.TabActivity;
+import android.app.Activity;
 import android.os.Bundle;
 
 import com.gh.emap.managerB.MainManager;
@@ -9,7 +9,7 @@ import com.gh.emap.managerB.MainManager;
  * Created by GuHeng on 2017/3/13.
  */
 
-public class OfflineMapDownloadActivity extends TabActivity {
+public class OfflineMapDownloadActivity extends Activity {
     private MyApplication mMyApplication;
     private MainManager mMainManager;
 
@@ -64,5 +64,9 @@ public class OfflineMapDownloadActivity extends TabActivity {
 
     public MyApplication getMyApplication() {
         return mMyApplication;
+    }
+
+    public MainManager getMainManager() {
+        return mMainManager;
     }
 }
