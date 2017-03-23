@@ -2,6 +2,7 @@ package com.gh.emap.managerA;
 
 import android.os.Environment;
 import android.os.Looper;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.gh.emap.MainActivity;
@@ -77,7 +78,8 @@ public class LogManager implements Thread.UncaughtExceptionHandler {
                 exception1.printStackTrace();
             }
         } finally {
-
+            // 恢复系统默认的UncaughtException处理器
+            Thread.setDefaultUncaughtExceptionHandler(mDefaultHandler);
         }
     }
 
@@ -91,7 +93,7 @@ public class LogManager implements Thread.UncaughtExceptionHandler {
         }
 
         // 写异常日志
-        String message = exception.getMessage();
+        String message = Log.getStackTraceString(exception);
         log(LogLevel.mError, message);
 
         if (!handleException(exception) && mDefaultHandler != null) {
