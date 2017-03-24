@@ -1,4 +1,4 @@
-package com.gh.emap.webservice;
+package com.gh.emap.webserviceA;
 
 import android.os.Handler;
 import android.os.Message;
@@ -6,8 +6,8 @@ import android.os.Message;
 import com.gh.emap.MainActivity;
 import com.gh.emap.managerA.LogManager;
 import com.gh.emap.managerA.WebServiceManager;
-import com.gh.emap.model.EMap;
-import com.gh.emap.model.UserInfo;
+import com.gh.emap.modelA.EMap;
+import com.gh.emap.modelA.UserInfo;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -16,10 +16,10 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 /**
- * Created by GuHeng on 2016/11/17.
- * 用户注销WebService
+ * Created by GuHeng on 2016/11/10.
+ * 用户注册服务
  */
-public class UserLogoutWebService implements Runnable {
+public class UserRegisterWebService implements Runnable {
     private MainActivity mMainActivity;
     private Handler mHandler;
     private EMap mEMap;
@@ -29,7 +29,7 @@ public class UserLogoutWebService implements Runnable {
     private SoapSerializationEnvelope mSoapSerializationEnvelope;
     private HttpTransportSE mHttpTransportSE;
 
-    public UserLogoutWebService(MainActivity mainActivity) {
+    public UserRegisterWebService(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
@@ -43,13 +43,13 @@ public class UserLogoutWebService implements Runnable {
     public void prepare(Handler handler, UserInfo userInfo) {
         mHandler = handler;
 
-        mSoapEndPoint = mEMap.getProtocol() + mEMap.getServer() + ":" + mEMap.getPort() + mEMap.getLogoutUrlPath();
-        mSoapAction = mEMap.getNameSpace() + mEMap.getLogoutMethodName();
+        mSoapEndPoint = mEMap.getProtocol() + mEMap.getServer() + ":" + mEMap.getPort() + mEMap.getRegisterUrlPath();
+        mSoapAction = mEMap.getNameSpace() + mEMap.getRegisterMethodName();
 
-        SoapObject soapObject = new SoapObject(mEMap.getNameSpace(), mEMap.getLogoutMethodName());
+        SoapObject soapObject = new SoapObject(mEMap.getNameSpace(), mEMap.getRegisterMethodName());
 
         PropertyInfo property_info = new PropertyInfo();
-        property_info.setName(mEMap.getLogoutMethodParam1Name());
+        property_info.setName(mEMap.getRegisterMethodParam1Name());
         property_info.setValue(userInfo);
         property_info.setType(UserInfo.class);
 
@@ -69,7 +69,7 @@ public class UserLogoutWebService implements Runnable {
         UserInfo userInfo = new UserInfo();
         call(userInfo);
         Message message = new Message();
-        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_LOGOUT;
+        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_REGISTER;
         message.obj = userInfo;
         mHandler.sendMessage(message);
     }

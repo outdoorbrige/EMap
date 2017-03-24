@@ -1,11 +1,12 @@
-package com.gh.emap.file;
+package com.gh.emap.fileA;
 
 import android.os.Environment;
 import android.util.Xml;
 
 import com.gh.emap.MainActivity;
+import com.gh.emap.R;
 import com.gh.emap.managerA.LogManager;
-import com.gh.emap.model.EMap;
+import com.gh.emap.modelA.EMap;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -39,7 +40,7 @@ public class EMapFile {
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    mMainActivity.getApplationName() + File.separator +
+                    mMainActivity.getResources().getString(R.string.home_name) + File.separator +
                     "EMap.config";
         } else {
             return null;
@@ -64,7 +65,7 @@ public class EMapFile {
                         case XmlPullParser.START_DOCUMENT: // 文档开始事件
                             break;
                         case XmlPullParser.START_TAG: // 标签开始
-                            if(mMainActivity.getApplationName().equals(tagName)) {
+                            if(mMainActivity.getResources().getString(R.string.home_name).equals(tagName)) {
 
                             } else if("WebService".equals(tagName)) {
                                 mEMap.setNameSpace(parser.getAttributeValue("", "NameSpace"));

@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.model.GroundRenderPoint;
+import com.gh.emap.modelA.GroundRenderPoint;
 import com.wx.wheelview.adapter.ArrayWheelAdapter;
 import com.wx.wheelview.widget.WheelView;
 

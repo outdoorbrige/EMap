@@ -1,6 +1,6 @@
-package com.gh.emap.file;
+package com.gh.emap.fileA;
 
-import com.gh.emap.overlay.PointObject;
+import com.gh.emap.overlayA.PointObject;
 
 import java.io.File;
 import java.util.ArrayList;

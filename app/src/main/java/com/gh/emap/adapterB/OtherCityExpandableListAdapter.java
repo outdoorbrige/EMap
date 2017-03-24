@@ -1,4 +1,4 @@
-package com.gh.emap.adapter;
+package com.gh.emap.adapterB;
 
 import android.content.Context;
 import android.view.LayoutInflater;

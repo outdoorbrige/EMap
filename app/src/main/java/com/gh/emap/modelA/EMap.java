@@ -1,4 +1,4 @@
-package com.gh.emap.model;
+package com.gh.emap.modelA;
 
 /**
  * Created by GuHeng on 2016/11/9.

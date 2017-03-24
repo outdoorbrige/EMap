@@ -1,4 +1,4 @@
-package com.gh.emap.model;
+package com.gh.emap.modelA;
 
 import org.ksoap2.serialization.KvmSerializable;
 import org.ksoap2.serialization.PropertyInfo;

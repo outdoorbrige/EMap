@@ -1,4 +1,4 @@
-package com.gh.emap.view;
+package com.gh.emap.viewA;
 
 import android.content.Context;
 import android.util.AttributeSet;

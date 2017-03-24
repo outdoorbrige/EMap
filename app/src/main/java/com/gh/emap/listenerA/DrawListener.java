@@ -4,8 +4,8 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.overlay.AreaGirthOverlay;
-import com.gh.emap.overlay.DistanceAzimuthOverlay;
+import com.gh.emap.overlayA.AreaGirthOverlay;
+import com.gh.emap.overlayA.DistanceAzimuthOverlay;
 
 /**
  * Created by GuHeng on 2017/2/14.

@@ -222,7 +222,7 @@ public class MapManager {
         }
 
         if(mGeoPoint == null) {
-            // 默认天安门
+            // 默认北京市天安门经纬度
             mGeoPoint = GeoPointEx.Double2GeoPoint(116.3919236741D, 39.9057789520D);
         }
 

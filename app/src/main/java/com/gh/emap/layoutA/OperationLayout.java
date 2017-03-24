@@ -10,7 +10,7 @@ import android.widget.PopupWindow;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.view.MyListView;
+import com.gh.emap.viewA.MyListView;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">EMap</string>
+    <!--应用程序标签-->
+    <string name="application_name">EMap</string>
+    <!--应用程序家目录名称-->
+    <string name="home_name">EMap</string>
+    <!--默认当前城市名称-->
+    <string name="default_location_city">北京市</string>
 </resources>

@@ -3,7 +3,8 @@ package com.gh.emap.managerA;
 import android.os.Environment;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.model.UserInfo;
+import com.gh.emap.R;
+import com.gh.emap.modelA.UserInfo;
 
 import java.io.File;
 
@@ -55,7 +56,7 @@ public class UserManager {
         }
 
         String homePath = Environment.getExternalStorageDirectory().toString() + File.separator +
-                mMainActivity.getApplationName() + File.separator +
+                mMainActivity.getResources().getString(R.string.home_name) + File.separator +
                 "Users" + File.separator +
                 mUserInfo.getUserName() + File.separator;
 

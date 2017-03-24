@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <com.gh.emap.view.MyListView
+    <com.gh.emap.viewA.MyListView
         android:id="@+id/draw_view"
         android:orientation="vertical"
         android:layout_width="wrap_content"

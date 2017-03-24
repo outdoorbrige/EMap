@@ -4,8 +4,8 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.overlay.PointObject;
-import com.gh.emap.overlay.PointOverlay;
+import com.gh.emap.overlayA.PointObject;
+import com.gh.emap.overlayA.PointOverlay;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 

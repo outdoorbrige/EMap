@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
-import com.gh.emap.adapter.OtherCityExpandableListAdapter;
+import com.gh.emap.adapterB.OtherCityExpandableListAdapter;
 import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
@@ -64,6 +64,7 @@ public class CityListLayout {
         mCurrentType.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorLightGrey));
 
         mCurrentCityName = new TextView(mOfflineMapDownloadActivity);
+        mCurrentCityName.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
 
         mHotType = new TextView(mOfflineMapDownloadActivity);
         mHotType.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorLightGrey));
@@ -74,6 +75,7 @@ public class CityListLayout {
         mOtherType.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorLightGrey));
 
         mOtherCityExpandableList = new ExpandableListView(mOfflineMapDownloadActivity);
+        mOtherCityExpandableList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
         mOtherCityExpandableListAdapter = new OtherCityExpandableListAdapter(mOfflineMapDownloadActivity);
         mOtherProvincesCities = new HashMap<>();
         mOtherCityExpandableList.setAdapter(mOtherCityExpandableListAdapter);
@@ -90,17 +92,20 @@ public class CityListLayout {
 
     // 更新当前城市数据
     private void updateCurrentCity() {
+        mCurrentType.setText(mCityTypes.get(0));
+        mScrollViewLinearLayout.addView(mCurrentType);
+
+        String locationCity = null;
         if (mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getMapManager().isTGeoAddressOk()) {
-            mCurrentType.setText(mCityTypes.get(0));
-
-            mScrollViewLinearLayout.addView(mCurrentType);
-
-            mCurrentCityName.setText(mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getMapManager().getTGeoAddress().getCity());
-
-            mScrollViewLinearLayout.addView(mCurrentCityName);
+            locationCity = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getMapManager().getTGeoAddress().getCity();
         } else {
+            locationCity = mOfflineMapDownloadActivity.getResources().getString(R.string.default_location_city);
+
             mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getLogManager().toastShowShort("定位失败！");
         }
+
+        mCurrentCityName.setText(locationCity);
+        mScrollViewLinearLayout.addView(mCurrentCityName);
     }
 
     // 更新热门城市和其他省市数据
@@ -140,6 +145,8 @@ public class CityListLayout {
             }
         }
 
+        // 热门城市
+
         mHotType.setText(mCityTypes.get(1) + getFormatCount(mHotCities.size()));
 
         mScrollViewLinearLayout.addView(mHotType);
@@ -147,24 +154,29 @@ public class CityListLayout {
         for(int i = 0; i < mHotCities.size(); i ++) {
             TextView textView = new TextView(mOfflineMapDownloadActivity);
             textView.setText(mHotCities.get(i));
+            textView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
 
             mScrollViewLinearLayout.addView(textView);
         }
+
+        // 其他省市
 
         mOtherType.setText(mCityTypes.get(2) + getFormatCount(mOtherProvincesCities.size()));
 
         mScrollViewLinearLayout.addView(mOtherType);
         mScrollViewLinearLayout.addView(mOtherCityExpandableList);
 
-        setListViewHeightBasedOnChildren(mOtherCityExpandableList);
+        setExpandableListViewHeightBasedOnChildren(mOtherCityExpandableList, -1);
 
         mOtherCityExpandableListAdapter.notifyDataSetChanged();
-
-        setScrollViewToTop(mScrollView);
     }
 
     public void setScrollViewToTop(ScrollView scrollView) {
         scrollView.smoothScrollTo(0, 0); // 移动滚动条到顶部
+    }
+
+    public LinearLayout getScrollViewLinearLayout() {
+        return mScrollViewLinearLayout;
     }
 
     public String getFormatCount(int count) {
@@ -224,7 +236,7 @@ public class CityListLayout {
     }
 
     // ScrollView中嵌套ExpandableListView
-    public void setListViewHeightBasedOnChildren(ExpandableListView expandableListView) {
+    public void setExpandableListViewHeightBasedOnChildren(ExpandableListView expandableListView, int groupPos) {
         ExpandableListAdapter expandableListAdapter = expandableListView.getExpandableListAdapter();
         if(expandableListAdapter == null) {
             return;
@@ -239,9 +251,11 @@ public class CityListLayout {
             listGroupItem.measure(0, 0);
 
             totalHeight = totalHeight + listGroupItem.getMeasuredHeight();
+        }
 
-            for(int j = 0; j < expandableListAdapter.getChildrenCount(i); j ++) {
-                View listChildItem = expandableListAdapter.getChildView(i, j, false, null, expandableListView);
+        if(groupPos > -1) {
+            for(int j = 0; j < expandableListAdapter.getChildrenCount(groupPos); j ++) {
+                View listChildItem = expandableListAdapter.getChildView(groupPos, j, false, null, expandableListView);
 
                 // 计算子项View的高度，注意ExpandableListView所在的要是LinearLayout布局
                 listChildItem.measure(0, 0);
@@ -265,7 +279,6 @@ public class CityListLayout {
     // 显示布局
     public void show() {
         mLayout.setVisibility(View.VISIBLE);
-        setScrollViewToTop(mScrollView);
     }
 
     // 隐藏布局

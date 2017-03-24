@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.view.MyListView;
+import com.gh.emap.viewA.MyListView;
 
 import java.io.File;
 import java.util.ArrayList;

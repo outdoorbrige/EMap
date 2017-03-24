@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.model.UserInfo;
+import com.gh.emap.modelA.UserInfo;
 
 /**
  * Created by GuHeng on 2016/11/10.

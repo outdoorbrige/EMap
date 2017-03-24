@@ -1,6 +1,5 @@
-package com.gh.emap.overlay;
+package com.gh.emap.overlayA;
 
-import com.gh.emap.MainActivity;
 import com.tianditu.android.maps.GeoPoint;
 
 import java.io.Serializable;
@@ -11,19 +10,11 @@ import java.io.Serializable;
  */
 
 public class PointObject implements Serializable {
-    private String mType; // 点-类型
     private String mName; // 点-名称
+    private String mType; // 点-类型
     private String mStrPoint; // 点 数据格式：“mLon,mLat”
 
     public PointObject() {
-    }
-
-    public String getType() {
-        return mType;
-    }
-
-    public void setType(String type) {
-        mType = type;
     }
 
     public String getName() {
@@ -32,6 +23,14 @@ public class PointObject implements Serializable {
 
     public void setName(String name) {
         mName = name;
+    }
+
+    public String getType() {
+        return mType;
+    }
+
+    public void setType(String type) {
+        mType = type;
     }
 
     public String getStrPoint() {

@@ -10,7 +10,7 @@ import com.gh.emap.R;
 import com.gh.emap.managerA.LogManager;
 import com.gh.emap.managerA.UserManager;
 import com.gh.emap.managerA.WebServiceManager;
-import com.gh.emap.model.UserInfo;
+import com.gh.emap.modelA.UserInfo;
 import com.tianditu.maps.Utils.MD5;
 
 /**

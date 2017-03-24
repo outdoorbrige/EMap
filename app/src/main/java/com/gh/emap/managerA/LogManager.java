@@ -6,7 +6,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.file.OperateFolder;
+import com.gh.emap.R;
+import com.gh.emap.fileA.OperateFolder;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -39,8 +40,6 @@ public class LogManager implements Thread.UncaughtExceptionHandler {
     }
 
     public void init() {
-        clearOldLogFiles(); // 清理过期日志文件
-		
         try {
             mFileWriter = new FileWriter(getLogName());
         } catch (Exception exception) {
@@ -61,6 +60,8 @@ public class LogManager implements Thread.UncaughtExceptionHandler {
 
         // 设置该LogManager为程序的默认处理器
         Thread.setDefaultUncaughtExceptionHandler(this);
+
+        clearOldLogFiles(); // 清理过期日志文件
     }
 
     public void unInit() {
@@ -208,7 +209,7 @@ public class LogManager implements Thread.UncaughtExceptionHandler {
     protected String getLogPath() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             String logPath = Environment.getExternalStorageDirectory().toString() + File.separator +
-                    mMainActivity.getApplationName() + File.separator +
+                    mMainActivity.getResources().getString(R.string.home_name) + File.separator +
                     "Logs" + File.separator;
 
             File file = new File(logPath);

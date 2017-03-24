@@ -4,10 +4,10 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.file.RWPlaneFile;
+import com.gh.emap.fileA.RWPlaneFile;
 import com.gh.emap.managerA.LogManager;
-import com.gh.emap.overlay.PlaneObject;
-import com.gh.emap.overlay.PlaneOverlay;
+import com.gh.emap.overlayA.PlaneObject;
+import com.gh.emap.overlayA.PlaneOverlay;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 

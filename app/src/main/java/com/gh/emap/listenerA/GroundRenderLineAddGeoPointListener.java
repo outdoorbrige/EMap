@@ -4,7 +4,7 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.overlay.LineOverlay;
+import com.gh.emap.overlayA.LineOverlay;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 

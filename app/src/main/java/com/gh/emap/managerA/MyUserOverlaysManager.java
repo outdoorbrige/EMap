@@ -2,12 +2,12 @@ package com.gh.emap.managerA;
 
 import com.gh.emap.MainActivity;
 
-import com.gh.emap.overlay.LineObject;
-import com.gh.emap.overlay.LineOverlay;
-import com.gh.emap.overlay.PlaneObject;
-import com.gh.emap.overlay.PlaneOverlay;
-import com.gh.emap.overlay.PointObject;
-import com.gh.emap.overlay.PointOverlay;
+import com.gh.emap.overlayA.LineObject;
+import com.gh.emap.overlayA.LineOverlay;
+import com.gh.emap.overlayA.PlaneObject;
+import com.gh.emap.overlayA.PlaneOverlay;
+import com.gh.emap.overlayA.PointObject;
+import com.gh.emap.overlayA.PointOverlay;
 
 import java.util.ArrayList;
 

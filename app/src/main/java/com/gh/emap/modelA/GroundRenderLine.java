@@ -1,19 +1,20 @@
-package com.gh.emap.model;
+package com.gh.emap.modelA;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by GuHeng on 2016/11/9.
- * 地物编辑-画点 配置文件类
+ * Created by GuHeng on 2017/1/9.
+ * 地物编辑-画线 配置文件类
  */
-public class GroundRenderPoint {
+
+public class GroundRenderLine {
     private HashMap<String, ArrayList<String>> mData;
 
     // String：value字符串；ArrayList<Integer>：[0]存放Map中key的索引，[1]存放value在List中的索引
     private HashMap<String, ArrayList<Integer>> mIndexes;
 
-    public GroundRenderPoint() {
+    public GroundRenderLine() {
         mData = new HashMap<>();
         mIndexes = new HashMap<>();
     }
@@ -83,7 +84,7 @@ public class GroundRenderPoint {
 
     @Override
     public String toString() {
-        return "GroundRenderPoint{" +
+        return "GroundRenderLine{" +
                 "mData=" + mData +
                 '}';
     }

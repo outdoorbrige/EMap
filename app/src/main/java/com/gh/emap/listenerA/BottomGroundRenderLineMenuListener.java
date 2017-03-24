@@ -4,10 +4,10 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.file.RWLineFile;
+import com.gh.emap.fileA.RWLineFile;
 import com.gh.emap.managerA.LogManager;
-import com.gh.emap.overlay.LineObject;
-import com.gh.emap.overlay.LineOverlay;
+import com.gh.emap.overlayA.LineObject;
+import com.gh.emap.overlayA.LineOverlay;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
 

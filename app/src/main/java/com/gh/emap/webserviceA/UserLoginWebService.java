@@ -1,4 +1,4 @@
-package com.gh.emap.webservice;
+package com.gh.emap.webserviceA;
 
 import android.os.Handler;
 import android.os.Message;
@@ -6,8 +6,8 @@ import android.os.Message;
 import com.gh.emap.MainActivity;
 import com.gh.emap.managerA.LogManager;
 import com.gh.emap.managerA.WebServiceManager;
-import com.gh.emap.model.EMap;
-import com.gh.emap.model.UserInfo;
+import com.gh.emap.modelA.EMap;
+import com.gh.emap.modelA.UserInfo;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.PropertyInfo;
@@ -17,9 +17,9 @@ import org.ksoap2.transport.HttpTransportSE;
 
 /**
  * Created by GuHeng on 2016/11/10.
- * 用户注册服务
+ * 用户登录服务
  */
-public class UserRegisterWebService implements Runnable {
+public class UserLoginWebService implements Runnable {
     private MainActivity mMainActivity;
     private Handler mHandler;
     private EMap mEMap;
@@ -29,11 +29,10 @@ public class UserRegisterWebService implements Runnable {
     private SoapSerializationEnvelope mSoapSerializationEnvelope;
     private HttpTransportSE mHttpTransportSE;
 
-    public UserRegisterWebService(MainActivity mainActivity) {
+    public UserLoginWebService(MainActivity mainActivity) {
         mMainActivity = mainActivity;
     }
 
-    // 初始化
     public void init() {
         mEMap = mMainActivity.getMainManager().getFileManager().getEMapFile().getEMap();
         mSoapEnvelopeVer = getSoapEnvelopeVer(mEMap.getSoapVersion());
@@ -43,13 +42,13 @@ public class UserRegisterWebService implements Runnable {
     public void prepare(Handler handler, UserInfo userInfo) {
         mHandler = handler;
 
-        mSoapEndPoint = mEMap.getProtocol() + mEMap.getServer() + ":" + mEMap.getPort() + mEMap.getRegisterUrlPath();
-        mSoapAction = mEMap.getNameSpace() + mEMap.getRegisterMethodName();
+        mSoapEndPoint = mEMap.getProtocol() + mEMap.getServer() + ":" + mEMap.getPort() + mEMap.getLoginUrlPath();
+        mSoapAction = mEMap.getNameSpace() + mEMap.getLoginMethodName();
 
-        SoapObject soapObject = new SoapObject(mEMap.getNameSpace(), mEMap.getRegisterMethodName());
+        SoapObject soapObject = new SoapObject(mEMap.getNameSpace(), mEMap.getLoginMethodName());
 
         PropertyInfo property_info = new PropertyInfo();
-        property_info.setName(mEMap.getRegisterMethodParam1Name());
+        property_info.setName(mEMap.getLoginMethodParam1Name());
         property_info.setValue(userInfo);
         property_info.setType(UserInfo.class);
 
@@ -69,13 +68,13 @@ public class UserRegisterWebService implements Runnable {
         UserInfo userInfo = new UserInfo();
         call(userInfo);
         Message message = new Message();
-        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_REGISTER;
+        message.what = WebServiceManager.WebServiceMsgType.WS_MSG_LOGIN;
         message.obj = userInfo;
         mHandler.sendMessage(message);
     }
 
     // 调用服务
-    protected boolean call(UserInfo userInfo) {
+    private boolean call(UserInfo userInfo) {
         boolean success = false;
         try {
             mHttpTransportSE.call(mSoapAction, mSoapSerializationEnvelope);

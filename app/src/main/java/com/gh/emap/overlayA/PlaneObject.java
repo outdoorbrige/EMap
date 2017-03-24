@@ -1,4 +1,4 @@
-package com.gh.emap.overlay;
+package com.gh.emap.overlayA;
 
 import com.tianditu.android.maps.GeoPoint;
 

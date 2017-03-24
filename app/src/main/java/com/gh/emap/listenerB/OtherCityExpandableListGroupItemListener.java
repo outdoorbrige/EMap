@@ -2,6 +2,7 @@ package com.gh.emap.listenerB;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
@@ -31,11 +32,23 @@ public class OtherCityExpandableListGroupItemListener implements AdapterView.OnI
                 return;
             }
 
+            ExpandableListView otherCityExpandableList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOtherCityExpandableList();
+
             boolean isGroupExpanded = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOtherCityExpandableList().isGroupExpanded(expandableListViewSelectPosition);
             if(isGroupExpanded) {
-                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOtherCityExpandableList().collapseGroup(expandableListViewSelectPosition); // 折叠
+                otherCityExpandableList.collapseGroup(expandableListViewSelectPosition); // 折叠
+
+                // 先删除ExpandableListView，重新计算ExpandableListView的高度，再添加ExpandableListView
+                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getScrollViewLinearLayout().removeView(otherCityExpandableList);
+                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().setExpandableListViewHeightBasedOnChildren(otherCityExpandableList, -1);
+                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getScrollViewLinearLayout().addView(otherCityExpandableList);
             } else {
-                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOtherCityExpandableList().expandGroup(expandableListViewSelectPosition, true); // 展开
+                otherCityExpandableList.expandGroup(expandableListViewSelectPosition, true); // 展开
+
+                // 先删除ExpandableListView，重新计算ExpandableListView的高度，再添加ExpandableListView
+                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getScrollViewLinearLayout().removeView(otherCityExpandableList);
+                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().setExpandableListViewHeightBasedOnChildren(otherCityExpandableList, expandableListViewSelectPosition);
+                mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getScrollViewLinearLayout().addView(otherCityExpandableList);
             }
         }
     }

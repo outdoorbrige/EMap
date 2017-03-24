@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
                         (int)(Math.round(getResources().getDisplayMetrics().widthPixels / getResources().getDisplayMetrics().density)),
                         (int)(Math.round(getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density))));
 
-        addShortcut(getApplationName()); // 添加桌面快捷方式
+        addShortcut(getResources().getString(R.string.application_name)); // 添加桌面快捷方式
     }
 
     public MainManager getMainManager() {
@@ -95,11 +95,6 @@ public class MainActivity extends AppCompatActivity {
     public void startOfflineMapDownloadActivity() {
         Intent intent = new Intent(MainActivity.this, OfflineMapDownloadActivity.class);
         startActivity(intent);
-    }
-
-    // 获取应用程序名称
-    public String getApplationName() {
-        return "EMap";
     }
 
     // 添加快捷方式

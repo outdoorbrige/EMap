@@ -3,10 +3,10 @@ package com.gh.emap.managerA;
 import android.os.Handler;
 
 import com.gh.emap.MainActivity;
-import com.gh.emap.model.UserInfo;
-import com.gh.emap.webservice.UserLoginWebService;
-import com.gh.emap.webservice.UserLogoutWebService;
-import com.gh.emap.webservice.UserRegisterWebService;
+import com.gh.emap.modelA.UserInfo;
+import com.gh.emap.webserviceA.UserLoginWebService;
+import com.gh.emap.webserviceA.UserLogoutWebService;
+import com.gh.emap.webserviceA.UserRegisterWebService;
 
 /**
  * Created by GuHeng on 2016/10/14.

@@ -1,10 +1,11 @@
-package com.gh.emap.file;
+package com.gh.emap.fileA;
 
 import android.os.Environment;
 
 import com.gh.emap.MainActivity;
+import com.gh.emap.R;
 import com.gh.emap.managerA.LogManager;
-import com.gh.emap.model.GroundRenderLine;
+import com.gh.emap.modelA.GroundRenderLine;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -40,7 +41,7 @@ public class GroundRenderLineFile {
     private String getFile() {
         if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return Environment.getExternalStorageDirectory().toString() + File.separator +
-                    mMainActivity.getApplationName() + File.separator +
+                    mMainActivity.getResources().getString(R.string.home_name) + File.separator +
                     "GroundRenderLine.config";
         } else {
             return null;
