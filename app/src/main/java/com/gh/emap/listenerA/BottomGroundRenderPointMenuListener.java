@@ -110,8 +110,9 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
         pointObject.setType(pointType);
         pointObject.setGeoPoint(point);
 
+        String[] errorMsg = {""};
         RWPointFile.write(path + File.separator + pointObject.getName() +
-                mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointFileSuffix(), pointObject);
+                mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointFileSuffix(), pointObject, errorMsg);
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().addPointObject(pointObject);
 

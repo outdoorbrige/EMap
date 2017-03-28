@@ -4,13 +4,9 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.fileA.EMapFile;
 import com.gh.emap.fileA.GroundRenderLineFile;
 import com.gh.emap.fileA.GroundRenderPointFile;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.gh.emap.fileB.CurrentCityFile;
+import com.gh.emap.fileB.HotCitiesFile;
+import com.gh.emap.fileB.OtherProvincesCitiesFile;
 
 /**
  * Created by GuHeng on 2016/11/9.
@@ -21,6 +17,9 @@ public class FileManager {
     private EMapFile mEMapFile;
     private GroundRenderPointFile mGroundRenderPointFile;
     private GroundRenderLineFile mGroundRenderLineFile;
+    private CurrentCityFile mCurrentCityFile;
+    private HotCitiesFile mHotCitiesFile;
+    private OtherProvincesCitiesFile mOtherProvincesCitiesFile;
 
     public FileManager(MainActivity mainActivity) {
         mMainActivity = mainActivity;
@@ -35,6 +34,15 @@ public class FileManager {
 
         mGroundRenderLineFile = new GroundRenderLineFile(mMainActivity);
         mGroundRenderLineFile.init();
+
+        mCurrentCityFile = new CurrentCityFile(mMainActivity);
+        mCurrentCityFile.init();
+
+        mHotCitiesFile = new HotCitiesFile(mMainActivity);
+        mHotCitiesFile.init();
+
+        mOtherProvincesCitiesFile = new OtherProvincesCitiesFile(mMainActivity);
+        mOtherProvincesCitiesFile.init();
     }
 
     public void unInit() {
@@ -53,45 +61,15 @@ public class FileManager {
         return mGroundRenderLineFile;
     }
 
-    // 写对象到文件中
-    public void writeObjectToFile(String fileName, Object object) {
-        try {
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-            objectOutputStream.writeObject(object);
-            objectOutputStream.flush();
-            objectOutputStream.close();
-            byteArrayOutputStream.close();
-
-            byte[] bytes = byteArrayOutputStream.toByteArray();
-
-            File file = new File(fileName);
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(bytes);
-            fileOutputStream.flush();
-            fileOutputStream.close();
-        } catch (Exception e) {
-            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
-                    e.getStackTrace().toString());
-        }
+    public CurrentCityFile getCurrentPositionFile() {
+        return mCurrentCityFile;
     }
 
-    // 读文件中的对象
-    public Object readObjectFromFile(String fileName) {
-        Object object = null;
+    public HotCitiesFile getHotCitiesFile() {
+        return mHotCitiesFile;
+    }
 
-        try {
-            File file = new File(fileName);
-            FileInputStream fileInputStream = new FileInputStream(file);
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            object = objectInputStream.readObject();
-            objectInputStream.close();
-            fileInputStream.close();
-        } catch (Exception e) {
-            mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mError,
-                    e.getStackTrace().toString());
-        }
-
-        return object;
+    public OtherProvincesCitiesFile getOtherProvincesCitiesFile() {
+        return mOtherProvincesCitiesFile;
     }
 }

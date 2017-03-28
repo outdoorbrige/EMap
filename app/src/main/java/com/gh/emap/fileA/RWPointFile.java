@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class RWPointFile {
     private static TObjectFile<PointObject> mTObjectFile = new TObjectFile<>();
 
-    public static PointObject read(String file) {
-        return mTObjectFile.read(file);
+    public static PointObject read(String file, String[] errorMsg) {
+        return mTObjectFile.read(file, errorMsg);
     }
 
-    public static ArrayList<PointObject> read(ArrayList<File> files) {
+    public static ArrayList<PointObject> read(ArrayList<File> files, String[] errorMsg) {
         if(files == null || files.size() == 0) {
             return null;
         }
@@ -25,7 +25,7 @@ public class RWPointFile {
         ArrayList<PointObject> items = new ArrayList<PointObject>();
 
         for(int i = 0; i < files.size(); i ++) {
-            PointObject object = read(files.get(i).getPath());
+            PointObject object = read(files.get(i).getPath(), errorMsg);
             if(object != null) {
                 items.add(object);
             }
@@ -34,7 +34,7 @@ public class RWPointFile {
         return items;
     }
 
-    public static boolean write(String file, PointObject object) {
-        return mTObjectFile.write(file, object);
+    public static void write(String file, PointObject object, String[] errorMsg) {
+        mTObjectFile.write(file, object, errorMsg);
     }
 }

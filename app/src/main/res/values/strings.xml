@@ -1,8 +1,8 @@
 <resources>
-    <!--Ó¦ÓÃ³ÌÐò±êÇ©-->
+    <!--åº”ç”¨ç¨‹åºæ ‡ç­¾-->
     <string name="application_name">EMap</string>
-    <!--Ó¦ÓÃ³ÌÐò¼ÒÄ¿Â¼Ãû³Æ-->
+    <!--åº”ç”¨ç¨‹åºå®¶ç›®å½•åç§°-->
     <string name="home_name">EMap</string>
-    <!--Ä¬ÈÏµ±Ç°³ÇÊÐÃû³Æ-->
-    <string name="default_location_city">±±¾©ÊÐ</string>
+    <!--é»˜è®¤å½“å‰åŸŽå¸‚åç§°-->
+    <string name="default_location_city">åŒ—äº¬å¸‚</string>
 </resources>

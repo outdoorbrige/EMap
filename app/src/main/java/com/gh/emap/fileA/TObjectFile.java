@@ -16,7 +16,7 @@ public class TObjectFile<T> {
 
     // 从文件中读取对象
     @SuppressWarnings("unchecked")
-    public T read(String file) {
+    public T read(String file, String[] errorMsg) {
         File f = new File(file);
         if(f.exists()) { // 判断文件是否存在
             try {
@@ -29,17 +29,17 @@ public class TObjectFile<T> {
                 fileInputStream.close();
 
                 return object;
-            } catch (Exception e) {
-                return null;
+            } catch (Exception exception) {
+                errorMsg[0] = errorMsg[0] + exception.getMessage();
             }
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     // 从文件中读取对象集合
     @SuppressWarnings("unchecked")
-    public ArrayList<T> readList(String file) {
+    public ArrayList<T> readList(String file, String[] errorMsg) {
         File f = new File(file);
         if(f.exists()) { // 判断文件是否存在
             try {
@@ -52,16 +52,16 @@ public class TObjectFile<T> {
                 fileInputStream.close();
 
                 return objects;
-            } catch (Exception e) {
-                return null;
+            } catch (Exception exception) {
+                errorMsg[0] = errorMsg[0] + exception.getMessage();
             }
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     // 写对象到文件
-    public boolean write(String file, T object) {
+    public void write(String file, T object, String[] errorMsg) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -70,15 +70,13 @@ public class TObjectFile<T> {
 
             objectOutputStream.close();
             fileOutputStream.close();
-        } catch (Exception e) {
-            return false;
+        } catch (Exception exception) {
+            errorMsg[0] = errorMsg[0] + exception.getMessage();
         }
-
-        return true;
     }
 
     // 写对象集合到文件
-    public boolean writeList(String file, ArrayList<T> objects) {
+    public void writeList(String file, ArrayList<T> objects, String[] errorMsg) {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
@@ -87,10 +85,8 @@ public class TObjectFile<T> {
 
             objectOutputStream.close();
             fileOutputStream.close();
-        } catch (Exception e) {
-            return false;
+        } catch (Exception exception) {
+            errorMsg[0] = errorMsg[0] + exception.getMessage();
         }
-
-        return true;
     }
 }

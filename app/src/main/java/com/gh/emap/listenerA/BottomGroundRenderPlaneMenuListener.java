@@ -147,8 +147,9 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
         planeObject.setName(planeName);
         planeObject.addGeoPoints(points);
 
+        String[] errorMsg = {""};
         RWPlaneFile.write(path + File.separator + planeObject.getName() +
-                mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlaneFileSuffix(), planeObject);
+                mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlaneFileSuffix(), planeObject, errorMsg);
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().addPlaneObject(planeObject);
 

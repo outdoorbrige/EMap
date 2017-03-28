@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class RWLineFile {
     private static TObjectFile<LineObject> mTObjectFile = new TObjectFile<>();
 
-    public static LineObject read(String file) {
-        return mTObjectFile.read(file);
+    public static LineObject read(String file, String[] errorMsg) {
+        return mTObjectFile.read(file, errorMsg);
     }
 
-    public static ArrayList<LineObject> read(ArrayList<File> files) {
+    public static ArrayList<LineObject> read(ArrayList<File> files, String[] errorMsg) {
         if(files == null || files.size() == 0) {
             return null;
         }
@@ -25,7 +25,7 @@ public class RWLineFile {
         ArrayList<LineObject> items = new ArrayList<LineObject>();
 
         for(int i = 0; i < files.size(); i ++) {
-            LineObject object = read(files.get(i).getPath());
+            LineObject object = read(files.get(i).getPath(), errorMsg);
             if(object != null) {
                 items.add(object);
             }
@@ -34,7 +34,7 @@ public class RWLineFile {
         return items;
     }
 
-    public static boolean write(String file, LineObject object) {
-        return mTObjectFile.write(file, object);
+    public static void write(String file, LineObject object, String[] errorMsg) {
+        mTObjectFile.write(file, object, errorMsg);
     }
 }

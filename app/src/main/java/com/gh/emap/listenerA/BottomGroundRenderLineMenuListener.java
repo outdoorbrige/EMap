@@ -157,8 +157,9 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
         lineObject.setType(lineType);
         lineObject.addGeoPoints(points);
 
+        String[] errorMsg = {""};
         RWLineFile.write(path + File.separator + lineObject.getName() +
-                mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLineFileSuffix(), lineObject);
+                mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLineFileSuffix(), lineObject, errorMsg);
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().addLineObject(lineObject);
 

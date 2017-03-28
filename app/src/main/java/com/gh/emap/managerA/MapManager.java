@@ -1,5 +1,8 @@
 package com.gh.emap.managerA;
 
+import android.content.Context;
+import android.os.Environment;
+
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.tianditu.android.maps.GeoPoint;
@@ -7,13 +10,11 @@ import com.tianditu.android.maps.MapController;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MyLocationOverlay;
 import com.tianditu.android.maps.Overlay;
-import com.tianditu.android.maps.TErrorCode;
-import com.tianditu.android.maps.TGeoAddress;
 import com.tianditu.android.maps.TGeoDecode;
 import com.tianditu.android.maps.TOfflineMapManager;
 import com.tianditu.maps.GeoPointEx;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -26,12 +27,7 @@ public class MapManager {
     private MapController mMapController;
     private TOfflineMapManager mTOfflineMapManager;
 
-    private ArrayList<TOfflineMapManager.MapAdminSet> mMapAdminSetResult; // 离线地图列表
-    private int mMapAdminSetResultCode = TErrorCode.ERROR; // 获取离线地图列表结果码
-
     private TGeoDecode mTGeoDecode; // 逆地理编码类，根据输入的点坐标，返回相应的地理信息内容
-    private TGeoAddress mTGeoAddress; // 地理信息
-    private int mTGeoAddressCode = TErrorCode.ERROR; // 获取地理信息结果码
 
     private MyLocationOverlay mMyLocationOverlay;
     private GeoPoint mGeoPoint;
@@ -106,6 +102,26 @@ public class MapManager {
 //        }
 //    }
 
+    // 获取缓存目录
+    public static String getCachePath(Context context) {
+        String cachePath = null;
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            cachePath = Environment.getExternalStorageDirectory().toString() + File.separator +
+                    context.getResources().getString(R.string.home_name) + File.separator +
+                    "Cache";
+
+            File dir = new File(cachePath);
+            if(!dir.exists()) {
+                if(!dir.mkdirs()) {
+                    cachePath = null;
+                }
+            }
+        }
+
+        return cachePath;
+    }
+
+
     // 启用我的位置
     public void enableTMyLocationOverlay () {
         mMyLocationOverlay.enableMyLocation(); // 启用我的位置
@@ -131,76 +147,12 @@ public class MapManager {
 
     // 获得天地图支持的所有离线地图列表 此操作为异步，得到的结果通过构造接口传入的对象返回
     public void getMapList() {
-        mMapAdminSetResult = null;
-        mMapAdminSetResultCode = TErrorCode.ERROR;
-
         mTOfflineMapManager.getMapList();
-    }
-
-    // 获取城市列表
-    public ArrayList<TOfflineMapManager.MapAdminSet> getMapAdminSetResult() {
-        return mMapAdminSetResult;
-    }
-
-    // 设置城市列表
-    public void setMapAdminSetResult(ArrayList<TOfflineMapManager.MapAdminSet> mapAdminSetResult) {
-        mMapAdminSetResult = mapAdminSetResult;
-    }
-
-    // 获取城市列表结果码
-    public int getMapAdminSetResultCode() {
-        return mMapAdminSetResultCode;
-    }
-
-    // 设置获取城市列表结果码
-    public void setMapAdminSetResultCode(int error) {
-        mMapAdminSetResultCode = error;
-    }
-
-    // 判断获取城市列表是否成功
-    public boolean isMapAdminSetResultOk() {
-        if(mMapAdminSetResultCode != TErrorCode.OK) {
-            return false;
-        }
-
-        return true;
     }
 
     // 搜索指定点的系相关地理信息，此方法为异步操作
     public void search(GeoPoint geoPoint) {
-        mTGeoAddress = null;
-        mTGeoAddressCode = TErrorCode.ERROR;
-
         mTGeoDecode.search(geoPoint);
-    }
-
-    // 获取地理信息
-    public TGeoAddress getTGeoAddress() {
-        return mTGeoAddress;
-    }
-
-    // 设置地理信息
-    public void setTGeoAddress(TGeoAddress tGeoAddress) {
-        mTGeoAddress = tGeoAddress;
-    }
-
-    // 获取地理信息状态码
-    public int getTGeoAddressCode() {
-        return mTGeoAddressCode;
-    }
-
-    // 设置获取地理信息状态码
-    public void setTGeoAddressCode(int error) {
-        mTGeoAddressCode = error;
-    }
-
-    // 判断获取地理信息是否成功
-    public boolean isTGeoAddressOk() {
-        if(mTGeoAddressCode != TErrorCode.OK) {
-            return false;
-        }
-
-        return true;
     }
 
     // 获取天地图控制器

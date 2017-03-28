@@ -64,7 +64,7 @@
     <LinearLayout
         android:id="@+id/offline_map_download_download_manager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:visibility="gone">
 
         <include layout="@layout/offline_map_download_download_manager"/>

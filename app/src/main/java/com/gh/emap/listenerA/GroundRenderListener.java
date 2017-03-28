@@ -68,7 +68,8 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                     mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointFileSuffix(), files);
 
             // 解析点文件
-            ArrayList<PointObject> pointObjects = RWPointFile.read(files);
+            String[] errorMsg = {""};
+            ArrayList<PointObject> pointObjects = RWPointFile.read(files, errorMsg);
             if (pointObjects != null) {
                 mMainActivity.getMainManager().getMyUserOverlaysManager().addPointObjects(pointObjects);
 
@@ -109,7 +110,8 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                     mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLineFileSuffix(), files);
 
             // 解析线文件
-            ArrayList<LineObject> lineObjects = RWLineFile.read(files);
+            String[] errorMsg = {""};
+            ArrayList<LineObject> lineObjects = RWLineFile.read(files, errorMsg);
             if (lineObjects != null) {
                 mMainActivity.getMainManager().getMyUserOverlaysManager().addLineObjects(lineObjects);
 
@@ -150,7 +152,8 @@ public class GroundRenderListener implements AdapterView.OnItemClickListener {
                     mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlaneFileSuffix(), files);
 
             // 解析面文件
-            ArrayList<PlaneObject> planeObjects = RWPlaneFile.read(files);
+            String[] errorMsg = {""};
+            ArrayList<PlaneObject> planeObjects = RWPlaneFile.read(files, errorMsg);
             if (planeObjects != null) {
                 mMainActivity.getMainManager().getMyUserOverlaysManager().addPlaneObjects(planeObjects);
 
