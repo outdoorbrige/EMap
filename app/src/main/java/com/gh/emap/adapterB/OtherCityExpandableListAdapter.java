@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
+import com.gh.emap.layoutB.CityListLayout;
 import com.gh.emap.modelB.OneCityInfo;
 import com.gh.emap.modelB.OneProvinceInfo;
 
@@ -110,15 +112,27 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
         ArrayList<HashMap<String, Object>> listViewItems = new ArrayList<>();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("ItemTitle", oneProvinceInfo.getProvince().getCityName());
-        map.put("ItemText", "矢量图(0M)，影像图(0M)");
-        map.put("ItemDownload", R.mipmap.offline_map_no_download);
+        map.put(CityListLayout.getItemKeys()[0], oneProvinceInfo.getProvince().getCityName());
+        map.put(CityListLayout.getItemKeys()[1], "矢量图(0M)，影像图(0M)");
+        map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_collapse_group); // 折叠图片
+
+        ExpandableListView otherProvincesCitiesList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListOtherProvincesCitiesLayout().getOtherProvincesCitiesList();
+        if(otherProvincesCitiesList != null) {
+            int groupSelectedId = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getGroupSelectedId(oneProvinceInfo.getProvince().getCityName());
+            if(groupSelectedId >= 0) {
+                boolean isGroupExpanded = otherProvincesCitiesList.isGroupExpanded(groupSelectedId);
+                if(isGroupExpanded) {
+                    map.remove(CityListLayout.getItemKeys()[2]);
+                    map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_expend_group); // 展开图片
+                }
+            }
+        }
 
         listViewItems.add(map);
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, listViewItems, R.layout.offline_map_download_city_list_item,
-                new String[]{"ItemTitle", "ItemText", "ItemDownload"},
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_download});
+                CityListLayout.getItemKeys(),
+                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
 
         ListView listView = (ListView)var3.findViewById(R.id.other_provinces_cities_province_list);
         listView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
@@ -154,18 +168,18 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
         ArrayList<HashMap<String, Object>> listViewItems = new ArrayList<>();
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("ItemTitle", oneCityInfo.getCityName());
-        map.put("ItemText", "矢量图(0M)，影像图(0M)");
-        map.put("ItemDownload", R.mipmap.offline_map_no_download);
+        map.put(CityListLayout.getItemKeys()[0], oneCityInfo.getCityName());
+        map.put(CityListLayout.getItemKeys()[1], "矢量图(0M)，影像图(0M)");
+        map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
         listViewItems.add(map);
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, listViewItems, R.layout.offline_map_download_city_list_item,
-                new String[]{"ItemTitle", "ItemText", "ItemDownload"},
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_download});
+                CityListLayout.getItemKeys(),
+                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
 
         ListView listView = (ListView)var4.findViewById(R.id.other_provinces_cities_city_list);
-        listView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
+        listView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorSmallGrey));
         listView.setAdapter(simpleAdapter);
         //listView.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOtherCityExpandableListGroupItemListener());
 

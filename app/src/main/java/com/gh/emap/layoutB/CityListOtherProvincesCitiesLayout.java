@@ -43,7 +43,10 @@ public class CityListOtherProvincesCitiesLayout {
 
         mLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        int padding = (int)(8 * mOfflineMapDownloadActivity.getResources().getDisplayMetrics().density); // 8dp 转换为 px
+
         mOtherProvincesCitiesType = new TextView(mOfflineMapDownloadActivity);
+        mOtherProvincesCitiesType.setPadding(padding, padding, padding, padding);
         mOtherProvincesCitiesType.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorLightGrey));
 
         mOtherProvincesCitiesTypeLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

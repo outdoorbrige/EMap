@@ -24,12 +24,17 @@ public class OtherCityExpandableListGroupItemListener implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // id == -1 点击的是headerView或者footerView
         if(-1 < position && position < parent.getCount()) {
-            String text = ((TextView)view.findViewById(R.id.offline_map_download_city_list_item_title)).getText().toString();
-            if(text == null || text.isEmpty()) {
+            TextView textView = (TextView)view.findViewById(R.id.offline_map_download_city_list_item_title);
+            if(textView == null) {
                 return;
             }
 
-            int groupSelectedId = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getGroupSelectedId(text);
+            String titleText = textView.getText().toString();
+            if(titleText == null || titleText.isEmpty()) {
+                return;
+            }
+
+            int groupSelectedId = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getGroupSelectedId(titleText);
             if(groupSelectedId < 0) {
                 return;
             }

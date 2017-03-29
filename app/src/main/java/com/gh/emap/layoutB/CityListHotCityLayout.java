@@ -11,12 +11,9 @@ import android.widget.TextView;
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
 import com.gh.emap.modelB.OneCityInfo;
-import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by GuHeng on 2017/3/24.
@@ -48,15 +45,18 @@ public class CityListHotCityLayout {
 
         mLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
+        int padding = (int)(8 * mOfflineMapDownloadActivity.getResources().getDisplayMetrics().density); // 8dp 转换为 px
+
         mHotType = new TextView(mOfflineMapDownloadActivity);
+        mHotType.setPadding(padding, padding, padding, padding);
         mHotType.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorLightGrey));
 
         mHotTypeLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
         mHotCitiesListItems = new ArrayList<>();
         mHotCitiesListAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, mHotCitiesListItems, R.layout.offline_map_download_city_list_item,
-                new String[]{"ItemTitle", "ItemText", "ItemDownload"},
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_download});
+                CityListLayout.getItemKeys(),
+                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
 
         mHotCitiesList = new ListView(mOfflineMapDownloadActivity);
         mHotCitiesList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
@@ -90,9 +90,9 @@ public class CityListHotCityLayout {
         for(int i = 0; i < hotCities.size(); i ++) {
 
                 HashMap<String, Object> map = new HashMap<>();
-                map.put("ItemTitle", hotCities.get(i).getCityName());
-                map.put("ItemText", "矢量图(0M)，影像图(0M)");
-                map.put("ItemDownload", R.mipmap.offline_map_no_download);
+                map.put(CityListLayout.getItemKeys()[0], hotCities.get(i).getCityName());
+                map.put(CityListLayout.getItemKeys()[1], "矢量图(0M)，影像图(0M)");
+                map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
                 mHotCitiesListItems.add(map);
         }

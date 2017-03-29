@@ -26,6 +26,8 @@ public class CityListLayout {
     private ScrollView mScrollView;
     private LinearLayout mScrollViewLinearLayout;
 
+    private static String[] mItemKeys = {"Item1", "Item2", "Item3"};
+
     public CityListLayout(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;
     }
@@ -56,6 +58,10 @@ public class CityListLayout {
         } else {
 
         }
+    }
+
+    public static String[] getItemKeys() {
+        return mItemKeys;
     }
 
     // 更新当前城市数据
