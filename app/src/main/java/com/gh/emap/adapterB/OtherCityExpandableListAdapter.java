@@ -113,7 +113,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put(CityListLayout.getItemKeys()[0], oneProvinceInfo.getProvince().getCityName());
-        map.put(CityListLayout.getItemKeys()[1], "矢量图(0M)，影像图(0M)");
+        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(oneProvinceInfo.getProvince().getImageSize(), oneProvinceInfo.getProvince().getVectorSize()));
         map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_collapse_group); // 折叠图片
 
         ExpandableListView otherProvincesCitiesList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListOtherProvincesCitiesLayout().getOtherProvincesCitiesList();
@@ -169,7 +169,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put(CityListLayout.getItemKeys()[0], oneCityInfo.getCityName());
-        map.put(CityListLayout.getItemKeys()[1], "矢量图(0M)，影像图(0M)");
+        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
         map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
         listViewItems.add(map);

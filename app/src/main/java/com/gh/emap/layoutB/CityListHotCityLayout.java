@@ -45,7 +45,7 @@ public class CityListHotCityLayout {
 
         mLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        int padding = (int)(8 * mOfflineMapDownloadActivity.getResources().getDisplayMetrics().density); // 8dp 转换为 px
+        int padding = (int)mOfflineMapDownloadActivity.getResources().getDimension(R.dimen.offline_map_activity_city_list_padding);
 
         mHotType = new TextView(mOfflineMapDownloadActivity);
         mHotType.setPadding(padding, padding, padding, padding);
@@ -91,7 +91,7 @@ public class CityListHotCityLayout {
 
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(CityListLayout.getItemKeys()[0], hotCities.get(i).getCityName());
-                map.put(CityListLayout.getItemKeys()[1], "矢量图(0M)，影像图(0M)");
+                map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(hotCities.get(i).getImageSize(), hotCities.get(i).getVectorSize()));
                 map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
                 mHotCitiesListItems.add(map);

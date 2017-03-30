@@ -4,9 +4,11 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.managerA.LogManager;
 import com.gh.emap.modelB.OneCityInfo;
 import com.gh.emap.modelB.OneProvinceInfo;
+import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.TErrorCode;
 import com.tianditu.android.maps.TGeoAddress;
 import com.tianditu.android.maps.TGeoDecode;
+import com.tianditu.android.maps.TOfflineMapInfo;
 import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
@@ -32,6 +34,9 @@ public class MapListener implements TOfflineMapManager.OnGetMapsResult, TGeoDeco
             for(int i = 0; i < mapAdminSetArrayList.size(); i ++) {
                 TOfflineMapManager.MapAdminSet mapAdminSet = mapAdminSetArrayList.get(i);
 
+                long imageTotalSize = 0;
+                long vectorTotalSize = 0;
+
                 OneCityInfo oneCityInfo = new OneCityInfo();
                 oneCityInfo.setCityName(mapAdminSet.getName());
 
@@ -44,8 +49,32 @@ public class MapListener implements TOfflineMapManager.OnGetMapsResult, TGeoDeco
                     OneCityInfo tmpOneCityInfo = new OneCityInfo();
                     tmpOneCityInfo.setCityName(city.getName());
 
+                    ArrayList<TOfflineMapInfo> tOfflineMapInfos = city.getMaps();
+                    for(int k = 0; k < tOfflineMapInfos.size(); k ++) {
+                        TOfflineMapInfo tOfflineMapInfo = tOfflineMapInfos.get(k);
+
+                        int mapType = tOfflineMapInfo.getType();
+                        long mapSize = tOfflineMapInfo.getSize();
+
+                        switch (mapType) {
+                            case MapView.TMapType.MAP_TYPE_IMG:
+                                tmpOneCityInfo.setImageSize(mapSize);
+                                imageTotalSize = imageTotalSize + mapSize;
+                                break;
+                            case MapView.TMapType.MAP_TYPE_VEC:
+                                tmpOneCityInfo.setVectorSize(mapSize);
+                                vectorTotalSize = vectorTotalSize + mapSize;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
                     oneCityInfoArrayList.add(tmpOneCityInfo);
                 }
+
+                oneCityInfo.setImageSize(imageTotalSize);
+                oneCityInfo.setVectorSize(vectorTotalSize);
 
                 // TianDiTuSDK3.0.1此处有错误，Type值不正确；因此加入了Name值判断
                 // if(mapAdminSet.getType() == TOfflineMapManager.MapAdminSet.MAP_SET_TYPE_HOTCITYS) { // 热门城市

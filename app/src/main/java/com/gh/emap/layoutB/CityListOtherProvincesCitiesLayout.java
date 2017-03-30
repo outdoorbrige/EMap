@@ -43,7 +43,7 @@ public class CityListOtherProvincesCitiesLayout {
 
         mLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        int padding = (int)(8 * mOfflineMapDownloadActivity.getResources().getDisplayMetrics().density); // 8dp 转换为 px
+        int padding = (int)mOfflineMapDownloadActivity.getResources().getDimension(R.dimen.offline_map_activity_city_list_padding);
 
         mOtherProvincesCitiesType = new TextView(mOfflineMapDownloadActivity);
         mOtherProvincesCitiesType.setPadding(padding, padding, padding, padding);
