@@ -61,6 +61,7 @@ public class CityListHotCityLayout {
         mHotCitiesList = new ListView(mOfflineMapDownloadActivity);
         mHotCitiesList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
         mHotCitiesList.setAdapter(mHotCitiesListAdapter);
+        mHotCitiesList.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getCityListHotCityListener());
 
         mHotCitiesListLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -91,7 +92,7 @@ public class CityListHotCityLayout {
 
                 HashMap<String, Object> map = new HashMap<>();
                 map.put(CityListLayout.getItemKeys()[0], hotCities.get(i).getCityName());
-                map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(hotCities.get(i).getImageSize(), hotCities.get(i).getVectorSize()));
+                map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(hotCities.get(i).getImageSize(), hotCities.get(i).getVectorSize()));
                 map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
                 mHotCitiesListItems.add(map);

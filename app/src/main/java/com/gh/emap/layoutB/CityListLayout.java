@@ -26,6 +26,9 @@ public class CityListLayout {
 
     private static String[] mItemKeys = {"Item1", "Item2", "Item3"};
 
+    public final long[] BYTE_FACTOR = {1, 1024, 1024 * 1024, 1024 * 1024 * 1024};
+    public final String[] BYTE_UNIT = {"B", "KB", "MB", "GB"};
+
     public CityListLayout(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;
     }
@@ -137,8 +140,8 @@ public class CityListLayout {
         return true;
     }
 
-    // 更新当前城市影像和矢量地图的大小
-    // 更新原因：逆地址解析的城市信息不包含地图类型和大小，需要手动查找相关信息
+    // 获取当前城市影像和矢量地图的大小
+    // 获取原因：逆地址解析的城市信息不包含地图类型和大小，需要手动查找相关信息
     private OneCityInfo getCurrentCityMapSize(OneCityInfo oneCityInfo) {
         String cityName = oneCityInfo.getCityName();
         int provinceEndIndex = cityName.indexOf("省");
@@ -155,15 +158,17 @@ public class CityListLayout {
             cityStartIndex = 0;
         }
 
-        if(cityEndIndex > 0) {
+        if(cityEndIndex > cityStartIndex) {
             city = cityName.substring(cityStartIndex, cityEndIndex);
+        } else {
+            city = cityName;
         }
 
         ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getHotCitiesFile().getHotCities();
         if(hotCities != null) {
             for(int i = 0; i < hotCities.size(); i ++) {
                 OneCityInfo hotCity = hotCities.get(i);
-                if(hotCity.getCityName().contains(city)) {
+                if(hotCity.getCityName().equals(city)) {
                     return hotCity;
                 }
             }
@@ -175,7 +180,7 @@ public class CityListLayout {
                 OneProvinceInfo provinceInfo = otherProvincesCities.get(i);
                 for(int j = 0; j < provinceInfo.getCities().size(); j ++) {
                     OneCityInfo provinceCity = provinceInfo.getCities().get(j);
-                    if(provinceCity.getCityName().contains(city)) {
+                    if(provinceCity.getCityName().equals(city)) {
                         return provinceCity;
                     }
                 }
@@ -183,6 +188,37 @@ public class CityListLayout {
         }
 
         return oneCityInfo;
+    }
+
+    public OneCityInfo getOneCityInfoFromName(String strName) {
+        if(strName == null || strName.isEmpty()) {
+            return null;
+        }
+
+        ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getHotCitiesFile().getHotCities();
+        if(hotCities != null) {
+            for(int i = 0; i < hotCities.size(); i ++) {
+                OneCityInfo hotCity = hotCities.get(i);
+                if(hotCity.getCityName().equals(strName)) {
+                    return hotCity;
+                }
+            }
+        }
+
+        ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().getOtherProvincesCities();
+        if(otherProvincesCities != null) {
+            for(int i = 0; i < otherProvincesCities.size(); i ++) {
+                OneProvinceInfo provinceInfo = otherProvincesCities.get(i);
+                for(int j = 0; j < provinceInfo.getCities().size(); j ++) {
+                    OneCityInfo provinceCity = provinceInfo.getCities().get(j);
+                    if(provinceCity.getCityName().equals(strName)) {
+                        return provinceCity;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     public void setScrollViewToTop(ScrollView scrollView) {
@@ -197,9 +233,22 @@ public class CityListLayout {
         return "(" + String.valueOf(count) + ")";
     }
 
-    public String getFormatImageVectorSize(long imageSize, long vectorSize) {
-        String strImageSize = getFormatByteSize(imageSize).isEmpty() ? "" : "影像" + "(" + getFormatByteSize(imageSize) + ")";
-        String strVectorSize = getFormatByteSize(vectorSize).isEmpty() ? "" : "矢量" + "(" + getFormatByteSize(vectorSize) + ")";
+    public String formatImageAndVectorSizeToText(long imageSize, long vectorSize) {
+        String imageSizeAndUnit[] = {"", ""};
+        formatByteToSizeAndUnit(imageSize, imageSizeAndUnit);
+
+        String strImageSize = "";
+        if(!imageSizeAndUnit[0].isEmpty() && Double.valueOf(imageSizeAndUnit[0]).compareTo(Double.valueOf("0")) > 0) {
+            strImageSize = "影像" + "(" + imageSizeAndUnit[0] + imageSizeAndUnit[1] + ")";
+        }
+
+        String vectorSizeAndUnit[] = {"", ""};
+        formatByteToSizeAndUnit(vectorSize, vectorSizeAndUnit);
+
+        String strVectorSize = "";
+        if(!vectorSizeAndUnit[0].isEmpty() && Double.valueOf(vectorSizeAndUnit[0]).compareTo(Double.valueOf("0")) > 0) {
+            strVectorSize = "矢量" + "(" + vectorSizeAndUnit[0] + vectorSizeAndUnit[1] + ")";
+        }
 
         String strImageVectorSize = "";
 
@@ -216,35 +265,47 @@ public class CityListLayout {
         return strImageVectorSize;
     }
 
-    private String getFormatByteSize(long size) {
-        if(size == 0) {
-            return "";
-        }
-
-        final long BYTE_KB = 1024;
-        final long BYTE_MB = 1024 * 1024;
-        final long BYTE_GB = 1024 * 1024 * 1024;
-
-        double kb = (double)size / BYTE_KB;
-        double mb = (double)size / BYTE_MB;
-        double gb = (double)size / BYTE_GB;
+    public boolean formatByteToSizeAndUnit(long bytes, String[] sizeAndUnit) {
+        double kb = (double) bytes / BYTE_FACTOR[1];
+        double mb = (double) bytes / BYTE_FACTOR[2];
+        double gb = (double) bytes / BYTE_FACTOR[3];
 
         if(Math.ceil(gb) > 1) {
             BigDecimal bigDecimal = new BigDecimal(gb);
-            return bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toString() + "GB";
-        }
-
-        if(Math.ceil(mb) > 1) {
+            sizeAndUnit[0] = bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+            sizeAndUnit[1] = BYTE_UNIT[3];
+        }else if(Math.ceil(mb) > 1) {
             BigDecimal bigDecimal = new BigDecimal(mb);
-            return bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toString() + "MB";
-        }
-
-        if(Math.ceil(kb) > 1) {
+            sizeAndUnit[0] = bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+            sizeAndUnit[1] = BYTE_UNIT[2];
+        }else if(Math.ceil(kb) > 1) {
             BigDecimal bigDecimal = new BigDecimal(kb);
-            return bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toString() + "KB";
+            sizeAndUnit[0] = bigDecimal.setScale(1, BigDecimal.ROUND_HALF_UP).toString();
+            sizeAndUnit[1] = BYTE_UNIT[1];
+        } else {
+            sizeAndUnit[0] = String.valueOf(bytes);
+            sizeAndUnit[1] = BYTE_UNIT[0];
         }
 
-        return String.valueOf(size) + "B";
+        return true;
+    }
+
+    public Double getBytesFromSizeAndUnit(String[] sizeUnit) {
+        Double bytes = null;
+
+        if(sizeUnit[1].equals(BYTE_UNIT[0])) {
+            bytes = Double.valueOf(sizeUnit[0]);
+        } else if(sizeUnit[1].equals(BYTE_UNIT[1])) {
+            bytes = Double.valueOf(sizeUnit[0]) * BYTE_FACTOR[1];
+        } else if(sizeUnit[1].equals(BYTE_UNIT[2])) {
+            bytes = Double.valueOf(sizeUnit[0]) * BYTE_FACTOR[2];
+        } else if(sizeUnit[1].equals(BYTE_UNIT[3])) {
+            bytes = Double.valueOf(sizeUnit[0]) * BYTE_FACTOR[3];
+        } else {
+            bytes = Double.valueOf(0);
+        }
+
+        return bytes;
     }
 
     public int getGroupSelectedId(String groupTitle) {
@@ -254,7 +315,7 @@ public class CityListLayout {
         }
 
         for(int i = 0; i < otherProvincesCities.size(); i ++) {
-            if(groupTitle.contains(otherProvincesCities.get(i).getProvince().getCityName())) {
+            if(groupTitle.equals(otherProvincesCities.get(i).getProvince().getCityName())) {
                 return i;
             }
         }

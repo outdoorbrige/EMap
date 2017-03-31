@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/offline_map_download_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="@dimen/offline_map_activity_city_list_padding"/>
+
+    <Button
+        android:id="@+id/offline_map_download_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/offline_map_download_title"/>
+
+    <Button
+        android:id="@+id/offline_map_download_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/offline_map_download_all"/>
+
+    <Button
+        android:id="@+id/offline_map_download_vector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/offline_map_download_image"/>
+
+    <Button
+        android:id="@+id/offline_map_download_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/offline_map_download_vector"
+        android:text="取消"/>
+
+</RelativeLayout>

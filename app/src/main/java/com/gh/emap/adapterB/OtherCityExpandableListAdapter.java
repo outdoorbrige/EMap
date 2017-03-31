@@ -113,7 +113,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put(CityListLayout.getItemKeys()[0], oneProvinceInfo.getProvince().getCityName());
-        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(oneProvinceInfo.getProvince().getImageSize(), oneProvinceInfo.getProvince().getVectorSize()));
+        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(oneProvinceInfo.getProvince().getImageSize(), oneProvinceInfo.getProvince().getVectorSize()));
         map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_collapse_group); // 折叠图片
 
         ExpandableListView otherProvincesCitiesList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListOtherProvincesCitiesLayout().getOtherProvincesCitiesList();
@@ -169,7 +169,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put(CityListLayout.getItemKeys()[0], oneCityInfo.getCityName());
-        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
+        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
         map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
         listViewItems.add(map);
@@ -181,7 +181,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
         ListView listView = (ListView)var4.findViewById(R.id.other_provinces_cities_city_list);
         listView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorSmallGrey));
         listView.setAdapter(simpleAdapter);
-        //listView.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOtherCityExpandableListGroupItemListener());
+        listView.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOtherCityExpandableListChildItemListener());
 
         return var4;
     }

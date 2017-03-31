@@ -128,7 +128,7 @@ public class GroundRenderLineTypeLayout {
     }
 
     // 销毁对话框
-    public void dimiss() {
+    public void dismiss() {
         mAlertDialog.dismiss();
     }
 

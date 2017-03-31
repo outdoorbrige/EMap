@@ -61,6 +61,7 @@ public class CityListCurrentCityLayout {
         mCurrentCityList = new ListView(mOfflineMapDownloadActivity);
         mCurrentCityList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
         mCurrentCityList.setAdapter(mCurrentCityListAdapter);
+        mCurrentCityList.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getCityListCurrentCityListener());
 
         mCurrentCityListLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
@@ -85,7 +86,7 @@ public class CityListCurrentCityLayout {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put(CityListLayout.getItemKeys()[0], oneCityInfo.getCityName());
-        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatImageVectorSize(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
+        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
         map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
 
         mCurrentCityListItems.add(map);

@@ -131,16 +131,16 @@ public class LayoutManager {
     }
 
     public void unInit() {
-        mGroundRenderPointTypeLayout.dimiss();
-        mGroundRenderLineTypeLayout.dimiss();
-        mGroundRenderPointAddGeoPointLayout.dimiss();
-        mGroundRenderLineAddGeoPointLayout.dimiss();
-        mGroundRenderPlaneAddGeoPointLayout.dimiss();
-        mDrawDistanceAzimuthAddGeoPointLayout.dimiss();
-        mDrawAreaGirthAddGeoPointLayout.dimiss();
-        mUserLoginLayout.dimiss();
-        mUserRegisterLayout.dimiss();
-        mUserLogoutLayout.dimiss();
+        mGroundRenderPointTypeLayout.dismiss();
+        mGroundRenderLineTypeLayout.dismiss();
+        mGroundRenderPointAddGeoPointLayout.dismiss();
+        mGroundRenderLineAddGeoPointLayout.dismiss();
+        mGroundRenderPlaneAddGeoPointLayout.dismiss();
+        mDrawDistanceAzimuthAddGeoPointLayout.dismiss();
+        mDrawAreaGirthAddGeoPointLayout.dismiss();
+        mUserLoginLayout.dismiss();
+        mUserRegisterLayout.dismiss();
+        mUserLogoutLayout.dismiss();
     }
 
     public BottomLocationInfoLayout getBottomLocationInfoLayout() {

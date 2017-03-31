@@ -7,6 +7,7 @@ import com.gh.emap.layoutB.CityListLayout;
 import com.gh.emap.layoutB.CityListOtherProvincesCitiesLayout;
 import com.gh.emap.layoutB.DownloadManagerLayout;
 import com.gh.emap.layoutB.HeaderLayout;
+import com.gh.emap.layoutB.OfflineMapDownloadTypeSelectLayout;
 
 /**
  * Created by GuHeng on 2017/3/15.
@@ -15,6 +16,7 @@ import com.gh.emap.layoutB.HeaderLayout;
 public class LayoutManager {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
     private HeaderLayout mHeaderLayout;
+    private OfflineMapDownloadTypeSelectLayout mOfflineMapDownloadTypeSelectLayout;
     private CityListCurrentCityLayout mCityListCurrentCityLayout;
     private CityListHotCityLayout mCityListHotCityLayout;
     private CityListOtherProvincesCitiesLayout mCityListOtherProvincesCitiesLayout;
@@ -28,6 +30,9 @@ public class LayoutManager {
     public void init() {
         mHeaderLayout = new HeaderLayout(mOfflineMapDownloadActivity);
         mHeaderLayout.init();
+
+        mOfflineMapDownloadTypeSelectLayout = new OfflineMapDownloadTypeSelectLayout(mOfflineMapDownloadActivity);
+        mOfflineMapDownloadTypeSelectLayout.init();
 
         mCityListCurrentCityLayout = new CityListCurrentCityLayout(mOfflineMapDownloadActivity);
         mCityListCurrentCityLayout.init();
@@ -46,11 +51,15 @@ public class LayoutManager {
     }
 
     public void unInit() {
-
+        mOfflineMapDownloadTypeSelectLayout.dismiss();
     }
 
     public HeaderLayout getHeaderLayout() {
         return mHeaderLayout;
+    }
+
+    public OfflineMapDownloadTypeSelectLayout getOfflineMapDownloadTypeSelectLayout() {
+        return mOfflineMapDownloadTypeSelectLayout;
     }
 
     public CityListCurrentCityLayout getCityListCurrentCityLayout() {
