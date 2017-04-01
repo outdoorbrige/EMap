@@ -23,13 +23,13 @@ public class CityListCurrentCityListener implements AdapterView.OnItemClickListe
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // id == -1 点击的是headerView或者footerView
         if (-1 < position && position < parent.getCount()) {
-            TextView title = (TextView) view.findViewById(R.id.offline_map_download_city_list_item_title);
-            if (title == null) {
+            TextView nameView = (TextView) view.findViewById(R.id.offline_map_download_city_list_item_name);
+            if (nameView == null) {
                 return;
             }
 
-            String titleName = title.getText().toString();
-            OneCityInfo oneCityInfo = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOneCityInfoFromName(titleName);
+            String name = nameView.getText().toString();
+            OneCityInfo oneCityInfo = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOneCityInfoFromName(name);
             mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().show(oneCityInfo);
         }
     }

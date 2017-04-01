@@ -19,16 +19,16 @@ public class OfflineMapDownloadTypeSelectListener implements View.OnClickListene
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.offline_map_download_all: // 下载全部
+            case R.id.offline_map_download_select_all: // 下载全部
                 onClickedAll(view);
                 break;
-            case R.id.offline_map_download_image: // 下载影像
+            case R.id.offline_map_download_select_image: // 下载影像
                 onClickedImage(view);
                 break;
-            case R.id.offline_map_download_vector: // 下载矢量
+            case R.id.offline_map_download_select_vector: // 下载矢量
                 onClickedVector(view);
                 break;
-            case R.id.offline_map_download_cancel: // 取消
+            case R.id.offline_map_download_select_cancel: // 取消
                 onClickedCancel(view);
                 break;
             default:

@@ -5,15 +5,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
+import com.gh.emap.adapterB.CityListCurrentCityAdapter;
 import com.gh.emap.modelB.OneCityInfo;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2017/3/24.
@@ -28,8 +25,7 @@ public class CityListCurrentCityLayout {
     private TextView mCurrentType; // 当前城市
     private LinearLayout.LayoutParams mCurrentTypeLayoutParams;
 
-    private ArrayList<HashMap<String, Object>> mCurrentCityListItems;
-    private SimpleAdapter mCurrentCityListAdapter;
+    private CityListCurrentCityAdapter mCurrentCityListAdapter;
 
     private ListView mCurrentCityList;
     private LinearLayout.LayoutParams mCurrentCityListLayoutParams;
@@ -53,10 +49,7 @@ public class CityListCurrentCityLayout {
 
         mCurrentTypeLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        mCurrentCityListItems = new ArrayList<>();
-        mCurrentCityListAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, mCurrentCityListItems, R.layout.offline_map_download_city_list_item,
-                CityListLayout.getItemKeys(),
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
+        mCurrentCityListAdapter = new CityListCurrentCityAdapter(mOfflineMapDownloadActivity);
 
         mCurrentCityList = new ListView(mOfflineMapDownloadActivity);
         mCurrentCityList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
@@ -82,14 +75,7 @@ public class CityListCurrentCityLayout {
             return;
         }
 
-        mCurrentCityListItems.clear();
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put(CityListLayout.getItemKeys()[0], oneCityInfo.getCityName());
-        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
-        map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
-
-        mCurrentCityListItems.add(map);
+        mCurrentCityListAdapter.setCurrentCity(oneCityInfo);
 
         mCurrentType.setText("当前城市");
         setListViewHeightBasedOnChildren(mCurrentCityList);

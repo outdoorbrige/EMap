@@ -2,6 +2,7 @@ package com.gh.emap.listenerA;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.managerA.LogManager;
+import com.gh.emap.modelB.MyOfflineMapInfo;
 import com.gh.emap.modelB.OneCityInfo;
 import com.gh.emap.modelB.OneProvinceInfo;
 import com.tianditu.android.maps.MapView;
@@ -34,8 +35,8 @@ public class MapListener implements TOfflineMapManager.OnGetMapsResult, TGeoDeco
             for(int i = 0; i < mapAdminSetArrayList.size(); i ++) {
                 TOfflineMapManager.MapAdminSet mapAdminSet = mapAdminSetArrayList.get(i);
 
-                long imageTotalSize = 0;
-                long vectorTotalSize = 0;
+                int imageTotalSize = 0;
+                int vectorTotalSize = 0;
 
                 OneCityInfo oneCityInfo = new OneCityInfo();
                 oneCityInfo.setCityName(mapAdminSet.getName());
@@ -53,16 +54,19 @@ public class MapListener implements TOfflineMapManager.OnGetMapsResult, TGeoDeco
                     for(int k = 0; k < tOfflineMapInfos.size(); k ++) {
                         TOfflineMapInfo tOfflineMapInfo = tOfflineMapInfos.get(k);
 
+                        MyOfflineMapInfo myOfflineMapInfo = new MyOfflineMapInfo();
+                        myOfflineMapInfo.setTOfflineMapInfo(tOfflineMapInfo);
+
                         int mapType = tOfflineMapInfo.getType();
-                        long mapSize = tOfflineMapInfo.getSize();
+                        int mapSize = tOfflineMapInfo.getSize();
 
                         switch (mapType) {
                             case MapView.TMapType.MAP_TYPE_IMG:
-                                tmpOneCityInfo.setImageSize(mapSize);
+                                tmpOneCityInfo.setMyOfflineMapInfoImage(myOfflineMapInfo);
                                 imageTotalSize = imageTotalSize + mapSize;
                                 break;
                             case MapView.TMapType.MAP_TYPE_VEC:
-                                tmpOneCityInfo.setVectorSize(mapSize);
+                                tmpOneCityInfo.setMyOfflineMapInfoVector(myOfflineMapInfo);
                                 vectorTotalSize = vectorTotalSize + mapSize;
                                 break;
                             default:
@@ -73,8 +77,8 @@ public class MapListener implements TOfflineMapManager.OnGetMapsResult, TGeoDeco
                     oneCityInfoArrayList.add(tmpOneCityInfo);
                 }
 
-                oneCityInfo.setImageSize(imageTotalSize);
-                oneCityInfo.setVectorSize(vectorTotalSize);
+                oneCityInfo.getMyOfflineMapInfoImage().setSize(imageTotalSize);
+                oneCityInfo.getMyOfflineMapInfoVector().setSize(vectorTotalSize);
 
                 // TianDiTuSDK3.0.1此处有错误，Type值不正确；因此加入了Name值判断
                 // if(mapAdminSet.getType() == TOfflineMapManager.MapAdminSet.MAP_SET_TYPE_HOTCITYS) { // 热门城市

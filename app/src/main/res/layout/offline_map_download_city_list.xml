@@ -12,6 +12,7 @@
         android:overScrollMode="never"
         android:fillViewport="true">
 
+        <!-- 城市列表滚动布局 -->
         <LinearLayout
             android:id="@+id/offline_map_download_city_list_scroll_view_layout"
             android:orientation="vertical"

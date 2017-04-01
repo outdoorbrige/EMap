@@ -1,5 +1,7 @@
 package com.gh.emap.modelB;
 
+import com.tianditu.android.maps.MapView;
+
 import java.io.Serializable;
 
 /**
@@ -9,8 +11,7 @@ import java.io.Serializable;
 
 public class OneCityInfo implements Serializable {
     private String mCityName; // 当前城市名称
-    private long mImageSize; // 当前城市影像图大小
-    private long mVectorSize; // 当前城市矢量图大小
+    MyOfflineMapInfo[] mMyOfflineMapInfos = {new MyOfflineMapInfo(), new MyOfflineMapInfo(), new MyOfflineMapInfo()};
 
     public OneCityInfo() {
 
@@ -24,19 +25,19 @@ public class OneCityInfo implements Serializable {
         this.mCityName = cityName;
     }
 
-    public long getImageSize() {
-        return mImageSize;
+    public MyOfflineMapInfo getMyOfflineMapInfoImage() {
+        return mMyOfflineMapInfos[MapView.TMapType.MAP_TYPE_IMG];
     }
 
-    public void setImageSize(long imageSize) {
-        this.mImageSize = imageSize;
+    public void setMyOfflineMapInfoImage(MyOfflineMapInfo myOfflineMapInfoImage) {
+        mMyOfflineMapInfos[MapView.TMapType.MAP_TYPE_IMG] = myOfflineMapInfoImage;
     }
 
-    public long getVectorSize() {
-        return mVectorSize;
+    public MyOfflineMapInfo getMyOfflineMapInfoVector() {
+        return mMyOfflineMapInfos[MapView.TMapType.MAP_TYPE_VEC];
     }
 
-    public void setVectorSize(long vectorSize) {
-        this.mVectorSize = vectorSize;
+    public void setMyOfflineMapInfoVector(MyOfflineMapInfo myOfflineMapInfoVector) {
+        mMyOfflineMapInfos[MapView.TMapType.MAP_TYPE_VEC] = myOfflineMapInfoVector;
     }
 }

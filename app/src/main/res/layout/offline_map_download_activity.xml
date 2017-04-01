@@ -57,6 +57,7 @@
 
     </LinearLayout>
 
+    <!-- 地图类型选择下载布局 -->
     <LinearLayout
         android:id="@+id/offline_map_download_type_select"
         android:layout_width="wrap_content"
@@ -74,7 +75,6 @@
         android:visibility="gone">
 
         <include layout="@layout/offline_map_download_download_manager"/>
-
     </LinearLayout>
 
 </LinearLayout>

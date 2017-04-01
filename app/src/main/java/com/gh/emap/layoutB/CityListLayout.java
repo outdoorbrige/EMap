@@ -24,7 +24,17 @@ public class CityListLayout {
     private ScrollView mScrollView;
     private LinearLayout mScrollViewLinearLayout;
 
-    private static String[] mItemKeys = {"Item1", "Item2", "Item3"};
+    private static final String[] mItemKeys = {"Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"};
+    private static final int[] mItemResources = {
+            R.id.offline_map_download_city_list_item_name,
+            R.id.offline_map_download_city_list_item_image_status,
+            R.id.offline_map_download_city_list_item_fill_gaps1,
+            R.id.offline_map_download_city_list_item_image,
+            R.id.offline_map_download_city_list_item_fill_gaps2,
+            R.id.offline_map_download_city_list_item_vector_status,
+            R.id.offline_map_download_city_list_item_fill_gaps3,
+            R.id.offline_map_download_city_list_item_vector,
+            R.id.offline_map_download_city_list_item_picture};
 
     public final long[] BYTE_FACTOR = {1, 1024, 1024 * 1024, 1024 * 1024 * 1024};
     public final String[] BYTE_UNIT = {"B", "KB", "MB", "GB"};
@@ -69,6 +79,10 @@ public class CityListLayout {
 
     public static String[] getItemKeys() {
         return mItemKeys;
+    }
+
+    public static int[] getItemResources() {
+        return mItemResources;
     }
 
     private boolean loadProvincesAndCites() {
@@ -175,7 +189,7 @@ public class CityListLayout {
         }
 
         ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().getOtherProvincesCities();
-        if(otherProvincesCities == null) {
+        if(otherProvincesCities != null) {
             for(int i = 0; i < otherProvincesCities.size(); i ++) {
                 OneProvinceInfo provinceInfo = otherProvincesCities.get(i);
                 for(int j = 0; j < provinceInfo.getCities().size(); j ++) {
@@ -233,7 +247,7 @@ public class CityListLayout {
         return "(" + String.valueOf(count) + ")";
     }
 
-    public String formatImageAndVectorSizeToText(long imageSize, long vectorSize) {
+    public String formatImageSize(int imageSize) {
         String imageSizeAndUnit[] = {"", ""};
         formatByteToSizeAndUnit(imageSize, imageSizeAndUnit);
 
@@ -242,6 +256,10 @@ public class CityListLayout {
             strImageSize = "影像" + "(" + imageSizeAndUnit[0] + imageSizeAndUnit[1] + ")";
         }
 
+        return strImageSize;
+    }
+
+    public String formatVectorSize(int vectorSize) {
         String vectorSizeAndUnit[] = {"", ""};
         formatByteToSizeAndUnit(vectorSize, vectorSizeAndUnit);
 
@@ -250,19 +268,7 @@ public class CityListLayout {
             strVectorSize = "矢量" + "(" + vectorSizeAndUnit[0] + vectorSizeAndUnit[1] + ")";
         }
 
-        String strImageVectorSize = "";
-
-        if(strImageSize.isEmpty()) {
-            strImageVectorSize = strVectorSize;
-        } else {
-            if(strVectorSize.isEmpty()) {
-                strImageVectorSize = strImageSize;
-            } else {
-                strImageVectorSize = strImageSize + " " + strVectorSize;
-            }
-        }
-
-        return strImageVectorSize;
+        return strVectorSize;
     }
 
     public boolean formatByteToSizeAndUnit(long bytes, String[] sizeAndUnit) {

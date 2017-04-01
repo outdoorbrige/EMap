@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- 地图列表 其他省市-市布局 -->
     <ListView
-        android:id="@+id/other_provinces_cities_province_list"
+        android:id="@+id/city_list_other_provinces_cities_city_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

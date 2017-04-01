@@ -28,6 +28,10 @@ public class TopRenderLayout {
     private TextView mDrawView; // 测绘
     private TextView mExitRenderView; // 退出绘制
 
+    public final String[] mItem1TextArray = {"画点", "画线", "画面"};
+    public final String[] mItem2TextArray = {""};
+    public final String[] mItem3TextArray = {"测距与方位角", "测面积与周长"};
+
     private List<String> mGroundRenderListItems;
     private PopupWindow mGroundRenderPopupWindow; // 弹出地物绘制菜单
     private int mGroundRenderSelectedIndex; // 当前地物绘制选择的索引
@@ -58,10 +62,13 @@ public class TopRenderLayout {
         if (mGroundRenderPopupWindow == null) {
             View popupLayout = LayoutInflater.from(mMainActivity).inflate(R.layout.ground_render_popup_menu, null);
             MyListView myListView = (MyListView) popupLayout.findViewById(R.id.ground_render_view);
+
+            int index = 0;
             mGroundRenderListItems = new ArrayList<>();
-            mGroundRenderListItems.add("画点");
-            mGroundRenderListItems.add("画线");
-            mGroundRenderListItems.add("画面");
+            mGroundRenderListItems.add(mItem1TextArray[index ++]);
+            mGroundRenderListItems.add(mItem1TextArray[index ++]);
+            mGroundRenderListItems.add(mItem1TextArray[index ++]);
+
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mGroundRenderListItems);
             myListView.setAdapter(arrayAdapter);
             myListView.setItemsCanFocus(false);
@@ -116,9 +123,12 @@ public class TopRenderLayout {
         if (mDrawPopupWindow == null) {
             View popupLayout = LayoutInflater.from(mMainActivity).inflate(R.layout.draw_popup_menu, null);
             MyListView myListView = (MyListView) popupLayout.findViewById(R.id.draw_view);
+
+            int index = 0;
             mDrawListItems = new ArrayList<>();
-            mDrawListItems.add("测距与方位角");
-            mDrawListItems.add("测面积与周长");
+            mDrawListItems.add(mItem3TextArray[index ++]);
+            mDrawListItems.add(mItem3TextArray[index ++]);
+
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(mMainActivity, android.R.layout.simple_list_item_single_choice, mDrawListItems);
             myListView.setAdapter(arrayAdapter);
             myListView.setItemsCanFocus(false);

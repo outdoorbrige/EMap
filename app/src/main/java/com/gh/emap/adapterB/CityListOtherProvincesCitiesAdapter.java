@@ -23,12 +23,11 @@ import java.util.HashMap;
  * Created by GuHeng on 2017/3/20.
  */
 
-public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
+public class CityListOtherProvincesCitiesAdapter extends BaseExpandableListAdapter {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
-
     private ArrayList<OneProvinceInfo> mOtherProvincesCities;
 
-    public OtherCityExpandableListAdapter(OfflineMapDownloadActivity offlineMapDownloadActivity) {
+    public CityListOtherProvincesCitiesAdapter(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         super();
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;
     }
@@ -42,7 +41,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getGroupCount() {
-        if(mOtherProvincesCities == null || mOtherProvincesCities.size() == 0) {
+        if(mOtherProvincesCities == null) {
             return 0;
         }
 
@@ -51,7 +50,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int var1) {
-        if(mOtherProvincesCities == null || mOtherProvincesCities.size() == 0) {
+        if(mOtherProvincesCities == null || mOtherProvincesCities.size() <= var1 || mOtherProvincesCities.get(var1).getCities() == null) {
             return 0;
         }
 
@@ -60,7 +59,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getGroup(int var1) {
-        if(mOtherProvincesCities == null || mOtherProvincesCities.size() == 0) {
+        if(mOtherProvincesCities == null || mOtherProvincesCities.size() <= var1) {
             return null;
         }
 
@@ -69,7 +68,7 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public Object getChild(int var1, int var2) {
-        if(mOtherProvincesCities == null || mOtherProvincesCities.size() == 0) {
+        if(mOtherProvincesCities == null || mOtherProvincesCities.size() <= var1 || mOtherProvincesCities.get(var1).getCities().size() <= var2) {
             return null;
         }
 
@@ -95,26 +94,51 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
     public View getGroupView(final int var1, boolean var2, View var3, ViewGroup var4) {
         if(var3 == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mOfflineMapDownloadActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            var3 = layoutInflater.inflate(R.layout.other_provinces_cities_province, null);
+            var3 = layoutInflater.inflate(R.layout.city_list_other_provinces_cities_province, null);
         }
 
         ((LinearLayout)var3).setOrientation(LinearLayout.VERTICAL);
         var3.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
 
-        var3.setTag(R.layout.other_provinces_cities_province, var1);
-        var3.setTag(R.layout.other_provinces_cities_city, -1);
+        var3.setTag(R.layout.city_list_other_provinces_cities_province, var1);
+        var3.setTag(R.layout.city_list_other_provinces_cities_city, -1);
 
         OneProvinceInfo oneProvinceInfo = mOtherProvincesCities.get(var1);
         if(oneProvinceInfo == null) {
             return var3;
         }
 
+        OneCityInfo oneCityInfo = oneProvinceInfo.getProvince();
+
         ArrayList<HashMap<String, Object>> listViewItems = new ArrayList<>();
 
+        int index = 0;
         HashMap<String, Object> map = new HashMap<>();
-        map.put(CityListLayout.getItemKeys()[0], oneProvinceInfo.getProvince().getCityName());
-        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(oneProvinceInfo.getProvince().getImageSize(), oneProvinceInfo.getProvince().getVectorSize()));
-        map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_collapse_group); // 折叠图片
+        map.put(CityListLayout.getItemKeys()[index ++], oneCityInfo.getCityName());
+
+        if(oneCityInfo.getMyOfflineMapInfoImage().getSize() > 0) {
+            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_mapnavi_state_undownload);
+            map.put(CityListLayout.getItemKeys()[index++], " ");
+            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(oneCityInfo.getMyOfflineMapInfoImage().getSize()));
+            map.put(CityListLayout.getItemKeys()[index++], "      ");
+        } else {
+            index ++;
+            index ++;
+            index ++;
+            index ++;
+        }
+
+        if(oneCityInfo.getMyOfflineMapInfoVector().getSize() > 0) {
+            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_mapnavi_state_undownload);
+            map.put(CityListLayout.getItemKeys()[index++], " ");
+            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatVectorSize(oneCityInfo.getMyOfflineMapInfoVector().getSize()));
+        } else {
+            index ++;
+            index ++;
+            index ++;
+        }
+
+        map.put(CityListLayout.getItemKeys()[index ++], R.mipmap.offline_map_collapse_group);
 
         ExpandableListView otherProvincesCitiesList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListOtherProvincesCitiesLayout().getOtherProvincesCitiesList();
         if(otherProvincesCitiesList != null) {
@@ -122,8 +146,8 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
             if(groupSelectedId >= 0) {
                 boolean isGroupExpanded = otherProvincesCitiesList.isGroupExpanded(groupSelectedId);
                 if(isGroupExpanded) {
-                    map.remove(CityListLayout.getItemKeys()[2]);
-                    map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_expend_group); // 展开图片
+                    map.remove(CityListLayout.getItemKeys()[-- index]);
+                    map.put(CityListLayout.getItemKeys()[index], R.mipmap.offline_map_expend_group); // 展开图片
                 }
             }
         }
@@ -131,10 +155,9 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
         listViewItems.add(map);
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, listViewItems, R.layout.offline_map_download_city_list_item,
-                CityListLayout.getItemKeys(),
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
+                CityListLayout.getItemKeys(), CityListLayout.getItemResources());
 
-        ListView listView = (ListView)var3.findViewById(R.id.other_provinces_cities_province_list);
+        ListView listView = (ListView)var3.findViewById(R.id.city_list_other_provinces_cities_province_list);
         listView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
         listView.setAdapter(simpleAdapter);
         listView.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOtherCityExpandableListGroupItemListener());
@@ -146,14 +169,14 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
     public View getChildView(int var1, int var2, boolean var3, View var4, ViewGroup var5) {
         if (var4 == null) {
             LayoutInflater layoutInflater = (LayoutInflater) mOfflineMapDownloadActivity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            var4 = layoutInflater.inflate(R.layout.other_provinces_cities_city, null);
+            var4 = layoutInflater.inflate(R.layout.city_list_other_provinces_cities_city, null);
         }
 
         ((LinearLayout)var4).setOrientation(LinearLayout.VERTICAL);
         var4.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
 
-        var4.setTag(R.layout.other_provinces_cities_province, var1);
-        var4.setTag(R.layout.other_provinces_cities_city, var2);
+        var4.setTag(R.layout.city_list_other_provinces_cities_province, var1);
+        var4.setTag(R.layout.city_list_other_provinces_cities_city, var2);
 
         OneProvinceInfo oneProvinceInfo = mOtherProvincesCities.get(var1);
         if(oneProvinceInfo == null) {
@@ -167,18 +190,40 @@ public class OtherCityExpandableListAdapter extends BaseExpandableListAdapter {
 
         ArrayList<HashMap<String, Object>> listViewItems = new ArrayList<>();
 
+        int index = 0;
         HashMap<String, Object> map = new HashMap<>();
-        map.put(CityListLayout.getItemKeys()[0], oneCityInfo.getCityName());
-        map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(oneCityInfo.getImageSize(), oneCityInfo.getVectorSize()));
-        map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
+        map.put(CityListLayout.getItemKeys()[index ++], oneCityInfo.getCityName());
+
+        if(oneCityInfo.getMyOfflineMapInfoImage().getSize() > 0) {
+            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_mapnavi_state_undownload);
+            map.put(CityListLayout.getItemKeys()[index++], " ");
+            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(oneCityInfo.getMyOfflineMapInfoImage().getSize()));
+            map.put(CityListLayout.getItemKeys()[index++], "      ");
+        } else {
+            index ++;
+            index ++;
+            index ++;
+            index ++;
+        }
+
+        if(oneCityInfo.getMyOfflineMapInfoVector().getSize() > 0) {
+            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_mapnavi_state_undownload);
+            map.put(CityListLayout.getItemKeys()[index++], " ");
+            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatVectorSize(oneCityInfo.getMyOfflineMapInfoVector().getSize()));
+        } else {
+            index ++;
+            index ++;
+            index ++;
+        }
+
+        map.put(CityListLayout.getItemKeys()[index ++], R.mipmap.offline_map_no_download);
 
         listViewItems.add(map);
 
         SimpleAdapter simpleAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, listViewItems, R.layout.offline_map_download_city_list_item,
-                CityListLayout.getItemKeys(),
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
+                CityListLayout.getItemKeys(), CityListLayout.getItemResources());
 
-        ListView listView = (ListView)var4.findViewById(R.id.other_provinces_cities_city_list);
+        ListView listView = (ListView)var4.findViewById(R.id.city_list_other_provinces_cities_city_list);
         listView.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorSmallGrey));
         listView.setAdapter(simpleAdapter);
         listView.setOnItemClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOtherCityExpandableListChildItemListener());

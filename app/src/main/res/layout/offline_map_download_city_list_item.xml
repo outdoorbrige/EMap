@@ -8,20 +8,72 @@
     android:paddingRight="8dp"
     android:paddingTop="8dp">
 
+    <!-- 名称 -->
     <TextView
-        android:id="@+id/offline_map_download_city_list_item_title"
+        android:id="@+id/offline_map_download_city_list_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"/>
 
-    <TextView
-        android:id="@+id/offline_map_download_city_list_item_text"
+    <TableLayout
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/offline_map_download_city_list_item_title"/>
+        android:layout_below="@+id/offline_map_download_city_list_item_name">
 
+        <TableRow>
+
+            <!-- 影像地图下载的状态 -->
+            <ImageView
+                android:id="@+id/offline_map_download_city_list_item_image_status"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 填充空白 -->
+            <TextView
+                android:id="@+id/offline_map_download_city_list_item_fill_gaps1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 影像地图大小 -->
+            <TextView
+                android:id="@+id/offline_map_download_city_list_item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 填充空白 -->
+            <TextView
+                android:id="@+id/offline_map_download_city_list_item_fill_gaps2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 矢量地图下载的状态 -->
+            <ImageView
+                android:id="@+id/offline_map_download_city_list_item_vector_status"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 填充空白 -->
+            <TextView
+                android:id="@+id/offline_map_download_city_list_item_fill_gaps3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <!-- 矢量地图大小 -->
+            <TextView
+                android:id="@+id/offline_map_download_city_list_item_vector"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <!-- 元素操作(下载、更新、展开、折叠) -->
     <ImageView
-        android:id="@+id/offline_map_download_city_list_item_image_view"
+        android:id="@+id/offline_map_download_city_list_item_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

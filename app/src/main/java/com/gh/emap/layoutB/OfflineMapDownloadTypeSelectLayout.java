@@ -32,11 +32,11 @@ public class OfflineMapDownloadTypeSelectLayout {
 
         mLayout = layout.findViewById(R.id.offline_map_download_type_select);
 
-        mTitle = (TextView)layout.findViewById(R.id.offline_map_download_title);
-        mAll = (Button)layout.findViewById(R.id.offline_map_download_all);
-        mImage = (Button)layout.findViewById(R.id.offline_map_download_image);
-        mVector = (Button)layout.findViewById(R.id.offline_map_download_vector);
-        mCancel = (Button)layout.findViewById(R.id.offline_map_download_cancel);
+        mTitle = (TextView)layout.findViewById(R.id.offline_map_download_select_name);
+        mAll = (Button)layout.findViewById(R.id.offline_map_download_select_all);
+        mImage = (Button)layout.findViewById(R.id.offline_map_download_select_image);
+        mVector = (Button)layout.findViewById(R.id.offline_map_download_select_vector);
+        mCancel = (Button)layout.findViewById(R.id.offline_map_download_select_cancel);
 
         mAll.setOnClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOfflineMapDownloadTypeSelectListener());
         mImage.setOnClickListener(mOfflineMapDownloadActivity.getMainManager().getListenerManager().getOfflineMapDownloadTypeSelectListener());
@@ -67,12 +67,12 @@ public class OfflineMapDownloadTypeSelectLayout {
         mTitle.setText(oneCityInfo.getCityName());
 
         String[] imageSizeUnit = {"", ""};
-        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(oneCityInfo.getImageSize(), imageSizeUnit);
+        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(oneCityInfo.getMyOfflineMapInfoImage().getSize(), imageSizeUnit);
 
         Double imageSize = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getBytesFromSizeAndUnit(imageSizeUnit);
 
         String[] vectorSizeUnit = {"", ""};
-        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(oneCityInfo.getVectorSize(), vectorSizeUnit);
+        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(oneCityInfo.getMyOfflineMapInfoVector().getSize(), vectorSizeUnit);
 
         Double vectorSize = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getBytesFromSizeAndUnit(vectorSizeUnit);
 

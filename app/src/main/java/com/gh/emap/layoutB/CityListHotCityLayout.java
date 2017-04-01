@@ -5,15 +5,14 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
+import com.gh.emap.adapterB.CityListHotCityAdapter;
 import com.gh.emap.modelB.OneCityInfo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Created by GuHeng on 2017/3/24.
@@ -28,8 +27,7 @@ public class CityListHotCityLayout {
     private TextView mHotType; // 热门城市
     private LinearLayout.LayoutParams mHotTypeLayoutParams;
 
-    private ArrayList<HashMap<String, Object>> mHotCitiesListItems;
-    private SimpleAdapter mHotCitiesListAdapter;
+    private CityListHotCityAdapter mHotCitiesListAdapter;
 
     private ListView mHotCitiesList;
     private LinearLayout.LayoutParams mHotCitiesListLayoutParams;
@@ -53,10 +51,7 @@ public class CityListHotCityLayout {
 
         mHotTypeLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        mHotCitiesListItems = new ArrayList<>();
-        mHotCitiesListAdapter = new SimpleAdapter(mOfflineMapDownloadActivity, mHotCitiesListItems, R.layout.offline_map_download_city_list_item,
-                CityListLayout.getItemKeys(),
-                new int[]{R.id.offline_map_download_city_list_item_title, R.id.offline_map_download_city_list_item_text, R.id.offline_map_download_city_list_item_image_view});
+        mHotCitiesListAdapter = new CityListHotCityAdapter(mOfflineMapDownloadActivity);
 
         mHotCitiesList = new ListView(mOfflineMapDownloadActivity);
         mHotCitiesList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
@@ -82,21 +77,11 @@ public class CityListHotCityLayout {
     }
 
     public void setHotCities(ArrayList<OneCityInfo> hotCities) {
-        if(hotCities == null) {
+        if(hotCities == null || hotCities.isEmpty()) {
             return;
         }
 
-        mHotCitiesListItems.clear();
-
-        for(int i = 0; i < hotCities.size(); i ++) {
-
-                HashMap<String, Object> map = new HashMap<>();
-                map.put(CityListLayout.getItemKeys()[0], hotCities.get(i).getCityName());
-                map.put(CityListLayout.getItemKeys()[1], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageAndVectorSizeToText(hotCities.get(i).getImageSize(), hotCities.get(i).getVectorSize()));
-                map.put(CityListLayout.getItemKeys()[2], R.mipmap.offline_map_no_download);
-
-                mHotCitiesListItems.add(map);
-        }
+        mHotCitiesListAdapter.setHotCities(hotCities);
 
         setHotType("热门城市" + mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatCount(hotCities.size()));
         setListViewHeightBasedOnChildren(mHotCitiesList);

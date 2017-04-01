@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
-import com.gh.emap.adapterB.OtherCityExpandableListAdapter;
+import com.gh.emap.adapterB.CityListOtherProvincesCitiesAdapter;
 import com.gh.emap.modelB.OneProvinceInfo;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class CityListOtherProvincesCitiesLayout {
     private TextView mOtherProvincesCitiesType; // 其他城市
     private LinearLayout.LayoutParams mOtherProvincesCitiesTypeLayoutParams;
 
-    private OtherCityExpandableListAdapter mOtherCityExpandableListAdapter;
+    private CityListOtherProvincesCitiesAdapter mOtherProvincesCitiesListAdapter;
 
     private ExpandableListView mOtherProvincesCitiesList; // 其他城市列表
     private LinearLayout.LayoutParams mOtherProvincesCitiesListLayoutParams;
@@ -53,11 +53,11 @@ public class CityListOtherProvincesCitiesLayout {
 
         mLayout.addView(mOtherProvincesCitiesType, mOtherProvincesCitiesTypeLayoutParams);
 
-        mOtherCityExpandableListAdapter = new OtherCityExpandableListAdapter(mOfflineMapDownloadActivity);
+        mOtherProvincesCitiesListAdapter = new CityListOtherProvincesCitiesAdapter(mOfflineMapDownloadActivity);
 
         mOtherProvincesCitiesList = new ExpandableListView(mOfflineMapDownloadActivity);
         mOtherProvincesCitiesList.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
-        mOtherProvincesCitiesList.setAdapter(mOtherCityExpandableListAdapter);
+        mOtherProvincesCitiesList.setAdapter(mOtherProvincesCitiesListAdapter);
         mOtherProvincesCitiesList.setGroupIndicator(null); // 隐藏系统自带的箭头图标
 
         mOtherProvincesCitiesListLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -82,11 +82,15 @@ public class CityListOtherProvincesCitiesLayout {
     }
 
     public void setOtherProvincesCities(ArrayList<OneProvinceInfo> otherProvincesCities) {
-        mOtherCityExpandableListAdapter.setOtherProvincesCities(otherProvincesCities);
+        if(otherProvincesCities == null || otherProvincesCities.isEmpty()) {
+            return;
+        }
+
+        mOtherProvincesCitiesListAdapter.setOtherProvincesCities(otherProvincesCities);
 
         setOtherProvincesCitiesType("其他省市" + mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatCount(otherProvincesCities.size()));
         setExpandableListViewHeightBasedOnChildren(mOtherProvincesCitiesList, -1);
-        mOtherCityExpandableListAdapter.notifyDataSetChanged();
+        mOtherProvincesCitiesListAdapter.notifyDataSetChanged();
     }
 
     // ScrollView中嵌套ExpandableListView

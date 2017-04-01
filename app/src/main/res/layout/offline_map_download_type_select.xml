@@ -6,37 +6,42 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
+    <!--省市名称-->
     <TextView
-        android:id="@+id/offline_map_download_title"
+        android:id="@+id/offline_map_download_select_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:gravity="center"
         android:padding="@dimen/offline_map_activity_city_list_padding"/>
 
+    <!--下载全部地图-->
     <Button
-        android:id="@+id/offline_map_download_all"
+        android:id="@+id/offline_map_download_select_all"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/offline_map_download_title"/>
+        android:layout_below="@+id/offline_map_download_select_name"/>
 
+    <!--下载影像地图-->
     <Button
-        android:id="@+id/offline_map_download_image"
+        android:id="@+id/offline_map_download_select_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/offline_map_download_all"/>
+        android:layout_below="@id/offline_map_download_select_all"/>
 
+    <!--下载矢量地图-->
     <Button
-        android:id="@+id/offline_map_download_vector"
+        android:id="@+id/offline_map_download_select_vector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/offline_map_download_image"/>
+        android:layout_below="@id/offline_map_download_select_image"/>
 
+    <!--取消-->
     <Button
-        android:id="@+id/offline_map_download_cancel"
+        android:id="@+id/offline_map_download_select_cancel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/offline_map_download_vector"
+        android:layout_below="@id/offline_map_download_select_vector"
         android:text="取消"/>
 
 </RelativeLayout>
