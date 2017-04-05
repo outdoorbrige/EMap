@@ -15,13 +15,13 @@ import com.gh.emap.listenerB.OtherCityExpandableListGroupItemListener;
 
 public class ListenerManager {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
-    HeaderListener mHeaderListener;
-    CityListListener mCityListListener;
-    OtherCityExpandableListGroupItemListener mOtherCityExpandableListGroupItemListener;
-    OtherCityExpandableListChildItemListener mOtherCityExpandableListChildItemListener;
-    CityListCurrentCityListener mCityListCurrentCityListener;
-    CityListHotCityListener mCityListHotCityListener;
-    OfflineMapDownloadTypeSelectListener mOfflineMapDownloadTypeSelectListener;
+    private HeaderListener mHeaderListener;
+    private CityListListener mCityListListener;
+    private OtherCityExpandableListGroupItemListener mOtherCityExpandableListGroupItemListener;
+    private OtherCityExpandableListChildItemListener mOtherCityExpandableListChildItemListener;
+    private CityListCurrentCityListener mCityListCurrentCityListener;
+    private CityListHotCityListener mCityListHotCityListener;
+    private OfflineMapDownloadTypeSelectListener mOfflineMapDownloadTypeSelectListener;
 
     public ListenerManager(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;

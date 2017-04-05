@@ -13,6 +13,7 @@ public class MainManager {
     private FileManager mFileManager;
     private RenderOptionManager mRenderOptionManager;
     private MapManager mMapManager;
+    private NetworkManager mNetworkManager;
     private LayoutManager mLayoutManager;
     private MyLocationManager mMyLocationManager;
     private UserManager mUserManager;
@@ -39,6 +40,9 @@ public class MainManager {
         mMapManager = new MapManager(mMainActivity);
         mMapManager.init();
 
+        mNetworkManager = new NetworkManager(mMainActivity);
+        mNetworkManager.init();
+
         mLayoutManager = new LayoutManager(mMainActivity);
         mLayoutManager.init();
 
@@ -63,6 +67,7 @@ public class MainManager {
         mUserManager.unInit();
         mWebServiceManager.unInit();
         mMyUserOverlaysManager.unInit();
+        mNetworkManager.unInit();
         mLayoutManager.unInit();
         mMyLocationManager.unInit();
         mLogManager.unInit();
@@ -86,6 +91,10 @@ public class MainManager {
 
     public MapManager getMapManager() {
         return mMapManager;
+    }
+
+    public NetworkManager getNetworkManager() {
+        return mNetworkManager;
     }
 
     public LayoutManager getLayoutManager() {

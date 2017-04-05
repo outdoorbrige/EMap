@@ -30,6 +30,7 @@ public class MainManager {
     public void unInit() {
         mListenerManager.unInit();
         mLayoutManager.unInit();
+        mFileManager.unInit();
     }
 
     public FileManager getFileManager() {

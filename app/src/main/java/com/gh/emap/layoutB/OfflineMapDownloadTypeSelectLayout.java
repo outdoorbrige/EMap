@@ -48,6 +48,14 @@ public class OfflineMapDownloadTypeSelectLayout {
         mAlertDialog.setCancelable(false); // 点击对话框外地方是否不消失
     }
 
+    public String getTitle() {
+        if(mTitle == null) {
+            return "";
+        }
+
+        return mTitle.getText().toString();
+    }
+
     // 清空旧数据
     private void clear() {
         mTitle.setText("");

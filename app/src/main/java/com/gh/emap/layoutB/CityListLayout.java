@@ -2,11 +2,10 @@ package com.gh.emap.layoutB;
 
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
-import com.gh.emap.managerA.LogManager;
+import com.gh.emap.ViewB.MyScrollView;
 import com.gh.emap.modelB.OneCityInfo;
 import com.gh.emap.modelB.OneProvinceInfo;
 
@@ -21,7 +20,7 @@ public class CityListLayout {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
     private View mLayout; // 布局
 
-    private ScrollView mScrollView;
+    private MyScrollView mScrollView;
     private LinearLayout mScrollViewLinearLayout;
 
     private static final String[] mItemKeys = {"Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"};
@@ -46,14 +45,8 @@ public class CityListLayout {
     public void init() {
         mLayout = mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list);
 
-        mScrollView = (ScrollView)mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list_scroll_view);
+        mScrollView = (MyScrollView)mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list_scroll_view);
         mScrollViewLinearLayout = (LinearLayout)mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list_scroll_view_layout);
-
-        if(loadProvincesAndCites()) {
-
-        } else {
-
-        }
 
         if(updateCurrentCity()) {
             mScrollViewLinearLayout.addView(mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListCurrentCityLayout().getLayout(),
@@ -85,36 +78,36 @@ public class CityListLayout {
         return mItemResources;
     }
 
-    private boolean loadProvincesAndCites() {
-        boolean bReturn = true;
-
-        String[] errorMsg1 = {""};
-        mOfflineMapDownloadActivity.getMainManager().getFileManager().getCurrentCityFile().read(errorMsg1);
-        if(!errorMsg1[0].isEmpty()) {
-            mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getLogManager().log(LogManager.LogLevel.mError, "获取当前城市数据失败！" + errorMsg1[0]);
-            bReturn = false;
+    public OneCityInfo getCurrentCity() {
+        OneCityInfo currentCity = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getListenerManager().getMapListener().getCurrentCity();
+        if(currentCity == null) {
+            currentCity = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCacheProvincesCitiesFiles().getCurrentCity();
         }
 
-        String[] errorMsg2 = {""};
-        mOfflineMapDownloadActivity.getMainManager().getFileManager().getHotCitiesFile().read(errorMsg2);
-        if(!errorMsg2[0].isEmpty()) {
-            mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getLogManager().log(LogManager.LogLevel.mError, "获取热门城市列表数据失败！" + errorMsg2[0]);
-            bReturn = false;
+        return currentCity;
+    }
+
+    public ArrayList<OneCityInfo> getHotCities() {
+        ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getListenerManager().getMapListener().getHotCities();
+        if(hotCities == null) {
+            hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCacheProvincesCitiesFiles().getHotCities();
         }
 
-        String[] errorMsg3 = {""};
-        mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().read(errorMsg3);
-        if(!errorMsg3[0].isEmpty()) {
-            mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getLogManager().log(LogManager.LogLevel.mError, "获取其他省市列表数据失败！" + errorMsg3[0]);
-            bReturn = false;
+        return hotCities;
+    }
+
+    public ArrayList<OneProvinceInfo> getOtherProvincesCities() {
+        ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getListenerManager().getMapListener().getOtherProvincesCities();
+        if(otherProvincesCities == null) {
+            otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCacheProvincesCitiesFiles().getOtherProvincesCities();
         }
 
-        return bReturn;
+        return otherProvincesCities;
     }
 
     // 更新当前城市数据
     private boolean updateCurrentCity() {
-        OneCityInfo oneCityInfo = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCurrentCityFile().getCurrentCity();
+        OneCityInfo oneCityInfo = getCurrentCity();
         if(oneCityInfo == null) {
             oneCityInfo = new OneCityInfo();
             oneCityInfo.setCityName(mOfflineMapDownloadActivity.getResources().getString(R.string.default_location_city));
@@ -130,7 +123,7 @@ public class CityListLayout {
 
     // 更新热门城市
     private boolean updateHotCities() {
-        ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getHotCitiesFile().getHotCities();
+        ArrayList<OneCityInfo> hotCities = getHotCities();
         if(hotCities == null || hotCities.size() == 0) {
             mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getLogManager().toastShowShort("获取热门城市数据失败！");
             return false;
@@ -143,7 +136,7 @@ public class CityListLayout {
 
     // 更新其他省市
     private boolean updateOtherCities() {
-        ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().getOtherProvincesCities();
+        ArrayList<OneProvinceInfo> otherProvincesCities = getOtherProvincesCities();
         if(otherProvincesCities == null || otherProvincesCities.size() == 0) {
             mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getLogManager().toastShowShort("获取其他省市数据失败！");
             return false;
@@ -178,7 +171,7 @@ public class CityListLayout {
             city = cityName;
         }
 
-        ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getHotCitiesFile().getHotCities();
+        ArrayList<OneCityInfo> hotCities = getHotCities();
         if(hotCities != null) {
             for(int i = 0; i < hotCities.size(); i ++) {
                 OneCityInfo hotCity = hotCities.get(i);
@@ -188,7 +181,7 @@ public class CityListLayout {
             }
         }
 
-        ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().getOtherProvincesCities();
+        ArrayList<OneProvinceInfo> otherProvincesCities = getOtherProvincesCities();
         if(otherProvincesCities != null) {
             for(int i = 0; i < otherProvincesCities.size(); i ++) {
                 OneProvinceInfo provinceInfo = otherProvincesCities.get(i);
@@ -209,7 +202,7 @@ public class CityListLayout {
             return null;
         }
 
-        ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getHotCitiesFile().getHotCities();
+        ArrayList<OneCityInfo> hotCities = getHotCities();
         if(hotCities != null) {
             for(int i = 0; i < hotCities.size(); i ++) {
                 OneCityInfo hotCity = hotCities.get(i);
@@ -219,7 +212,7 @@ public class CityListLayout {
             }
         }
 
-        ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().getOtherProvincesCities();
+        ArrayList<OneProvinceInfo> otherProvincesCities = getOtherProvincesCities();
         if(otherProvincesCities != null) {
             for(int i = 0; i < otherProvincesCities.size(); i ++) {
                 OneProvinceInfo provinceInfo = otherProvincesCities.get(i);
@@ -233,10 +226,6 @@ public class CityListLayout {
         }
 
         return null;
-    }
-
-    public void setScrollViewToTop(ScrollView scrollView) {
-        scrollView.smoothScrollTo(0, 0); // 移动滚动条到顶部
     }
 
     public LinearLayout getScrollViewLinearLayout() {
@@ -308,14 +297,14 @@ public class CityListLayout {
         } else if(sizeUnit[1].equals(BYTE_UNIT[3])) {
             bytes = Double.valueOf(sizeUnit[0]) * BYTE_FACTOR[3];
         } else {
-            bytes = Double.valueOf(0);
+            bytes = Double.valueOf("0");
         }
 
         return bytes;
     }
 
     public int getGroupSelectedId(String groupTitle) {
-        ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getOtherProvincesCitiesFile().getOtherProvincesCities();
+        ArrayList<OneProvinceInfo> otherProvincesCities = getOtherProvincesCities();
         if(otherProvincesCities == null || otherProvincesCities.size() == 0) {
             return -1;
         }
