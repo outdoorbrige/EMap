@@ -8,17 +8,14 @@
     <com.gh.emap.ViewB.MyScrollView
         android:id="@+id/offline_map_download_city_list_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:fillViewport="true">
+        android:layout_height="wrap_content">
 
         <!-- 城市列表滚动布局 -->
         <LinearLayout
             android:id="@+id/offline_map_download_city_list_scroll_view_layout"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusableInTouchMode="true">
+            android:layout_height="wrap_content">
 
         </LinearLayout>
 

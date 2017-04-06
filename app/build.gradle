@@ -27,7 +27,7 @@ android {
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                //ÕâÀïĞŞ¸ÄapkÎÄ¼şÃû
+                //è¿™é‡Œä¿®æ”¹apkæ–‡ä»¶å
                 def fileName = outputFile.name.replace("app","${defaultConfig.applicationId }_${defaultConfig.versionName}_${releaseTime() }")
                 output.outputFile = new File(outputFile.parent, fileName)
             }

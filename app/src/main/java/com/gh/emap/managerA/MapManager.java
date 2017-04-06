@@ -46,6 +46,8 @@ public class MapManager {
         mMinZoomLevel = mMapView.getMinZoomLevel();
         mCurrentZoomLevel = mMapView.getZoomLevel();
 
+        mTOfflineMapManager.setOnDownLoadListener(mMainActivity.getMainManager().getListenerManager().getMapListener());
+
         getMapList();
 
         mMainActivity.getMainManager().getLogManager().log(LogManager.LogLevel.mInfo,

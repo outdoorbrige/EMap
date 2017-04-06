@@ -73,7 +73,7 @@ public class CityListHotCityAdapter extends BaseAdapter {
         map.put(CityListLayout.getItemKeys()[index ++], oneCityInfo.getCityName());
 
         if(oneCityInfo.getMyOfflineMapInfoImage().getSize() > 0) {
-            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_mapnavi_state_undownload);
+            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
             map.put(CityListLayout.getItemKeys()[index++], " ");
             map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(oneCityInfo.getMyOfflineMapInfoImage().getSize()));
             map.put(CityListLayout.getItemKeys()[index++], "      ");
@@ -85,7 +85,7 @@ public class CityListHotCityAdapter extends BaseAdapter {
         }
 
         if(oneCityInfo.getMyOfflineMapInfoVector().getSize() > 0) {
-            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_mapnavi_state_undownload);
+            map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
             map.put(CityListLayout.getItemKeys()[index++], " ");
             map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatVectorSize(oneCityInfo.getMyOfflineMapInfoVector().getSize()));
         } else {

@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by GuHeng on 2017/3/17.
  */
 
-public class MapListener implements TGeoDecode.OnGeoResultListener, TOfflineMapManager.OnGetMapsResult {
+public class MapListener implements TGeoDecode.OnGeoResultListener, TOfflineMapManager.OnGetMapsResult, TOfflineMapManager.OnDownLoadResult {
     private MainActivity mMainActivity;
 
     private OneCityInfo mCurrentCity;
@@ -56,6 +56,36 @@ public class MapListener implements TGeoDecode.OnGeoResultListener, TOfflineMapM
     public void onGetResult(ArrayList<TOfflineMapManager.MapAdminSet> mapAdminSets, int errorCode) {
         mHotCities = getHotCities(mapAdminSets, errorCode);
         mOtherProvincesCities = getOtherProvincesCities(mapAdminSets, errorCode);
+    }
+
+    // 下载开始
+    @Override
+    public void onDownLoadStart(String var1, int var2, int var3) {
+
+    }
+
+    // 下载停止
+    @Override
+    public void onDownLoadStop(String var1, int var2, int var3) {
+
+    }
+
+    // 下载数据
+    @Override
+    public void onDownLoadData(String var1, int var2, int var3) {
+
+    }
+
+    // 下载完成
+    @Override
+    public void onDownLoadOver(String var1, int var2, int var3) {
+
+    }
+
+    // 下载删除
+    @Override
+    public void onDownLoadDelete(String var1, int var2, int var3) {
+
     }
 
     private OneCityInfo getCurrentCity(TGeoAddress tGeoAddress, int errCode) {

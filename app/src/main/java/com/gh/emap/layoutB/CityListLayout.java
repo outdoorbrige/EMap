@@ -1,6 +1,8 @@
 package com.gh.emap.layoutB;
 
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.gh.emap.OfflineMapDownloadActivity;
@@ -46,6 +48,22 @@ public class CityListLayout {
         mLayout = mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list);
 
         mScrollView = (MyScrollView)mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list_scroll_view);
+
+        // 开始
+        // 解决ScrollView中ListView导致自动滚动问题
+        mScrollView.setDescendantFocusability(ViewGroup.FOCUS_BEFORE_DESCENDANTS); // 只有当其子类控件不需要获取焦点时才获取焦点
+        mScrollView.setFocusable(true);
+        mScrollView.setFocusableInTouchMode(true);
+
+        mScrollView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                view.requestFocusFromTouch();
+                return false;
+            }
+        });
+        // 结束
+
         mScrollViewLinearLayout = (LinearLayout)mOfflineMapDownloadActivity.findViewById(R.id.offline_map_download_city_list_scroll_view_layout);
 
         if(updateCurrentCity()) {
@@ -81,7 +99,7 @@ public class CityListLayout {
     public OneCityInfo getCurrentCity() {
         OneCityInfo currentCity = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getListenerManager().getMapListener().getCurrentCity();
         if(currentCity == null) {
-            currentCity = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCacheProvincesCitiesFiles().getCurrentCity();
+            currentCity = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getFileManager().getCacheProvincesCitiesFiles().getCurrentCity();
         }
 
         return currentCity;
@@ -90,7 +108,7 @@ public class CityListLayout {
     public ArrayList<OneCityInfo> getHotCities() {
         ArrayList<OneCityInfo> hotCities = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getListenerManager().getMapListener().getHotCities();
         if(hotCities == null) {
-            hotCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCacheProvincesCitiesFiles().getHotCities();
+            hotCities = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getFileManager().getCacheProvincesCitiesFiles().getHotCities();
         }
 
         return hotCities;
@@ -99,7 +117,7 @@ public class CityListLayout {
     public ArrayList<OneProvinceInfo> getOtherProvincesCities() {
         ArrayList<OneProvinceInfo> otherProvincesCities = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getListenerManager().getMapListener().getOtherProvincesCities();
         if(otherProvincesCities == null) {
-            otherProvincesCities = mOfflineMapDownloadActivity.getMainManager().getFileManager().getCacheProvincesCitiesFiles().getOtherProvincesCities();
+            otherProvincesCities = mOfflineMapDownloadActivity.getMyApplication().getMainActivity().getMainManager().getFileManager().getCacheProvincesCitiesFiles().getOtherProvincesCities();
         }
 
         return otherProvincesCities;

@@ -45,21 +45,21 @@ public class OfflineMapDownloadTypeSelectListener implements View.OnClickListene
     private void onClickedAll(View view) {
         mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().hide();
 
-        downloadMap(MAP_TYPE_ALL);
+        boolean bReturn = startDownload(MAP_TYPE_ALL);
     }
 
     // 下载影像
     private void onClickedImage(View view) {
         mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().hide();
 
-        downloadMap(MapView.TMapType.MAP_TYPE_IMG);
+        boolean bReturn = startDownload(MapView.TMapType.MAP_TYPE_IMG);
     }
 
     // 下载矢量
     private void onClickedVector(View view) {
         mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().hide();
 
-        downloadMap(MapView.TMapType.MAP_TYPE_VEC);
+        boolean bReturn = startDownload(MapView.TMapType.MAP_TYPE_VEC);
     }
 
     // 取消
@@ -77,30 +77,35 @@ public class OfflineMapDownloadTypeSelectListener implements View.OnClickListene
         return tOfflineMapManager;
     }
 
-    private void downloadMap(int mapType) {
+    private boolean startDownload(int mapType) {
         TOfflineMapManager tOfflineMapManager = getTOfflineMapManager();
         if(tOfflineMapManager == null) {
-            return;
+            return false;
         }
 
         String city = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().getTitle();
         if(city == null || city.isEmpty()) {
-            return;
+            return false;
         }
+
+        boolean bReturn = true;
 
         switch (mapType) {
             case MAP_TYPE_ALL:
-                tOfflineMapManager.pauseDownload(city, MapView.TMapType.MAP_TYPE_IMG);
-                tOfflineMapManager.pauseDownload(city, MapView.TMapType.MAP_TYPE_VEC);
+                bReturn = bReturn && tOfflineMapManager.startDownload(city, MapView.TMapType.MAP_TYPE_IMG);
+                bReturn = bReturn && tOfflineMapManager.startDownload(city, MapView.TMapType.MAP_TYPE_VEC);
                 break;
             case MapView.TMapType.MAP_TYPE_IMG:
-                tOfflineMapManager.pauseDownload(city, MapView.TMapType.MAP_TYPE_IMG);
+                bReturn = bReturn && tOfflineMapManager.startDownload(city, MapView.TMapType.MAP_TYPE_IMG);
                 break;
             case MapView.TMapType.MAP_TYPE_VEC:
-                tOfflineMapManager.pauseDownload(city, MapView.TMapType.MAP_TYPE_VEC);
+                bReturn = bReturn && tOfflineMapManager.startDownload(city, MapView.TMapType.MAP_TYPE_VEC);
                 break;
             default:
+                bReturn = bReturn && false;
                 break;
         }
+
+        return bReturn;
     }
 }
