@@ -47,12 +47,9 @@ public class MenuListener implements View.OnClickListener {
         // 此处代码只是为了测试
         UserInfo userInfo = mMainActivity.getMainManager().getUserManager().getUserInfo();
         if(userInfo == null) {
-            userInfo = new UserInfo();
-            userInfo.setUserName("GuHeng");
-            userInfo.setSuccess(true);
-
+            userInfo = mMainActivity.getMainManager().getUserManager().getGuestUserInfo();
             mMainActivity.getMainManager().getUserManager().setUserInfo(userInfo);
-        } // 此处代码只是为了测试
+        }
 
         mMainActivity.getMainManager().getLayoutManager().getMenuLayout().runMenuAnimation(view);
         mMainActivity.getMainManager().getLayoutManager().getTopNormalLayout().hide();

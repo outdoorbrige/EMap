@@ -23,7 +23,7 @@ public class UserManager {
 
     // 初始化
     public void init() {
-
+        mUserInfo = getGuestUserInfo();
     }
 
     public void unInit() {
@@ -51,7 +51,7 @@ public class UserManager {
             return null;
         }
 
-        if(mUserInfo == null || !mUserInfo.isSuccess()) {
+        if(mUserInfo == null || mUserInfo.getUserName() == null || mUserInfo.getUserName().isEmpty()) {
             return null;
         }
 
@@ -69,8 +69,31 @@ public class UserManager {
         return homePath;
     }
 
+    // 生成游客登录信息
+    public UserInfo getGuestUserInfo() {
+        UserInfo userInfo = new UserInfo(
+                "",
+                "Guest",
+                "",
+                "Guest",
+                "",
+                "",
+                "",
+                UserType.mGuestType,
+                mMainActivity.getCurrentDateF2(),
+                mMainActivity.getCurrentDateF2(),
+                "",
+                0,
+                "",
+                false,
+                "");
+
+        return userInfo;
+    }
+
     public class UserType { // 用户类型
         public static final String mAdminType = "管理员";
         public static final String mNormalType = "普通用户";
+        public static final String mGuestType = "游客";
     }
 }

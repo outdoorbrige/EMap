@@ -81,7 +81,7 @@ public class MapManager {
     }
 
     public void unInit() {
-
+        mTOfflineMapManager.pauseDownload();
     }
 
 //    private String getCachePath() {

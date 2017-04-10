@@ -11,6 +11,7 @@ public class MainManager {
     private LogManager mLogManager;
     private ListenerManager mListenerManager;
     private FileManager mFileManager;
+    private ProvincesCitiesManager mProvincesCitiesManager;
     private RenderOptionManager mRenderOptionManager;
     private MapManager mMapManager;
     private NetworkManager mNetworkManager;
@@ -33,6 +34,9 @@ public class MainManager {
 
         mFileManager = new FileManager(mMainActivity);
         mFileManager.init();
+
+        mProvincesCitiesManager = new ProvincesCitiesManager(mMainActivity);
+        mProvincesCitiesManager.init();
 
         mRenderOptionManager = new RenderOptionManager(mMainActivity);
         mRenderOptionManager.init();
@@ -62,6 +66,7 @@ public class MainManager {
     public void unInit() {
         mFileManager.unInit();
         mListenerManager.unInit();
+        mProvincesCitiesManager.unInit();
         mRenderOptionManager.unInit();
         mMapManager.unInit();
         mUserManager.unInit();
@@ -83,6 +88,10 @@ public class MainManager {
 
     public FileManager getFileManager() {
         return mFileManager;
+    }
+
+    public ProvincesCitiesManager getProvincesCitiesManager() {
+        return mProvincesCitiesManager;
     }
 
     public RenderOptionManager getRenderOptionManager() {

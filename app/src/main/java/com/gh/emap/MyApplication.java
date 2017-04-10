@@ -2,9 +2,6 @@ package com.gh.emap;
 
 import android.app.Application;
 
-import com.gh.emap.MainActivity;
-import com.gh.emap.OfflineMapDownloadActivity;
-
 /**
  * Created by GuHeng on 2017/3/14.
  * 自己实现Application，实现数据共享

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
 import com.gh.emap.adapterB.CityListHotCityAdapter;
-import com.gh.emap.modelB.OneCityInfo;
+import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
 
@@ -76,14 +76,14 @@ public class CityListHotCityLayout {
         mHotType.setText(hotType);
     }
 
-    public void setHotCities(ArrayList<OneCityInfo> hotCities) {
-        if(hotCities == null || hotCities.isEmpty()) {
+    public void setHotCities(ArrayList<TOfflineMapManager.City> cities) {
+        if(cities == null || cities.isEmpty()) {
             return;
         }
 
-        mHotCitiesListAdapter.setHotCities(hotCities);
+        mHotCitiesListAdapter.setHotCities(cities);
 
-        setHotType("热门城市" + mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatCount(hotCities.size()));
+        setHotType("热门城市" + mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatCount(cities.size()));
         setListViewHeightBasedOnChildren(mHotCitiesList);
         mHotCitiesListAdapter.notifyDataSetChanged();
     }

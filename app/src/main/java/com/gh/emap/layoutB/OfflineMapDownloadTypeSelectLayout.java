@@ -7,7 +7,11 @@ import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
-import com.gh.emap.modelB.OneCityInfo;
+import com.tianditu.android.maps.MapView;
+import com.tianditu.android.maps.TOfflineMapInfo;
+import com.tianditu.android.maps.TOfflineMapManager;
+
+import java.util.ArrayList;
 
 /**
  * Created by GuHeng on 2017/3/31.
@@ -65,22 +69,44 @@ public class OfflineMapDownloadTypeSelectLayout {
     }
 
     // 设置显示的数据
-    private void setOneCityInfo(OneCityInfo oneCityInfo) {
+    private void setCity(TOfflineMapManager.City city) {
         clear();
 
-        if(oneCityInfo == null) {
+        if(city == null) {
             return;
         }
 
-        mTitle.setText(oneCityInfo.getCityName());
+        ArrayList<TOfflineMapInfo> tOfflineMapInfos = city.getMaps();
+        if(tOfflineMapInfos == null) {
+            return;
+        }
+
+        int nImageSize = 0;
+        int nVectorSize = 0;
+
+        for(int i = 0; i < tOfflineMapInfos.size(); i ++) {
+            TOfflineMapInfo tOfflineMapInfo = tOfflineMapInfos.get(i);
+            switch (tOfflineMapInfo.getType()) {
+                case MapView.TMapType.MAP_TYPE_IMG:
+                    nImageSize = tOfflineMapInfo.getSize();
+                    break;
+                case MapView.TMapType.MAP_TYPE_VEC:
+                    nVectorSize = tOfflineMapInfo.getSize();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        mTitle.setText(city.getName());
 
         String[] imageSizeUnit = {"", ""};
-        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(oneCityInfo.getMyOfflineMapInfoImage().getSize(), imageSizeUnit);
+        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(nImageSize, imageSizeUnit);
 
         Double imageSize = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getBytesFromSizeAndUnit(imageSizeUnit);
 
         String[] vectorSizeUnit = {"", ""};
-        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(oneCityInfo.getMyOfflineMapInfoVector().getSize(), vectorSizeUnit);
+        mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatByteToSizeAndUnit(nVectorSize, vectorSizeUnit);
 
         Double vectorSize = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getBytesFromSizeAndUnit(vectorSizeUnit);
 
@@ -114,9 +140,9 @@ public class OfflineMapDownloadTypeSelectLayout {
     }
 
     // 显示对话框
-    public void show(OneCityInfo oneCityInfo) {
+    public void show(TOfflineMapManager.City city) {
         mAlertDialog.show();
-        setOneCityInfo(oneCityInfo);
+        setCity(city);
     }
 
     // 隐藏对话框

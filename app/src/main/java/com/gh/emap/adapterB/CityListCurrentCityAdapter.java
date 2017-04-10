@@ -11,7 +11,9 @@ import android.widget.SimpleAdapter;
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
 import com.gh.emap.layoutB.CityListLayout;
-import com.gh.emap.modelB.OneCityInfo;
+import com.tianditu.android.maps.MapView;
+import com.tianditu.android.maps.TOfflineMapInfo;
+import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,19 +24,19 @@ import java.util.HashMap;
 
 public class CityListCurrentCityAdapter extends BaseAdapter {
     private OfflineMapDownloadActivity mOfflineMapDownloadActivity;
-    private OneCityInfo mCurrentCity;
+    private TOfflineMapManager.City mCity;
 
     public CityListCurrentCityAdapter(OfflineMapDownloadActivity offlineMapDownloadActivity) {
         super();
         mOfflineMapDownloadActivity = offlineMapDownloadActivity;
     }
 
-    public void setCurrentCity(OneCityInfo currentCity) {
-        mCurrentCity = currentCity;
+    public void setCurrentCity(TOfflineMapManager.City city) {
+        mCity = city;
     }
 
     public int getCount() {
-        if(mCurrentCity == null) {
+        if(mCity == null) {
             return 0;
         }
 
@@ -42,11 +44,11 @@ public class CityListCurrentCityAdapter extends BaseAdapter {
     }
 
     public Object getItem(int var1) {
-        if(mCurrentCity == null) {
+        if(mCity == null) {
             return null;
         }
 
-        return mCurrentCity;
+        return mCity;
     }
 
     public long getItemId(int var1) {
@@ -61,21 +63,42 @@ public class CityListCurrentCityAdapter extends BaseAdapter {
 
         var2.setBackgroundColor(mOfflineMapDownloadActivity.getResources().getColor(R.color.colorWhite));
 
-        OneCityInfo oneCityInfo = mCurrentCity;
-        if(oneCityInfo == null) {
+        if(mCity == null) {
             return var2;
+        }
+
+        ArrayList<TOfflineMapInfo> tOfflineMapInfos = mCity.getMaps();
+        if(tOfflineMapInfos == null) {
+            return var2;
+        }
+
+        int imageSize = 0;
+        int vectorSize = 0;
+
+        for(int i = 0; i < tOfflineMapInfos.size(); i ++) {
+            TOfflineMapInfo tOfflineMapInfo = tOfflineMapInfos.get(i);
+            switch (tOfflineMapInfo.getType()) {
+                case MapView.TMapType.MAP_TYPE_IMG:
+                    imageSize = tOfflineMapInfo.getSize();
+                    break;
+                case MapView.TMapType.MAP_TYPE_VEC:
+                    vectorSize = tOfflineMapInfo.getSize();
+                    break;
+                default:
+                    break;
+            }
         }
 
         ArrayList<HashMap<String, Object>> listViewItems = new ArrayList<>();
 
         int index = 0;
         HashMap<String, Object> map = new HashMap<>();
-        map.put(CityListLayout.getItemKeys()[index ++], oneCityInfo.getCityName());
+        map.put(CityListLayout.getItemKeys()[index ++], mCity.getName());
 
-        if(oneCityInfo.getMyOfflineMapInfoImage().getSize() > 0) {
+        if(imageSize > 0) {
             map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
             map.put(CityListLayout.getItemKeys()[index++], " ");
-            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(oneCityInfo.getMyOfflineMapInfoImage().getSize()));
+            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(imageSize));
             map.put(CityListLayout.getItemKeys()[index++], "      ");
         } else {
             index ++;
@@ -84,10 +107,10 @@ public class CityListCurrentCityAdapter extends BaseAdapter {
             index ++;
         }
 
-        if(oneCityInfo.getMyOfflineMapInfoVector().getSize() > 0) {
+        if(vectorSize > 0) {
             map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
             map.put(CityListLayout.getItemKeys()[index++], " ");
-            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatVectorSize(oneCityInfo.getMyOfflineMapInfoVector().getSize()));
+            map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatVectorSize(vectorSize));
         } else {
             index ++;
             index ++;

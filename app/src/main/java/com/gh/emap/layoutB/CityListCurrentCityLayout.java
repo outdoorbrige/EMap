@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
 import com.gh.emap.adapterB.CityListCurrentCityAdapter;
-import com.gh.emap.modelB.OneCityInfo;
+import com.tianditu.android.maps.TOfflineMapManager;
 
 /**
  * Created by GuHeng on 2017/3/24.
@@ -70,12 +70,12 @@ public class CityListCurrentCityLayout {
         return mLayoutParams;
     }
 
-    public void setCurrentCity(OneCityInfo oneCityInfo) {
-        if(oneCityInfo == null) {
+    public void setCurrentCity(TOfflineMapManager.City city) {
+        if(city == null) {
             return;
         }
 
-        mCurrentCityListAdapter.setCurrentCity(oneCityInfo);
+        mCurrentCityListAdapter.setCurrentCity(city);
 
         mCurrentType.setText("当前城市");
         setListViewHeightBasedOnChildren(mCurrentCityList);

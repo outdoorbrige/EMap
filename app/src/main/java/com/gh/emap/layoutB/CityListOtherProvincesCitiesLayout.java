@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
 import com.gh.emap.adapterB.CityListOtherProvincesCitiesAdapter;
-import com.gh.emap.modelB.OneProvinceInfo;
+import com.tianditu.android.maps.TOfflineMapManager;
 
 import java.util.ArrayList;
 
@@ -81,14 +81,14 @@ public class CityListOtherProvincesCitiesLayout {
         return mOtherProvincesCitiesList;
     }
 
-    public void setOtherProvincesCities(ArrayList<OneProvinceInfo> otherProvincesCities) {
-        if(otherProvincesCities == null || otherProvincesCities.isEmpty()) {
+    public void setOtherProvincesCities(ArrayList<TOfflineMapManager.MapAdminSet> provinces) {
+        if(provinces == null || provinces.isEmpty()) {
             return;
         }
 
-        mOtherProvincesCitiesListAdapter.setOtherProvincesCities(otherProvincesCities);
+        mOtherProvincesCitiesListAdapter.setOtherProvincesCities(provinces);
 
-        setOtherProvincesCitiesType("其他省市" + mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatCount(otherProvincesCities.size()));
+        setOtherProvincesCitiesType("其他省市" + mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getFormatCount(provinces.size()));
         setExpandableListViewHeightBasedOnChildren(mOtherProvincesCitiesList, -1);
         mOtherProvincesCitiesListAdapter.notifyDataSetChanged();
     }

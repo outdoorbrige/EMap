@@ -13,7 +13,10 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -242,28 +245,44 @@ public class LogManager implements Thread.UncaughtExceptionHandler {
         return null;
     }
 
-    // 清理24小时前的日志
+    // 清理一周前的日志
     protected void clearOldLogFiles() {
-        final int ONE_DAY_SECONDS = 86400; // 24h * 60m * 60s;
+        final DateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
-        String strNowDate = mMainActivity.getCurrentDateF1();
-        long nNowDate = Long.valueOf(strNowDate);
-        long nFlagDate = nNowDate - ONE_DAY_SECONDS;
+        final long DAY_FACTOR = 1000 * 60 * 60 * 24;
+        final long HOUR_FACTOR = 1000 * 60 * 60;
+        final long MINUTE_FACTOR = 1000 * 60;
 
-        // 获取日志文件列表
-        ArrayList<File> files = new ArrayList<>();
-        OperateFolder.TraverseFindFlies(getLogPath(), getLogSuffix(), files);
+        final long DAY_THRESHOLD = 7;
+        final long HOUR_THRESHOLD = 0;
+        final long MINUTE_THRESHOLD = 0;
 
-        for(int i = 0; i < files.size(); i ++) {
-            File file = files.get(i);
-            String strLogName = file.getName();
-            strLogName = strLogName.substring(0, strLogName.lastIndexOf(getLogSuffix()));
-            long nLogName = Long.valueOf(strLogName);
+        try {
+            String strNowDate = mMainActivity.getCurrentDateF1();
+            Date dateNow = dateFormat.parse(strNowDate);
 
-            if(nLogName <= nFlagDate) {
-                log(LogLevel.mInfo, "删除过期日志文件：" + file.getAbsolutePath());
-                file.delete();
+            // 获取日志文件列表
+            ArrayList<File> files = new ArrayList<>();
+            OperateFolder.TraverseFindFlies(getLogPath(), getLogSuffix(), files);
+
+            for (int i = 0; i < files.size(); i++) {
+                File file = files.get(i);
+                String strLogName = file.getName();
+                String strDateOld = strLogName.substring(0, strLogName.lastIndexOf(getLogSuffix()));
+                Date dateOld = dateFormat.parse(strDateOld);
+
+                long dateDifference = dateNow.getTime() - dateOld.getTime();
+                long daysDifference = dateDifference / DAY_FACTOR;
+                long hoursDifference = (dateDifference - daysDifference * DAY_FACTOR) / HOUR_FACTOR;
+                long minutesDifference = (dateDifference - daysDifference * DAY_FACTOR - hoursDifference * HOUR_FACTOR) / MINUTE_FACTOR;
+
+                if (dateDifference > DAY_THRESHOLD && hoursDifference > HOUR_THRESHOLD && minutesDifference > MINUTE_THRESHOLD) {
+                    log(LogLevel.mInfo, String.format("删除过期日志文件(%l天%l小时%l分钟前)：", DAY_THRESHOLD, HOUR_THRESHOLD, MINUTE_THRESHOLD) + file.getAbsolutePath());
+                    file.delete();
+                }
             }
+        } catch (Exception exception) {
+            log(LogLevel.mError, "删除过期日志文件错误：" + exception.getMessage());
         }
     }
 

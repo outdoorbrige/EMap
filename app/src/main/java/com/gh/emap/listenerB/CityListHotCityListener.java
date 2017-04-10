@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.gh.emap.OfflineMapDownloadActivity;
 import com.gh.emap.R;
-import com.gh.emap.modelB.OneCityInfo;
+import com.tianditu.android.maps.TOfflineMapManager;
 
 /**
  * Created by GuHeng on 2017/3/31.
@@ -29,8 +29,8 @@ public class CityListHotCityListener implements AdapterView.OnItemClickListener 
             }
 
             String name = nameView.getText().toString();
-            OneCityInfo oneCityInfo = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getOneCityInfoFromName(name);
-            mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().show(oneCityInfo);
+            TOfflineMapManager.City city = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getCityFromCityName(name);
+            mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getOfflineMapDownloadTypeSelectLayout().show(city);
         }
     }
 }
