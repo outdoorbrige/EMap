@@ -96,11 +96,13 @@ public class CityListCurrentCityAdapter extends BaseAdapter {
         map.put(CityListLayout.getItemKeys()[index ++], mCity.getName());
 
         if(imageSize > 0) {
+            index ++;
             map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
             map.put(CityListLayout.getItemKeys()[index++], " ");
             map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(imageSize));
             map.put(CityListLayout.getItemKeys()[index++], "      ");
         } else {
+            index ++;
             index ++;
             index ++;
             index ++;
@@ -117,7 +119,7 @@ public class CityListCurrentCityAdapter extends BaseAdapter {
             index ++;
         }
 
-        map.put(CityListLayout.getItemKeys()[index ++], R.mipmap.offline_map_no_download);
+        map.put(CityListLayout.getItemKeys()[index], R.mipmap.offline_map_no_download);
 
         listViewItems.add(map);
 

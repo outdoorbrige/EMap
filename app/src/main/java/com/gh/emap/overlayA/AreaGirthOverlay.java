@@ -24,6 +24,8 @@ public class AreaGirthOverlay extends Overlay {
     private ArrayList<GeoPoint> mGeoPoints = new ArrayList<>();
     private boolean mEditStatus; // 可编辑状态
 
+    AreaGirthObject mAreaGirthObject = new AreaGirthObject();
+
     public AreaGirthOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
         mEditStatus = true;
@@ -43,6 +45,14 @@ public class AreaGirthOverlay extends Overlay {
 
     public boolean addGeoPoints(ArrayList<GeoPoint> geoPoints) {
         return mGeoPoints.addAll(geoPoints);
+    }
+
+    public void setAreaGirthObject(AreaGirthObject areaGirthObject) {
+        mAreaGirthObject = areaGirthObject;
+    }
+
+    public AreaGirthObject getAreaGirthObject() {
+        return mAreaGirthObject;
     }
 
     // 获取面积带单位(四舍五入3位小数)
@@ -333,22 +343,21 @@ public class AreaGirthOverlay extends Overlay {
         MapViewRender render = mapView.getMapViewRender();
 
         // 多边形
-        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), mGeoPoints);
+        render.drawPolygon(gl10, mAreaGirthObject.getMyPlaneOption().getPlaneOption(), mGeoPoints);
 
         for (int i = 0; i < mGeoPoints.size(); i++) {
             GeoPoint geoPoint = mGeoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
             // 拐点
-            render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
-                    mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
+            render.drawRound(gl10, mAreaGirthObject.getMyCircleOption().getCircleOption(), point, mAreaGirthObject.getMyCircleOption().getCircleRadius());
 
             if(i == 0) { // 起点标注
                 String strLab = "起点" + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-                render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
+                render.drawText(gl10, mAreaGirthObject.getMyFontOption().getFontOption(), strLab, geoPoint);
             } else if (i == (mGeoPoints.size() - 1)) { // 终点标注
                 String strLab = "终点" + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-                render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
+                render.drawText(gl10, mAreaGirthObject.getMyFontOption().getFontOption(), strLab, geoPoint);
             }
         }
 
@@ -360,7 +369,7 @@ public class AreaGirthOverlay extends Overlay {
             GeoPoint geoPointCenter = calculateCenter(mGeoPoints);
 
             String strLab = strArea + "，" + strGirth + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-            render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPointCenter);
+            render.drawText(gl10, mAreaGirthObject.getMyFontOption().getFontOption(), strLab, geoPointCenter);
         }
     }
 }

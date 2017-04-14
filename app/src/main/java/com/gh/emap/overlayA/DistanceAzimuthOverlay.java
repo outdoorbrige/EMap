@@ -26,6 +26,8 @@ public class DistanceAzimuthOverlay extends Overlay {
     ArrayList<Double> mDoubleAzimuths = new ArrayList<>();
     private boolean mEditStatus; // 可编辑状态
 
+    private DistanceAzimuthObject mDistanceAzimuthObject = new DistanceAzimuthObject();
+
     public DistanceAzimuthOverlay(MainActivity mainActivity) {
         mMainActivity = mainActivity;
         mEditStatus = true;
@@ -45,6 +47,14 @@ public class DistanceAzimuthOverlay extends Overlay {
 
     public ArrayList<GeoPoint> getGeoPoints() {
         return mGeoPoints;
+    }
+
+    public void setDistanceAzimuthObject(DistanceAzimuthObject distanceAzimuthObject) {
+        mDistanceAzimuthObject = distanceAzimuthObject;
+    }
+
+    public DistanceAzimuthObject getDistanceAzimuthObject() {
+        return mDistanceAzimuthObject;
     }
 
     public boolean addGeoPoint(GeoPoint geoPoint) {
@@ -215,7 +225,7 @@ public class DistanceAzimuthOverlay extends Overlay {
         MapViewRender render = mapView.getMapViewRender();
 
         // 折线
-        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), mGeoPoints);
+        render.drawPolyLine(gl10, mDistanceAzimuthObject.getMyLineOption().getLineOption(), mGeoPoints);
 
         for (int i = 0; i < mGeoPoints.size(); i++) {
             GeoPoint geoPoint = mGeoPoints.get(i);
@@ -228,15 +238,14 @@ public class DistanceAzimuthOverlay extends Overlay {
             String strAzimuth = getAzimuthLabel(mAzimuth);
 
             // 拐点
-            render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
-                    mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
+            render.drawRound(gl10, mDistanceAzimuthObject.getMyCircleOption().getCircleOption(), point, mDistanceAzimuthObject.getMyCircleOption().getCircleRadius());
 
             if(i == 0) { // 起点标注
                 String strLab = "起点"+ mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-                render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
+                render.drawText(gl10, mDistanceAzimuthObject.getMyFontOption().getFontOption(), strLab, geoPoint);
             } else{ // 拐点标注
                 String strLab = strDistance + "，" + strAzimuth + mMainActivity.getMainManager().getRenderOptionManager().getFillChars();
-                render.drawText(gl10, mMainActivity.getMainManager().getRenderOptionManager().getFontOption(), strLab, geoPoint);
+                render.drawText(gl10, mDistanceAzimuthObject.getMyFontOption().getFontOption(), strLab, geoPoint);
             }
         }
     }

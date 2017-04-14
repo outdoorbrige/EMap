@@ -60,7 +60,7 @@ public class BottomGroundRenderPlaneMenuLayout {
 
     // 获取地物绘制-画点工作目录
     public String getGroundRenderPlaneFileSuffix() {
-        return ".plane";
+        return ".kml";
     }
 
     // 显示布局

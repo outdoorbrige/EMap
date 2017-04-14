@@ -1,6 +1,8 @@
 package com.gh.emap.overlayA;
 
-import com.tianditu.android.maps.GeoPoint;
+import com.gh.emap.graphicA.MyCircleOption;
+import com.gh.emap.graphicA.MyCoordinate;
+import com.gh.emap.graphicA.MyGraphicAttribute;
 
 import java.io.Serializable;
 
@@ -10,50 +12,34 @@ import java.io.Serializable;
  */
 
 public class PointObject implements Serializable {
-    private String mName; // 点-名称
-    private String mType; // 点-类型
-    private String mStrPoint; // 点 数据格式：“mLon,mLat”
+    private MyGraphicAttribute mMyGraphicAttribute = new MyGraphicAttribute();
+    private MyCoordinate mMyCoordinate = new MyCoordinate();
+    private MyCircleOption mMyCircleOption = new MyCircleOption();
 
     public PointObject() {
     }
 
-    public String getName() {
-        return mName;
+    public MyGraphicAttribute getMyGraphicAttribute() {
+        return mMyGraphicAttribute;
     }
 
-    public void setName(String name) {
-        mName = name;
+    public void setMyGraphicAttribute(MyGraphicAttribute myGraphicAttribute) {
+        mMyGraphicAttribute = myGraphicAttribute;
     }
 
-    public String getType() {
-        return mType;
+    public MyCoordinate getMyCoordinate() {
+        return mMyCoordinate;
     }
 
-    public void setType(String type) {
-        mType = type;
+    public void setMyCoordinate(MyCoordinate myCoordinate) {
+        mMyCoordinate = myCoordinate;
     }
 
-    public String getStrPoint() {
-        return mStrPoint;
+    public MyCircleOption getMyCircleOption() {
+        return mMyCircleOption;
     }
 
-    public void setStrPoint(String strPoint) {
-        mStrPoint = strPoint;
-    }
-
-    public GeoPoint getGeoPoint() {
-        if(mStrPoint == null || mStrPoint.isEmpty()) {
-            return null;
-        }
-
-        String[] latitudeAndLongitudeArray = mStrPoint.split(",");
-        int longitude = Integer.parseInt(latitudeAndLongitudeArray[0]);
-        int latitude = Integer.parseInt(latitudeAndLongitudeArray[1]);
-
-        return new GeoPoint(latitude, longitude);
-    }
-
-    public void setGeoPoint(GeoPoint geoPoint) {
-        mStrPoint = geoPoint.toString();
+    public void setMyCircleOption(MyCircleOption myCircleOption) {
+        mMyCircleOption = myCircleOption;
     }
 }

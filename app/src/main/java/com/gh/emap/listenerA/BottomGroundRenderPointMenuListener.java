@@ -90,7 +90,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
 
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
         PointOverlay currentPointOverlay = (PointOverlay)overlays.get(overlays.size() - 1);
-        GeoPoint point = currentPointOverlay.getPointObject().getGeoPoint();
+        GeoPoint point = currentPointOverlay.getPointObject().getMyCoordinate().getGeoPoint();
 
         if(point == null) {
             mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择点的位置"));
@@ -106,12 +106,12 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
         // 保存点信息到文件
 
         PointObject pointObject = new PointObject();
-        pointObject.setName(pointName);
-        pointObject.setType(pointType);
-        pointObject.setGeoPoint(point);
+        pointObject.getMyGraphicAttribute().setName(pointName);
+        pointObject.getMyGraphicAttribute().setType(pointType);
+        pointObject.getMyCoordinate().setGeoPoint(point);
 
         String[] errorMsg = {""};
-        RWPointFile.write(path + File.separator + pointObject.getName() +
+        RWPointFile.write(path + pointObject.getMyGraphicAttribute().getName() +
                 mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPointMenuLayout().getGroundRenderPointFileSuffix(), pointObject, errorMsg);
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().addPointObject(pointObject);
@@ -140,7 +140,7 @@ public class BottomGroundRenderPointMenuListener implements View.OnClickListener
                 continue;
             }
 
-            if(item.getName().equals(pointName)) {
+            if(item.getMyGraphicAttribute().getName().equals(pointName)) {
                 return true;
             }
         }

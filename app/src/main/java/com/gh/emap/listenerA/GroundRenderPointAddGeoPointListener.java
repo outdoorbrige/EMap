@@ -95,7 +95,7 @@ public class GroundRenderPointAddGeoPointListener implements View.OnClickListene
             dLongitude = dLongitude.multiply(new BigDecimal(ONE_HUNDRED_THOUSAND));
             BigInteger nLongitude = dLongitude.setScale(0, BigDecimal.ROUND_HALF_UP).toBigInteger();
 
-            pointOverlay.getPointObject().setGeoPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
+            pointOverlay.getPointObject().getMyCoordinate().setGeoPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }

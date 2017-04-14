@@ -15,7 +15,16 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"/>
 
+    <!-- 省展开折叠 -->
+    <ImageView
+        android:id="@+id/offline_map_download_city_list_item_open_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/offline_map_download_city_list_item_name"/>
+
+    <!-- 详细信息 -->
     <TableLayout
+        android:id="@+id/offline_map_download_city_list_item_detail"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,9 +80,9 @@
 
     </TableLayout>
 
-    <!-- 元素操作(下载、更新、展开、折叠) -->
+    <!-- 元素操作(下载、更新) -->
     <ImageView
-        android:id="@+id/offline_map_download_city_list_item_picture"
+        android:id="@+id/offline_map_download_city_list_item_operator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

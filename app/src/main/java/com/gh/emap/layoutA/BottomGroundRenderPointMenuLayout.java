@@ -54,7 +54,7 @@ public class BottomGroundRenderPointMenuLayout {
 
     // 获取地物绘制-画点文件后缀名
     public String getGroundRenderPointFileSuffix() {
-        return ".point";
+        return ".kml";
     }
 
     // 显示布局

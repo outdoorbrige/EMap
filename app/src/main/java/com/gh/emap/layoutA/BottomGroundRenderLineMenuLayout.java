@@ -60,7 +60,7 @@ public class BottomGroundRenderLineMenuLayout {
 
     // 获取地物绘制-画点工作目录
     public String getGroundRenderLineFileSuffix() {
-        return ".line";
+        return ".kml";
     }
 
     // 显示布局

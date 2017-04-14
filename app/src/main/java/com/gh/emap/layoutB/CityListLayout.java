@@ -25,9 +25,10 @@ public class CityListLayout {
     private MyScrollView mScrollView;
     private LinearLayout mScrollViewLinearLayout;
 
-    private static final String[] mItemKeys = {"Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9"};
+    private static final String[] mItemKeys = {"Item1", "Item2", "Item3", "Item4", "Item5", "Item6", "Item7", "Item8", "Item9", "Item10"};
     private static final int[] mItemResources = {
             R.id.offline_map_download_city_list_item_name,
+            R.id.offline_map_download_city_list_item_open_close,
             R.id.offline_map_download_city_list_item_image_status,
             R.id.offline_map_download_city_list_item_fill_gaps1,
             R.id.offline_map_download_city_list_item_image,
@@ -35,7 +36,7 @@ public class CityListLayout {
             R.id.offline_map_download_city_list_item_vector_status,
             R.id.offline_map_download_city_list_item_fill_gaps3,
             R.id.offline_map_download_city_list_item_vector,
-            R.id.offline_map_download_city_list_item_picture};
+            R.id.offline_map_download_city_list_item_operator};
 
     public final long[] BYTE_FACTOR = {1, 1024, 1024 * 1024, 1024 * 1024 * 1024};
     public final String[] BYTE_UNIT = {"B", "KB", "MB", "GB"};

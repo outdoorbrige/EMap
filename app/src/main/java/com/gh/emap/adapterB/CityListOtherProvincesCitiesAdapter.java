@@ -152,14 +152,29 @@ public class CityListOtherProvincesCitiesAdapter extends BaseExpandableListAdapt
 
         int index = 0;
         HashMap<String, Object> map = new HashMap<>();
-        map.put(CityListLayout.getItemKeys()[index ++], province.getName());
+        map.put(CityListLayout.getItemKeys()[index++], province.getName());
+        map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_collapse_group); // 折叠
 
         if(imageSize > 0) {
+            ExpandableListView otherProvincesCitiesList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListOtherProvincesCitiesLayout().getOtherProvincesCitiesList();
+            if(otherProvincesCitiesList != null) {
+                int groupSelectedId = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getGroupSelectedId(province.getName());
+                if(groupSelectedId >= 0) {
+                    boolean isGroupExpanded = otherProvincesCitiesList.isGroupExpanded(groupSelectedId);
+                    if(isGroupExpanded) {
+                        map.remove(CityListLayout.getItemKeys()[index - 1]);
+                        map.put(CityListLayout.getItemKeys()[index - 1], R.mipmap.offline_map_expend_group); // 展开
+                    }
+                }
+            }
+
             map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
+
             map.put(CityListLayout.getItemKeys()[index++], " ");
             map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(imageSize));
             map.put(CityListLayout.getItemKeys()[index++], "      ");
         } else {
+            index ++;
             index ++;
             index ++;
             index ++;
@@ -176,19 +191,7 @@ public class CityListOtherProvincesCitiesAdapter extends BaseExpandableListAdapt
             index ++;
         }
 
-        map.put(CityListLayout.getItemKeys()[index], R.mipmap.offline_map_collapse_group);
-
-        ExpandableListView otherProvincesCitiesList = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListOtherProvincesCitiesLayout().getOtherProvincesCitiesList();
-        if(otherProvincesCitiesList != null) {
-            int groupSelectedId = mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().getGroupSelectedId(province.getName());
-            if(groupSelectedId >= 0) {
-                boolean isGroupExpanded = otherProvincesCitiesList.isGroupExpanded(groupSelectedId);
-                if(isGroupExpanded) {
-                    map.remove(CityListLayout.getItemKeys()[index]);
-                    map.put(CityListLayout.getItemKeys()[index], R.mipmap.offline_map_expend_group); // 展开图片
-                }
-            }
-        }
+        map.put(CityListLayout.getItemKeys()[index], R.mipmap.offline_map_no_download);
 
         listViewItems.add(map);
 
@@ -264,11 +267,13 @@ public class CityListOtherProvincesCitiesAdapter extends BaseExpandableListAdapt
         map.put(CityListLayout.getItemKeys()[index ++], city.getName());
 
         if(imageSize > 0) {
+            index ++;
             map.put(CityListLayout.getItemKeys()[index++], R.mipmap.offline_map_state_undownload);
             map.put(CityListLayout.getItemKeys()[index++], " ");
             map.put(CityListLayout.getItemKeys()[index++], mOfflineMapDownloadActivity.getMainManager().getLayoutManager().getCityListLayout().formatImageSize(imageSize));
             map.put(CityListLayout.getItemKeys()[index++], "      ");
         } else {
+            index ++;
             index ++;
             index ++;
             index ++;

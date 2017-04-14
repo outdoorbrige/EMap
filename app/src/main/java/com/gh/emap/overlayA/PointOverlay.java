@@ -43,7 +43,7 @@ public class PointOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if(isEditStatus()) {
-            mPointObject.setGeoPoint(geoPoint);
+            mPointObject.getMyCoordinate().setGeoPoint(geoPoint);
         }
 
         return true;
@@ -56,7 +56,7 @@ public class PointOverlay extends Overlay {
             return;
         }
 
-        GeoPoint geoPoint = mPointObject.getGeoPoint();
+        GeoPoint geoPoint = mPointObject.getMyCoordinate().getGeoPoint();
         if(geoPoint == null) {
             return;
         }
@@ -66,7 +66,6 @@ public class PointOverlay extends Overlay {
         MapViewRender render = mapView.getMapViewRender();
 
         // 画点
-        render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
-                mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
+        render.drawRound(gl10, mPointObject.getMyCircleOption().getCircleOption(), point, mPointObject.getMyCircleOption().getCircleRadius());
     }
 }

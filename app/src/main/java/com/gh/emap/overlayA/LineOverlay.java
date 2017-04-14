@@ -3,6 +3,7 @@ package com.gh.emap.overlayA;
 import android.graphics.Point;
 
 import com.gh.emap.MainActivity;
+import com.gh.emap.graphicA.MyCoordinate;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
@@ -46,7 +47,9 @@ public class LineOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if(isEditStatus()) {
-            mLineObject.addGeoPoint(geoPoint);
+            MyCoordinate myCoordinate = new MyCoordinate();
+            myCoordinate.setGeoPoint(geoPoint);
+            mLineObject.getMyCoordinates().add(myCoordinate);
         }
 
         return true;
@@ -71,15 +74,14 @@ public class LineOverlay extends Overlay {
         MapViewRender render = mapView.getMapViewRender();
 
         // 画折线
-        render.drawPolyLine(gl10, mMainActivity.getMainManager().getRenderOptionManager().getLineOption(), geoPoints);
+        render.drawPolyLine(gl10, mLineObject.getMyLineOption().getLineOption(), geoPoints);
 
         // 画拐点
         for (int i = 0; i < geoPoints.size(); i++) {
             GeoPoint geoPoint = geoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
-            render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
-                    mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
+            render.drawRound(gl10, mLineObject.getMyCircleOption().getCircleOption(), point, mLineObject.getMyCircleOption().getCircleRadius());
         }
     }
 }

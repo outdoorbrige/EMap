@@ -7,7 +7,7 @@ import com.gh.emap.MainActivity;
 import com.gh.emap.fileA.RWLineFile;
 import com.gh.emap.fileA.RWPlaneFile;
 import com.gh.emap.fileA.RWPointFile;
-import com.gh.emap.fileA.OperateFolder;
+import com.gh.emap.utility.OperateFolder;
 import com.gh.emap.overlayA.LineObject;
 import com.gh.emap.overlayA.LineOverlay;
 import com.gh.emap.overlayA.PlaneObject;

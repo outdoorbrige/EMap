@@ -5,6 +5,7 @@ import android.view.View;
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.fileA.RWLineFile;
+import com.gh.emap.graphicA.MyCoordinate;
 import com.gh.emap.managerA.LogManager;
 import com.gh.emap.overlayA.LineObject;
 import com.gh.emap.overlayA.LineOverlay;
@@ -79,12 +80,12 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
         if(overlay instanceof LineOverlay) {
             LineOverlay lineOverlay = (LineOverlay)overlay;
-            ArrayList<String> strPoints = lineOverlay.getLineObject().getStrPoints();
-            if(strPoints == null || strPoints.isEmpty()) {
+            ArrayList<MyCoordinate> myCoordinates = lineOverlay.getLineObject().getMyCoordinates();
+            if(myCoordinates == null || myCoordinates.isEmpty()) {
                 return;
             }
 
-            strPoints.remove(strPoints.size() - 1);
+            myCoordinates.remove(myCoordinates.size() - 1);
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
@@ -99,12 +100,12 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
         if(overlay instanceof LineOverlay) {
             LineOverlay lineOverlay = (LineOverlay)overlay;
-            ArrayList<String> strPoints = lineOverlay.getLineObject().getStrPoints();
-            if(strPoints == null || strPoints.isEmpty()) {
+            ArrayList<MyCoordinate> myCoordinates = lineOverlay.getLineObject().getMyCoordinates();
+            if(myCoordinates == null || myCoordinates.isEmpty()) {
                 return;
             }
 
-            strPoints.clear();
+            myCoordinates.clear();
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
@@ -137,9 +138,9 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
 
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
         LineOverlay currentLineOverlay = (LineOverlay)overlays.get(overlays.size() - 1);
-        ArrayList<GeoPoint> points = currentLineOverlay.getLineObject().getGeoPoints();
+        ArrayList<MyCoordinate> myCoordinates = currentLineOverlay.getLineObject().getMyCoordinates();
 
-        if(points == null || points.size() < 2) {
+        if(myCoordinates == null || myCoordinates.size() < 2) {
             mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择线的位置"));
             return;
         }
@@ -153,12 +154,12 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
         // 保存线信息到文件
 
         LineObject lineObject = new LineObject();
-        lineObject.setName(lineName);
-        lineObject.setType(lineType);
-        lineObject.addGeoPoints(points);
+        lineObject.getMyGraphicAttribute().setName(lineName);
+        lineObject.getMyGraphicAttribute().setType(lineType);
+        lineObject.setMyCoordinates(myCoordinates);
 
         String[] errorMsg = {""};
-        RWLineFile.write(path + File.separator + lineObject.getName() +
+        RWLineFile.write(path + lineObject.getMyGraphicAttribute().getName() +
                 mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderLineMenuLayout().getGroundRenderLineFileSuffix(), lineObject, errorMsg);
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().addLineObject(lineObject);
@@ -187,7 +188,7 @@ public class BottomGroundRenderLineMenuListener implements View.OnClickListener 
                 continue;
             }
 
-            if(item.getName().equals(lineName)) {
+            if(item.getMyGraphicAttribute().getName().equals(lineName)) {
                 return true;
             }
         }

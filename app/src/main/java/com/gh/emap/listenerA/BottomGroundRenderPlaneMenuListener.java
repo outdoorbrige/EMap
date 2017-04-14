@@ -5,6 +5,7 @@ import android.view.View;
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
 import com.gh.emap.fileA.RWPlaneFile;
+import com.gh.emap.graphicA.MyCoordinate;
 import com.gh.emap.managerA.LogManager;
 import com.gh.emap.overlayA.PlaneObject;
 import com.gh.emap.overlayA.PlaneOverlay;
@@ -76,12 +77,12 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
         if(overlay instanceof PlaneOverlay) {
             PlaneOverlay planeOverlay = (PlaneOverlay)overlay;
-            ArrayList<String> strPoints = planeOverlay.getPlaneObject().getStrPoints();
-            if(strPoints == null || strPoints.isEmpty()) {
+            ArrayList<MyCoordinate> myCoordinates = planeOverlay.getPlaneObject().getMyCoordinates();
+            if(myCoordinates == null || myCoordinates.isEmpty()) {
                 return;
             }
 
-            strPoints.remove(strPoints.size() - 1);
+            myCoordinates.remove(myCoordinates.size() - 1);
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
@@ -96,12 +97,12 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
         if(overlay instanceof PlaneOverlay) {
             PlaneOverlay planeOverlay = (PlaneOverlay)overlay;
-            ArrayList<String> strPoints = planeOverlay.getPlaneObject().getStrPoints();
-            if(strPoints == null || strPoints.isEmpty()) {
+            ArrayList<MyCoordinate> myCoordinates = planeOverlay.getPlaneObject().getMyCoordinates();
+            if(myCoordinates == null || myCoordinates.isEmpty()) {
                 return;
             }
 
-            strPoints.clear();
+            myCoordinates.clear();
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }
@@ -128,9 +129,9 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
 
         List<Overlay> overlays = mMainActivity.getMainManager().getMapManager().getMapView().getOverlays();
         PlaneOverlay currentPlaneOverlay = (PlaneOverlay)overlays.get(overlays.size() - 1);
-        ArrayList<GeoPoint> points = currentPlaneOverlay.getPlaneObject().getGeoPoints();
+        ArrayList<MyCoordinate> myCoordinates = currentPlaneOverlay.getPlaneObject().getMyCoordinates();
 
-        if (points == null || points.size() < 3) {
+        if (myCoordinates == null || myCoordinates.size() < 3) {
             mMainActivity.getMainManager().getLogManager().toastShowShort(String.format("请选择面的位置"));
             return;
         }
@@ -144,11 +145,11 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
         // 保存面信息到文件
 
         PlaneObject planeObject = new PlaneObject();
-        planeObject.setName(planeName);
-        planeObject.addGeoPoints(points);
+        planeObject.getMyGraphicAttribute().setName(planeName);
+        planeObject.setMyCoordinates(myCoordinates);
 
         String[] errorMsg = {""};
-        RWPlaneFile.write(path + File.separator + planeObject.getName() +
+        RWPlaneFile.write(path +  planeObject.getMyGraphicAttribute().getName() +
                 mMainActivity.getMainManager().getLayoutManager().getBottomGroundRenderPlaneMenuLayout().getGroundRenderPlaneFileSuffix(), planeObject, errorMsg);
 
         mMainActivity.getMainManager().getMyUserOverlaysManager().addPlaneObject(planeObject);
@@ -175,7 +176,7 @@ public class BottomGroundRenderPlaneMenuListener implements View.OnClickListener
                 continue;
             }
 
-            if (item.getName().equals(planeName)) {
+            if (item.getMyGraphicAttribute().getName().equals(planeName)) {
                 return true;
             }
         }

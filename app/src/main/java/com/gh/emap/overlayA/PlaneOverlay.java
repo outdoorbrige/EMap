@@ -3,6 +3,7 @@ package com.gh.emap.overlayA;
 import android.graphics.Point;
 
 import com.gh.emap.MainActivity;
+import com.gh.emap.graphicA.MyCoordinate;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.MapView;
 import com.tianditu.android.maps.MapViewRender;
@@ -46,7 +47,9 @@ public class PlaneOverlay extends Overlay {
     @Override
     public boolean onTap(GeoPoint geoPoint, MapView mapView) {
         if(isEditStatus()) {
-            mPlaneObject.addGeoPoint(geoPoint);
+            MyCoordinate myCoordinate = new MyCoordinate();
+            myCoordinate.setGeoPoint(geoPoint);
+            mPlaneObject.getMyCoordinates().add(myCoordinate);
         }
 
         return true;
@@ -72,15 +75,14 @@ public class PlaneOverlay extends Overlay {
         MapViewRender render = mapView.getMapViewRender();
 
         // 画面
-        render.drawPolygon(gl10, mMainActivity.getMainManager().getRenderOptionManager().getPlaneOption(), geoPoints);
+        render.drawPolygon(gl10, mPlaneObject.getMyPlaneOption().getPlaneOption(), geoPoints);
 
         // 画拐点
         for(int i = 0; i < geoPoints.size(); i ++) {
             GeoPoint geoPoint = geoPoints.get(i);
             Point point = mMainActivity.getMainManager().getMapManager().getMapView().getProjection().toPixels(geoPoint, null);
 
-            render.drawRound(gl10, mMainActivity.getMainManager().getRenderOptionManager().getCircleOption(), point,
-                    mMainActivity.getMainManager().getRenderOptionManager().getCircleRadius());
+            render.drawRound(gl10, mPlaneObject.getMyCircleOption().getCircleOption(), point, mPlaneObject.getMyCircleOption().getCircleRadius());
         }
     }
 }

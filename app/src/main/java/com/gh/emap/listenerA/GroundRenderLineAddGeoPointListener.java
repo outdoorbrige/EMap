@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
+import com.gh.emap.graphicA.MyCoordinate;
 import com.gh.emap.overlayA.LineOverlay;
 import com.tianditu.android.maps.GeoPoint;
 import com.tianditu.android.maps.Overlay;
@@ -80,8 +81,8 @@ public class GroundRenderLineAddGeoPointListener implements View.OnClickListener
 
         if(overlay instanceof LineOverlay) {
             LineOverlay lineOverlay = (LineOverlay)overlay;
-            ArrayList<String> strPoints = lineOverlay.getLineObject().getStrPoints();
-            if(strPoints == null) {
+            ArrayList<MyCoordinate> myCoordinates = lineOverlay.getLineObject().getMyCoordinates();
+            if(myCoordinates == null) {
                 return;
             }
 
@@ -95,7 +96,9 @@ public class GroundRenderLineAddGeoPointListener implements View.OnClickListener
             dLongitude = dLongitude.multiply(new BigDecimal(ONE_HUNDRED_THOUSAND));
             BigInteger nLongitude = dLongitude.setScale(0, BigDecimal.ROUND_HALF_UP).toBigInteger();
 
-            lineOverlay.getLineObject().addGeoPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
+            MyCoordinate myCoordinate = new MyCoordinate();
+            myCoordinate.setGeoPoint(new GeoPoint(nLatitude.intValue(), nLongitude.intValue()));
+            lineOverlay.getLineObject().getMyCoordinates().add(myCoordinate);
 
             mMainActivity.getMainManager().getMapManager().getMapView().postInvalidate();
         }

@@ -1,4 +1,4 @@
-package com.gh.emap.Utility;
+package com.gh.emap.utility;
 
 import java.io.File;
 import java.io.FileInputStream;

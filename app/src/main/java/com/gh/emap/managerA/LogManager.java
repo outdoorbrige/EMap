@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.gh.emap.MainActivity;
 import com.gh.emap.R;
-import com.gh.emap.fileA.OperateFolder;
+import com.gh.emap.utility.OperateFolder;
 
 import java.io.BufferedWriter;
 import java.io.File;
